@@ -105,8 +105,8 @@ export default function DashboardPage() {
     async function fetchData() {
       try {
         setIsLoading(true);
-        // Pass user's ID to fetch their specific progress
-        const progressData = await getStudentProgress(user?.uid);
+        // Pass user's ID and name to fetch/create their specific progress
+        const progressData = await getStudentProgress(user.uid, user.displayName || user.email!);
         setData(progressData);
       } catch (error) {
         console.error('Failed to fetch student progress:', error);
