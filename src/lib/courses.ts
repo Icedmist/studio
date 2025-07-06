@@ -28,7 +28,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '8h 0m',
     instructor: 'John Smith'
   },
@@ -57,7 +57,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '9h 0m',
     instructor: 'Maria Garcia'
   },
@@ -85,7 +85,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '8h 0m',
     instructor: 'David Lee'
   },
@@ -113,7 +113,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '7h 15m',
     instructor: 'Chen Wang'
   },
@@ -141,7 +141,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '6h 45m',
     instructor: 'Fatima Ahmed'
   },
@@ -169,7 +169,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '7h 0m',
     instructor: 'Jane Doe'
   },
@@ -196,7 +196,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '5h 15m',
     instructor: 'John Smith'
   },
@@ -224,7 +224,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '6h 45m',
     instructor: 'Maria Garcia'
   },
@@ -251,7 +251,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '5h 45m',
     instructor: 'David Lee'
   },
@@ -278,7 +278,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '5h 0m',
     instructor: 'Chen Wang'
   },
@@ -307,7 +307,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '13h 30m',
     instructor: 'Fatima Ahmed'
   },
@@ -334,7 +334,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '9h 30m',
     instructor: 'Jane Doe'
   },
@@ -361,7 +361,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '10h 30m',
     instructor: 'John Smith'
   },
@@ -388,7 +388,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '7h 30m',
     instructor: 'Maria Garcia'
   },
@@ -415,7 +415,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '8h 30m',
     instructor: 'David Lee'
   },
@@ -442,7 +442,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '8h 0m',
     instructor: 'Chen Wang'
   },
@@ -469,7 +469,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '9h 30m',
     instructor: 'Fatima Ahmed'
   },
@@ -497,7 +497,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '13h 30m',
     instructor: 'Jane Doe'
   },
@@ -524,7 +524,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '15h 0m',
     instructor: 'John Smith'
   },
@@ -551,7 +551,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '13h 30m',
     instructor: 'Maria Garcia'
   },
@@ -578,7 +578,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '12h 30m',
     instructor: 'David Lee'
   },
@@ -605,7 +605,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '13h 30m',
     instructor: 'Chen Wang'
   },
@@ -632,7 +632,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '13h 30m',
     instructor: 'Fatima Ahmed'
   },
@@ -659,7 +659,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '13h 30m',
     instructor: 'Jane Doe'
   },
@@ -686,7 +686,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '15h 30m',
     instructor: 'John Smith'
   },
@@ -716,7 +716,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '4h 30m',
     instructor: 'Maria Garcia'
   },
@@ -743,7 +743,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '6h 30m',
     instructor: 'David Lee'
   },
@@ -771,7 +771,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '7h 30m',
     instructor: 'Chen Wang'
   },
@@ -798,7 +798,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '5h 0m',
     instructor: 'Fatima Ahmed'
   },
@@ -825,7 +825,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '5h 30m',
     instructor: 'Jane Doe'
   },
@@ -852,7 +852,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '5h 0m',
     instructor: 'John Smith'
   },
@@ -879,7 +879,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '4h 30m',
     instructor: 'Maria Garcia'
   },
@@ -906,7 +906,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '6h 0m',
     instructor: 'David Lee'
   },
@@ -933,7 +933,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '5h 0m',
     instructor: 'Chen Wang'
   },
@@ -960,7 +960,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '6h 0m',
     instructor: 'Fatima Ahmed'
   },
@@ -988,7 +988,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '11h 30m',
     instructor: 'Jane Doe'
   },
@@ -1015,7 +1015,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '13h 30m',
     instructor: 'John Smith'
   },
@@ -1042,7 +1042,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '12h 0m',
     instructor: 'Maria Garcia'
   },
@@ -1069,7 +1069,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '9h 30m',
     instructor: 'David Lee'
   },
@@ -1096,7 +1096,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '12h 30m',
     instructor: 'Chen Wang'
   },
@@ -1123,7 +1123,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '16h 30m',
     instructor: 'Fatima Ahmed'
   },
@@ -1150,7 +1150,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '13h 0m',
     instructor: 'Jane Doe'
   },
@@ -1178,7 +1178,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '18h 30m',
     instructor: 'John Smith'
   },
@@ -1205,7 +1205,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '15h 30m',
     instructor: 'Maria Garcia'
   },
@@ -1232,7 +1232,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '15h 30m',
     instructor: 'David Lee'
   },
@@ -1259,7 +1259,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '15h 30m',
     instructor: 'Chen Wang'
   },
@@ -1286,7 +1286,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '16h 0m',
     instructor: 'Fatima Ahmed'
   },
@@ -1313,7 +1313,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '16h 0m',
     instructor: 'Jane Doe'
   },
@@ -1340,7 +1340,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '16h 0m',
     instructor: 'John Smith'
   },
@@ -1367,7 +1367,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '17h 30m',
     instructor: 'Maria Garcia'
   },
@@ -1399,7 +1399,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '9h 0m',
     instructor: 'David Lee'
   },
@@ -1426,7 +1426,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '6h 0m',
     instructor: 'Chen Wang'
   },
@@ -1453,7 +1453,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '5h 30m',
     instructor: 'Fatima Ahmed'
   },
@@ -1480,7 +1480,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '6h 0m',
     instructor: 'Jane Doe'
   },
@@ -1507,7 +1507,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '6h 0m',
     instructor: 'John Smith'
   },
@@ -1534,7 +1534,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '6h 0m',
     instructor: 'Maria Garcia'
   },
@@ -1561,7 +1561,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '6h 0m',
     instructor: 'David Lee'
   },
@@ -1588,7 +1588,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '6h 0m',
     instructor: 'Chen Wang'
   },
@@ -1615,7 +1615,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '6h 0m',
     instructor: 'Fatima Ahmed'
   },
@@ -1642,7 +1642,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '6h 0m',
     instructor: 'Jane Doe'
   },
@@ -1670,7 +1670,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '10h 30m',
     instructor: 'John Smith'
   },
@@ -1697,7 +1697,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '10h 30m',
     instructor: 'Maria Garcia'
   },
@@ -1724,7 +1724,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '12h 0m',
     instructor: 'David Lee'
   },
@@ -1751,7 +1751,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '10h 30m',
     instructor: 'Chen Wang'
   },
@@ -1778,7 +1778,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '12h 0m',
     instructor: 'Fatima Ahmed'
   },
@@ -1805,7 +1805,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '10h 30m',
     instructor: 'Jane Doe'
   },
@@ -1832,7 +1832,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '9h 0m',
     instructor: 'John Smith'
   },
@@ -1860,7 +1860,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '16h 30m',
     instructor: 'Maria Garcia'
   },
@@ -1887,7 +1887,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '16h 30m',
     instructor: 'David Lee'
   },
@@ -1914,7 +1914,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '16h 30m',
     instructor: 'Chen Wang'
   },
@@ -1941,7 +1941,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '16h 30m',
     instructor: 'Fatima Ahmed'
   },
@@ -1968,7 +1968,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '15h 0m',
     instructor: 'Jane Doe'
   },
@@ -1995,7 +1995,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '19h 30m',
     instructor: 'John Smith'
   },
@@ -2022,7 +2022,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '18h 0m',
     instructor: 'Maria Garcia'
   },
@@ -2049,7 +2049,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '15h 0m',
     instructor: 'David Lee'
   },
@@ -2079,7 +2079,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '10h 30m',
     instructor: 'Chen Wang'
   },
@@ -2106,7 +2106,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '13h 30m',
     instructor: 'Fatima Ahmed'
   },
@@ -2133,7 +2133,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '12h 0m',
     instructor: 'Jane Doe'
   },
@@ -2160,7 +2160,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '9h 0m',
     instructor: 'John Smith'
   },
@@ -2187,7 +2187,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '10h 30m',
     instructor: 'Maria Garcia'
   },
@@ -2214,7 +2214,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '7h 30m',
     instructor: 'David Lee'
   },
@@ -2241,7 +2241,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '9h 0m',
     instructor: 'Chen Wang'
   },
@@ -2268,7 +2268,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '10h 30m',
     instructor: 'Fatima Ahmed'
   },
@@ -2295,7 +2295,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '9h 0m',
     instructor: 'Jane Doe'
   },
@@ -2322,7 +2322,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '10h 30m',
     instructor: 'John Smith'
   },
@@ -2350,7 +2350,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '15h 0m',
     instructor: 'Maria Garcia'
   },
@@ -2377,7 +2377,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '15h 0m',
     instructor: 'David Lee'
   },
@@ -2404,7 +2404,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '16h 30m',
     instructor: 'Chen Wang'
   },
@@ -2431,7 +2431,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '13h 30m',
     instructor: 'Fatima Ahmed'
   },
@@ -2458,7 +2458,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '13h 30m',
     instructor: 'Jane Doe'
   },
@@ -2485,7 +2485,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '12h 0m',
     instructor: 'John Smith'
   },
@@ -2512,7 +2512,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '16h 30m',
     instructor: 'Maria Garcia'
   },
@@ -2540,7 +2540,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '16h 30m',
     instructor: 'David Lee'
   },
@@ -2567,7 +2567,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '15h 0m',
     instructor: 'Chen Wang'
   },
@@ -2594,7 +2594,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '16h 30m',
     instructor: 'Fatima Ahmed'
   },
@@ -2621,7 +2621,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '18h 0m',
     instructor: 'Jane Doe'
   },
@@ -2648,7 +2648,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '18h 0m',
     instructor: 'John Smith'
   },
@@ -2675,7 +2675,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '16h 30m',
     instructor: 'Maria Garcia'
   },
@@ -2702,7 +2702,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '15h 0m',
     instructor: 'David Lee'
   },
@@ -2729,7 +2729,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '15h 0m',
     instructor: 'Chen Wang'
   },
@@ -2759,7 +2759,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '6h 0m',
     instructor: 'Fatima Ahmed'
   },
@@ -2786,7 +2786,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '9h 0m',
     instructor: 'Jane Doe'
   },
@@ -2813,7 +2813,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '12h 0m',
     instructor: 'John Smith'
   },
@@ -2840,7 +2840,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '10h 30m',
     instructor: 'Maria Garcia'
   },
@@ -2867,7 +2867,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '12h 0m',
     instructor: 'David Lee'
   },
@@ -2894,7 +2894,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '12h 0m',
     instructor: 'Chen Wang'
   },
@@ -2921,7 +2921,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '9h 0m',
     instructor: 'Fatima Ahmed'
   },
@@ -2948,7 +2948,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '9h 0m',
     instructor: 'Jane Doe'
   },
@@ -2975,7 +2975,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '9h 0m',
     instructor: 'John Smith'
   },
@@ -3002,7 +3002,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 1500,
+    price: 15000,
     duration: '12h 0m',
     instructor: 'Maria Garcia'
   },
@@ -3030,7 +3030,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '16h 30m',
     instructor: 'David Lee'
   },
@@ -3057,7 +3057,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '16h 30m',
     instructor: 'Chen Wang'
   },
@@ -3084,7 +3084,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '16h 30m',
     instructor: 'Fatima Ahmed'
   },
@@ -3111,7 +3111,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '16h 30m',
     instructor: 'Jane Doe'
   },
@@ -3138,7 +3138,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '16h 30m',
     instructor: 'John Smith'
   },
@@ -3165,7 +3165,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '15h 0m',
     instructor: 'Maria Garcia'
   },
@@ -3192,7 +3192,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 3500,
+    price: 35000,
     duration: '12h 0m',
     instructor: 'David Lee'
   },
@@ -3220,7 +3220,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '18h 0m',
     instructor: 'Chen Wang'
   },
@@ -3247,7 +3247,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '21h 0m',
     instructor: 'Fatima Ahmed'
   },
@@ -3274,7 +3274,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '21h 0m',
     instructor: 'Jane Doe'
   },
@@ -3301,7 +3301,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '18h 0m',
     instructor: 'John Smith'
   },
@@ -3328,7 +3328,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '18h 0m',
     instructor: 'Maria Garcia'
   },
@@ -3355,7 +3355,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '15h 0m',
     instructor: 'David Lee'
   },
@@ -3382,7 +3382,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '16h 30m',
     instructor: 'Chen Wang'
   },
@@ -3409,7 +3409,7 @@ export const courses: Course[] = [
             ] 
         },
     ],
-    price: 5000,
+    price: 50000,
     duration: '15h 0m',
     instructor: 'Fatima Ahmed'
   }

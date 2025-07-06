@@ -5,8 +5,24 @@ import { LineChart, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { motion } from 'framer-motion';
+import { useAuth } from "@/hooks/use-auth";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoginPage() {
+  const { user, isLoading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading && user) {
+      router.push('/dashboard');
+    }
+  }, [user, isLoading, router]);
+
+  if (isLoading || user) {
+    return <div className="h-screen w-screen flex items-center justify-center">Loading...</div>; // Or a spinner
+  }
+  
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}

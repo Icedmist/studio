@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { CheckCircle, Clock, DollarSign, User } from 'lucide-react';
+import { CheckCircle, Clock, User } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
@@ -52,7 +52,7 @@ export default function CoursePage({ params }: { params: { id: string } }) {
                 </div>
               </div>
 
-              <Button size="lg">Enroll Now for ${course.price}</Button>
+              <Button size="lg">Enroll Now for ₦{course.price.toLocaleString()}</Button>
             </div>
             <div>
               <Image
@@ -61,7 +61,7 @@ export default function CoursePage({ params }: { params: { id: string } }) {
                 width={600}
                 height={400}
                 className="rounded-lg w-full object-cover"
-                data-ai-hint={`${course.category} abstract`}
+                data-ai-hint={`${course.title.toLowerCase()}`}
               />
             </div>
           </motion.div>

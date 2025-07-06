@@ -30,6 +30,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
 import type { CourseCategory, Course } from '@/lib/types';
 import { CourseCard } from '@/components/courses/CourseCard';
+import { useAuth } from '@/hooks/use-auth';
+import { useRouter } from 'next/navigation';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -90,12 +92,21 @@ export default function DashboardPage() {
   const [recommendations, setRecommendations] = useState<Course[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isRecsLoading, setIsRecsLoading] = useState(true);
+  const { user } = useAuth();
+  const router = useRouter();
+
 
   useEffect(() => {
+    if (!user) {
+      router.push('/login');
+      return;
+    }
+
     async function fetchData() {
       try {
         setIsLoading(true);
-        const progressData = await getStudentProgress();
+        // Pass user's ID to fetch their specific progress
+        const progressData = await getStudentProgress(user?.uid);
         setData(progressData);
       } catch (error) {
         console.error('Failed to fetch student progress:', error);
@@ -116,9 +127,9 @@ export default function DashboardPage() {
     }
     fetchData();
     fetchRecommendations();
-  }, []);
+  }, [user, router]);
 
-  if (isLoading) {
+  if (isLoading || !user) {
     return <DashboardSkeleton />;
   }
 

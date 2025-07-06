@@ -4,7 +4,21 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/Logo';
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+import { Menu, LogOut, User } from 'lucide-react';
+import { useAuth } from '@/hooks/use-auth';
+import { auth } from '@/lib/firebase';
+import { signOut } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+
 
 const navLinks = [
   { href: '/courses', label: 'Courses' },
@@ -14,6 +28,14 @@ const navLinks = [
 ];
 
 export const Header = () => {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    router.push('/');
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
@@ -29,12 +51,41 @@ export const Header = () => {
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-4">
           <div className="hidden md:flex items-center space-x-2">
-            <Link href="/login">
-              <Button variant="ghost">Login</Button>
-            </Link>
-            <Link href="/signup">
-              <Button variant="secondary">Sign Up</Button>
-            </Link>
+            {user ? (
+               <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                    <Avatar className="h-8 w-8">
+                       <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">My Account</p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {user.email}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Log out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="ghost">Login</Button>
+                </Link>
+                <Link href="/signup">
+                  <Button variant="secondary">Sign Up</Button>
+                </Link>
+              </>
+            )}
           </div>
           <div className="md:hidden">
             <Sheet>
@@ -58,12 +109,18 @@ export const Header = () => {
                     ))}
                   </nav>
                   <div className="mt-6 flex flex-col space-y-2">
-                     <Link href="/login">
-                        <Button variant="outline" className="w-full">Login</Button>
-                     </Link>
-                     <Link href="/signup">
-                       <Button variant="secondary" className="w-full">Sign Up</Button>
-                     </Link>
+                     {user ? (
+                        <Button variant="outline" onClick={handleLogout} className="w-full">Logout</Button>
+                     ) : (
+                      <>
+                        <Link href="/login">
+                            <Button variant="outline" className="w-full">Login</Button>
+                        </Link>
+                        <Link href="/signup">
+                          <Button variant="secondary" className="w-full">Sign Up</Button>
+                        </Link>
+                      </>
+                     )}
                   </div>
                 </div>
               </SheetContent>
