@@ -34,13 +34,16 @@ export default function Chatbot() {
 
   useEffect(() => {
     // Auto-scroll to bottom
-    if (scrollAreaRef.current) {
-        const viewport = scrollAreaRef.current.querySelector('div[data-radix-scroll-area-viewport]');
-        if (viewport) {
-            viewport.scrollTop = viewport.scrollHeight;
-        }
+    if (isOpen && scrollAreaRef.current) {
+      const viewport =
+        scrollAreaRef.current.querySelector<HTMLDivElement>(
+          'div[data-radix-scroll-area-viewport]'
+        );
+      if (viewport) {
+        viewport.scrollTop = viewport.scrollHeight;
+      }
     }
-  }, [messages]);
+  }, [messages, isOpen]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
