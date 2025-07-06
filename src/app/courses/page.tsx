@@ -63,7 +63,7 @@ function CoursesDisplay() {
           <Button variant="ghost" onClick={clearLevelFilter} className="mb-4">
             <ArrowLeft className="mr-2 h-4 w-4" /> Back to Levels
           </Button>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {filteredCourses.length > 0 ? (
               filteredCourses.map((course) => (
                 <CourseCard key={course.id} course={course} />
@@ -88,9 +88,15 @@ function CoursesDisplay() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {availableLevels.map((lvl) => (
               <Link key={lvl} href={`${pathname}?${createQueryString('level', lvl)}`} passHref>
-                <Card className="p-8 text-center bg-card/60 backdrop-blur-sm border-border/50 hover:border-primary transition-all cursor-pointer hover:shadow-lg">
-                  <h3 className="text-xl font-headline font-semibold">{lvl}</h3>
-                </Card>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Card className="p-8 text-center bg-card/60 backdrop-blur-sm border-border/50 hover:border-primary transition-all cursor-pointer hover:shadow-lg">
+                    <h3 className="text-xl font-headline font-semibold">{lvl}</h3>
+                  </Card>
+                </motion.div>
               </Link>
             ))}
              {availableLevels.length === 0 && (
@@ -107,14 +113,20 @@ function CoursesDisplay() {
         <h2 className="text-2xl font-headline font-bold text-center mb-2">Select a Category</h2>
         <p className="text-muted-foreground text-center mb-8">What would you like to master today?</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {COURSE_CATEGORIES.map((cat) => (
+          {COURSE_CATEGORIES.map((cat, index) => (
             <Link key={cat} href={`${pathname}?${createQueryString('category', cat)}`} passHref>
+              <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
                 <Card 
                   className="p-6 text-center bg-card/60 backdrop-blur-sm border-transparent border-b-4 hover:shadow-lg transition-all cursor-pointer"
                   style={{'--category-color': COURSE_CATEGORY_COLORS[cat], borderColor: 'var(--category-color)'}}
                 >
                     <h3 className="text-xl font-headline font-semibold">{cat}</h3>
                 </Card>
+              </motion.div>
             </Link>
           ))}
         </div>

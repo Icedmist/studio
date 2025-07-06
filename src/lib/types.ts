@@ -19,4 +19,7 @@ export type Course = {
       duration: string;
     }[];
   }[];
+  price: number;
+  duration: string;
+  instructor: string;
 };

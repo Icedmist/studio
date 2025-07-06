@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { CheckCircle, Clock } from 'lucide-react';
+import { CheckCircle, Clock, DollarSign, User } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
@@ -40,7 +40,19 @@ export default function CoursePage({ params }: { params: { id: string } }) {
               </div>
               <h1 className="text-3xl md:text-4xl font-headline font-bold mb-4">{course.title}</h1>
               <p className="text-muted-foreground mb-6">{course.longDescription}</p>
-              <Button size="lg">Enroll Now</Button>
+              
+              <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground mb-6">
+                <div className="flex items-center gap-2">
+                    <User className="w-4 h-4 text-primary" />
+                    <span>Instructor: <span className="font-semibold text-foreground">{course.instructor}</span></span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-primary" />
+                    <span>Duration: <span className="font-semibold text-foreground">{course.duration}</span></span>
+                </div>
+              </div>
+
+              <Button size="lg">Enroll Now for ${course.price}</Button>
             </div>
             <div>
               <Image

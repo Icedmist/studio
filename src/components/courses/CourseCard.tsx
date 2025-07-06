@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { COURSE_CATEGORY_COLORS } from "@/lib/constants";
 import { motion } from "framer-motion";
+import { Clock, DollarSign, User } from "lucide-react";
 
 interface CourseCardProps {
   course: Course;
@@ -39,33 +40,46 @@ export function CourseCard({ course }: CourseCardProps) {
                 alt={course.title}
                 width={400}
                 height={225}
-                className="w-full h-40 object-cover"
+                className="w-full h-32 object-cover"
                 data-ai-hint={`${course.category} ${course.level}`}
                 />
-                <div className="p-4">
+                <div className="p-3">
                     <div className="flex justify-between items-start gap-2 mb-2">
                         <Badge variant="secondary" style={{ backgroundColor: categoryColor, color: 'hsl(var(--primary-foreground))' }}>{course.category}</Badge>
                         <Badge variant="outline">{course.level}</Badge>
                     </div>
-                    <CardTitle className="text-lg font-headline leading-tight">{course.title}</CardTitle>
+                    <CardTitle className="text-base font-headline leading-tight h-10">{course.title}</CardTitle>
                 </div>
             </CardHeader>
-            <CardContent className="flex-grow p-4 pt-0">
-                <p className="text-muted-foreground text-sm">{course.description}</p>
-                {course.progress > 0 && (
-                <div className="mt-4">
-                    <div className="flex justify-between items-center mb-1">
-                        <span className="text-sm font-medium text-muted-foreground">Progress</span>
-                        <span className="text-sm font-bold text-primary">{course.progress}%</span>
+            <CardContent className="flex-grow p-3 pt-0">
+                 <div className="text-xs text-muted-foreground space-y-1.5 mb-3">
+                    <div className="flex items-center gap-2">
+                        <User className="w-3 h-3 shrink-0"/>
+                        <span className="truncate">with {course.instructor}</span>
                     </div>
-                    <Progress value={course.progress} className="h-2" />
+                    <div className="flex items-center gap-2">
+                        <Clock className="w-3 h-3 shrink-0"/>
+                        <span>{course.duration}</span>
+                    </div>
+                </div>
+                <p className="text-muted-foreground text-xs mb-3">{course.description}</p>
+                {course.progress > 0 && (
+                <div className="mt-auto pt-3">
+                    <div className="flex justify-between items-center mb-1">
+                        <span className="text-xs font-medium text-muted-foreground">Progress</span>
+                        <span className="text-xs font-bold text-primary">{course.progress}%</span>
+                    </div>
+                    <Progress value={course.progress} className="h-1.5" />
                 </div>
                 )}
             </CardContent>
-            <CardFooter className="p-4 pt-0">
-                <Link href={`/courses/${course.id}`} className="w-full">
-                    <Button className="w-full">{course.progress > 0 ? 'Continue Learning' : 'Start Course'}</Button>
-                </Link>
+            <CardFooter className="p-3 pt-0 mt-auto">
+                 <div className="flex justify-between items-center w-full">
+                    <p className="text-lg font-bold text-primary">${course.price}</p>
+                    <Link href={`/courses/${course.id}`}>
+                        <Button size="sm">{course.progress > 0 ? 'Continue' : 'Details'}</Button>
+                    </Link>
+                </div>
             </CardFooter>
             </Card>
         </motion.div>

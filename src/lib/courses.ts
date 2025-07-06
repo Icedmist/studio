@@ -11,11 +11,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 75,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: The Basics', lessons: [{title: 'What are Futures?', duration: '15min'}, {title: 'Market Players', duration: '20min'}] },
         { title: 'Module 2: Your First Trade', lessons: [{title: 'Opening an Account', duration: '10min'}, {title: 'Placing an Order', duration: '25min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 10m',
+    instructor: 'John Smith'
   },
   {
     id: 'ft-b-2',
@@ -25,11 +28,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 30,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Market Types', lessons: [{title: 'Commodity Futures', duration: '30min'}, {title: 'Financial Futures', duration: '30min'}] },
         { title: 'Module 2: Major Exchanges', lessons: [{title: 'CME Group', duration: '20min'}, {title: 'ICE', duration: '20min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 40m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'ft-b-3',
@@ -39,11 +45,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Strategy Concepts', lessons: [{title: 'Long and Short Positions', duration: '20min'}] },
         { title: 'Module 2: Basic Strategies', lessons: [{title: 'Trend Following', duration: '40min'}, {title: 'Breakout Trading', duration: '35min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 35m',
+    instructor: 'David Lee'
   },
   {
     id: 'ft-b-4',
@@ -53,11 +62,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 90,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Charting Basics', lessons: [{title: 'Candlestick Charts', duration: '30min'}] },
         { title: 'Module 2: Key Indicators', lessons: [{title: 'Moving Averages', duration: '25min'}, {title: 'RSI', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 25m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'ft-b-5',
@@ -67,11 +79,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 15,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Core Concepts', lessons: [{title: 'Supply and Demand', duration: '25min'}] },
         { title: 'Module 2: Data Sources', lessons: [{title: 'Economic Calendars', duration: '20min'}, {title: 'Government Reports', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 15m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'ft-b-6',
@@ -81,11 +96,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 100,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Principles of Risk', lessons: [{title: 'Risk vs. Reward', duration: '20min'}] },
         { title: 'Module 2: Practical Tools', lessons: [{title: 'Stop-Loss Orders', duration: '30min'}, {title: 'Position Sizing', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 20m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'ft-b-7',
@@ -95,11 +113,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 50,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Emotional Enemies', lessons: [{title: 'Fear and Greed', duration: '30min'}] },
         { title: 'Module 2: Building Discipline', lessons: [{title: 'Sticking to Your Plan', duration: '35min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 5m',
+    instructor: 'John Smith'
   },
   {
     id: 'ft-b-8',
@@ -109,11 +130,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Platform Setup', lessons: [{title: 'Installation and Configuration', duration: '20min'}] },
         { title: 'Module 2: Core Features', lessons: [{title: 'Charting Tools', duration: '30min'}, {title: 'Order Entry', duration: '25min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 15m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'ft-b-9',
@@ -123,11 +147,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Setting up a Demo', lessons: [{title: 'Choosing a Simulator', duration: '15min'}] },
         { title: 'Module 2: Practice Sessions', lessons: [{title: 'Executing Mock Trades', duration: '45min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 0m',
+    instructor: 'David Lee'
   },
   {
     id: 'ft-b-10',
@@ -137,11 +164,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 80,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Plan Components', lessons: [{title: 'Defining Your Edge', duration: '30min'}] },
         { title: 'Module 2: Execution and Review', lessons: [{title: 'Journaling Your Trades', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 0m',
+    instructor: 'Chen Wang'
   },
   // Intermediate
   {
@@ -152,11 +182,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 30,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Spreads', lessons: [{title: 'Calendar Spreads', duration: '45min'}, {title: 'Inter-commodity Spreads', duration: '50min'}] },
         { title: 'Module 2: Hedging', lessons: [{title: 'Portfolio Hedging', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 35m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'ft-i-2',
@@ -166,11 +199,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Statistical Concepts', lessons: [{title: 'Mean Reversion', duration: '45min'}] },
         { title: 'Module 2: Backtesting', lessons: [{title: 'How to Backtest a Strategy', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '1h 45m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'ft-i-3',
@@ -180,11 +216,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 45,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Algo Concepts', lessons: [{title: 'What is Algorithmic Trading?', duration: '30min'}] },
         { title: 'Module 2: Building a Simple Bot', lessons: [{title: 'Strategy Automation in Python', duration: '90min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 0m',
+    instructor: 'John Smith'
   },
   {
     id: 'ft-i-4',
@@ -194,11 +233,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Options Basics', lessons: [{title: 'Calls and Puts', duration: '40min'}] },
         { title: 'Module 2: Basic Strategies', lessons: [{title: 'Covered Calls', duration: '45min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '1h 25m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'ft-i-5',
@@ -208,11 +250,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Order Flow', lessons: [{title: 'Analyzing the Order Book', duration: '50min'}] },
         { title: 'Module 2: Liquidity', lessons: [{title: 'Market Impact of Trades', duration: '45min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '1h 35m',
+    instructor: 'David Lee'
   },
   {
     id: 'ft-i-6',
@@ -222,11 +267,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 70,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Hedging Principles', lessons: [{title: 'Short vs. Long Hedges', duration: '40min'}] },
         { title: 'Module 2: Advanced Hedges', lessons: [{title: 'Cross-Hedging', duration: '50min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '1h 30m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'ft-i-7',
@@ -236,11 +284,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 20,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Asset Allocation', lessons: [{title: 'Using Futures for Diversification', duration: '45min'}] },
         { title: 'Module 2: Risk Management', lessons: [{title: 'Portfolio Overlay Strategies', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '1h 45m',
+    instructor: 'Fatima Ahmed'
   },
   // Advanced
   {
@@ -251,11 +302,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: HFT Infrastructure', lessons: [{title: 'Hardware and Connectivity', duration: '60min'}] },
         { title: 'Module 2: HFT Strategies', lessons: [{title: 'Latency Arbitrage', duration: '75min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 15m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'ft-a-2',
@@ -265,11 +319,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 10,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Model Building', lessons: [{title: 'Feature Engineering', duration: '60min'}] },
         { title: 'Module 2: Strategy Integration', lessons: [{title: 'From Signal to Execution', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'John Smith'
   },
   {
     id: 'ft-a-3',
@@ -279,11 +336,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Market Making Models', lessons: [{title: 'Avellaneda-Stoikov model', duration: '75min'}] },
         { title: 'Module 2: Risk Management', lessons: [{title: 'Inventory Risk', duration: '60min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 15m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'ft-a-4',
@@ -293,11 +353,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Weather Derivatives', lessons: [{title: 'Heating and Cooling Degree Days', duration: '60min'}] },
         { title: 'Module 2: Volatility Futures', lessons: [{title: 'Trading the VIX', duration: '60min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 0m',
+    instructor: 'David Lee'
   },
   {
     id: 'ft-a-5',
@@ -307,11 +370,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: International Exchanges', lessons: [{title: 'Eurex and Asian Markets', duration: '60min'}] },
         { title: 'Module 2: Global Macro', lessons: [{title: 'Currency and Interest Rate Effects', duration: '75min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 15m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'ft-a-6',
@@ -321,11 +387,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Understanding Systemic Risk', lessons: [{title: ' contagion and cascades', duration: '60min'}] },
         { title: 'Module 2: Hedging Tail Risks', lessons: [{title: 'Using Options and VIX', duration: '75min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 15m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'ft-a-7',
@@ -335,11 +404,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Global Regulations', lessons: [{title: 'Dodd-Frank and MiFID II', duration: '75min'}] },
         { title: 'Module 2: Compliance', lessons: [{title: 'Reporting and Surveillance', duration: '60min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 15m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'ft-a-8',
@@ -349,11 +421,14 @@ export const courses: Course[] = [
     category: 'Futures Trading',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Research Methodology', lessons: [{title: 'Data Collection and Cleaning', duration: '60min'}] },
         { title: 'Module 2: Publication', lessons: [{title: 'Writing a Research Paper', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'John Smith'
   },
   
   // Category: Web3
@@ -366,11 +441,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 95,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: The Evolution of the Web', lessons: [{title: 'Web1, Web2, and Web3', duration: '20min'}] },
         { title: 'Module 2: Core Concepts', lessons: [{title: 'Decentralization and Blockchain', duration: '25min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '0h 45m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'w3-b-2',
@@ -380,11 +458,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 60,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: How it Works', lessons: [{title: 'Blocks, Chains, and Hashes', duration: '30min'}] },
         { title: 'Module 2: Consensus', lessons: [{title: 'Proof-of-Work vs. Proof-of-Stake', duration: '35min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 5m',
+    instructor: 'David Lee'
   },
   {
     id: 'w3-b-3',
@@ -394,11 +475,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 100,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: The Basics', lessons: [{title: 'What is Bitcoin?', duration: '20min'}, {title: 'What is Ethereum?', duration: '25min'}] },
         { title: 'Module 2: The Ecosystem', lessons: [{title: 'Understanding Altcoins', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 15m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'w3-b-4',
@@ -408,11 +492,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 25,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Core Idea', lessons: [{title: 'Automating Agreements', duration: '20min'}] },
         { title: 'Module 2: Use Cases', lessons: [{title: 'From Vending Machines to DeFi', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '0h 50m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'w3-b-5',
@@ -422,11 +509,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: DApp Architecture', lessons: [{title: 'Frontend, Backend, and Blockchain', duration: '30min'}] },
         { title: 'Module 2: DApp Examples', lessons: [{title: 'Exploring the DApp Landscape', duration: '25min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '0h 55m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'w3-b-6',
@@ -436,11 +526,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Wallet Types', lessons: [{title: 'Hot vs. Cold Wallets', duration: '20min'}] },
         { title: 'Module 2: Security', lessons: [{title: 'Seed Phrases and Private Keys', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '0h 50m',
+    instructor: 'John Smith'
   },
   {
     id: 'w3-b-7',
@@ -450,11 +543,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: What is an NFT?', lessons: [{title: 'Fungible vs. Non-Fungible', duration: '20min'}] },
         { title: 'Module 2: Use Cases', lessons: [{title: 'Digital Art, Gaming, and More', duration: '25min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '0h 45m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'w3-b-8',
@@ -464,11 +560,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Common Threats', lessons: [{title: 'Phishing and Scams', duration: '30min'}] },
         { title: 'Module 2: Best Practices', lessons: [{title: 'Protecting Your Wallet', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 0m',
+    instructor: 'David Lee'
   },
   {
     id: 'w3-b-9',
@@ -478,11 +577,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 40,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Ethereum Basics', lessons: [{title: 'What is Ethereum?', duration: '20min'}] },
         { title: 'Module 2: How it Works', lessons: [{title: 'Gas and the EVM', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '0h 50m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'w3-b-10',
@@ -492,11 +594,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Smart Contract Tools', lessons: [{title: 'Introduction to Hardhat', duration: '30min'}] },
         { title: 'Module 2: Frontend Tools', lessons: [{title: 'Introduction to Ethers.js', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 0m',
+    instructor: 'Fatima Ahmed'
   },
   // Intermediate
   {
@@ -507,11 +612,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 20,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Advanced Patterns', lessons: [{title: 'Upgradable Contracts (Proxies)', duration: '60min'}] },
         { title: 'Module 2: Optimization', lessons: [{title: 'Gas Saving Techniques', duration: '50min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '1h 50m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'w3-i-2',
@@ -521,11 +629,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Solidity Fundamentals', lessons: [{title: 'Data Types and Functions', duration: '60min'}] },
         { title: 'Module 2: Advanced Solidity', lessons: [{title: 'Inheritance and Libraries', duration: '75min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 15m',
+    instructor: 'John Smith'
   },
   {
     id: 'w3-i-3',
@@ -535,11 +646,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Connecting to Wallets', lessons: [{title: 'WalletConnect and MetaMask', duration: '45min'}] },
         { title: 'Module 2: Interacting with Contracts', lessons: [{title: 'Reading and Writing Data', duration: '75min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 0m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'w3-i-4',
@@ -549,11 +663,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: The Scalability Problem', lessons: [{title: 'The Blockchain Trilemma', duration: '30min'}] },
         { title: 'Module 2: Layer 2 Solutions', lessons: [{title: 'Optimistic vs. ZK-Rollups', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '1h 30m',
+    instructor: 'David Lee'
   },
   {
     id: 'w3-i-5',
@@ -563,11 +680,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 55,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: DEXs', lessons: [{title: 'How Uniswap Works', duration: '60min'}] },
         { title: 'Module 2: Lending', lessons: [{title: 'How Aave Works', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 0m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'w3-i-6',
@@ -577,11 +697,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: NFT Contracts (ERC-721)', lessons: [{title: 'Writing the Smart Contract', duration: '75min'}] },
         { title: 'Module 2: Marketplace Frontend', lessons: [{title: 'Building the UI in React', duration: '90min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 45m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'w3-i-7',
@@ -591,11 +714,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Common Vulnerabilities', lessons: [{title: 'Reentrancy and Other Attacks', duration: '60min'}] },
         { title: 'Module 2: Auditing Tools', lessons: [{title: 'Using Slither and Mythril', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 0m',
+    instructor: 'Jane Doe'
   },
   // Advanced
   {
@@ -606,11 +732,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: ZKP Theory', lessons: [{title: 'SNARKs vs. STARKs', duration: '90min'}] },
         { title: 'Module 2: Practical Applications', lessons: [{title: 'Building with ZK-Rollups', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '3h 0m',
+    instructor: 'John Smith'
   },
   {
     id: 'w3-a-2',
@@ -620,11 +749,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Alternative Architectures', lessons: [{title: 'The Solana Model', duration: '75min'}] },
         { title: 'Module 2: The Cosmos Ecosystem', lessons: [{title: 'The Inter-Blockchain Communication Protocol (IBC)', duration: '75min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'w3-a-3',
@@ -634,11 +766,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Bridge Designs', lessons: [{title: 'Security and Trade-offs', duration: '75min'}] },
         { title: 'Module 2: Interoperability Protocols', lessons: [{title: 'LayerZero and Axelar', duration: '75min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'David Lee'
   },
   {
     id: 'w3-a-4',
@@ -648,11 +783,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: DAO Frameworks', lessons: [{title: 'Building on Aragon and Governor', duration: '75min'}] },
         { title: 'Module 2: Governance', lessons: [{title: 'Voting Mechanisms and Treasury Management', duration: '75min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'w3-a-5',
@@ -662,11 +800,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 10,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Yield Farming', lessons: [{title: 'Leveraged Positions', duration: '75min'}] },
         { title: 'Module 2: Structured Products', lessons: [{title: 'DeFi Options Vaults', duration: '75min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'w3-a-6',
@@ -676,11 +817,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Decentralized AI', lessons: [{title: 'Use cases and challenges', duration: '75min'}] },
         { title: 'Module 2: On-chain AI', lessons: [{title: 'Verifiable Computation for AI', duration: '75min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'w3-a-7',
@@ -690,11 +834,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Securities Law', lessons: [{title: 'The Howey Test and Tokens', duration: '75min'}] },
         { title: 'Module 2: AML/KYC', lessons: [{title: 'Compliance for DeFi Protocols', duration: '75min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'John Smith'
   },
   {
     id: 'w3-a-8',
@@ -704,11 +851,14 @@ export const courses: Course[] = [
     category: 'Web3',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Cryptoeconomics', lessons: [{title: 'Analyzing Incentives', duration: '75min'}] },
         { title: 'Module 2: Mechanism Design', lessons: [{title: 'Designing new protocols', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 45m',
+    instructor: 'Maria Garcia'
   },
   
   // Category: Crypto
@@ -721,11 +871,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 100,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: The Basics', lessons: [{title: 'What is Blockchain?', duration: '20min'}, {title: 'Understanding Bitcoin', duration: '25min'}] },
         { title: 'Module 2: Getting Started', lessons: [{title: 'Setting up a Wallet', duration: '30min'}, {title: 'Making a Transaction', duration: '15min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 30m',
+    instructor: 'David Lee'
   },
   {
     id: 'c-b-2',
@@ -735,11 +888,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 50,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Core Concepts', lessons: [{title: 'Decentralized Ledgers', duration: '30min'}] },
         { title: 'Module 2: Cryptography', lessons: [{title: 'Public and Private Keys', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 0m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'c-b-3',
@@ -749,11 +905,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Choosing an Exchange', lessons: [{title: 'Centralized vs. Decentralized', duration: '25min'}] },
         { title: 'Module 2: Placing Orders', lessons: [{title: 'Market and Limit Orders', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '0h 55m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'c-b-4',
@@ -763,11 +922,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Wallet Types', lessons: [{title: 'Software (Hot) vs. Hardware (Cold)', duration: '30min'}] },
         { title: 'Module 2: Security Best Practices', lessons: [{title: 'Managing Your Seed Phrase', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 0m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'c-b-5',
@@ -777,11 +939,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 88,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Threat Landscape', lessons: [{title: 'Common Scams', duration: '30min'}] },
         { title: 'Module 2: Defensive Measures', lessons: [{title: 'How to Stay Safe', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 0m',
+    instructor: 'John Smith'
   },
   {
     id: 'c-b-6',
@@ -791,11 +956,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Altcoin Categories', lessons: [{title: 'What are Altcoins?', duration: '25min'}] },
         { title: 'Module 2: Researching Projects', lessons: [{title: 'How to Evaluate an Altcoin', duration: '35min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 0m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'c-b-7',
@@ -805,11 +973,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Technical Analysis Basics', lessons: [{title: 'Reading charts', duration: '30min'}] },
         { title: 'Module 2: Fundamental Analysis Basics', lessons: [{title: 'Evaluating Projects', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 0m',
+    instructor: 'David Lee'
   },
   {
     id: 'c-b-8',
@@ -819,11 +990,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Token Launch Models', lessons: [{title: 'From ICOs to Airdrops', duration: '30min'}] },
         { title: 'Module 2: Evaluating a Sale', lessons: [{title: 'Red Flags and Green Flags', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 0m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'c-b-9',
@@ -833,11 +1007,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Global Overview', lessons: [{title: 'Different Approaches by Country', duration: '30min'}] },
         { title: 'Module 2: Key Issues', lessons: [{title: 'Taxation and Securities Law', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 0m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'c-b-10',
@@ -847,11 +1024,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 70,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Portfolio Theory', lessons: [{title: 'Diversification', duration: '30min'}] },
         { title: 'Module 2: Construction', lessons: [{title: 'Building Your First Portfolio', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 0m',
+    instructor: 'Jane Doe'
   },
   // Intermediate
   {
@@ -862,11 +1042,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Advanced Charting', lessons: [{title: 'On-Chain Indicators', duration: '45min'}] },
         { title: 'Module 2: Trading Strategies', lessons: [{title: 'Combining Indicators', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '1h 45m',
+    instructor: 'John Smith'
   },
   {
     id: 'c-i-2',
@@ -876,11 +1059,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Tokenomics', lessons: [{title: 'Analyzing Supply and Demand', duration: '45min'}] },
         { title: 'Module 2: Project Valuation', lessons: [{title: 'A Framework for Analysis', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '1h 45m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'c-i-3',
@@ -890,11 +1076,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Swing Trading', lessons: [{title: 'Capturing Medium-Term Trends', duration: '60min'}] },
         { title: 'Module 2: Day Trading', lessons: [{title: 'Short-Term Strategies', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 0m',
+    instructor: 'David Lee'
   },
   {
     id: 'c-i-4',
@@ -904,11 +1093,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Position Sizing', lessons: [{title: 'The Kelly Criterion', duration: '45min'}] },
         { title: 'Module 2: Hedging', lessons: [{title: 'Using Derivatives to Hedge', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '1h 45m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'c-i-5',
@@ -918,11 +1110,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 62,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Yield Farming', lessons: [{title: 'Strategies and Risks', duration: '60min'}] },
         { title: 'Module 2: Liquidity Providing', lessons: [{title: 'Understanding Impermanent Loss', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 0m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'c-i-6',
@@ -932,11 +1127,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Valuing NFTs', lessons: [{title: 'Rarity and other factors', duration: '45min'}] },
         { title: 'Module 2: Trading Strategies', lessons: [{title: 'Flipping and Analysis', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '1h 45m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'c-i-7',
@@ -946,11 +1144,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Tax Basics', lessons: [{title: 'How Crypto Transactions are Taxed', duration: '45min'}] },
         { title: 'Module 2: Tracking and Reporting', lessons: [{title: 'Using Crypto Tax Software', duration: '45min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '1h 30m',
+    instructor: 'John Smith'
   },
   // Advanced
   {
@@ -961,11 +1162,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Bot Architecture', lessons: [{title: 'Connecting to Exchanges via API', duration: '75min'}] },
         { title: 'Module 2: Strategy Implementation', lessons: [{title: 'Backtesting and Live Deployment', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 45m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'c-a-2',
@@ -975,11 +1179,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: On-Chain Analysis', lessons: [{title: 'Using Data from the Blockchain', duration: '75min'}] },
         { title: 'Module 2: Machine Learning', lessons: [{title: 'Building Predictive Models', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 45m',
+    instructor: 'David Lee'
   },
   {
     id: 'c-a-3',
@@ -989,11 +1196,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Perpetual Swaps', lessons: [{title: 'Funding Rates and Mechanics', duration: '75min'}] },
         { title: 'Module 2: Options Strategies', lessons: [{title: 'Advanced Options Spreads', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 45m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'c-a-4',
@@ -1003,11 +1213,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: DeFi Structured Products', lessons: [{title: 'Options Vaults and Exotics', duration: '75min'}] },
         { title: 'Module 2: Protocol Design', lessons: [{title: 'Building New DeFi Protocols', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 45m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'c-a-5',
@@ -1017,11 +1230,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 22,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Arbitrage Theory', lessons: [{title: 'Finding Opportunities', duration: '60min'}] },
         { title: 'Module 2: Automated Execution', lessons: [{title: 'Building an Arbitrage Bot', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'c-a-6',
@@ -1031,11 +1247,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Consensus Engines', lessons: [{title: 'Understanding Tendermint', duration: '75min'}] },
         { title: 'Module 2: Building with Cosmos SDK', lessons: [{title: 'Creating Your Own Blockchain', duration: '120min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '3h 15m',
+    instructor: 'John Smith'
   },
   {
     id: 'c-a-7',
@@ -1045,11 +1264,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Advanced Vulnerabilities', lessons: [{title: 'Logic Errors and Exploits', duration: '90min'}] },
         { title: 'Module 2: Auditing Process', lessons: [{title: 'From Start to Final Report', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '3h 0m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'c-a-8',
@@ -1059,11 +1281,14 @@ export const courses: Course[] = [
     category: 'Crypto',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Research Methodology', lessons: [{title: 'Forming a Hypothesis', duration: '60min'}] },
         { title: 'Module 2: Data Analysis', lessons: [{title: 'Working with On-Chain Data', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'David Lee'
   },
   
   // Category: Tech Skills
@@ -1076,11 +1301,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 80,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: The Basics', lessons: [{title: 'Variables and Data Types', duration: '45min'}] },
         { title: 'Module 2: Control Flow', lessons: [{title: 'Loops and Conditionals', duration: '60min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 45m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'ts-b-2',
@@ -1090,11 +1318,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 60,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: HTML', lessons: [{title: 'Structuring Web Pages', duration: '45min'}] },
         { title: 'Module 2: CSS & JavaScript', lessons: [{title: 'Styling and Interactivity', duration: '90min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '2h 15m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'ts-b-3',
@@ -1104,11 +1335,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Data Structures', lessons: [{title: 'Arrays and Linked Lists', duration: '60min'}] },
         { title: 'Module 2: Algorithms', lessons: [{title: 'Sorting and Searching', duration: '60min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '2h 0m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'ts-b-4',
@@ -1118,11 +1352,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: SQL Basics', lessons: [{title: 'SELECT, FROM, WHERE', duration: '45min'}] },
         { title: 'Module 2: Database Design', lessons: [{title: 'Tables and Relationships', duration: '45min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 30m',
+    instructor: 'John Smith'
   },
   {
     id: 'ts-b-5',
@@ -1132,11 +1369,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 95,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Git Basics', lessons: [{title: 'Commits, Branches, and Merges', duration: '60min'}] },
         { title: 'Module 2: GitHub', lessons: [{title: 'Collaboration with Pull Requests', duration: '45min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 45m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'ts-b-6',
@@ -1146,11 +1386,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Cloud Concepts', lessons: [{title: 'What is the Cloud?', duration: '30min'}] },
         { title: 'Module 2: Major Providers', lessons: [{title: 'Overview of AWS, GCP, Azure', duration: '45min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 15m',
+    instructor: 'David Lee'
   },
   {
     id: 'ts-b-7',
@@ -1160,11 +1403,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Threat Landscape', lessons: [{title: 'Malware, Phishing, and more', duration: '45min'}] },
         { title: 'Module 2: Defensive Principles', lessons: [{title: 'Network and System Security', duration: '45min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 30m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'ts-b-8',
@@ -1174,11 +1420,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Testing Fundamentals', lessons: [{title: 'The Testing Pyramid', duration: '45min'}] },
         { title: 'Module 2: Writing Tests', lessons: [{title: 'Introduction to Unit Testing', duration: '60min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 45m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'ts-b-9',
@@ -1188,11 +1437,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Agile Principles', lessons: [{title: 'The Agile Manifesto', duration: '30min'}] },
         { title: 'Module 2: Scrum Framework', lessons: [{title: 'Sprints, Roles, and Ceremonies', duration: '60min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 30m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'ts-b-10',
@@ -1202,11 +1454,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Portfolio Building', lessons: [{title: 'Showcasing Your Skills', duration: '45min'}] },
         { title: 'Module 2: Interview Prep', lessons: [{title: 'Technical and Behavioral Interviews', duration: '60min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 45m',
+    instructor: 'John Smith'
   },
   // Intermediate
   {
@@ -1217,11 +1472,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Design Patterns', lessons: [{title: 'Singleton, Factory, Observer', duration: '75min'}] },
         { title: 'Module 2: Concurrency', lessons: [{title: 'Threads and Locks', duration: '75min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 30m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'ts-i-2',
@@ -1231,11 +1489,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 10,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Backend with Node/Express', lessons: [{title: 'API Design', duration: '60min'}] },
         { title: 'Module 2: Frontend with React', lessons: [{title: 'State Management', duration: '90min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 30m',
+    instructor: 'David Lee'
   },
   {
     id: 'ts-i-3',
@@ -1245,11 +1506,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: CI/CD', lessons: [{title: 'Automating Builds and Deployments', duration: '75min'}] },
         { title: 'Module 2: Containers', lessons: [{title: 'Docker and Kubernetes', duration: '90min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 45m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'ts-i-4',
@@ -1259,11 +1523,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Supervised Learning', lessons: [{title: 'Regression and Classification', duration: '75min'}] },
         { title: 'Module 2: Model Evaluation', lessons: [{title: 'Metrics and Validation', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 15m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'ts-i-5',
@@ -1273,11 +1540,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Big Data Concepts', lessons: [{title: 'The 3 Vs', duration: '45min'}] },
         { title: 'Module 2: Apache Spark', lessons: [{title: 'Data Processing with Spark', duration: '90min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 15m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'ts-i-6',
@@ -1287,11 +1557,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 33,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: RESTful Design', lessons: [{title: 'Principles and Best Practices', duration: '60min'}] },
         { title: 'Module 2: Security', lessons: [{title: 'Authentication and Authorization', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 0m',
+    instructor: 'John Smith'
   },
   {
     id: 'ts-i-7',
@@ -1301,11 +1574,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: React Native Basics', lessons: [{title: 'Components and Styling', duration: '75min'}] },
         { title: 'Module 2: Navigation and State', lessons: [{title: 'Building a Multi-Screen App', duration: '90min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 45m',
+    instructor: 'Maria Garcia'
   },
   // Advanced
   {
@@ -1316,11 +1592,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Core Principles', lessons: [{title: 'CAP Theorem and Tradeoffs', duration: '75min'}] },
         { title: 'Module 2: Consensus Algorithms', lessons: [{title: 'Paxos and Raft', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 45m',
+    instructor: 'David Lee'
   },
   {
     id: 'ts-a-2',
@@ -1330,11 +1609,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Search', lessons: [{title: 'Heuristic Search Algorithms', duration: '75min'}] },
         { title: 'Module 2: Knowledge Representation', lessons: [{title: 'Logic and Reasoning', duration: '75min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'ts-a-3',
@@ -1344,11 +1626,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Cryptography', lessons: [{title: 'Hash Functions and Digital Signatures', duration: '75min'}] },
         { title: 'Module 2: Consensus', lessons: [{title: 'Proof-of-Work and Proof-of-Stake', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 45m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'ts-a-4',
@@ -1358,11 +1643,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Quantum Principles', lessons: [{title: 'Superposition and Entanglement', duration: '90min'}] },
         { title: 'Module 2: Quantum Algorithms', lessons: [{title: 'Shor\'s and Grover\'s Algorithms', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '3h 0m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'ts-a-5',
@@ -1372,11 +1660,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Offensive Security', lessons: [{title: 'Penetration Testing Methodologies', duration: '90min'}] },
         { title: 'Module 2: Defensive Security', lessons: [{title: 'Incident Response and Forensics', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '3h 0m',
+    instructor: 'John Smith'
   },
   {
     id: 'ts-a-6',
@@ -1386,11 +1677,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 40,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Data Pipelines', lessons: [{title: 'Building ETL/ELT pipelines', duration: '90min'}] },
         { title: 'Module 2: Data Warehousing', lessons: [{title: 'Concepts and Tools', duration: '75min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 45m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'ts-a-7',
@@ -1400,11 +1694,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Team Management', lessons: [{title: 'Leading and Motivating Engineers', duration: '75min'}] },
         { title: 'Module 2: Project Management', lessons: [{title: 'From Roadmap to Delivery', duration: '75min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'David Lee'
   },
   {
     id: 'ts-a-8',
@@ -1414,11 +1711,14 @@ export const courses: Course[] = [
     category: 'Tech Skills',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Research Methodology', lessons: [{title: 'The Scientific Method in CS', duration: '75min'}] },
         { title: 'Module 2: Writing and Publication', lessons: [{title: 'Publishing Your Work', duration: '75min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'Chen Wang'
   },
   
   // Category: AI & Machine Learning
@@ -1431,11 +1731,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 95,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: What is AI?', lessons: [{title: 'History and Types of AI', duration: '30min'}] },
         { title: 'Module 2: AI in the Real World', lessons: [{title: 'Applications of AI today', duration: '30min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 0m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'ai-b-2',
@@ -1445,11 +1748,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: ML Concepts', lessons: [{title: 'Supervised vs. Unsupervised', duration: '45min'}] },
         { title: 'Module 2: Project Lifecycle', lessons: [{title: 'From Data to Model', duration: '45min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 30m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'ai-b-3',
@@ -1459,11 +1765,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: NumPy and Pandas', lessons: [{title: 'Working with Data', duration: '75min'}] },
         { title: 'Module 2: Matplotlib', lessons: [{title: 'Data Visualization', duration: '45min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '2h 0m',
+    instructor: 'John Smith'
   },
   {
     id: 'ai-b-4',
@@ -1473,11 +1782,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Data Cleaning', lessons: [{title: 'Handling Missing Data', duration: '45min'}] },
         { title: 'Module 2: Feature Engineering', lessons: [{title: 'Creating and Selecting Features', duration: '60min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 45m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'ai-b-5',
@@ -1487,11 +1799,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Regression', lessons: [{title: 'Linear Regression', duration: '60min'}] },
         { title: 'Module 2: Classification', lessons: [{title: 'Logistic Regression', duration: '60min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '2h 0m',
+    instructor: 'David Lee'
   },
   {
     id: 'ai-b-6',
@@ -1501,11 +1816,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Clustering', lessons: [{title: 'K-Means Algorithm', duration: '60min'}] },
         { title: 'Module 2: Dimensionality Reduction', lessons: [{title: 'Principal Component Analysis (PCA)', duration: '60min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '2h 0m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'ai-b-7',
@@ -1515,11 +1833,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: The Neuron', lessons: [{title: 'How a Single Neuron Works', duration: '45min'}] },
         { title: 'Module 2: The Network', lessons: [{title: 'Layers and Activation Functions', duration: '45min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 30m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'ai-b-8',
@@ -1529,11 +1850,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Bias and Fairness', lessons: [{title: 'Sources of Bias in AI', duration: '45min'}] },
         { title: 'Module 2: Accountability', lessons: [{title: 'Who is Responsible When AI Fails?', duration: '45min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 30m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'ai-b-9',
@@ -1543,11 +1867,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: TensorFlow', lessons: [{title: 'Introduction to TensorFlow', duration: '45min'}] },
         { title: 'Module 2: PyTorch', lessons: [{title: 'Introduction to PyTorch', duration: '45min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '1h 30m',
+    instructor: 'John Smith'
   },
   {
     id: 'ai-b-10',
@@ -1557,11 +1884,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Project Scoping', lessons: [{title: 'Defining the Problem', duration: '30min'}] },
         { title: 'Module 2: Model Building', lessons: [{title: 'Training and Evaluation', duration: '90min'}] },
-    ]
+    ],
+    price: 49.99,
+    duration: '2h 0m',
+    instructor: 'Maria Garcia'
   },
   // Intermediate
   {
@@ -1572,11 +1902,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 50,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Deep Learning Theory', lessons: [{title: 'Backpropagation and Gradient Descent', duration: '75min'}] },
         { title: 'Module 2: Building Networks', lessons: [{title: 'CNNs and RNNs', duration: '90min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 45m',
+    instructor: 'David Lee'
   },
   {
     id: 'ai-i-2',
@@ -1586,11 +1919,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Text Processing', lessons: [{title: 'Tokenization and Embeddings', duration: '75min'}] },
         { title: 'Module 2: NLP Models', lessons: [{title: 'Sentiment Analysis with RNNs', duration: '90min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 45m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'ai-i-3',
@@ -1600,11 +1936,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Convolutional Neural Networks', lessons: [{title: 'How CNNs Work', duration: '75min'}] },
         { title: 'Module 2: CV Tasks', lessons: [{title: 'Image Classification and Object Detection', duration: '90min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 45m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'ai-i-4',
@@ -1614,11 +1953,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: RL Foundations', lessons: [{title: 'Markov Decision Processes', duration: '75min'}] },
         { title: 'Module 2: RL Algorithms', lessons: [{title: 'Q-Learning and Deep Q-Networks', duration: '90min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 45m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'ai-i-5',
@@ -1628,11 +1970,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Statistical Models', lessons: [{title: 'ARIMA Models', duration: '75min'}] },
         { title: 'Module 2: Deep Learning Models', lessons: [{title: 'Forecasting with LSTMs', duration: '90min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 45m',
+    instructor: 'John Smith'
   },
   {
     id: 'ai-i-6',
@@ -1642,11 +1987,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Serving Models', lessons: [{title: 'Creating a Model API with Flask', duration: '75min'}] },
         { title: 'Module 2: MLOps', lessons: [{title: 'Introduction to MLOps principles', duration: '75min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 30m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'ai-i-7',
@@ -1656,11 +2004,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: AI Strategy', lessons: [{title: 'Finding AI Use Cases', duration: '60min'}] },
         { title: 'Module 2: Managing AI Projects', lessons: [{title: 'The AI Project Lifecycle', duration: '60min'}] },
-    ]
+    ],
+    price: 99.99,
+    duration: '2h 0m',
+    instructor: 'David Lee'
   },
   // Advanced
   {
@@ -1671,11 +2022,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: GANs', lessons: [{title: 'Theory and Implementation', duration: '90min'}] },
         { title: 'Module 2: VAEs', lessons: [{title: 'Theory and Implementation', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '3h 0m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'ai-a-2',
@@ -1685,11 +2039,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Attention is All You Need', lessons: [{title: 'The Attention Mechanism', duration: '90min'}] },
         { title: 'Module 2: Building Transformers', lessons: [{title: 'Implementing a Transformer', duration: '120min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '3h 30m',
+    instructor: 'Fatima Ahmed'
   },
   {
     id: 'ai-a-3',
@@ -1699,11 +2056,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Robot Perception', lessons: [{title: 'Using CV for Robotics', duration: '90min'}] },
         { title: 'Module 2: Robot Control', lessons: [{title: 'Reinforcement Learning for Control', duration: '120min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '3h 30m',
+    instructor: 'Jane Doe'
   },
   {
     id: 'ai-a-4',
@@ -1713,11 +2073,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Quantum Computing Basics', lessons: [{title: 'Qubits and Quantum Gates', duration: '90min'}] },
         { title: 'Module 2: Quantum ML Algorithms', lessons: [{title: 'Introduction to QML', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '3h 0m',
+    instructor: 'John Smith'
   },
   {
     id: 'ai-a-5',
@@ -1727,11 +2090,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Adversarial Attacks', lessons: [{title: 'Fooling Neural Networks', duration: '90min'}] },
         { title: 'Module 2: Defenses', lessons: [{title: 'Making Models More Robust', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '3h 0m',
+    instructor: 'Maria Garcia'
   },
   {
     id: 'ai-a-6',
@@ -1741,11 +2107,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: The Need for XAI', lessons: [{title: 'The Black Box Problem', duration: '60min'}] },
         { title: 'Module 2: XAI Techniques', lessons: [{title: 'LIME and SHAP', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'David Lee'
   },
   {
     id: 'ai-a-7',
@@ -1755,11 +2124,14 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: The Research Process', lessons: [{title: 'From Idea to Paper', duration: '75min'}] },
         { title: 'Module 2: Experiment Design', lessons: [{title: 'Rigorous Empirical Evaluation', duration: '90min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 45m',
+    instructor: 'Chen Wang'
   },
   {
     id: 'ai-a-8',
@@ -1769,10 +2141,13 @@ export const courses: Course[] = [
     category: 'AI & Machine Learning',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 0,
+    progress: Math.floor(Math.random() * 101),
     modules: [
         { title: 'Module 1: Societal Impact', lessons: [{title: 'AI and the Future of Work', duration: '75min'}] },
         { title: 'Module 2: AI Policy', lessons: [{title: 'Governance of Advanced AI', duration: '75min'}] },
-    ]
+    ],
+    price: 199.99,
+    duration: '2h 30m',
+    instructor: 'Fatima Ahmed'
   }
 ];
