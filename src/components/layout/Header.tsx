@@ -18,9 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-
-// IMPORTANT: Replace this with the actual Firebase UID of your admin user.
-const ADMIN_UIDS = ['REPLACE_WITH_YOUR_ADMIN_UID'];
+import { ADMIN_UIDS } from '@/lib/admin';
 
 const navLinks = [
   { href: '/courses', label: 'Courses' },

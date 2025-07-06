@@ -5,9 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ShieldAlert } from 'lucide-react';
-
-// IMPORTANT: Replace this with the actual Firebase UID of your admin user.
-const ADMIN_UIDS = ['REPLACE_WITH_YOUR_ADMIN_UID']; 
+import { ADMIN_UIDS } from '@/lib/admin';
 
 export default function AdminLayout({
   children,
