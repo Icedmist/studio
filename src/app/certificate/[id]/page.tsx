@@ -79,7 +79,7 @@ export default function CertificatePage({ params }: { params: { id: string } }) 
         {isImageLoading && (
             <Skeleton className="absolute inset-0 w-full h-full" />
         )}
-        {imageUrl && (
+        {imageUrl && imageUrl !== 'none' && (
              <div 
                 className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000"
                 style={{ backgroundImage: `url(${imageUrl})`, opacity: isImageLoading ? 0 : 1 }}
