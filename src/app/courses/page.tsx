@@ -3,6 +3,7 @@
 import { Suspense, useCallback, useMemo } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { CourseCard } from "@/components/courses/CourseCard";
 import { courses } from "@/lib/courses";
 import { Library, ArrowLeft } from "lucide-react";
