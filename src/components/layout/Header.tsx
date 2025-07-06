@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/Logo';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Menu } from 'lucide-react';
 
 const navLinks = [
@@ -46,6 +46,7 @@ export const Header = () => {
               </SheetTrigger>
               <SheetContent side="right">
                 <div className="p-4">
+                  <SheetTitle className="sr-only">Menu</SheetTitle>
                   <Link href="/" className="mb-6 block">
                     <Logo />
                   </Link>
