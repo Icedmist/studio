@@ -14,21 +14,10 @@ import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/hooks/use-auth';
 import { useState, useEffect } from 'react';
-import { getStudentProgress, enrollInCourse } from '@/services/student-data';
+import { getStudentProgress } from '@/services/student-data';
 import type { StudentProgress } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
-
-
-async function handleEnroll(userId: string, courseId: string): Promise<boolean> {
-    'use server';
-    try {
-        await enrollInCourse(userId, courseId);
-        return true;
-    } catch (error) {
-        console.error("Enrollment failed:", error);
-        return false;
-    }
-}
+import { handleEnroll } from '@/app/actions/enroll';
 
 
 export default function CoursePage() {
