@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { GoogleIcon } from "@/components/icons/GoogleIcon";
 import { XIcon } from "@/components/icons/XIcon";
-import { FacebookIcon } from "@/components/icons/FacebookIcon";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, TwitterAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
@@ -35,6 +34,24 @@ export function SocialLogins() {
     }
   };
   
+  const handleXSignIn = async () => {
+    const provider = new TwitterAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      toast({
+        title: "Login Successful",
+        description: "Welcome!",
+      });
+      router.push("/dashboard");
+    } catch (error: any) {
+        toast({
+        title: "Login Failed",
+        description: `Could not sign in with X. ${error.message}`,
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <TooltipProvider>
       <div className="flex justify-center gap-4">
@@ -51,23 +68,12 @@ export function SocialLogins() {
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="outline" size="icon" className="rounded-full h-12 w-12" disabled>
-              <FacebookIcon className="h-6 w-6" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Facebook login coming soon</p>
-          </TooltipContent>
-        </Tooltip>
-
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="outline" size="icon" className="rounded-full h-12 w-12" disabled>
+            <Button variant="outline" size="icon" className="rounded-full h-12 w-12" onClick={handleXSignIn}>
               <XIcon className="h-6 w-6" />
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            <p>X (Twitter) login coming soon</p>
+            <p>Sign in with X (Twitter)</p>
           </TooltipContent>
         </Tooltip>
       </div>
