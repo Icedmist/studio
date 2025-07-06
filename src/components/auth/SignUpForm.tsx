@@ -47,7 +47,7 @@ export function SignUpForm() {
             <FormItem>
               <FormLabel>Full Name</FormLabel>
               <FormControl>
-                <Input icon={<User />} placeholder="John Doe" {...field} className="rounded-lg"/>
+                <Input icon={<User />} placeholder="John Doe" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -60,7 +60,7 @@ export function SignUpForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input icon={<Mail />} placeholder="you@example.com" {...field} className="rounded-lg"/>
+                <Input icon={<Mail />} placeholder="you@example.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -73,13 +73,13 @@ export function SignUpForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input icon={<Lock />} type="password" placeholder="********" {...field} className="rounded-lg"/>
+                <Input icon={<Lock />} type="password" placeholder="********" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full rounded-full font-bold text-lg" size="lg">
+        <Button type="submit" className="w-full font-bold text-lg" size="lg">
           Create Account
         </Button>
       </form>

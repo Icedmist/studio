@@ -210,7 +210,7 @@ export default function Home() {
           </p>
           <Link href="/signup">
             <Button size="lg" variant="secondary">
-              Sign Up for Free
+              Sign Up
             </Button>
           </Link>
         </div>

@@ -48,7 +48,7 @@ export function LoginForm() {
             <FormItem>
               <FormLabel>Email Address</FormLabel>
               <FormControl>
-                <Input icon={<Mail />} placeholder="your@email.com" {...field} className="rounded-lg" />
+                <Input icon={<Mail />} placeholder="your@email.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -61,7 +61,7 @@ export function LoginForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input icon={<Lock />} type="password" placeholder="Enter your password" {...field} className="rounded-lg" />
+                <Input icon={<Lock />} type="password" placeholder="Enter your password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -82,7 +82,7 @@ export function LoginForm() {
             </FormItem>
             )}
         />
-        <Button type="submit" className="w-full rounded-full font-bold text-lg" size="lg">
+        <Button type="submit" className="w-full font-bold text-lg" size="lg">
           Login to Account
         </Button>
       </form>

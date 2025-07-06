@@ -4,8 +4,48 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import { COURSE_CATEGORIES, COURSE_LEVELS } from "@/lib/constants";
 import { Search } from "lucide-react";
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
 
 export function CourseFilter() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Use state for the search term to allow for debouncing
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (value && value !== 'all') {
+        params.set(name, value);
+      } else {
+        params.delete(name);
+      }
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  const handleFilterChange = (name: string, value: string) => {
+    const queryString = createQueryString(name, value);
+    router.replace(`${pathname}?${queryString}`);
+  };
+
+  // Debounce the search input
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleFilterChange('search', searchTerm);
+    }, 300); // 300ms delay
+
+    return () => {
+      clearTimeout(timer);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm]);
+
+
   return (
     <div className="p-4 rounded-lg bg-card/60 backdrop-blur-sm border border-border/50 flex flex-col md:flex-row gap-4 items-center">
       <div className="w-full md:flex-grow">
@@ -13,10 +53,12 @@ export function CourseFilter() {
           icon={<Search />}
           placeholder="Search for courses..."
           className="bg-background/80"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
       <div className="w-full md:w-auto">
-        <Select>
+        <Select onValueChange={(value) => handleFilterChange('category', value)} value={searchParams.get('category') || 'all'}>
           <SelectTrigger className="w-full md:w-[200px] bg-background/80">
             <SelectValue placeholder="All Categories" />
           </SelectTrigger>
@@ -31,7 +73,7 @@ export function CourseFilter() {
         </Select>
       </div>
       <div className="w-full md:w-auto">
-        <Select>
+        <Select onValueChange={(value) => handleFilterChange('level', value)} value={searchParams.get('level') || 'all'}>
           <SelectTrigger className="w-full md:w-[180px] bg-background/80">
             <SelectValue placeholder="All Levels" />
           </SelectTrigger>
