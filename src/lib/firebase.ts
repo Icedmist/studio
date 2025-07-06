@@ -6,26 +6,18 @@ import { getFirestore, type Firestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  apiKey: "AIzaSyB03DllfRq_EVM3Y1BHyZBdal-jHF6oGZM",
+  authDomain: "tech-trade-hub-academy.firebaseapp.com",
+  projectId: "tech-trade-hub-academy",
+  storageBucket: "tech-trade-hub-academy.firebasestorage.app",
+  messagingSenderId: "537073268634",
+  appId: "1:537073268634:web:149f89c584bc9716692c23",
+  measurementId: "G-LFC1LT8647"
 };
 
-let app: FirebaseApp;
-let auth: Auth;
-let db: Firestore;
-
-// Initialize Firebase only if the API key is provided to prevent crashes.
-if (firebaseConfig.apiKey) {
-    app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-    auth = getAuth(app);
-    db = getFirestore(app);
-} else {
-    console.warn("Firebase configuration is missing. Please add your project keys to the .env file.");
-}
-
+// Initialize Firebase
+const app: FirebaseApp = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const auth: Auth = getAuth(app);
+const db: Firestore = getFirestore(app);
 
 export { app, auth, db };
