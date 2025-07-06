@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { askTechGee } from "@/app/actions/chat";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/use-auth";
 
 interface Message {
   role: "user" | "assistant";
@@ -22,20 +23,23 @@ export default function Chatbot() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const toggleChat = () => setIsOpen(!isOpen);
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-        setMessages([{ role: "assistant", content: "Hey there! I'm Tech Gee. Ask me anything about your courses or progress. For example, try asking 'How am I doing?'" }])
+        let welcomeMessage = "Hey there! I'm Tech Gee. Ask me anything about our courses. For example, 'What can I learn about Web3?'";
+        if (user) {
+            welcomeMessage += "\nYou can also ask me about your progress, like 'How am I doing?'";
+        }
+        setMessages([{ role: "assistant", content: welcomeMessage }])
     }
-  }, [isOpen, messages.length])
+  }, [isOpen, messages.length, user]);
 
   useEffect(() => {
     if (isOpen) {
-      // Use a timeout to ensure the DOM has updated before we try to scroll.
-      // This prevents a race condition where the ref is not yet attached.
       setTimeout(() => {
         if (scrollAreaRef.current) {
           const viewport = scrollAreaRef.current.querySelector<HTMLDivElement>(
@@ -45,7 +49,7 @@ export default function Chatbot() {
             viewport.scrollTop = viewport.scrollHeight;
           }
         }
-      }, 0);
+      }, 100); 
     }
   }, [messages, isOpen]);
 
@@ -60,7 +64,7 @@ export default function Chatbot() {
     setIsLoading(true);
 
     try {
-      const answer = await askTechGee({ question: currentInput });
+      const answer = await askTechGee({ question: currentInput, studentId: user?.uid || null });
       const assistantMessage: Message = { role: "assistant", content: answer };
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {

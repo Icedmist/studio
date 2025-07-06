@@ -6,12 +6,11 @@ import {
 } from "@/ai/flows/tech-gee-chatbot";
 
 export async function askTechGee(
-  {question}: {question: string}
+  {question, studentId}: {question: string, studentId: string | null}
 ): Promise<string> {
   try {
-    // In a real app, studentId would come from the user's session.
-    const studentId = 'user_alex_johnson'; 
-    const result = await techGeeChatbot({ question, studentId });
+    // studentId can be null if user is not logged in. The flow is designed to handle this.
+    const result = await techGeeChatbot({ question, studentId: studentId ?? undefined });
     return result.answer;
   } catch (error) {
     console.error("Error calling Tech Gee chatbot flow:", error);
