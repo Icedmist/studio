@@ -1,65 +1,1231 @@
 import type { Course } from './types';
 
 export const courses: Course[] = [
+  // Category: Futures Trading
+  // Beginner
   {
-    id: '1',
+    id: 'ft-b-1',
     title: 'Introduction to Futures Trading',
     description: 'Learn the fundamentals of futures markets and trading strategies.',
-    longDescription: 'This comprehensive course covers everything from the history of futures trading to modern-day strategies. You will learn about market analysis, risk management, and how to develop your own trading plan. Suitable for complete beginners.',
+    longDescription: 'A foundational course covering the basics of futures trading, from what futures are to how they are traded on various exchanges. Perfect for absolute beginners.',
     category: 'Futures Trading',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 65,
+    progress: 75,
     modules: [
         { title: 'Module 1: The Basics', lessons: [{title: 'What are Futures?', duration: '15min'}, {title: 'Market Players', duration: '20min'}] },
-        { title: 'Module 2: Technical Analysis', lessons: [{title: 'Chart Patterns', duration: '45min'}, {title: 'Indicators', duration: '60min'}] },
+        { title: 'Module 2: Your First Trade', lessons: [{title: 'Opening an Account', duration: '10min'}, {title: 'Placing an Order', duration: '25min'}] },
     ]
   },
   {
-    id: '2',
-    title: 'Advanced Web3 Development',
-    description: 'Build complex decentralized applications on the blockchain.',
-    longDescription: 'Dive deep into the world of Web3. This course explores advanced smart contract development, decentralized storage solutions, and building scalable dApps. A solid understanding of blockchain basics is required.',
-    category: 'Web3',
-    level: 'Advanced',
+    id: 'ft-b-2',
+    title: 'Futures Markets Overview',
+    description: 'Explore the different types of futures markets available.',
+    longDescription: 'This course provides a comprehensive overview of the various futures markets, including commodities, indices, and currencies, helping you find the right market for your trading style.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 30,
+    modules: [
+        { title: 'Module 1: Market Types', lessons: [{title: 'Commodity Futures', duration: '30min'}, {title: 'Financial Futures', duration: '30min'}] },
+        { title: 'Module 2: Major Exchanges', lessons: [{title: 'CME Group', duration: '20min'}, {title: 'ICE', duration: '20min'}] },
+    ]
+  },
+  {
+    id: 'ft-b-3',
+    title: 'Basic Futures Trading Strategies',
+    description: 'Learn simple yet effective strategies for trading futures.',
+    longDescription: 'Discover foundational trading strategies that you can apply immediately. This course covers trend-following, range trading, and breakout strategies with practical examples.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Strategy Concepts', lessons: [{title: 'Long and Short Positions', duration: '20min'}] },
+        { title: 'Module 2: Basic Strategies', lessons: [{title: 'Trend Following', duration: '40min'}, {title: 'Breakout Trading', duration: '35min'}] },
+    ]
+  },
+  {
+    id: 'ft-b-4',
+    title: 'Technical Analysis for Futures',
+    description: 'Understand how to read charts and use indicators for trading.',
+    longDescription: 'Learn the art of technical analysis to predict market movements. This course covers chart patterns, support and resistance, moving averages, and other key indicators.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 90,
+    modules: [
+        { title: 'Module 1: Charting Basics', lessons: [{title: 'Candlestick Charts', duration: '30min'}] },
+        { title: 'Module 2: Key Indicators', lessons: [{title: 'Moving Averages', duration: '25min'}, {title: 'RSI', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'ft-b-5',
+    title: 'Fundamental Analysis in Futures',
+    description: 'Learn how economic data and news impact futures prices.',
+    longDescription: 'Go beyond the charts to understand the real-world factors that drive market prices. This course explores supply and demand, economic reports, and geopolitical events.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 15,
+    modules: [
+        { title: 'Module 1: Core Concepts', lessons: [{title: 'Supply and Demand', duration: '25min'}] },
+        { title: 'Module 2: Data Sources', lessons: [{title: 'Economic Calendars', duration: '20min'}, {title: 'Government Reports', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'ft-b-6',
+    title: 'Risk Management Essentials',
+    description: 'Discover how to protect your capital while trading futures.',
+    longDescription: 'The most critical skill for any trader. This course teaches you how to manage risk effectively using stop-loss orders, position sizing, and understanding leverage.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 100,
+    modules: [
+        { title: 'Module 1: Principles of Risk', lessons: [{title: 'Risk vs. Reward', duration: '20min'}] },
+        { title: 'Module 2: Practical Tools', lessons: [{title: 'Stop-Loss Orders', duration: '30min'}, {title: 'Position Sizing', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'ft-b-7',
+    title: 'Trading Psychology',
+    description: 'Master the mental game of trading to avoid common pitfalls.',
+    longDescription: 'Learn to control emotions like fear and greed that can sabotage your trading performance. This course covers discipline, patience, and developing a winning mindset.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 50,
+    modules: [
+        { title: 'Module 1: Emotional Enemies', lessons: [{title: 'Fear and Greed', duration: '30min'}] },
+        { title: 'Module 2: Building Discipline', lessons: [{title: 'Sticking to Your Plan', duration: '35min'}] },
+    ]
+  },
+  {
+    id: 'ft-b-8',
+    title: 'Futures Trading Platforms',
+    description: 'Get a step-by-step guide to using popular trading software.',
+    longDescription: 'This practical course walks you through setting up and using top trading platforms, so you can analyze charts and execute trades with confidence.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Platform Setup', lessons: [{title: 'Installation and Configuration', duration: '20min'}] },
+        { title: 'Module 2: Core Features', lessons: [{title: 'Charting Tools', duration: '30min'}, {title: 'Order Entry', duration: '25min'}] },
+    ]
+  },
+  {
+    id: 'ft-b-9',
+    title: 'Simulated Trading Practice',
+    description: 'Apply your knowledge in a risk-free environment.',
+    longDescription: 'Put your learning into practice without risking real money. This course guides you through paper trading, helping you build confidence and refine your strategy.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Setting up a Demo', lessons: [{title: 'Choosing a Simulator', duration: '15min'}] },
+        { title: 'Module 2: Practice Sessions', lessons: [{title: 'Executing Mock Trades', duration: '45min'}] },
+    ]
+  },
+  {
+    id: 'ft-b-10',
+    title: 'Building a Trading Plan',
+    description: 'Create a personalized and structured plan for your trading.',
+    longDescription: 'Formalize your strategy into a comprehensive trading plan. This course covers defining your goals, rules for entry and exit, and how to review your performance.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 80,
+    modules: [
+        { title: 'Module 1: Plan Components', lessons: [{title: 'Defining Your Edge', duration: '30min'}] },
+        { title: 'Module 2: Execution and Review', lessons: [{title: 'Journaling Your Trades', duration: '30min'}] },
+    ]
+  },
+  // Intermediate
+  {
+    id: 'ft-i-1',
+    title: 'Advanced Trading Strategies',
+    description: 'Explore sophisticated strategies like spreading and hedging.',
+    longDescription: 'Go beyond the basics with advanced strategies like calendar spreads, intercommodity spreads, and various hedging techniques used by professional traders.',
+    category: 'Futures Trading',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 30,
+    modules: [
+        { title: 'Module 1: Spreads', lessons: [{title: 'Calendar Spreads', duration: '45min'}, {title: 'Inter-commodity Spreads', duration: '50min'}] },
+        { title: 'Module 2: Hedging', lessons: [{title: 'Portfolio Hedging', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'ft-i-2',
+    title: 'Quantitative Analysis',
+    description: 'Apply mathematical models to identify trading opportunities.',
+    longDescription: 'Learn to use quantitative methods to analyze market data. This course introduces statistical arbitrage, backtesting, and model validation techniques.',
+    category: 'Futures Trading',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Statistical Concepts', lessons: [{title: 'Mean Reversion', duration: '45min'}] },
+        { title: 'Module 2: Backtesting', lessons: [{title: 'How to Backtest a Strategy', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'ft-i-3',
+    title: 'Algorithmic Trading Introduction',
+    description: 'Learn the basics of automating your trading strategies.',
+    longDescription: 'Step into the world of automated trading. This course covers the fundamentals of designing, building, and testing simple trading algorithms.',
+    category: 'Futures Trading',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 45,
+    modules: [
+        { title: 'Module 1: Algo Concepts', lessons: [{title: 'What is Algorithmic Trading?', duration: '30min'}] },
+        { title: 'Module 2: Building a Simple Bot', lessons: [{title: 'Strategy Automation in Python', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ft-i-4',
+    title: 'Options on Futures',
+    description: 'Understand how to trade options contracts on futures markets.',
+    longDescription: 'Add a powerful tool to your trading arsenal. This course explores options terminology, basic strategies like calls and puts, and how to manage risk.',
+    category: 'Futures Trading',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Options Basics', lessons: [{title: 'Calls and Puts', duration: '40min'}] },
+        { title: 'Module 2: Basic Strategies', lessons: [{title: 'Covered Calls', duration: '45min'}] },
+    ]
+  },
+  {
+    id: 'ft-i-5',
+    title: 'Market Microstructure',
+    description: 'Analyze the mechanics of order flow and market making.',
+    longDescription: 'Gain a deeper understanding of how markets work. This course examines order books, liquidity, and the impact of high-frequency trading on market dynamics.',
+    category: 'Futures Trading',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Order Flow', lessons: [{title: 'Analyzing the Order Book', duration: '50min'}] },
+        { title: 'Module 2: Liquidity', lessons: [{title: 'Market Impact of Trades', duration: '45min'}] },
+    ]
+  },
+  {
+    id: 'ft-i-6',
+    title: 'Hedging Techniques',
+    description: 'Learn advanced methods for managing price risk.',
+    longDescription: 'A practical course for producers, consumers, and portfolio managers. Learn how to use futures to lock in prices and protect against adverse market movements.',
+    category: 'Futures Trading',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 70,
+    modules: [
+        { title: 'Module 1: Hedging Principles', lessons: [{title: 'Short vs. Long Hedges', duration: '40min'}] },
+        { title: 'Module 2: Advanced Hedges', lessons: [{title: 'Cross-Hedging', duration: '50min'}] },
+    ]
+  },
+  {
+    id: 'ft-i-7',
+    title: 'Portfolio Management with Futures',
+    description: 'Incorporate futures into a diversified investment portfolio.',
+    longDescription: 'Learn how institutional investors use futures to enhance returns, manage risk, and gain exposure to different asset classes within a larger portfolio.',
+    category: 'Futures Trading',
+    level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
     progress: 20,
     modules: [
-        { title: 'Module 1: Advanced Smart Contracts', lessons: [{title: 'Upgradable Contracts', duration: '60min'}, {title: 'Security Audits', duration: '90min'}] },
-        { title: 'Module 2: Decentralized Storage', lessons: [{title: 'IPFS Deep Dive', duration: '45min'}] },
+        { title: 'Module 1: Asset Allocation', lessons: [{title: 'Using Futures for Diversification', duration: '45min'}] },
+        { title: 'Module 2: Risk Management', lessons: [{title: 'Portfolio Overlay Strategies', duration: '60min'}] },
+    ]
+  },
+  // Advanced
+  {
+    id: 'ft-a-1',
+    title: 'High-Frequency Trading',
+    description: 'Explore the technology and strategies behind HFT.',
+    longDescription: 'An in-depth look at high-frequency trading, covering the necessary infrastructure, co-location, and strategies like statistical arbitrage and market making at speed.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: HFT Infrastructure', lessons: [{title: 'Hardware and Connectivity', duration: '60min'}] },
+        { title: 'Module 2: HFT Strategies', lessons: [{title: 'Latency Arbitrage', duration: '75min'}] },
     ]
   },
   {
-    id: '3',
-    title: 'Crypto Trading for Intermediates',
-    description: 'Master technical analysis and risk management for crypto assets.',
-    longDescription: 'Take your cryptocurrency trading to the next level. This course focuses on advanced charting techniques, understanding market cycles, and implementing robust risk management strategies to navigate the volatile crypto markets.',
+    id: 'ft-a-2',
+    title: 'Machine Learning for Trading',
+    description: 'Apply AI and machine learning models to financial markets.',
+    longDescription: 'This cutting-edge course teaches you how to build and deploy machine learning models to forecast prices, identify patterns, and automate trading decisions.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 10,
+    modules: [
+        { title: 'Module 1: Model Building', lessons: [{title: 'Feature Engineering', duration: '60min'}] },
+        { title: 'Module 2: Strategy Integration', lessons: [{title: 'From Signal to Execution', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ft-a-3',
+    title: 'Market Making in Futures',
+    description: 'Learn the theory and practice of being a market maker.',
+    longDescription: 'Understand the business of market making, including inventory management, quoting strategies, and risk control for providing liquidity to the market.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Market Making Models', lessons: [{title: 'Avellaneda-Stoikov model', duration: '75min'}] },
+        { title: 'Module 2: Risk Management', lessons: [{title: 'Inventory Risk', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'ft-a-4',
+    title: 'Exotic Futures Products',
+    description: 'Explore and trade complex and non-standard futures.',
+    longDescription: 'Dive into less common futures products like weather derivatives, electricity futures, and other exotic contracts, including their unique risks and opportunities.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Weather Derivatives', lessons: [{title: 'Heating and Cooling Degree Days', duration: '60min'}] },
+        { title: 'Module 2: Volatility Futures', lessons: [{title: 'Trading the VIX', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'ft-a-5',
+    title: 'Global Futures Trading',
+    description: 'Understand the nuances of trading across international markets.',
+    longDescription: 'Learn to navigate the complexities of global futures markets, including different time zones, regulatory environments, and macroeconomic influences.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: International Exchanges', lessons: [{title: 'Eurex and Asian Markets', duration: '60min'}] },
+        { title: 'Module 2: Global Macro', lessons: [{title: 'Currency and Interest Rate Effects', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'ft-a-6',
+    title: 'Systemic Risk Analysis',
+    description: 'Analyze and manage risks that can impact the entire market.',
+    longDescription: 'Explore the concept of systemic risk, how it builds up in the financial system, and how to use futures and other derivatives to monitor and hedge against it.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Understanding Systemic Risk', lessons: [{title: ' contagion and cascades', duration: '60min'}] },
+        { title: 'Module 2: Hedging Tail Risks', lessons: [{title: 'Using Options and VIX', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'ft-a-7',
+    title: 'Advanced Legal and Regulatory Issues',
+    description: 'A deep dive into the compliance landscape for professional traders.',
+    longDescription: 'For aspiring professional and institutional traders, this course covers the complex legal and regulatory frameworks governing the futures industry worldwide.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Global Regulations', lessons: [{title: 'Dodd-Frank and MiFID II', duration: '75min'}] },
+        { title: 'Module 2: Compliance', lessons: [{title: 'Reporting and Surveillance', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'ft-a-8',
+    title: 'Futures Trading Research',
+    description: 'Learn how to conduct and publish original market research.',
+    longDescription: 'This course teaches the methodologies for conducting academic-level research in futures markets, from forming a hypothesis to statistical analysis and writing.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Research Methodology', lessons: [{title: 'Data Collection and Cleaning', duration: '60min'}] },
+        { title: 'Module 2: Publication', lessons: [{title: 'Writing a Research Paper', duration: '90min'}] },
+    ]
+  },
+  
+  // Category: Web3
+  // Beginner
+  {
+    id: 'w3-b-1',
+    title: 'Introduction to Web3',
+    description: 'Understand the vision and core components of the decentralized web.',
+    longDescription: 'Get a clear, high-level overview of Web3. This course explains the shift from Web2, the importance of decentralization, and the key technologies involved.',
+    category: 'Web3',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 95,
+    modules: [
+        { title: 'Module 1: The Evolution of the Web', lessons: [{title: 'Web1, Web2, and Web3', duration: '20min'}] },
+        { title: 'Module 2: Core Concepts', lessons: [{title: 'Decentralization and Blockchain', duration: '25min'}] },
+    ]
+  },
+  {
+    id: 'w3-b-2',
+    title: 'Blockchain Fundamentals',
+    description: 'Learn how blockchain technology works from the ground up.',
+    longDescription: 'Demystify blockchain technology. This course covers blocks, chains, consensus mechanisms, and cryptography in an easy-to-understand way.',
+    category: 'Web3',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 60,
+    modules: [
+        { title: 'Module 1: How it Works', lessons: [{title: 'Blocks, Chains, and Hashes', duration: '30min'}] },
+        { title: 'Module 2: Consensus', lessons: [{title: 'Proof-of-Work vs. Proof-of-Stake', duration: '35min'}] },
+    ]
+  },
+  {
+    id: 'w3-b-3',
+    title: 'Cryptocurrencies 101',
+    description: 'Get an introduction to Bitcoin, Ethereum, and other digital assets.',
+    longDescription: 'Learn about the first and most important applications of blockchain technology: cryptocurrencies. This course covers the basics of Bitcoin, Ethereum, and altcoins.',
+    category: 'Web3',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 100,
+    modules: [
+        { title: 'Module 1: The Basics', lessons: [{title: 'What is Bitcoin?', duration: '20min'}, {title: 'What is Ethereum?', duration: '25min'}] },
+        { title: 'Module 2: The Ecosystem', lessons: [{title: 'Understanding Altcoins', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'w3-b-4',
+    title: 'Smart Contracts Basics',
+    description: 'Understand what smart contracts are and how they work.',
+    longDescription: 'Discover the power of smart contracts, the self-executing code that powers decentralized applications. This course explains their purpose and potential.',
+    category: 'Web3',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 25,
+    modules: [
+        { title: 'Module 1: Core Idea', lessons: [{title: 'Automating Agreements', duration: '20min'}] },
+        { title: 'Module 2: Use Cases', lessons: [{title: 'From Vending Machines to DeFi', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'w3-b-5',
+    title: 'Decentralized Applications (DApps)',
+    description: 'Learn what DApps are and how they differ from traditional apps.',
+    longDescription: 'Explore the new world of decentralized applications. This course covers the architecture of a DApp and showcases popular examples in finance, gaming, and more.',
+    category: 'Web3',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: DApp Architecture', lessons: [{title: 'Frontend, Backend, and Blockchain', duration: '30min'}] },
+        { title: 'Module 2: DApp Examples', lessons: [{title: 'Exploring the DApp Landscape', duration: '25min'}] },
+    ]
+  },
+  {
+    id: 'w3-b-6',
+    title: 'Web3 Wallets',
+    description: 'Learn how to create and manage your own crypto wallet securely.',
+    longDescription: 'Your gateway to the decentralized web. This essential course teaches you about different types of wallets (hot and cold), how to set one up, and best practices for security.',
+    category: 'Web3',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Wallet Types', lessons: [{title: 'Hot vs. Cold Wallets', duration: '20min'}] },
+        { title: 'Module 2: Security', lessons: [{title: 'Seed Phrases and Private Keys', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'w3-b-7',
+    title: 'NFTs Explained',
+    description: 'Understand the technology behind Non-Fungible Tokens.',
+    longDescription: 'Go beyond the hype to understand what NFTs are, how they work, and their potential use cases in art, gaming, and digital identity.',
+    category: 'Web3',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: What is an NFT?', lessons: [{title: 'Fungible vs. Non-Fungible', duration: '20min'}] },
+        { title: 'Module 2: Use Cases', lessons: [{title: 'Digital Art, Gaming, and More', duration: '25min'}] },
+    ]
+  },
+  {
+    id: 'w3-b-8',
+    title: 'Web3 Security',
+    description: 'Learn the basic principles of staying safe in the Web3 world.',
+    longDescription: 'Security is paramount in Web3. This course covers common scams, how to identify malicious contracts, and best practices for protecting your assets.',
+    category: 'Web3',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Common Threats', lessons: [{title: 'Phishing and Scams', duration: '30min'}] },
+        { title: 'Module 2: Best Practices', lessons: [{title: 'Protecting Your Wallet', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'w3-b-9',
+    title: 'Ethereum for Beginners',
+    description: 'A focused introduction to the leading smart contract platform.',
+    longDescription: 'Learn about Ethereum, the blockchain that pioneered smart contracts. This course covers Ether (ETH), gas fees, and the Ethereum Virtual Machine (EVM).',
+    category: 'Web3',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 40,
+    modules: [
+        { title: 'Module 1: Ethereum Basics', lessons: [{title: 'What is Ethereum?', duration: '20min'}] },
+        { title: 'Module 2: How it Works', lessons: [{title: 'Gas and the EVM', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'w3-b-10',
+    title: 'Web3 Development Tools',
+    description: 'An overview of the essential tools for building in Web3.',
+    longDescription: 'Get familiar with the Web3 developer stack. This course introduces you to tools like Hardhat, Ethers.js, and IPFS that you will need to start building DApps.',
+    category: 'Web3',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Smart Contract Tools', lessons: [{title: 'Introduction to Hardhat', duration: '30min'}] },
+        { title: 'Module 2: Frontend Tools', lessons: [{title: 'Introduction to Ethers.js', duration: '30min'}] },
+    ]
+  },
+  // Intermediate
+  {
+    id: 'w3-i-1',
+    title: 'Advanced Smart Contract Development',
+    description: 'Build complex and optimized smart contracts.',
+    longDescription: 'Go beyond basic contracts to learn about upgradeability patterns, gas optimization techniques, and complex data structures for professional-grade DApps.',
+    category: 'Web3',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 20,
+    modules: [
+        { title: 'Module 1: Advanced Patterns', lessons: [{title: 'Upgradable Contracts (Proxies)', duration: '60min'}] },
+        { title: 'Module 2: Optimization', lessons: [{title: 'Gas Saving Techniques', duration: '50min'}] },
+    ]
+  },
+  {
+    id: 'w3-i-2',
+    title: 'Solidity Programming',
+    description: 'Master the primary language for Ethereum smart contracts.',
+    longDescription: 'A deep dive into Solidity. This course covers everything from basic syntax to advanced features, preparing you to write secure and efficient smart contracts.',
+    category: 'Web3',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Solidity Fundamentals', lessons: [{title: 'Data Types and Functions', duration: '60min'}] },
+        { title: 'Module 2: Advanced Solidity', lessons: [{title: 'Inheritance and Libraries', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'w3-i-3',
+    title: 'Web3 Frontend Development',
+    description: 'Learn to build user interfaces that interact with the blockchain.',
+    longDescription: 'Connect your frontend skills to Web3. This course teaches you how to use libraries like Ethers.js or Web3.js to build React applications that talk to smart contracts.',
+    category: 'Web3',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Connecting to Wallets', lessons: [{title: 'WalletConnect and MetaMask', duration: '45min'}] },
+        { title: 'Module 2: Interacting with Contracts', lessons: [{title: 'Reading and Writing Data', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'w3-i-4',
+    title: 'Blockchain Scalability',
+    description: 'Understand the solutions for making blockchains faster.',
+    longDescription: 'Explore the blockchain trilemma and the different approaches to scalability, including Layer 2 solutions like rollups and sidechains.',
+    category: 'Web3',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: The Scalability Problem', lessons: [{title: 'The Blockchain Trilemma', duration: '30min'}] },
+        { title: 'Module 2: Layer 2 Solutions', lessons: [{title: 'Optimistic vs. ZK-Rollups', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'w3-i-5',
+    title: 'DeFi Protocols',
+    description: 'A deep dive into the mechanics of decentralized finance.',
+    longDescription: 'Learn how major DeFi protocols like Uniswap, Aave, and MakerDAO work under the hood. This course covers automated market makers, lending protocols, and stablecoins.',
+    category: 'Web3',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 55,
+    modules: [
+        { title: 'Module 1: DEXs', lessons: [{title: 'How Uniswap Works', duration: '60min'}] },
+        { title: 'Module 2: Lending', lessons: [{title: 'How Aave Works', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'w3-i-6',
+    title: 'NFT Marketplaces',
+    description: 'Learn to build your own NFT marketplace from scratch.',
+    longDescription: 'This project-based course guides you through the process of building a fully functional NFT marketplace, from the smart contracts to the frontend.',
+    category: 'Web3',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: NFT Contracts (ERC-721)', lessons: [{title: 'Writing the Smart Contract', duration: '75min'}] },
+        { title: 'Module 2: Marketplace Frontend', lessons: [{title: 'Building the UI in React', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'w3-i-7',
+    title: 'Web3 Security Audits',
+    description: 'Learn the process of auditing smart contracts for vulnerabilities.',
+    longDescription: 'Develop the skills to become a smart contract auditor. This course covers common attack vectors, security tools, and the methodology for conducting a thorough audit.',
+    category: 'Web3',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Common Vulnerabilities', lessons: [{title: 'Reentrancy and Other Attacks', duration: '60min'}] },
+        { title: 'Module 2: Auditing Tools', lessons: [{title: 'Using Slither and Mythril', duration: '60min'}] },
+    ]
+  },
+  // Advanced
+  {
+    id: 'w3-a-1',
+    title: 'Zero-Knowledge Proofs',
+    description: 'Understand the cryptography behind ZKPs and their applications.',
+    longDescription: 'A deep dive into one of the most exciting fields in cryptography. This course explains the math behind ZK-proofs and their use in scaling and privacy.',
+    category: 'Web3',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: ZKP Theory', lessons: [{title: 'SNARKs vs. STARKs', duration: '90min'}] },
+        { title: 'Module 2: Practical Applications', lessons: [{title: 'Building with ZK-Rollups', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'w3-a-2',
+    title: 'Layer 1 Blockchains',
+    description: 'Analyze and compare the architecture of different L1s.',
+    longDescription: 'Go beyond Ethereum to explore the design and architecture of other Layer 1 blockchains like Solana, Avalanche, and Cosmos, and understand their trade-offs.',
+    category: 'Web3',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Alternative Architectures', lessons: [{title: 'The Solana Model', duration: '75min'}] },
+        { title: 'Module 2: The Cosmos Ecosystem', lessons: [{title: 'The Inter-Blockchain Communication Protocol (IBC)', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'w3-a-3',
+    title: 'Web3 Interoperability',
+    description: 'Explore solutions for communication between different blockchains.',
+    longDescription: 'As the multi-chain world grows, interoperability is key. This course covers different bridging solutions and protocols that enable cross-chain communication.',
+    category: 'Web3',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Bridge Designs', lessons: [{title: 'Security and Trade-offs', duration: '75min'}] },
+        { title: 'Module 2: Interoperability Protocols', lessons: [{title: 'LayerZero and Axelar', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'w3-a-4',
+    title: 'Decentralized Autonomous Organizations (DAOs)',
+    description: 'Learn to design, build, and manage DAOs.',
+    longDescription: 'Explore the future of organizations. This course covers the technical and social aspects of DAOs, including governance structures, treasury management, and legal wrappers.',
+    category: 'Web3',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: DAO Frameworks', lessons: [{title: 'Building on Aragon and Governor', duration: '75min'}] },
+        { title: 'Module 2: Governance', lessons: [{title: 'Voting Mechanisms and Treasury Management', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'w3-a-5',
+    title: 'Advanced DeFi Strategies',
+    description: 'Explore complex strategies like leveraged yield farming.',
+    longDescription: 'For the DeFi degen, this course covers high-risk, high-reward strategies including leveraged yield farming, delta-neutral strategies, and structured products.',
+    category: 'Web3',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 10,
+    modules: [
+        { title: 'Module 1: Yield Farming', lessons: [{title: 'Leveraged Positions', duration: '75min'}] },
+        { title: 'Module 2: Structured Products', lessons: [{title: 'DeFi Options Vaults', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'w3-a-6',
+    title: 'Web3 and AI Integration',
+    description: 'Explore the intersection of decentralized and intelligent systems.',
+    longDescription: 'Discover the synergies between AI and Web3. This course explores decentralized AI marketplaces, on-chain machine learning models, and AI-powered DAOs.',
+    category: 'Web3',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Decentralized AI', lessons: [{title: 'Use cases and challenges', duration: '75min'}] },
+        { title: 'Module 2: On-chain AI', lessons: [{title: 'Verifiable Computation for AI', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'w3-a-7',
+    title: 'Regulatory Compliance in Web3',
+    description: 'Navigate the evolving legal landscape of Web3.',
+    longDescription: 'For founders and professionals, this course provides an overview of the key regulatory challenges in Web3, including securities laws, AML/KYC, and taxation.',
+    category: 'Web3',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Securities Law', lessons: [{title: 'The Howey Test and Tokens', duration: '75min'}] },
+        { title: 'Module 2: AML/KYC', lessons: [{title: 'Compliance for DeFi Protocols', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'w3-a-8',
+    title: 'Web3 Research',
+    description: 'Learn to conduct and contribute to research in Web3.',
+    longDescription: 'This course focuses on the methodologies for research in the fast-moving Web3 space, covering protocol analysis, mechanism design, and cryptoeconomics.',
+    category: 'Web3',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Cryptoeconomics', lessons: [{title: 'Analyzing Incentives', duration: '75min'}] },
+        { title: 'Module 2: Mechanism Design', lessons: [{title: 'Designing new protocols', duration: '90min'}] },
+    ]
+  },
+  
+  // Category: Crypto
+  // Beginner
+  {
+    id: 'c-b-1',
+    title: 'Introduction to Cryptocurrency',
+    description: 'Learn the basics of blockchain, Bitcoin, and Ethereum.',
+    longDescription: 'This course is the perfect starting point for anyone new to crypto. We cover the history of money, what makes blockchain revolutionary, and how to safely buy and sell digital assets.',
+    category: 'Crypto',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 100,
+    modules: [
+        { title: 'Module 1: The Basics', lessons: [{title: 'What is Blockchain?', duration: '20min'}, {title: 'Understanding Bitcoin', duration: '25min'}] },
+        { title: 'Module 2: Getting Started', lessons: [{title: 'Setting up a Wallet', duration: '30min'}, {title: 'Making a Transaction', duration: '15min'}] },
+    ]
+  },
+  {
+    id: 'c-b-2',
+    title: 'Blockchain Technology',
+    description: 'A deeper dive into the technology that powers cryptocurrencies.',
+    longDescription: 'Understand the technical foundations of cryptocurrencies. This course explains concepts like decentralization, cryptography, and consensus in more detail.',
+    category: 'Crypto',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 50,
+    modules: [
+        { title: 'Module 1: Core Concepts', lessons: [{title: 'Decentralized Ledgers', duration: '30min'}] },
+        { title: 'Module 2: Cryptography', lessons: [{title: 'Public and Private Keys', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'c-b-3',
+    title: 'Buying and Selling Crypto',
+    description: 'A practical guide to using exchanges to trade crypto.',
+    longDescription: 'Learn step-by-step how to use a cryptocurrency exchange to buy, sell, and trade your first digital assets safely and efficiently.',
+    category: 'Crypto',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Choosing an Exchange', lessons: [{title: 'Centralized vs. Decentralized', duration: '25min'}] },
+        { title: 'Module 2: Placing Orders', lessons: [{title: 'Market and Limit Orders', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'c-b-4',
+    title: 'Crypto Wallets',
+    description: 'Learn how to securely store your cryptocurrencies.',
+    longDescription: 'An essential course on wallet security. Learn the difference between software and hardware wallets and the best practices for keeping your crypto safe from threats.',
+    category: 'Crypto',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Wallet Types', lessons: [{title: 'Software (Hot) vs. Hardware (Cold)', duration: '30min'}] },
+        { title: 'Module 2: Security Best Practices', lessons: [{title: 'Managing Your Seed Phrase', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'c-b-5',
+    title: 'Crypto Security',
+    description: 'Learn to identify and avoid common scams in the crypto space.',
+    longDescription: 'Protect yourself from the risks in the crypto world. This course teaches you how to spot phishing attacks, rug pulls, and other common scams.',
+    category: 'Crypto',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 88,
+    modules: [
+        { title: 'Module 1: Threat Landscape', lessons: [{title: 'Common Scams', duration: '30min'}] },
+        { title: 'Module 2: Defensive Measures', lessons: [{title: 'How to Stay Safe', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'c-b-6',
+    title: 'Understanding Altcoins',
+    description: 'Explore the world of cryptocurrencies beyond Bitcoin.',
+    longDescription: 'Bitcoin is just the beginning. This course provides an overview of the altcoin market, including different categories like Layer 1s, DeFi tokens, and memecoins.',
+    category: 'Crypto',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Altcoin Categories', lessons: [{title: 'What are Altcoins?', duration: '25min'}] },
+        { title: 'Module 2: Researching Projects', lessons: [{title: 'How to Evaluate an Altcoin', duration: '35min'}] },
+    ]
+  },
+  {
+    id: 'c-b-7',
+    title: 'Crypto Market Analysis',
+    description: 'An introduction to analyzing the cryptocurrency market.',
+    longDescription: 'Learn the basics of both technical and fundamental analysis as they apply to the crypto markets to help you make more informed trading decisions.',
+    category: 'Crypto',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Technical Analysis Basics', lessons: [{title: 'Reading charts', duration: '30min'}] },
+        { title: 'Module 2: Fundamental Analysis Basics', lessons: [{title: 'Evaluating Projects', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'c-b-8',
+    title: 'ICO and Token Sales',
+    description: 'Understand how new cryptocurrencies are launched.',
+    longDescription: 'Learn about Initial Coin Offerings (ICOs), Initial DEX Offerings (IDOs), and other methods of token distribution, including the risks and opportunities.',
+    category: 'Crypto',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Token Launch Models', lessons: [{title: 'From ICOs to Airdrops', duration: '30min'}] },
+        { title: 'Module 2: Evaluating a Sale', lessons: [{title: 'Red Flags and Green Flags', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'c-b-9',
+    title: 'Crypto Regulations',
+    description: 'A simple overview of the regulatory landscape for crypto.',
+    longDescription: 'Get a basic understanding of how governments and regulators are approaching cryptocurrency around the world, and what it means for you as an investor.',
+    category: 'Crypto',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Global Overview', lessons: [{title: 'Different Approaches by Country', duration: '30min'}] },
+        { title: 'Module 2: Key Issues', lessons: [{title: 'Taxation and Securities Law', duration: '30min'}] },
+    ]
+  },
+  {
+    id: 'c-b-10',
+    title: 'Building a Crypto Portfolio',
+    description: 'Learn the basics of asset allocation and portfolio construction.',
+    longDescription: 'This course provides a framework for building your first crypto portfolio, covering diversification, risk tolerance, and setting long-term goals.',
+    category: 'Crypto',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 70,
+    modules: [
+        { title: 'Module 1: Portfolio Theory', lessons: [{title: 'Diversification', duration: '30min'}] },
+        { title: 'Module 2: Construction', lessons: [{title: 'Building Your First Portfolio', duration: '30min'}] },
+    ]
+  },
+  // Intermediate
+  {
+    id: 'c-i-1',
+    title: 'Technical Analysis for Crypto',
+    description: 'Master technical analysis for the volatile crypto markets.',
+    longDescription: 'A deep dive into technical analysis specifically for cryptocurrencies. This course covers advanced chart patterns, indicators, and strategies tailored to the crypto market.',
     category: 'Crypto',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
     progress: 0,
     modules: [
-        { title: 'Module 1: Market Psychology', lessons: [{title: 'Fear & Greed Index', duration: '30min'}] },
-        { title: 'Module 2: DeFi Trading', lessons: [{title: 'Yield Farming', duration: '75min'}] },
+        { title: 'Module 1: Advanced Charting', lessons: [{title: 'On-Chain Indicators', duration: '45min'}] },
+        { title: 'Module 2: Trading Strategies', lessons: [{title: 'Combining Indicators', duration: '60min'}] },
     ]
   },
   {
-    id: '4',
-    title: 'Foundations of AI & Machine Learning',
-    description: 'Understand the core concepts of AI and build your first models.',
-    longDescription: 'Begin your journey into Artificial Intelligence. This course provides a gentle introduction to machine learning concepts, popular algorithms, and the Python libraries you need to start building and training your own predictive models.',
-    category: 'AI & Machine Learning',
+    id: 'c-i-2',
+    title: 'Fundamental Analysis',
+    description: 'Learn how to properly value cryptocurrency projects.',
+    longDescription: 'Go beyond the whitepaper to conduct deep fundamental analysis. This course covers tokenomics, community analysis, developer activity, and competitive landscape.',
+    category: 'Crypto',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Tokenomics', lessons: [{title: 'Analyzing Supply and Demand', duration: '45min'}] },
+        { title: 'Module 2: Project Valuation', lessons: [{title: 'A Framework for Analysis', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'c-i-3',
+    title: 'Crypto Trading Strategies',
+    description: 'Explore strategies like swing trading and day trading.',
+    longDescription: 'Develop a repertoire of trading strategies for different market conditions. This course covers swing trading, scalping, and position trading in the crypto markets.',
+    category: 'Crypto',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Swing Trading', lessons: [{title: 'Capturing Medium-Term Trends', duration: '60min'}] },
+        { title: 'Module 2: Day Trading', lessons: [{title: 'Short-Term Strategies', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'c-i-4',
+    title: 'Risk Management in Crypto',
+    description: 'Advanced techniques for managing risk in a volatile market.',
+    longDescription: 'Learn professional risk management techniques to protect your capital. This course covers advanced position sizing, portfolio hedging, and managing volatility.',
+    category: 'Crypto',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Position Sizing', lessons: [{title: 'The Kelly Criterion', duration: '45min'}] },
+        { title: 'Module 2: Hedging', lessons: [{title: 'Using Derivatives to Hedge', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'c-i-5',
+    title: 'DeFi Investing',
+    description: 'Learn to navigate and invest in the world of decentralized finance.',
+    longDescription: 'This course provides a practical guide to participating in DeFi. Learn about yield farming, liquidity providing, and staking to earn passive income on your crypto.',
+    category: 'Crypto',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 62,
+    modules: [
+        { title: 'Module 1: Yield Farming', lessons: [{title: 'Strategies and Risks', duration: '60min'}] },
+        { title: 'Module 2: Liquidity Providing', lessons: [{title: 'Understanding Impermanent Loss', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'c-i-6',
+    title: 'NFT Trading',
+    description: 'Learn strategies for trading and investing in NFTs.',
+    longDescription: 'Move from collecting to trading NFTs. This course covers how to value NFT projects, identify trends, and develop strategies for flipping and long-term holding.',
+    category: 'Crypto',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Valuing NFTs', lessons: [{title: 'Rarity and other factors', duration: '45min'}] },
+        { title: 'Module 2: Trading Strategies', lessons: [{title: 'Flipping and Analysis', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'c-i-7',
+    title: 'Crypto Tax Planning',
+    description: 'Understand the tax implications of crypto trading and investing.',
+    longDescription: 'A practical guide to navigating the complex world of crypto taxes. This course covers how crypto is taxed, how to track your transactions, and strategies for tax optimization.',
+    category: 'Crypto',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Tax Basics', lessons: [{title: 'How Crypto Transactions are Taxed', duration: '45min'}] },
+        { title: 'Module 2: Tracking and Reporting', lessons: [{title: 'Using Crypto Tax Software', duration: '45min'}] },
+    ]
+  },
+  // Advanced
+  {
+    id: 'c-a-1',
+    title: 'Algorithmic Crypto Trading',
+    description: 'Design, build, and deploy your own crypto trading bots.',
+    longDescription: 'This advanced, project-based course teaches you how to build and operate your own automated trading strategies for the crypto markets using Python.',
+    category: 'Crypto',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Bot Architecture', lessons: [{title: 'Connecting to Exchanges via API', duration: '75min'}] },
+        { title: 'Module 2: Strategy Implementation', lessons: [{title: 'Backtesting and Live Deployment', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'c-a-2',
+    title: 'Quantitative Crypto Analysis',
+    description: 'Apply quantitative models to the crypto markets.',
+    longDescription: 'Learn to use sophisticated quantitative methods to analyze the crypto markets. This course covers on-chain data analysis, statistical modeling, and machine learning applications.',
+    category: 'Crypto',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: On-Chain Analysis', lessons: [{title: 'Using Data from the Blockchain', duration: '75min'}] },
+        { title: 'Module 2: Machine Learning', lessons: [{title: 'Building Predictive Models', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'c-a-3',
+    title: 'Crypto Derivatives',
+    description: 'Master trading crypto futures, options, and perpetual swaps.',
+    longDescription: 'A deep dive into the crypto derivatives market. This course covers the mechanics of these products, advanced trading strategies, and risk management.',
+    category: 'Crypto',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Perpetual Swaps', lessons: [{title: 'Funding Rates and Mechanics', duration: '75min'}] },
+        { title: 'Module 2: Options Strategies', lessons: [{title: 'Advanced Options Spreads', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'c-a-4',
+    title: 'Advanced DeFi',
+    description: 'Explore the frontiers of decentralized finance.',
+    longDescription: 'This course explores the cutting edge of DeFi, including structured products, undercollateralized lending, and the design of new financial primitives.',
+    category: 'Crypto',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: DeFi Structured Products', lessons: [{title: 'Options Vaults and Exotics', duration: '75min'}] },
+        { title: 'Module 2: Protocol Design', lessons: [{title: 'Building New DeFi Protocols', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'c-a-5',
+    title: 'Crypto Arbitrage',
+    description: 'Learn to find and execute arbitrage opportunities.',
+    longDescription: 'Exploit price differences across exchanges and protocols. This course covers different types of arbitrage (spatial, triangular) and how to automate their execution.',
+    category: 'Crypto',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 22,
+    modules: [
+        { title: 'Module 1: Arbitrage Theory', lessons: [{title: 'Finding Opportunities', duration: '60min'}] },
+        { title: 'Module 2: Automated Execution', lessons: [{title: 'Building an Arbitrage Bot', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'c-a-6',
+    title: 'Blockchain Development',
+    description: 'Learn the fundamentals of building a new blockchain.',
+    longDescription: 'For the highly ambitious, this course provides an introduction to the computer science behind building a Layer 1 blockchain, using frameworks like the Cosmos SDK.',
+    category: 'Crypto',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Consensus Engines', lessons: [{title: 'Understanding Tendermint', duration: '75min'}] },
+        { title: 'Module 2: Building with Cosmos SDK', lessons: [{title: 'Creating Your Own Blockchain', duration: '120min'}] },
+    ]
+  },
+  {
+    id: 'c-a-7',
+    title: 'Crypto Security Audits',
+    description: 'Become a professional smart contract security auditor.',
+    longDescription: 'This advanced course prepares you for a career in smart contract auditing. It covers advanced vulnerability analysis, formal verification, and industry best practices.',
+    category: 'Crypto',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Advanced Vulnerabilities', lessons: [{title: 'Logic Errors and Exploits', duration: '90min'}] },
+        { title: 'Module 2: Auditing Process', lessons: [{title: 'From Start to Final Report', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'c-a-8',
+    title: 'Research in Cryptocurrency',
+    description: 'Learn to conduct and publish original research in the crypto field.',
+    longDescription: 'This course provides the tools and methodologies for conducting high-level research in cryptoeconomics, protocol design, and market analysis.',
+    category: 'Crypto',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Research Methodology', lessons: [{title: 'Forming a Hypothesis', duration: '60min'}] },
+        { title: 'Module 2: Data Analysis', lessons: [{title: 'Working with On-Chain Data', duration: '90min'}] },
+    ]
+  },
+  
+  // Category: Tech Skills
+  // Beginner
+  {
+    id: 'ts-b-1',
+    title: 'Introduction to Programming',
+    description: 'Learn the fundamental concepts of programming with Python.',
+    longDescription: 'The perfect starting point for your coding journey. This course teaches the universal concepts of programming like variables, loops, and functions, using the beginner-friendly Python language.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 80,
+    modules: [
+        { title: 'Module 1: The Basics', lessons: [{title: 'Variables and Data Types', duration: '45min'}] },
+        { title: 'Module 2: Control Flow', lessons: [{title: 'Loops and Conditionals', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'ts-b-2',
+    title: 'Web Development Fundamentals',
+    description: 'Learn the core technologies of the web: HTML, CSS, and JavaScript.',
+    longDescription: 'Build your first websites from scratch. This course covers the three essential technologies that form the foundation of all web pages and web applications.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 60,
+    modules: [
+        { title: 'Module 1: HTML', lessons: [{title: 'Structuring Web Pages', duration: '45min'}] },
+        { title: 'Module 2: CSS & JavaScript', lessons: [{title: 'Styling and Interactivity', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ts-b-3',
+    title: 'Data Structures and Algorithms',
+    description: 'Learn the essential DS&A concepts for coding interviews.',
+    longDescription: 'Prepare for technical interviews and become a better problem-solver. This course covers essential data structures like arrays, hashmaps, and trees, along with key algorithms.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Data Structures', lessons: [{title: 'Arrays and Linked Lists', duration: '60min'}] },
+        { title: 'Module 2: Algorithms', lessons: [{title: 'Sorting and Searching', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'ts-b-4',
+    title: 'Database Management',
+    description: 'Learn the basics of SQL and managing relational databases.',
+    longDescription: 'Understand how data is stored and retrieved. This course provides a hands-on introduction to SQL, the standard language for interacting with databases.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: SQL Basics', lessons: [{title: 'SELECT, FROM, WHERE', duration: '45min'}] },
+        { title: 'Module 2: Database Design', lessons: [{title: 'Tables and Relationships', duration: '45min'}] },
+    ]
+  },
+  {
+    id: 'ts-b-5',
+    title: 'Version Control with Git',
+    description: 'Learn how to use Git and GitHub to manage your code.',
+    longDescription: 'An essential skill for any developer. This course teaches you how to use Git for version control and GitHub for collaboration, from basic commits to handling merge conflicts.',
+    category: 'Tech Skills',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
     progress: 95,
     modules: [
-        { title: 'Module 1: Introduction', lessons: [{title: 'What is ML?', duration: '25min'}] },
-        { title: 'Module 2: First Models', lessons: [{title: 'Linear Regression', duration: '60min'}] },
+        { title: 'Module 1: Git Basics', lessons: [{title: 'Commits, Branches, and Merges', duration: '60min'}] },
+        { title: 'Module 2: GitHub', lessons: [{title: 'Collaboration with Pull Requests', duration: '45min'}] },
     ]
   },
-    {
-    id: '5',
-    title: 'Full-Stack Web Development',
+  {
+    id: 'ts-b-6',
+    title: 'Cloud Computing Basics',
+    description: 'Understand the fundamentals of cloud services like AWS and Azure.',
+    longDescription: 'Get an introduction to the world of cloud computing. This course explains core concepts like IaaS, PaaS, and SaaS, and provides an overview of major cloud providers.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Cloud Concepts', lessons: [{title: 'What is the Cloud?', duration: '30min'}] },
+        { title: 'Module 2: Major Providers', lessons: [{title: 'Overview of AWS, GCP, Azure', duration: '45min'}] },
+    ]
+  },
+  {
+    id: 'ts-b-7',
+    title: 'Cybersecurity Essentials',
+    description: 'Learn the basic principles of protecting systems and data.',
+    longDescription: 'This course provides a foundational understanding of cybersecurity, covering common threats, defensive measures, and key principles of digital security.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Threat Landscape', lessons: [{title: 'Malware, Phishing, and more', duration: '45min'}] },
+        { title: 'Module 2: Defensive Principles', lessons: [{title: 'Network and System Security', duration: '45min'}] },
+    ]
+  },
+  {
+    id: 'ts-b-8',
+    title: 'Software Testing',
+    description: 'Learn the fundamentals of quality assurance and software testing.',
+    longDescription: 'Discover the importance of testing in the software development lifecycle. This course introduces different testing types, like unit tests and integration tests.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Testing Fundamentals', lessons: [{title: 'The Testing Pyramid', duration: '45min'}] },
+        { title: 'Module 2: Writing Tests', lessons: [{title: 'Introduction to Unit Testing', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'ts-b-9',
+    title: 'Agile Methodology',
+    description: 'Understand the principles of Agile, Scrum, and Kanban.',
+    longDescription: 'Learn the modern approach to software development. This course covers the Agile manifesto, the Scrum framework, and how to work effectively in an Agile team.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Agile Principles', lessons: [{title: 'The Agile Manifesto', duration: '30min'}] },
+        { title: 'Module 2: Scrum Framework', lessons: [{title: 'Sprints, Roles, and Ceremonies', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'ts-b-10',
+    title: 'Tech Career Development',
+    description: 'Learn how to build your resume, portfolio, and interview skills.',
+    longDescription: 'This course provides practical advice on launching your career in tech, from creating a standout portfolio to acing the technical and behavioral interviews.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Portfolio Building', lessons: [{title: 'Showcasing Your Skills', duration: '45min'}] },
+        { title: 'Module 2: Interview Prep', lessons: [{title: 'Technical and Behavioral Interviews', duration: '60min'}] },
+    ]
+  },
+  // Intermediate
+  {
+    id: 'ts-i-1',
+    title: 'Advanced Programming',
+    description: 'Explore advanced topics like concurrency and design patterns.',
+    longDescription: 'Take your programming skills to the next level. This course covers advanced topics like object-oriented design patterns, multithreading, and performance optimization.',
+    category: 'Tech Skills',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Design Patterns', lessons: [{title: 'Singleton, Factory, Observer', duration: '75min'}] },
+        { title: 'Module 2: Concurrency', lessons: [{title: 'Threads and Locks', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'ts-i-2',
+    title: 'Full-Stack Development',
     description: 'Master the MERN stack and build complete web applications.',
     longDescription: 'Become a full-stack developer by mastering the MERN (MongoDB, Express, React, Node.js) stack. This project-based course will guide you through building and deploying a real-world web application from scratch.',
     category: 'Tech Skills',
@@ -72,73 +1238,541 @@ export const courses: Course[] = [
     ]
   },
   {
-    id: '6',
-    title: 'Advanced Solidity',
-    description: 'Deep dive into smart contract development with Solidity.',
-    longDescription: 'For developers who want to specialize in blockchain, this course offers an in-depth exploration of Solidity. Topics include gas optimization, security patterns, and complex data structures on the Ethereum blockchain.',
-    category: 'Web3',
+    id: 'ts-i-3',
+    title: 'DevOps Practices',
+    description: 'Learn the principles and tools of DevOps.',
+    longDescription: 'Bridge the gap between development and operations. This course covers CI/CD pipelines, containerization with Docker, and orchestration with Kubernetes.',
+    category: 'Tech Skills',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: CI/CD', lessons: [{title: 'Automating Builds and Deployments', duration: '75min'}] },
+        { title: 'Module 2: Containers', lessons: [{title: 'Docker and Kubernetes', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ts-i-4',
+    title: 'Machine Learning Basics',
+    description: 'A practical introduction to building machine learning models.',
+    longDescription: 'For developers looking to get into AI, this course provides a hands-on introduction to machine learning, covering common algorithms and how to build models with Scikit-learn.',
+    category: 'Tech Skills',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Supervised Learning', lessons: [{title: 'Regression and Classification', duration: '75min'}] },
+        { title: 'Module 2: Model Evaluation', lessons: [{title: 'Metrics and Validation', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'ts-i-5',
+    title: 'Big Data Analytics',
+    description: 'Learn to work with large datasets using tools like Spark.',
+    longDescription: 'This course introduces the challenges and opportunities of big data. You will learn to use distributed computing frameworks like Apache Spark to process and analyze massive datasets.',
+    category: 'Tech Skills',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Big Data Concepts', lessons: [{title: 'The 3 Vs', duration: '45min'}] },
+        { title: 'Module 2: Apache Spark', lessons: [{title: 'Data Processing with Spark', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ts-i-6',
+    title: 'API Development',
+    description: 'Learn to design and build robust and scalable RESTful APIs.',
+    longDescription: 'Master the art of API design. This course covers REST principles, API security, documentation with OpenAPI/Swagger, and building APIs with Node.js/Express.',
+    category: 'Tech Skills',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 33,
+    modules: [
+        { title: 'Module 1: RESTful Design', lessons: [{title: 'Principles and Best Practices', duration: '60min'}] },
+        { title: 'Module 2: Security', lessons: [{title: 'Authentication and Authorization', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'ts-i-7',
+    title: 'Mobile App Development',
+    description: 'Learn to build cross-platform mobile apps with React Native.',
+    longDescription: 'Build apps for both iOS and Android with a single codebase. This course teaches you the fundamentals of mobile development using the popular React Native framework.',
+    category: 'Tech Skills',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: React Native Basics', lessons: [{title: 'Components and Styling', duration: '75min'}] },
+        { title: 'Module 2: Navigation and State', lessons: [{title: 'Building a Multi-Screen App', duration: '90min'}] },
+    ]
+  },
+  // Advanced
+  {
+    id: 'ts-a-1',
+    title: 'Distributed Systems',
+    description: 'Learn the principles of designing and building distributed systems.',
+    longDescription: 'This course covers the fundamental challenges in distributed systems, including consensus, fault tolerance, and consistency. A must for senior engineers.',
+    category: 'Tech Skills',
     level: 'Advanced',
     imageUrl: 'https://placehold.co/600x400.png',
     progress: 0,
     modules: [
-        { title: 'Module 1: Gas Optimization', lessons: [{title: 'Advanced Techniques', duration: '75min'}] },
-        { title: 'Module 2: Security', lessons: [{title: 'Common Vulnerabilities', duration: '90min'}] },
+        { title: 'Module 1: Core Principles', lessons: [{title: 'CAP Theorem and Tradeoffs', duration: '75min'}] },
+        { title: 'Module 2: Consensus Algorithms', lessons: [{title: 'Paxos and Raft', duration: '90min'}] },
     ]
   },
   {
-    id: '7',
-    title: 'Introduction to Cryptocurrency',
-    description: 'Learn the basics of blockchain, Bitcoin, and Ethereum.',
-    longDescription: 'This course is the perfect starting point for anyone new to crypto. We cover the history of money, what makes blockchain revolutionary, and how to safely buy, sell, and store digital assets.',
-    category: 'Crypto',
+    id: 'ts-a-2',
+    title: 'Artificial Intelligence',
+    description: 'A comprehensive course on the theory and practice of AI.',
+    longDescription: 'This advanced course covers a broad range of AI topics, from search algorithms and knowledge representation to machine learning and robotics.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Search', lessons: [{title: 'Heuristic Search Algorithms', duration: '75min'}] },
+        { title: 'Module 2: Knowledge Representation', lessons: [{title: 'Logic and Reasoning', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'ts-a-3',
+    title: 'Blockchain Development',
+    description: 'Learn the computer science behind building a blockchain.',
+    longDescription: 'Go beyond DApps to learn how a blockchain itself is built. This course covers cryptography, consensus protocols, and peer-to-peer networking.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Cryptography', lessons: [{title: 'Hash Functions and Digital Signatures', duration: '75min'}] },
+        { title: 'Module 2: Consensus', lessons: [{title: 'Proof-of-Work and Proof-of-Stake', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ts-a-4',
+    title: 'Quantum Computing',
+    description: 'An introduction to the principles of quantum computing.',
+    longDescription: 'Explore the next frontier of computation. This course introduces the mind-bending concepts of quantum mechanics and how they can be harnessed for computing.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Quantum Principles', lessons: [{title: 'Superposition and Entanglement', duration: '90min'}] },
+        { title: 'Module 2: Quantum Algorithms', lessons: [{title: 'Shor\'s and Grover\'s Algorithms', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ts-a-5',
+    title: 'Cybersecurity Advanced',
+    description: 'Learn advanced techniques in ethical hacking and defense.',
+    longDescription: 'This course is for those looking to specialize in cybersecurity. It covers penetration testing, reverse engineering, and advanced defensive strategies.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Offensive Security', lessons: [{title: 'Penetration Testing Methodologies', duration: '90min'}] },
+        { title: 'Module 2: Defensive Security', lessons: [{title: 'Incident Response and Forensics', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ts-a-6',
+    title: 'Data Engineering',
+    description: 'Learn to build and manage large-scale data pipelines.',
+    longDescription: 'Master the skills of a data engineer. This course covers data modeling, ETL/ELT pipelines, data warehousing, and workflow orchestration with tools like Airflow.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 40,
+    modules: [
+        { title: 'Module 1: Data Pipelines', lessons: [{title: 'Building ETL/ELT pipelines', duration: '90min'}] },
+        { title: 'Module 2: Data Warehousing', lessons: [{title: 'Concepts and Tools', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'ts-a-7',
+    title: 'Tech Leadership',
+    description: 'Develop the skills to lead and manage engineering teams.',
+    longDescription: 'For senior engineers looking to move into management, this course covers project management, team building, and the principles of technical leadership.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Team Management', lessons: [{title: 'Leading and Motivating Engineers', duration: '75min'}] },
+        { title: 'Module 2: Project Management', lessons: [{title: 'From Roadmap to Delivery', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'ts-a-8',
+    title: 'Research in Technology',
+    description: 'Learn how to conduct and publish original research in tech.',
+    longDescription: 'This course provides a framework for conducting research in computer science, from identifying a research question to writing and submitting a paper for publication.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Research Methodology', lessons: [{title: 'The Scientific Method in CS', duration: '75min'}] },
+        { title: 'Module 2: Writing and Publication', lessons: [{title: 'Publishing Your Work', duration: '75min'}] },
+    ]
+  },
+  
+  // Category: AI & Machine Learning
+  // Beginner
+  {
+    id: 'ai-b-1',
+    title: 'Introduction to AI',
+    description: 'Get a high-level overview of the field of Artificial Intelligence.',
+    longDescription: 'This course demystifies AI, explaining the different types of AI, its history, and its potential impact on society. No technical background required.',
+    category: 'AI & Machine Learning',
     level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 100,
+    progress: 95,
     modules: [
-        { title: 'Module 1: The Basics', lessons: [{title: 'What is Blockchain?', duration: '20min'}, {title: 'Understanding Bitcoin', duration: '25min'}] },
-        { title: 'Module 2: Getting Started', lessons: [{title: 'Setting up a Wallet', duration: '30min'}, {title: 'Making a Transaction', duration: '15min'}] },
+        { title: 'Module 1: What is AI?', lessons: [{title: 'History and Types of AI', duration: '30min'}] },
+        { title: 'Module 2: AI in the Real World', lessons: [{title: 'Applications of AI today', duration: '30min'}] },
     ]
   },
   {
-    id: '8',
-    title: 'Intermediate Futures Strategies',
-    description: 'Explore advanced strategies like spreading and hedging.',
-    longDescription: 'Go beyond the basics of futures trading. In this course, you will learn sophisticated strategies including calendar spreads, intercommodity spreads, and how to use futures to hedge a portfolio.',
-    category: 'Futures Trading',
-    level: 'Intermediate',
+    id: 'ai-b-2',
+    title: 'Machine Learning Fundamentals',
+    description: 'Understand the core concepts of training machines to learn.',
+    longDescription: 'Learn the foundational concepts of machine learning, including supervised, unsupervised, and reinforcement learning, and understand the lifecycle of an ML project.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 30,
+    progress: 0,
     modules: [
-        { title: 'Module 1: Spreads', lessons: [{title: 'Calendar Spreads', duration: '45min'}] },
-        { title: 'Module 2: Hedging', lessons: [{title: 'Portfolio Hedging', duration: '60min'}] },
+        { title: 'Module 1: ML Concepts', lessons: [{title: 'Supervised vs. Unsupervised', duration: '45min'}] },
+        { title: 'Module 2: Project Lifecycle', lessons: [{title: 'From Data to Model', duration: '45min'}] },
     ]
   },
   {
-    id: '9',
-    title: 'Intermediate AI: Neural Networks',
-    description: 'Dive into deep learning and build your own neural networks.',
-    longDescription: 'This course builds on the fundamentals of machine learning, focusing on deep learning. You will learn the theory behind neural networks and get hands-on experience building and training them with TensorFlow and Keras.',
+    id: 'ai-b-3',
+    title: 'Python for AI',
+    description: 'Learn the Python libraries essential for AI and ML.',
+    longDescription: 'Get up to speed with the key Python libraries for AI, including NumPy for numerical operations, Pandas for data manipulation, and Matplotlib for visualization.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: NumPy and Pandas', lessons: [{title: 'Working with Data', duration: '75min'}] },
+        { title: 'Module 2: Matplotlib', lessons: [{title: 'Data Visualization', duration: '45min'}] },
+    ]
+  },
+  {
+    id: 'ai-b-4',
+    title: 'Data Preprocessing',
+    description: 'Learn how to clean and prepare data for machine learning.',
+    longDescription: 'Garbage in, garbage out. This crucial course teaches you how to handle missing values, normalize data, and perform feature engineering to improve model performance.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Data Cleaning', lessons: [{title: 'Handling Missing Data', duration: '45min'}] },
+        { title: 'Module 2: Feature Engineering', lessons: [{title: 'Creating and Selecting Features', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'ai-b-5',
+    title: 'Supervised Learning',
+    description: 'Build your first predictive models with supervised learning.',
+    longDescription: 'Learn to build models that predict outcomes based on labeled data. This course covers fundamental algorithms like linear and logistic regression.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Regression', lessons: [{title: 'Linear Regression', duration: '60min'}] },
+        { title: 'Module 2: Classification', lessons: [{title: 'Logistic Regression', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'ai-b-6',
+    title: 'Unsupervised Learning',
+    description: 'Discover hidden patterns in data with unsupervised learning.',
+    longDescription: 'Learn to find structure in unlabeled data. This course covers key algorithms like K-Means for clustering and PCA for dimensionality reduction.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Clustering', lessons: [{title: 'K-Means Algorithm', duration: '60min'}] },
+        { title: 'Module 2: Dimensionality Reduction', lessons: [{title: 'Principal Component Analysis (PCA)', duration: '60min'}] },
+    ]
+  },
+  {
+    id: 'ai-b-7',
+    title: 'Neural Networks Basics',
+    description: 'Get a simple introduction to the building blocks of deep learning.',
+    longDescription: 'This course provides a gentle, conceptual introduction to neural networks, explaining neurons, layers, and activation functions without the heavy math.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: The Neuron', lessons: [{title: 'How a Single Neuron Works', duration: '45min'}] },
+        { title: 'Module 2: The Network', lessons: [{title: 'Layers and Activation Functions', duration: '45min'}] },
+    ]
+  },
+  {
+    id: 'ai-b-8',
+    title: 'AI Ethics',
+    description: 'Explore the ethical challenges and responsibilities in AI.',
+    longDescription: 'As AI becomes more powerful, its ethical implications are crucial. This course discusses issues of bias, fairness, transparency, and accountability in AI systems.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Bias and Fairness', lessons: [{title: 'Sources of Bias in AI', duration: '45min'}] },
+        { title: 'Module 2: Accountability', lessons: [{title: 'Who is Responsible When AI Fails?', duration: '45min'}] },
+    ]
+  },
+  {
+    id: 'ai-b-9',
+    title: 'AI Tools',
+    description: 'An overview of popular frameworks like TensorFlow and PyTorch.',
+    longDescription: 'Get introduced to the major tools of the trade. This course provides a high-level overview of the most popular deep learning frameworks used by researchers and companies.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: TensorFlow', lessons: [{title: 'Introduction to TensorFlow', duration: '45min'}] },
+        { title: 'Module 2: PyTorch', lessons: [{title: 'Introduction to PyTorch', duration: '45min'}] },
+    ]
+  },
+  {
+    id: 'ai-b-10',
+    title: 'Building ML Models',
+    description: 'A project-based course to build a complete ML model.',
+    longDescription: 'Apply everything you have learned in a hands-on project. This course guides you through the end-to-end process of building a machine learning model to solve a real-world problem.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Project Scoping', lessons: [{title: 'Defining the Problem', duration: '30min'}] },
+        { title: 'Module 2: Model Building', lessons: [{title: 'Training and Evaluation', duration: '90min'}] },
+    ]
+  },
+  // Intermediate
+  {
+    id: 'ai-i-1',
+    title: 'Deep Learning',
+    description: 'A comprehensive course on building and training deep neural networks.',
+    longDescription: 'Dive deep into the world of deep learning. This course covers the theory and practice of building deep neural networks with TensorFlow or PyTorch, including convolutional and recurrent networks.',
     category: 'AI & Machine Learning',
     level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
     progress: 50,
     modules: [
-        { title: 'Module 1: Deep Learning Theory', lessons: [{title: 'What are Neural Networks?', duration: '45min'}] },
-        { title: 'Module 2: Building with TensorFlow', lessons: [{title: 'Image Classification', duration: '90min'}] },
+        { title: 'Module 1: Deep Learning Theory', lessons: [{title: 'Backpropagation and Gradient Descent', duration: '75min'}] },
+        { title: 'Module 2: Building Networks', lessons: [{title: 'CNNs and RNNs', duration: '90min'}] },
     ]
   },
   {
-    id: '10',
-    title: 'Introduction to Python',
-    description: 'Learn the most popular language for data science and web development.',
-    longDescription: 'Start your coding journey with Python. This beginner-friendly course covers all the fundamental concepts, including variables, data types, loops, and functions. No prior programming experience is required.',
-    category: 'Tech Skills',
-    level: 'Beginner',
+    id: 'ai-i-2',
+    title: 'Natural Language Processing',
+    description: 'Learn to build models that can understand and generate text.',
+    longDescription: 'This course covers the techniques for processing and analyzing text data, from classic methods like bag-of-words to modern techniques using embeddings and RNNs.',
+    category: 'AI & Machine Learning',
+    level: 'Intermediate',
     imageUrl: 'https://placehold.co/600x400.png',
-    progress: 80,
+    progress: 0,
     modules: [
-        { title: 'Module 1: The Basics', lessons: [{title: 'Variables and Data Types', duration: '45min'}] },
-        { title: 'Module 2: Control Flow', lessons: [{title: 'Loops and Conditionals', duration: '60min'}] },
+        { title: 'Module 1: Text Processing', lessons: [{title: 'Tokenization and Embeddings', duration: '75min'}] },
+        { title: 'Module 2: NLP Models', lessons: [{title: 'Sentiment Analysis with RNNs', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ai-i-3',
+    title: 'Computer Vision',
+    description: 'Learn to build models that can "see" and interpret images.',
+    longDescription: 'Explore the field of computer vision. This course teaches you how to use convolutional neural networks (CNNs) for tasks like image classification, object detection, and segmentation.',
+    category: 'AI & Machine Learning',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Convolutional Neural Networks', lessons: [{title: 'How CNNs Work', duration: '75min'}] },
+        { title: 'Module 2: CV Tasks', lessons: [{title: 'Image Classification and Object Detection', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ai-i-4',
+    title: 'Reinforcement Learning',
+    description: 'Learn to train agents that can make optimal decisions.',
+    longDescription: 'This course introduces the exciting field of reinforcement learning. You will learn about concepts like Q-learning and Policy Gradients to train agents to master games and other tasks.',
+    category: 'AI & Machine Learning',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: RL Foundations', lessons: [{title: 'Markov Decision Processes', duration: '75min'}] },
+        { title: 'Module 2: RL Algorithms', lessons: [{title: 'Q-Learning and Deep Q-Networks', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ai-i-5',
+    title: 'Time Series Forecasting',
+    description: 'Build models to predict future values based on past data.',
+    longDescription: 'Learn the techniques for forecasting time series data, which is common in finance and business. This course covers statistical methods like ARIMA and deep learning models like LSTMs.',
+    category: 'AI & Machine Learning',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Statistical Models', lessons: [{title: 'ARIMA Models', duration: '75min'}] },
+        { title: 'Module 2: Deep Learning Models', lessons: [{title: 'Forecasting with LSTMs', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ai-i-6',
+    title: 'Model Deployment',
+    description: 'Learn how to take your ML models from research to production.',
+    longDescription: 'A model is not useful until it is deployed. This course covers the practical aspects of deploying machine learning models, including creating APIs and using cloud services.',
+    category: 'AI & Machine Learning',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Serving Models', lessons: [{title: 'Creating a Model API with Flask', duration: '75min'}] },
+        { title: 'Module 2: MLOps', lessons: [{title: 'Introduction to MLOps principles', duration: '75min'}] },
+    ]
+  },
+  {
+    id: 'ai-i-7',
+    title: 'AI in Business',
+    description: 'Understand how to apply AI to solve real-world business problems.',
+    longDescription: 'For aspiring product managers and business leaders, this course provides a framework for identifying opportunities for AI and managing AI projects.',
+    category: 'AI & Machine Learning',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: AI Strategy', lessons: [{title: 'Finding AI Use Cases', duration: '60min'}] },
+        { title: 'Module 2: Managing AI Projects', lessons: [{title: 'The AI Project Lifecycle', duration: '60min'}] },
+    ]
+  },
+  // Advanced
+  {
+    id: 'ai-a-1',
+    title: 'Generative Models',
+    description: 'Explore models that can generate new content, like GANs and VAEs.',
+    longDescription: 'Dive into the world of generative AI. This course covers the theory and implementation of Generative Adversarial Networks (GANs) and Variational Autoencoders (VAEs).',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: GANs', lessons: [{title: 'Theory and Implementation', duration: '90min'}] },
+        { title: 'Module 2: VAEs', lessons: [{title: 'Theory and Implementation', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ai-a-2',
+    title: 'Transformers',
+    description: 'Master the transformer architecture that powers modern NLP.',
+    longDescription: 'A deep dive into the transformer architecture, the foundation of models like BERT and GPT. This course covers attention mechanisms and how to build transformers from scratch.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Attention is All You Need', lessons: [{title: 'The Attention Mechanism', duration: '90min'}] },
+        { title: 'Module 2: Building Transformers', lessons: [{title: 'Implementing a Transformer', duration: '120min'}] },
+    ]
+  },
+  {
+    id: 'ai-a-3',
+    title: 'AI for Robotics',
+    description: 'Learn to apply AI and reinforcement learning to robotics.',
+    longDescription: 'Explore the intersection of AI and robotics. This course covers topics like motion planning, computer vision for robots, and training robots with reinforcement learning.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Robot Perception', lessons: [{title: 'Using CV for Robotics', duration: '90min'}] },
+        { title: 'Module 2: Robot Control', lessons: [{title: 'Reinforcement Learning for Control', duration: '120min'}] },
+    ]
+  },
+  {
+    id: 'ai-a-4',
+    title: 'Quantum Machine Learning',
+    description: 'Explore the intersection of quantum computing and AI.',
+    longDescription: 'This course is for those interested in the future of AI. It explores how quantum computers could revolutionize machine learning, and introduces quantum ML algorithms.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Quantum Computing Basics', lessons: [{title: 'Qubits and Quantum Gates', duration: '90min'}] },
+        { title: 'Module 2: Quantum ML Algorithms', lessons: [{title: 'Introduction to QML', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ai-a-5',
+    title: 'AI Security',
+    description: 'Learn about the security vulnerabilities of AI models.',
+    longDescription: 'As AI models are deployed in critical systems, their security is vital. This course covers adversarial attacks, data poisoning, and methods for making models more robust.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Adversarial Attacks', lessons: [{title: 'Fooling Neural Networks', duration: '90min'}] },
+        { title: 'Module 2: Defenses', lessons: [{title: 'Making Models More Robust', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ai-a-6',
+    title: 'Explainable AI',
+    description: 'Learn techniques to make "black box" AI models more interpretable.',
+    longDescription: 'Understand why your AI models make the decisions they do. This course covers techniques like LIME and SHAP that help to explain the predictions of complex models.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: The Need for XAI', lessons: [{title: 'The Black Box Problem', duration: '60min'}] },
+        { title: 'Module 2: XAI Techniques', lessons: [{title: 'LIME and SHAP', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ai-a-7',
+    title: 'AI Research',
+    description: 'Learn how to conduct and publish original research in AI.',
+    longDescription: 'This course prepares you for a career in AI research. It covers how to identify research problems, design experiments, and write papers for top AI conferences.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: The Research Process', lessons: [{title: 'From Idea to Paper', duration: '75min'}] },
+        { title: 'Module 2: Experiment Design', lessons: [{title: 'Rigorous Empirical Evaluation', duration: '90min'}] },
+    ]
+  },
+  {
+    id: 'ai-a-8',
+    title: 'Ethics and Policy in AI',
+    description: 'A deep dive into the societal and policy challenges of AI.',
+    longDescription: 'This course explores the complex ethical and policy issues surrounding advanced AI, including autonomous weapons, job displacement, and long-term safety.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 0,
+    modules: [
+        { title: 'Module 1: Societal Impact', lessons: [{title: 'AI and the Future of Work', duration: '75min'}] },
+        { title: 'Module 2: AI Policy', lessons: [{title: 'Governance of Advanced AI', duration: '75min'}] },
     ]
   }
 ];
