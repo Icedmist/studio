@@ -52,7 +52,11 @@ export default function CoursePage({ params }: { params: { id: string } }) {
                 </div>
               </div>
 
-              <Button size="lg">Enroll Now for ₦{course.price.toLocaleString()}</Button>
+              {course.price > 0 ? (
+                <Button size="lg">Enroll Now for ₦{course.price.toLocaleString()}</Button>
+              ) : (
+                <Button size="lg" variant="success">Enroll for Free</Button>
+              )}
             </div>
             <div>
               <Image

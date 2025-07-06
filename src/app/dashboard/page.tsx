@@ -207,7 +207,7 @@ export default function DashboardPage() {
         custom={0}
         className="text-3xl md:text-4xl font-headline font-bold mb-2"
       >
-        Welcome back, {data.name}!
+        Welcome back, {user?.displayName || data.name}!
       </motion.h1>
       <motion.p
         variants={cardVariants}
