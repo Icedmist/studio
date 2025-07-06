@@ -14,7 +14,7 @@ export default function AdminPage() {
         Manage courses, users, and site content from this secure dashboard.
       </p>
 
-      <Card>
+      <Card className="bg-card/60 backdrop-blur-sm border-border/50">
         <CardHeader>
           <CardTitle>Welcome, Admin!</CardTitle>
           <CardDescription>This area is restricted and for administrative use only.</CardDescription>

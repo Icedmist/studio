@@ -19,7 +19,7 @@ export default function CoursePage({ params }: { params: { id: string } }) {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-card py-12">
+      <section className="bg-card/60 py-12">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
@@ -57,7 +57,7 @@ export default function CoursePage({ params }: { params: { id: string } }) {
                   <AccordionContent>
                     <ul className="space-y-2">
                       {module.lessons.map((lesson, lessonIndex) => (
-                        <li key={lessonIndex} className="flex justify-between items-center p-2 rounded-md hover:bg-card">
+                        <li key={lessonIndex} className="flex justify-between items-center p-2 rounded-md hover:bg-card/80">
                           <span className="flex items-center gap-2">
                             <CheckCircle className="w-4 h-4 text-green-500" />
                             {lesson.title}
@@ -75,7 +75,7 @@ export default function CoursePage({ params }: { params: { id: string } }) {
             </Accordion>
           </div>
           <div className="lg:col-span-1">
-            <Card className="sticky top-24">
+            <Card className="sticky top-24 bg-card/60 backdrop-blur-sm border-border/50">
               <CardHeader>
                 <CardTitle className="font-headline">Your Progress</CardTitle>
               </CardHeader>

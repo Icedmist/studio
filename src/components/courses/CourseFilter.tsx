@@ -7,17 +7,17 @@ import { Search } from "lucide-react";
 
 export function CourseFilter() {
   return (
-    <div className="p-4 rounded-lg bg-card border border-border flex flex-col md:flex-row gap-4 items-center">
+    <div className="p-4 rounded-lg bg-card/60 backdrop-blur-sm border border-border/50 flex flex-col md:flex-row gap-4 items-center">
       <div className="w-full md:flex-grow">
         <Input
           icon={<Search />}
           placeholder="Search for courses..."
-          className="bg-background"
+          className="bg-background/80"
         />
       </div>
       <div className="w-full md:w-auto">
         <Select>
-          <SelectTrigger className="w-full md:w-[200px] bg-background">
+          <SelectTrigger className="w-full md:w-[200px] bg-background/80">
             <SelectValue placeholder="All Categories" />
           </SelectTrigger>
           <SelectContent>
@@ -32,7 +32,7 @@ export function CourseFilter() {
       </div>
       <div className="w-full md:w-auto">
         <Select>
-          <SelectTrigger className="w-full md:w-[180px] bg-background">
+          <SelectTrigger className="w-full md:w-[180px] bg-background/80">
             <SelectValue placeholder="All Levels" />
           </SelectTrigger>
           <SelectContent>

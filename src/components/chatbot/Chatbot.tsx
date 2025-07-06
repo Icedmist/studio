@@ -27,10 +27,10 @@ export default function Chatbot() {
   const toggleChat = () => setIsOpen(!isOpen);
 
   useEffect(() => {
-    if (isOpen) {
-        setMessages([{ role: "assistant", content: "Hello! I'm Tech Gee. How can I help you with your course material today?"}])
+    if (isOpen && messages.length === 0) {
+        setMessages([{ role: "assistant", content: "Hey there! I'm Tech Gee. Ask me anything about your courses or progress. For example, try asking 'How am I doing?'" }])
     }
-  }, [isOpen])
+  }, [isOpen, messages.length])
 
   useEffect(() => {
     // Auto-scroll to bottom
@@ -48,11 +48,12 @@ export default function Chatbot() {
 
     const userMessage: Message = { role: "user", content: input };
     setMessages((prev) => [...prev, userMessage]);
+    const currentInput = input;
     setInput("");
     setIsLoading(true);
 
     try {
-      const answer = await askTechGee({ question: input });
+      const answer = await askTechGee({ question: currentInput });
       const assistantMessage: Message = { role: "assistant", content: answer };
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
@@ -61,6 +62,8 @@ export default function Chatbot() {
         description: "Failed to get a response from Tech Gee. Please try again.",
         variant: "destructive",
       });
+       const assistantMessage: Message = { role: "assistant", content: "Oops! I hit a snag. Please try asking again." };
+       setMessages((prev) => [...prev, assistantMessage]);
     } finally {
       setIsLoading(false);
     }
@@ -76,9 +79,9 @@ export default function Chatbot() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 50, scale: 0.5 }}
               transition={{ duration: 0.3 }}
-              className="w-[calc(100vw-2rem)] sm:w-96 h-[60vh] bg-card rounded-lg border border-border shadow-2xl flex flex-col"
+              className="w-[calc(100vw-2rem)] sm:w-96 h-[60vh] bg-card/80 backdrop-blur-xl border border-border/50 rounded-lg shadow-2xl flex flex-col"
             >
-              <header className="p-4 border-b flex justify-between items-center bg-card rounded-t-lg">
+              <header className="p-4 border-b border-border/50 flex justify-between items-center rounded-t-lg">
                 <div className="flex items-center gap-2">
                   <Bot className="w-6 h-6 text-primary" />
                   <h3 className="font-headline font-semibold">Tech Gee Assistant</h3>
@@ -112,7 +115,7 @@ export default function Chatbot() {
                             : "bg-muted"
                         )}
                       >
-                        <p className="text-sm">{message.content}</p>
+                        <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                       </div>
                        {message.role === "user" && (
                         <Avatar className="w-8 h-8">
@@ -141,7 +144,7 @@ export default function Chatbot() {
                   )}
                 </div>
               </ScrollArea>
-              <footer className="p-4 border-t">
+              <footer className="p-4 border-t border-border/50">
                 <form onSubmit={handleSubmit} className="flex gap-2">
                   <Input
                     value={input}
@@ -159,14 +162,29 @@ export default function Chatbot() {
           )}
         </AnimatePresence>
 
-        <Button
-          onClick={toggleChat}
-          size="icon"
-          className="rounded-full w-16 h-16 shadow-lg"
-          aria-label="Toggle Chatbot"
+        <motion.div
+         whileHover={{ scale: 1.1 }}
+         whileTap={{ scale: 0.9 }}
         >
-          {isOpen ? <X className="h-8 w-8" /> : <Bot className="h-8 w-8" />}
-        </Button>
+          <Button
+            onClick={toggleChat}
+            size="icon"
+            className="rounded-full w-16 h-16 shadow-lg"
+            aria-label="Toggle Chatbot"
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={isOpen ? "x" : "bot"}
+                initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
+                transition={{ duration: 0.2 }}
+              >
+                {isOpen ? <X className="h-8 w-8" /> : <Bot className="h-8 w-8" />}
+              </motion.div>
+            </AnimatePresence>
+          </Button>
+        </motion.div>
       </div>
     </>
   );

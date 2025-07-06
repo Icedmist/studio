@@ -12,7 +12,7 @@ interface CourseCardProps {
 
 export function CourseCard({ course }: CourseCardProps) {
   return (
-    <Card className="flex flex-col h-full overflow-hidden transition-all hover:border-primary hover:shadow-lg hover:shadow-primary/10">
+    <Card className="flex flex-col h-full overflow-hidden transition-all hover:border-primary hover:shadow-lg hover:shadow-primary/10 bg-card/60 backdrop-blur-sm border-border/50">
       <CardHeader className="p-0">
         <Image
           src={course.imageUrl}

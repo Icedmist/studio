@@ -6,10 +6,12 @@ import {
 } from "@/ai/flows/tech-gee-chatbot";
 
 export async function askTechGee(
-  input: TechGeeChatbotInput
+  {question}: {question: string}
 ): Promise<string> {
   try {
-    const result = await techGeeChatbot(input);
+    // In a real app, studentId would come from the user's session.
+    const studentId = 'user_alex_johnson'; 
+    const result = await techGeeChatbot({ question, studentId });
     return result.answer;
   } catch (error) {
     console.error("Error calling Tech Gee chatbot flow:", error);

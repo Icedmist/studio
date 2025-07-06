@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function LoginPage() {
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full max-w-md bg-card/60 backdrop-blur-sm border-border/50">
       <CardHeader className="text-center">
         <CardTitle className="text-2xl font-headline">Welcome Back</CardTitle>
         <CardDescription>
