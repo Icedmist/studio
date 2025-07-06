@@ -26,11 +26,15 @@ export async function generateCertificateImage(input: GenerateCertificateImageIn
   return generateCertificateImageFlow(input);
 }
 
-const prompt = `Generate an abstract, sophisticated, and professional piece of digital art representing the concept of '{{courseTitle}}'.
+const prompt = ai.definePrompt({
+    name: 'generateCertificateImagePrompt',
+    input: { schema: GenerateCertificateImageInputSchema },
+    prompt: `Generate an abstract, sophisticated, and professional piece of digital art representing the concept of '{{courseTitle}}'.
 The style should be modern, clean, and suitable for a tech academy certificate.
 It should be visually interesting but not distracting. Avoid using any text or letters.
 Use a cool and inspiring color palette that evokes a sense of accomplishment and technological advancement.
-The art is for a certificate awarded to {{studentName}}.`;
+The art is for a certificate awarded to {{studentName}}.`,
+});
 
 
 const generateCertificateImageFlow = ai.defineFlow(
@@ -42,7 +46,7 @@ const generateCertificateImageFlow = ai.defineFlow(
   async (input) => {
     const { media } = await ai.generate({
         model: 'googleai/gemini-2.0-flash-preview-image-generation',
-        prompt: prompt.replace('{{courseTitle}}', input.courseTitle).replace('{{studentName}}', input.studentName),
+        prompt: await prompt(input),
         config: {
             responseModalities: ['TEXT', 'IMAGE'],
         },

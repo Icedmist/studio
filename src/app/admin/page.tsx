@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -21,6 +22,12 @@ import { Button } from '@/components/ui/button';
 import { Shield, Users, Library, Pencil, Trash2 } from 'lucide-react';
 import { courses } from '@/lib/courses';
 import type { Course } from '@/lib/types';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 // Mock data for users - in a real app, this would come from an API
 const mockUsers = [
@@ -44,104 +51,126 @@ export default function AdminPage() {
         Manage courses, users, and site content from this secure dashboard.
       </p>
 
-      <Tabs defaultValue="users">
-        <TabsList className="grid w-full grid-cols-2 max-w-md">
-          <TabsTrigger value="users">
-            <Users className="mr-2 h-4 w-4" /> Users
-          </TabsTrigger>
-          <TabsTrigger value="courses">
-            <Library className="mr-2 h-4 w-4" /> Courses
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="users">
-          <Card className="bg-card/60 backdrop-blur-sm border-border/50">
-            <CardHeader>
-              <CardTitle>User Management</CardTitle>
-              <CardDescription>
-                View and manage all registered users.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Role</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {mockUsers.map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell className="font-medium">{user.name}</TableCell>
-                      <TableCell>{user.email}</TableCell>
-                      <TableCell>
-                        <Badge variant={user.role === 'Admin' ? 'destructive' : 'secondary'}>
-                          {user.role}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right space-x-2">
-                        <Button variant="ghost" size="icon">
-                            <Pencil className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive">
-                             <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </TableCell>
+      <TooltipProvider>
+        <Tabs defaultValue="users">
+          <TabsList className="grid w-full grid-cols-2 max-w-md">
+            <TabsTrigger value="users">
+              <Users className="mr-2 h-4 w-4" /> Users
+            </TabsTrigger>
+            <TabsTrigger value="courses">
+              <Library className="mr-2 h-4 w-4" /> Courses
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="users">
+            <Card className="bg-card/60 backdrop-blur-sm border-border/50">
+              <CardHeader>
+                <CardTitle>User Management</CardTitle>
+                <CardDescription>
+                  View and manage all registered users.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Name</TableHead>
+                      <TableHead>Email</TableHead>
+                      <TableHead>Role</TableHead>
+                      <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="courses">
-          <Card className="bg-card/60 backdrop-blur-sm border-border/50">
-            <CardHeader>
-              <CardTitle>Course Management</CardTitle>
-              <CardDescription>
-                View and manage all courses in the catalog.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Title</TableHead>
-                    <TableHead>Category</TableHead>
-                    <TableHead>Level</TableHead>
-                    <TableHead>Price (₦)</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {courses.map((course: Course) => (
-                    <TableRow key={course.id}>
-                      <TableCell className="font-medium">{course.title}</TableCell>
-                      <TableCell>{course.category}</TableCell>
-                      <TableCell>
-                        <Badge variant="outline">{course.level}</Badge>
-                      </TableCell>
-                      <TableCell>
-                        {course.price > 0 ? course.price.toLocaleString() : 'Free'}
-                      </TableCell>
-                       <TableCell className="text-right space-x-2">
-                        <Button variant="ghost" size="icon">
-                            <Pencil className="h-4 w-4" />
-                        </Button>
-                        <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive">
-                             <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </TableCell>
+                  </TableHeader>
+                  <TableBody>
+                    {mockUsers.map((user) => (
+                      <TableRow key={user.id}>
+                        <TableCell className="font-medium">{user.name}</TableCell>
+                        <TableCell>{user.email}</TableCell>
+                        <TableCell>
+                          <Badge variant={user.role === 'Admin' ? 'destructive' : 'secondary'}>
+                            {user.role}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-right space-x-2">
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button variant="ghost" size="icon" disabled>
+                                <Pencil className="h-4 w-4" />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent><p>Edit user (Not implemented)</p></TooltipContent>
+                          </Tooltip>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive" disabled>
+                                  <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent><p>Delete user (Not implemented)</p></TooltipContent>
+                          </Tooltip>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="courses">
+            <Card className="bg-card/60 backdrop-blur-sm border-border/50">
+              <CardHeader>
+                <CardTitle>Course Management</CardTitle>
+                <CardDescription>
+                  View and manage all courses in the catalog.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Title</TableHead>
+                      <TableHead>Category</TableHead>
+                      <TableHead>Level</TableHead>
+                      <TableHead>Price (₦)</TableHead>
+                      <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+                  </TableHeader>
+                  <TableBody>
+                    {courses.map((course: Course) => (
+                      <TableRow key={course.id}>
+                        <TableCell className="font-medium">{course.title}</TableCell>
+                        <TableCell>{course.category}</TableCell>
+                        <TableCell>
+                          <Badge variant="outline">{course.level}</Badge>
+                        </TableCell>
+                        <TableCell>
+                          {course.price > 0 ? course.price.toLocaleString() : 'Free'}
+                        </TableCell>
+                        <TableCell className="text-right space-x-2">
+                           <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button variant="ghost" size="icon" disabled>
+                                  <Pencil className="h-4 w-4" />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent><p>Edit course (Not implemented)</p></TooltipContent>
+                          </Tooltip>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive" disabled>
+                                  <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </TooltipTrigger>
+                            <TooltipContent><p>Delete course (Not implemented)</p></TooltipContent>
+                          </Tooltip>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </TooltipProvider>
     </div>
   );
 }
