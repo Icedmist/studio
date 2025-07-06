@@ -22,37 +22,37 @@ export default function Home() {
 
   const features = [
     {
-      icon: <Library className="w-8 h-8" />,
+      icon: <Library className="w-6 h-6" />,
       title: 'Extensive Course Library',
       description: 'Explore a vast range of courses across the most in-demand tech fields.',
       color: 'text-blue-400 bg-blue-900/30',
     },
     {
-      icon: <BarChart className="w-8 h-8" />,
+      icon: <BarChart className="w-6 h-6" />,
       title: 'Track Your Progress',
       description: 'Stay motivated with real-time tracking of your achievements.',
       color: 'text-teal-400 bg-teal-900/30',
     },
     {
-      icon: <Award className="w-8 h-8" />,
+      icon: <Award className="w-6 h-6" />,
       title: 'Earn Certificates',
       description: 'Showcase your expertise with industry-recognized certificates.',
       color: 'text-yellow-400 bg-yellow-900/30',
     },
     {
-      icon: <Bot className="w-8 h-8" />,
+      icon: <Bot className="w-6 h-6" />,
       title: 'AI-Powered Assistance',
       description: 'Get instant help from our AI assistant, Tech Gee.',
       color: 'text-green-400 bg-green-900/30',
     },
     {
-        icon: <Search className="w-8 h-8" />,
+        icon: <Search className="w-6 h-6" />,
         title: 'Smart Search',
         description: 'Easily find the courses and content you need to succeed.',
         color: 'text-orange-400 bg-orange-900/30',
     },
     {
-        icon: <MessageSquare className="w-8 h-8" />,
+        icon: <MessageSquare className="w-6 h-6" />,
         title: 'Community Access',
         description: 'Connect with peers and instructors for support and collaboration.',
         color: 'text-purple-400 bg-purple-900/30',
@@ -80,6 +80,27 @@ export default function Home() {
       avatar: 'https://placehold.co/100x100.png',
       dataAiHint: 'man developer',
       comment: 'TechTradeHub\'s AI & Machine Learning path is comprehensive and up-to-date with the latest industry trends.',
+    },
+    {
+      name: 'David Rodriguez',
+      role: 'Cybersecurity Analyst',
+      avatar: 'https://placehold.co/100x100.png',
+      dataAiHint: 'man tech background',
+      comment: 'The tech skills courses gave me the confidence to pivot into a new and exciting career in cybersecurity.',
+    },
+    {
+      name: 'Emily White',
+      role: 'Crypto Investor',
+      avatar: 'https://placehold.co/100x100.png',
+      dataAiHint: 'professional woman',
+      comment: 'The crypto trading course demystified the market for me. The community is also incredibly supportive.',
+    },
+    {
+      name: 'James Brown',
+      role: 'Aspiring Developer',
+      avatar: 'https://placehold.co/100x100.png',
+      dataAiHint: 'student smiling',
+      comment: 'As a beginner, I found the courses easy to follow. The progress tracking keeps me motivated to learn every day!',
     },
   ];
 
@@ -149,8 +170,8 @@ export default function Home() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                 <Card className="bg-card/60 backdrop-blur-sm border-border/50 hover:border-primary transition-all cursor-pointer h-full p-6 flex flex-col items-center justify-center">
-                    <div className={`p-4 rounded-full mb-4 ${feature.color}`}>
+                 <Card className="bg-card/60 backdrop-blur-sm border-border/50 hover:border-primary transition-all cursor-pointer h-full p-4 flex flex-col items-center justify-center">
+                    <div className={`p-3 rounded-full mb-4 ${feature.color}`}>
                       {feature.icon}
                     </div>
                     <h3 className="text-xl font-headline font-semibold mb-2">{feature.title}</h3>

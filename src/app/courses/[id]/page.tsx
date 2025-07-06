@@ -8,6 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { CheckCircle, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
 
 export default function CoursePage({ params }: { params: { id: string } }) {
   const course = courses.find((c) => c.id === params.id);
@@ -15,6 +16,8 @@ export default function CoursePage({ params }: { params: { id: string } }) {
   if (!course) {
     notFound();
   }
+
+  const categoryColor = COURSE_CATEGORY_COLORS[course.category];
 
   return (
     <div>
@@ -24,7 +27,7 @@ export default function CoursePage({ params }: { params: { id: string } }) {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <div className="flex gap-2 mb-2">
-                <Badge variant="secondary" className="bg-secondary/20 text-secondary">{course.category}</Badge>
+                <Badge variant="secondary" style={{ backgroundColor: categoryColor, color: 'hsl(var(--primary-foreground))' }}>{course.category}</Badge>
                 <Badge variant="outline">{course.level}</Badge>
               </div>
               <h1 className="text-3xl md:text-4xl font-headline font-bold mb-4">{course.title}</h1>
