@@ -6,6 +6,25 @@ import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import Chatbot from '@/components/chatbot/Chatbot';
 import { AuthProvider } from '@/hooks/use-auth';
+import { Poppins, Montserrat, Playfair_Display } from 'next/font/google';
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '600'],
+  variable: '--font-poppins',
+});
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: '--font-montserrat',
+});
+
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['700'],
+  variable: '--font-playfair-display',
+});
 
 export const metadata: Metadata = {
   title: 'TechTradeHub Academy',
@@ -19,12 +38,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
-      </head>
-      <body className={cn('font-body antialiased min-h-screen flex flex-col')}>
+      <body
+        className={cn(
+          'font-body antialiased min-h-screen flex flex-col',
+          poppins.variable,
+          montserrat.variable,
+          playfairDisplay.variable
+        )}
+      >
         <AuthProvider>
             <Header />
             <main className="flex-grow">{children}</main>
