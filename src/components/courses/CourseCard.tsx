@@ -9,7 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { COURSE_CATEGORY_COLORS } from "@/lib/constants";
 import { motion } from "framer-motion";
-import { Clock, DollarSign, User } from "lucide-react";
+import { Clock, User } from "lucide-react";
 
 interface CourseCardProps {
   course: Course;
@@ -32,39 +32,39 @@ export function CourseCard({ course }: CourseCardProps) {
         >
             <Card 
                 className="flex flex-col h-full overflow-hidden transition-all hover:shadow-lg hover:shadow-primary/10 bg-card/60 backdrop-blur-sm border-border/50"
-                style={{ '--category-color': categoryColor, borderBottom: `4px solid var(--category-color)` }}
+                style={{ '--category-color': categoryColor, borderBottom: `3px solid var(--category-color)` }}
             >
             <CardHeader className="p-0">
                 <Image
-                src={course.imageUrl}
-                alt={course.title}
-                width={400}
-                height={225}
-                className="w-full h-32 object-cover"
-                data-ai-hint={`${course.category} ${course.level}`}
+                    src={course.imageUrl}
+                    alt={course.title}
+                    width={400}
+                    height={200}
+                    className="w-full h-28 object-cover"
+                    data-ai-hint={course.title.split(' ').slice(0, 2).join(' ').toLowerCase()}
                 />
-                <div className="p-3">
-                    <div className="flex justify-between items-start gap-2 mb-2">
-                        <Badge variant="secondary" style={{ backgroundColor: categoryColor, color: 'hsl(var(--primary-foreground))' }}>{course.category}</Badge>
-                        <Badge variant="outline">{course.level}</Badge>
+                <div className="p-2">
+                    <div className="flex justify-between items-start gap-2 mb-1">
+                        <Badge variant="secondary" style={{ backgroundColor: categoryColor, color: 'hsl(var(--primary-foreground))' }} className="text-[10px] py-0 px-1.5">{course.category}</Badge>
+                        <Badge variant="outline" className="text-[10px] py-0 px-1.5">{course.level}</Badge>
                     </div>
-                    <CardTitle className="text-base font-headline leading-tight h-10">{course.title}</CardTitle>
+                    <CardTitle className="text-sm font-headline leading-tight h-10">{course.title}</CardTitle>
                 </div>
             </CardHeader>
-            <CardContent className="flex-grow p-3 pt-0">
-                 <div className="text-xs text-muted-foreground space-y-1.5 mb-3">
-                    <div className="flex items-center gap-2">
+            <CardContent className="flex-grow p-2 pt-0">
+                 <div className="text-[11px] text-muted-foreground space-y-1 mb-2">
+                    <div className="flex items-center gap-1.5">
                         <User className="w-3 h-3 shrink-0"/>
                         <span className="truncate">with {course.instructor}</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5">
                         <Clock className="w-3 h-3 shrink-0"/>
                         <span>{course.duration}</span>
                     </div>
                 </div>
-                <p className="text-muted-foreground text-xs mb-3">{course.description}</p>
+                <p className="text-muted-foreground text-xs leading-snug mb-2">{course.description}</p>
                 {course.progress > 0 && (
-                <div className="mt-auto pt-3">
+                <div className="mt-auto pt-2">
                     <div className="flex justify-between items-center mb-1">
                         <span className="text-xs font-medium text-muted-foreground">Progress</span>
                         <span className="text-xs font-bold text-primary">{course.progress}%</span>
@@ -73,11 +73,14 @@ export function CourseCard({ course }: CourseCardProps) {
                 </div>
                 )}
             </CardContent>
-            <CardFooter className="p-3 pt-0 mt-auto">
+            <CardFooter className="p-2 pt-0 mt-auto">
                  <div className="flex justify-between items-center w-full">
-                    <p className="text-lg font-bold text-primary">${course.price}</p>
+                    <div>
+                        <p className="text-base font-bold text-primary">${course.price}</p>
+                        <p className="text-[10px] text-muted-foreground">ID: {course.id}</p>
+                    </div>
                     <Link href={`/courses/${course.id}`}>
-                        <Button size="sm">{course.progress > 0 ? 'Continue' : 'Details'}</Button>
+                        <Button size="sm" className="text-xs px-2 h-8">{course.progress > 0 ? 'Continue' : 'Details'}</Button>
                     </Link>
                 </div>
             </CardFooter>
