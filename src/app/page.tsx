@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
 export default function Home() {
-  const animatedWords = ["Future", "Skills", "Success"];
+  const animatedWords = ["Learn.", "Trade.", "Dominate."];
   const animatedColors = ["text-teal-400", "text-blue-400", "text-green-400"];
   const [wordIndex, setWordIndex] = useState(0);
 
@@ -99,7 +99,7 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="text-4xl md:text-6xl font-headline font-bold mb-4"
           >
-            Unlock Your{' '}
+            Master the Future –{' '}
             <AnimatePresence mode="wait">
                 <motion.span
                     key={animatedWords[wordIndex]}
@@ -112,7 +112,6 @@ export default function Home() {
                     {animatedWords[wordIndex]}
                 </motion.span>
             </AnimatePresence>
-            {' '}in Tech & Trading
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0 }}
@@ -120,7 +119,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8"
           >
-            Master in-demand skills in Futures Trading, Web3, AI, and more with expert-led courses at TechTradeHub Academy.
+            Unlock your potential with expert-led courses in the most in-demand fields of technology and finance.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
