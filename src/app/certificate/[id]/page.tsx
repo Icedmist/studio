@@ -95,7 +95,7 @@ export default function CertificatePage() {
                 </div>
                 <div className="text-right text-white">
                     <p className="font-semibold">TechTradeHub Academy</p>
-                    <p className="text-xs text-white/80">An Accredited Institution</p>
+                    <p className="text-xs text-white/80">Master the Future</p>
                 </div>
             </div>
             

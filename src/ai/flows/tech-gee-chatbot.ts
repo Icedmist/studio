@@ -14,6 +14,7 @@ import {z} from 'genkit';
 import { getStudentProgress } from '@/services/student-data';
 import { courses } from '@/lib/courses';
 import type { Course } from '@/lib/types';
+import { StudentProgressSchema } from '@/lib/types';
 
 // Tool to get student progress
 const getStudentProgressTool = ai.defineTool(
@@ -21,7 +22,7 @@ const getStudentProgressTool = ai.defineTool(
     name: 'getStudentProgress',
     description: 'Get the current academic progress for a student. Use this to answer questions about their performance, what to study next, or their overall status.',
     inputSchema: z.object({ studentId: z.string().describe("The student's unique ID.") }),
-    outputSchema: z.any(), // Using z.any() because StudentProgress type is complex for a direct schema. The description will guide the model.
+    outputSchema: StudentProgressSchema,
   },
   async ({ studentId }) => {
     // In a real app, you might want to handle errors here
