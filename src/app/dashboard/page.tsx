@@ -24,7 +24,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { Trophy, BookOpen, LineChart, CheckCircle, Lightbulb } from 'lucide-react';
+import { Trophy, BookOpen, LineChart, CheckCircle, Lightbulb, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
@@ -92,6 +92,7 @@ export default function DashboardPage() {
   const [recommendations, setRecommendations] = useState<Course[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isRecsLoading, setIsRecsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
   const router = useRouter();
 
@@ -105,11 +106,17 @@ export default function DashboardPage() {
     async function fetchData() {
       try {
         setIsLoading(true);
+        setError(null);
         // Pass user's ID and name to fetch/create their specific progress
         const progressData = await getStudentProgress(user.uid, user.displayName || user.email!);
         setData(progressData);
-      } catch (error) {
+      } catch (error: any) {
         console.error('Failed to fetch student progress:', error);
+        let errorMessage = `An error occurred while fetching your data: ${error.message}.`;
+        if (error.code === 'permission-denied' || (error.message && error.message.includes('permission-denied'))) {
+            errorMessage += "\n\nThis is often due to Firestore security rules. Please ensure that authenticated users have read/write access to the 'studentProgress' collection for their own documents.";
+        }
+        setError(errorMessage);
       } finally {
         setIsLoading(false);
       }
@@ -131,6 +138,30 @@ export default function DashboardPage() {
 
   if (isLoading || !user) {
     return <DashboardSkeleton />;
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto p-4 sm:p-8">
+        <Card className="bg-destructive/10 border-destructive/50 text-destructive">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <AlertTriangle />
+              Failed to load dashboard data
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>There was a problem connecting to the database. This is often caused by Firestore security rules not being configured correctly.</p>
+            <pre className="mt-4 text-left bg-destructive/20 p-4 rounded-md text-sm font-mono whitespace-pre-wrap">
+              {error}
+            </pre>
+            <p className="mt-4">
+                Please visit the <a href="https://console.firebase.google.com/" target="_blank" rel="noopener noreferrer" className="font-bold underline">Firebase Console</a> to ensure your security rules for the `studentProgress` collection allow read and write access for authenticated users.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   if (!data) {

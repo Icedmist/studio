@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { User, Mail, Lock, Loader2 } from "lucide-react";
 import { SocialLogins } from "./SocialLogins";
 import Link from "next/link";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -39,7 +39,14 @@ export function SignUpForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
-        await createUserWithEmailAndPassword(auth, values.email, values.password);
+        const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+
+        if (userCredential.user) {
+            await updateProfile(userCredential.user, {
+                displayName: values.fullName
+            });
+        }
+        
         toast({
             title: "Account Created!",
             description: "You have been successfully signed up.",
