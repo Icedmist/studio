@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 
 export default function Home() {
   const animatedWords = ["Learn.", "Trade.", "Dominate."];
-  const animatedColors = ["text-blue-400", "text-green-400", "text-purple-400"];
+  const animatedColors = ["text-primary", "text-secondary", "text-purple-400"];
   const [wordIndex, setWordIndex] = useState(0);
 
   useEffect(() => {
@@ -22,40 +22,34 @@ export default function Home() {
 
   const features = [
     {
-      icon: <Library className="w-6 h-6" />,
+      icon: <Library className="w-6 h-6 text-primary" />,
       title: 'Extensive Course Library',
       description: 'Explore a vast range of courses across the most in-demand tech fields.',
-      color: 'text-blue-400 bg-blue-900/30',
     },
     {
-      icon: <BarChart className="w-6 h-6" />,
+      icon: <BarChart className="w-6 h-6 text-success" />,
       title: 'Track Your Progress',
       description: 'Stay motivated with real-time tracking of your achievements.',
-      color: 'text-green-400 bg-green-900/30',
     },
     {
-      icon: <Award className="w-6 h-6" />,
+      icon: <Award className="w-6 h-6 text-secondary" />,
       title: 'Earn Certificates',
       description: 'Showcase your expertise with industry-recognized certificates.',
-      color: 'text-blue-400 bg-blue-900/30',
     },
     {
-      icon: <Bot className="w-6 h-6" />,
+      icon: <Bot className="w-6 h-6 text-success" />,
       title: 'AI-Powered Assistance',
       description: 'Get instant help from our AI assistant, Tech Gee.',
-      color: 'text-green-400 bg-green-900/30',
     },
     {
-        icon: <Search className="w-6 h-6" />,
+        icon: <Search className="w-6 h-6 text-purple-400" />,
         title: 'Smart Search',
         description: 'Easily find the courses and content you need to succeed.',
-        color: 'text-purple-400 bg-purple-900/30',
     },
     {
-        icon: <MessageSquare className="w-6 h-6" />,
+        icon: <MessageSquare className="w-6 h-6 text-primary" />,
         title: 'Community Access',
         description: 'Connect with peers and instructors for support and collaboration.',
-        color: 'text-blue-400 bg-blue-900/30',
     },
   ];
 
@@ -171,7 +165,7 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                  <Card className="bg-card/60 backdrop-blur-sm border-border/50 hover:border-primary transition-all cursor-pointer h-full p-4 flex flex-col items-center justify-center">
-                    <div className={`p-3 rounded-full mb-4 ${feature.color}`}>
+                    <div className="p-3 rounded-full mb-4 bg-background">
                       {feature.icon}
                     </div>
                     <h3 className="text-xl font-headline font-semibold mb-2">{feature.title}</h3>

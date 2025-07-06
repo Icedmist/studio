@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useCallback } from 'react';
+import { Suspense, useCallback, useMemo } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { CourseCard } from "@/components/courses/CourseCard";
@@ -44,6 +44,17 @@ function CoursesDisplay() {
     return categoryMatch && levelMatch;
   });
 
+  const availableLevels = useMemo(() => {
+    if (!category) return [];
+    const levelsInCategory = courses
+        .filter(course => course.category === category)
+        .map(course => course.level);
+    const uniqueLevels = [...new Set(levelsInCategory)];
+    // Ensure the levels are sorted correctly: Beginner, Intermediate, Advanced
+    return COURSE_LEVELS.filter(lvl => uniqueLevels.includes(lvl));
+  }, [category]);
+
+
   const renderContent = () => {
     if (category && level) {
       // View 3: Show courses
@@ -75,13 +86,16 @@ function CoursesDisplay() {
           <h2 className="text-2xl font-headline font-bold text-center mb-2">Select a Level</h2>
           <p className="text-muted-foreground text-center mb-8">You've chosen <span className="font-semibold text-primary">{category}</span>. Now, pick your proficiency level.</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {COURSE_LEVELS.map((lvl) => (
+            {availableLevels.map((lvl) => (
               <Link key={lvl} href={`${pathname}?${createQueryString('level', lvl)}`} passHref>
                 <Card className="p-8 text-center bg-card/60 backdrop-blur-sm border-border/50 hover:border-primary transition-all cursor-pointer hover:shadow-lg">
                   <h3 className="text-xl font-headline font-semibold">{lvl}</h3>
                 </Card>
               </Link>
             ))}
+             {availableLevels.length === 0 && (
+                <p className="col-span-full text-center text-muted-foreground mt-8">No courses available yet for the <span className="font-semibold text-primary">{category}</span> category.</p>
+            )}
           </div>
         </div>
       );

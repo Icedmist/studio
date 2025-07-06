@@ -85,4 +85,60 @@ export const courses: Course[] = [
         { title: 'Module 2: Security', lessons: [{title: 'Common Vulnerabilities', duration: '90min'}] },
     ]
   },
+  {
+    id: '7',
+    title: 'Introduction to Cryptocurrency',
+    description: 'Learn the basics of blockchain, Bitcoin, and Ethereum.',
+    longDescription: 'This course is the perfect starting point for anyone new to crypto. We cover the history of money, what makes blockchain revolutionary, and how to safely buy, sell, and store digital assets.',
+    category: 'Crypto',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 100,
+    modules: [
+        { title: 'Module 1: The Basics', lessons: [{title: 'What is Blockchain?', duration: '20min'}, {title: 'Understanding Bitcoin', duration: '25min'}] },
+        { title: 'Module 2: Getting Started', lessons: [{title: 'Setting up a Wallet', duration: '30min'}, {title: 'Making a Transaction', duration: '15min'}] },
+    ]
+  },
+  {
+    id: '8',
+    title: 'Intermediate Futures Strategies',
+    description: 'Explore advanced strategies like spreading and hedging.',
+    longDescription: 'Go beyond the basics of futures trading. In this course, you will learn sophisticated strategies including calendar spreads, intercommodity spreads, and how to use futures to hedge a portfolio.',
+    category: 'Futures Trading',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 30,
+    modules: [
+        { title: 'Module 1: Spreads', lessons: [{title: 'Calendar Spreads', duration: '45min'}] },
+        { title: 'Module 2: Hedging', lessons: [{title: 'Portfolio Hedging', duration: '60min'}] },
+    ]
+  },
+  {
+    id: '9',
+    title: 'Intermediate AI: Neural Networks',
+    description: 'Dive into deep learning and build your own neural networks.',
+    longDescription: 'This course builds on the fundamentals of machine learning, focusing on deep learning. You will learn the theory behind neural networks and get hands-on experience building and training them with TensorFlow and Keras.',
+    category: 'AI & Machine Learning',
+    level: 'Intermediate',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 50,
+    modules: [
+        { title: 'Module 1: Deep Learning Theory', lessons: [{title: 'What are Neural Networks?', duration: '45min'}] },
+        { title: 'Module 2: Building with TensorFlow', lessons: [{title: 'Image Classification', duration: '90min'}] },
+    ]
+  },
+  {
+    id: '10',
+    title: 'Introduction to Python',
+    description: 'Learn the most popular language for data science and web development.',
+    longDescription: 'Start your coding journey with Python. This beginner-friendly course covers all the fundamental concepts, including variables, data types, loops, and functions. No prior programming experience is required.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    imageUrl: 'https://placehold.co/600x400.png',
+    progress: 80,
+    modules: [
+        { title: 'Module 1: The Basics', lessons: [{title: 'Variables and Data Types', duration: '45min'}] },
+        { title: 'Module 2: Control Flow', lessons: [{title: 'Loops and Conditionals', duration: '60min'}] },
+    ]
+  }
 ];
