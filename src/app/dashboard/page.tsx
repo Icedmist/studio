@@ -6,6 +6,7 @@ import {
   getStudentProgress,
   type StudentProgress,
 } from '@/services/student-data';
+import { getRecommendations } from '@/app/actions/recommend';
 import {
   Card,
   CardContent,
@@ -23,11 +24,12 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { Trophy, BookOpen, LineChart, CheckCircle } from 'lucide-react';
+import { Trophy, BookOpen, LineChart, CheckCircle, Lightbulb } from 'lucide-react';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
-import type { CourseCategory } from '@/lib/types';
+import type { CourseCategory, Course } from '@/lib/types';
+import { CourseCard } from '@/components/courses/CourseCard';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -47,7 +49,7 @@ const DashboardSkeleton = () => (
     <Skeleton className="h-6 w-1/2 mb-10" />
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
       {[...Array(3)].map((_, i) => (
-        <Card key={i}>
+        <Card key={i} className='bg-card/60 backdrop-blur-sm border-border/50'>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <Skeleton className="h-6 w-1/2" />
             <Skeleton className="h-8 w-8 rounded-full" />
@@ -60,7 +62,7 @@ const DashboardSkeleton = () => (
       ))}
     </div>
     <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        <Card className="lg:col-span-3">
+        <Card className="lg:col-span-3 bg-card/60 backdrop-blur-sm border-border/50">
             <CardHeader>
                 <Skeleton className="h-6 w-1/2" />
                 <Skeleton className="h-4 w-1/3" />
@@ -69,7 +71,7 @@ const DashboardSkeleton = () => (
                 <Skeleton className="w-full h-72" />
             </CardContent>
         </Card>
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-2 bg-card/60 backdrop-blur-sm border-border/50">
              <CardHeader>
                 <Skeleton className="h-6 w-1/2" />
             </CardHeader>
@@ -85,11 +87,14 @@ const DashboardSkeleton = () => (
 
 export default function DashboardPage() {
   const [data, setData] = useState<StudentProgress | null>(null);
+  const [recommendations, setRecommendations] = useState<Course[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isRecsLoading, setIsRecsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
       try {
+        setIsLoading(true);
         const progressData = await getStudentProgress();
         setData(progressData);
       } catch (error) {
@@ -98,7 +103,19 @@ export default function DashboardPage() {
         setIsLoading(false);
       }
     }
+    async function fetchRecommendations() {
+        try {
+            setIsRecsLoading(true);
+            const recs = await getRecommendations();
+            setRecommendations(recs);
+        } catch (error) {
+            console.error('Failed to fetch recommendations:', error);
+        } finally {
+            setIsRecsLoading(false);
+        }
+    }
     fetchData();
+    fetchRecommendations();
   }, []);
 
   if (isLoading) {
@@ -240,6 +257,33 @@ export default function DashboardPage() {
       </div>
 
        <motion.div variants={cardVariants} custom={7} className="mt-8">
+            <Card className="bg-card/60 backdrop-blur-sm border-border/50">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                        <Lightbulb className="w-6 h-6 text-purple-400" />
+                        Recommended For You
+                    </CardTitle>
+                    <CardDescription>Based on your progress, here are some courses you might like.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    {isRecsLoading ? (
+                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            {[...Array(4)].map((_,i) => <Skeleton key={i} className="h-64" />)}
+                        </div>
+                    ) : recommendations.length > 0 ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            {recommendations.slice(0, 4).map(course => (
+                                <CourseCard key={course.id} course={course} />
+                            ))}
+                        </div>
+                    ) : (
+                       <p className="text-muted-foreground text-sm">No recommendations available right now. Explore our course library to find something new!</p>
+                    )}
+                </CardContent>
+            </Card>
+       </motion.div>
+
+       <motion.div variants={cardVariants} custom={8} className="mt-8">
          <Card className="bg-card/60 backdrop-blur-sm border-border/50">
            <CardHeader>
              <CardTitle>Completed Courses</CardTitle>

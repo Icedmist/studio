@@ -45,8 +45,8 @@ export const Header = () => {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
+                <SheetTitle className="sr-only">Menu</SheetTitle>
                 <div className="p-4">
-                  <SheetTitle className="sr-only">Menu</SheetTitle>
                   <Link href="/" className="mb-6 block">
                     <Logo />
                   </Link>
