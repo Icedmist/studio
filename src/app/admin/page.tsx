@@ -1,17 +1,39 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield } from "lucide-react";
-import { motion } from 'framer-motion';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Shield, Users, Library, Pencil, Trash2 } from 'lucide-react';
+import { courses } from '@/lib/courses';
+import type { Course } from '@/lib/types';
+
+// Mock data for users - in a real app, this would come from an API
+const mockUsers = [
+    { id: 'user_alex_johnson', name: 'Alex Johnson', email: 'alex@example.com', role: 'Student' },
+    { id: 'user_maria_garcia', name: 'Maria Garcia', email: 'maria@example.com', role: 'Student' },
+    { id: 'user_chen_wang', name: 'Chen Wang', email: 'chen@example.com', role: 'Student' },
+    { id: 'user_admin_main', name: 'Admin User', email: 'admin@techtradehub.com', role: 'Admin' },
+];
+
 
 export default function AdminPage() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="container mx-auto py-12"
-    >
+    <div className="container mx-auto py-8">
       <div className="flex items-center gap-2 mb-4">
         <Shield className="h-8 w-8 text-primary" />
         <h1 className="text-3xl md:text-4xl font-headline font-bold">
@@ -22,21 +44,104 @@ export default function AdminPage() {
         Manage courses, users, and site content from this secure dashboard.
       </p>
 
-      <Card className="bg-card/60 backdrop-blur-sm border-border/50">
-        <CardHeader>
-          <CardTitle>Welcome, Admin!</CardTitle>
-          <CardDescription>This area is restricted and for administrative use only.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Future features will include:</p>
-          <ul className="list-disc list-inside mt-2 text-muted-foreground">
-            <li>Course Management (Create, Edit, Delete)</li>
-            <li>User Management (View, Edit roles)</li>
-            <li>Content Management for the homepage</li>
-            <li>Analytics and Reporting</li>
-          </ul>
-        </CardContent>
-      </Card>
-    </motion.div>
+      <Tabs defaultValue="users">
+        <TabsList className="grid w-full grid-cols-2 max-w-md">
+          <TabsTrigger value="users">
+            <Users className="mr-2 h-4 w-4" /> Users
+          </TabsTrigger>
+          <TabsTrigger value="courses">
+            <Library className="mr-2 h-4 w-4" /> Courses
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="users">
+          <Card className="bg-card/60 backdrop-blur-sm border-border/50">
+            <CardHeader>
+              <CardTitle>User Management</CardTitle>
+              <CardDescription>
+                View and manage all registered users.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Role</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {mockUsers.map((user) => (
+                    <TableRow key={user.id}>
+                      <TableCell className="font-medium">{user.name}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>
+                        <Badge variant={user.role === 'Admin' ? 'destructive' : 'secondary'}>
+                          {user.role}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="text-right space-x-2">
+                        <Button variant="ghost" size="icon">
+                            <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive">
+                             <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="courses">
+          <Card className="bg-card/60 backdrop-blur-sm border-border/50">
+            <CardHeader>
+              <CardTitle>Course Management</CardTitle>
+              <CardDescription>
+                View and manage all courses in the catalog.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Title</TableHead>
+                    <TableHead>Category</TableHead>
+                    <TableHead>Level</TableHead>
+                    <TableHead>Price (₦)</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {courses.map((course: Course) => (
+                    <TableRow key={course.id}>
+                      <TableCell className="font-medium">{course.title}</TableCell>
+                      <TableCell>{course.category}</TableCell>
+                      <TableCell>
+                        <Badge variant="outline">{course.level}</Badge>
+                      </TableCell>
+                      <TableCell>
+                        {course.price > 0 ? course.price.toLocaleString() : 'Free'}
+                      </TableCell>
+                       <TableCell className="text-right space-x-2">
+                        <Button variant="ghost" size="icon">
+                            <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive">
+                             <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 }

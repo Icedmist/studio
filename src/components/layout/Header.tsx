@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/Logo';
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, LogOut, User } from 'lucide-react';
+import { Menu, LogOut, User, Shield } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { auth } from '@/lib/firebase';
 import { signOut } from 'firebase/auth';
@@ -19,6 +19,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
+// IMPORTANT: Replace this with the actual Firebase UID of your admin user.
+const ADMIN_UIDS = ['REPLACE_WITH_YOUR_ADMIN_UID'];
 
 const navLinks = [
   { href: '/courses', label: 'Courses' },
@@ -35,6 +37,8 @@ export const Header = () => {
     await signOut(auth);
     router.push('/');
   };
+
+  const isAuthorizedAdmin = user && ADMIN_UIDS.includes(user.uid);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -56,20 +60,28 @@ export const Header = () => {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                     <Avatar className="h-8 w-8">
-                       <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
+                       <AvatarFallback>{user.displayName?.[0] || user.email?.[0].toUpperCase()}</AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56" align="end" forceMount>
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">My Account</p>
+                      <p className="text-sm font-medium leading-none">{user.displayName || 'My Account'}</p>
                       <p className="text-xs leading-none text-muted-foreground">
                         {user.email}
                       </p>
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  {isAuthorizedAdmin && (
+                    <Link href="/admin">
+                      <DropdownMenuItem>
+                          <Shield className="mr-2 h-4 w-4" />
+                          <span>Admin Panel</span>
+                      </DropdownMenuItem>
+                    </Link>
+                  )}
                   <DropdownMenuItem onClick={handleLogout}>
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Log out</span>
@@ -107,6 +119,12 @@ export const Header = () => {
                         {link.label}
                       </Link>
                     ))}
+                     {isAuthorizedAdmin && (
+                        <Link href="/admin" className="transition-colors hover:text-primary flex items-center">
+                           <Shield className="mr-2 h-4 w-4" />
+                           Admin Panel
+                        </Link>
+                    )}
                   </nav>
                   <div className="mt-6 flex flex-col space-y-2">
                      {user ? (
