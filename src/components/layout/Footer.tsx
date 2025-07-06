@@ -13,7 +13,7 @@ export const Footer = () => {
           <div>
             <Logo />
             <p className="mt-2 text-sm text-muted-foreground">
-              Empowering the next generation of tech and finance professionals.
+              TechTradeHub Academy is the official learning platform of Tech Trade Hub, empowering the next generation of tech and finance professionals.
             </p>
           </div>
           <div>
