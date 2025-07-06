@@ -1,6 +1,6 @@
 // Service to manage student data in Firestore.
 import { db } from '@/lib/firebase';
-import { doc, getDoc, setDoc } from "firebase/firestore"; 
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore"; 
 import type { StudentProgress } from '@/lib/types';
 import { courses } from '@/lib/courses';
 
@@ -41,42 +41,54 @@ export async function getStudentProgress(userId: string, name?: string): Promise
     }
 }
 
-// In a real app, you would have functions to update progress, enroll in courses, etc.
-// For example:
-/*
-export async function enrollInCourse(userId: string, courseId: string) {
+/**
+ * Recalculates progress metrics based on the current list of enrolled courses.
+ * @param enrolledCourses Array of courses the student is enrolled in.
+ * @returns An object with calculated progress metrics.
+ */
+function calculateProgressMetrics(enrolledCourses: StudentProgress['enrolledCourses']) {
+    const coursesInProgress = enrolledCourses.filter(c => c.progress < 100).length;
+    const completedCourses = enrolledCourses.filter(c => c.progress === 100).length;
+    const totalProgress = enrolledCourses.reduce((sum, course) => sum + course.progress, 0);
+    const overallProgress = enrolledCourses.length > 0 ? Math.round(totalProgress / enrolledCourses.length) : 0;
+
+    return { coursesInProgress, completedCourses, overallProgress };
+}
+
+
+/**
+ * Enrolls a student in a specific course.
+ * @param userId The UID of the authenticated user.
+ * @param courseId The ID of the course to enroll in.
+ */
+export async function enrollInCourse(userId: string, courseId: string): Promise<void> {
     if (!db) throw new Error("Firestore not initialized.");
 
     const courseToEnroll = courses.find(c => c.id === courseId);
     if (!courseToEnroll) throw new Error("Course not found.");
 
     const studentProgressRef = doc(db, "studentProgress", userId);
-    const studentProgressSnap = await getDoc(studentProgressRef);
+    const studentData = await getStudentProgress(userId);
 
-    if (studentProgressSnap.exists()) {
-        const studentData = studentProgressSnap.data() as StudentProgress;
-        
-        // Check if already enrolled
-        if (studentData.enrolledCourses.some(c => c.id === courseId)) {
-            console.log("User already enrolled in this course.");
-            return;
-        }
-
-        const updatedCourses = [...studentData.enrolledCourses, {...courseToEnroll, progress: 0}];
-        
-        // Here you would recalculate progress metrics
-        const coursesInProgress = updatedCourses.filter(c => c.progress < 100).length;
-        const completedCourses = updatedCourses.filter(c => c.progress === 100).length;
-        const totalProgress = updatedCourses.reduce((sum, course) => sum + course.progress, 0);
-        const overallProgress = updatedCourses.length > 0 ? Math.round(totalProgress / updatedCourses.length) : 0;
-
-
-        await updateDoc(studentProgressRef, {
-            enrolledCourses: updatedCourses,
-            coursesInProgress,
-            completedCourses,
-            overallProgress
-        });
+    // Check if already enrolled
+    if (studentData.enrolledCourses.some(c => c.id === courseId)) {
+        console.log("User already enrolled in this course.");
+        // We can just return successfully as the state is already what we want.
+        return;
     }
+
+    // Add the course with 0 progress
+    const updatedCourses = [...studentData.enrolledCourses, {...courseToEnroll, progress: 0}];
+    
+    // Recalculate progress metrics
+    const { coursesInProgress, completedCourses, overallProgress } = calculateProgressMetrics(updatedCourses);
+
+    await updateDoc(studentProgressRef, {
+        enrolledCourses: updatedCourses.map(c => ({...c})), // Convert to plain objects for Firestore
+        coursesInProgress,
+        completedCourses,
+        overallProgress
+    });
+
+    console.log(`User ${userId} enrolled in course ${courseId}.`);
 }
-*/

@@ -1,27 +1,119 @@
 'use client';
 
 import { courses } from '@/lib/courses';
-import { notFound, useParams } from 'next/navigation';
+import { notFound, useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { CheckCircle, Clock, User } from 'lucide-react';
+import { CheckCircle, Clock, User, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
 import { motion } from 'framer-motion';
+import { useAuth } from '@/hooks/use-auth';
+import { useState, useEffect } from 'react';
+import { getStudentProgress, enrollInCourse } from '@/services/student-data';
+import type { StudentProgress } from '@/lib/types';
+import { useToast } from '@/hooks/use-toast';
+
+
+async function handleEnroll(userId: string, courseId: string): Promise<boolean> {
+    'use server';
+    try {
+        await enrollInCourse(userId, courseId);
+        return true;
+    } catch (error) {
+        console.error("Enrollment failed:", error);
+        return false;
+    }
+}
+
 
 export default function CoursePage() {
   const params = useParams<{ id: string }>();
   const course = courses.find((c) => c.id === params.id);
+  const router = useRouter();
+  const { user } = useAuth();
+  const { toast } = useToast();
+
+  const [studentProgress, setStudentProgress] = useState<StudentProgress | null>(null);
+  const [isEnrolling, setIsEnrolling] = useState(false);
+  const [isLoadingProgress, setIsLoadingProgress] = useState(true);
+
+  useEffect(() => {
+    if (user) {
+      setIsLoadingProgress(true);
+      getStudentProgress(user.uid)
+        .then(setStudentProgress)
+        .catch(err => console.error("Failed to fetch user progress", err))
+        .finally(() => setIsLoadingProgress(false));
+    } else {
+        setIsLoadingProgress(false);
+    }
+  }, [user]);
 
   if (!course) {
     notFound();
   }
 
+  const enrolledCourse = studentProgress?.enrolledCourses.find(c => c.id === course.id);
+  const isEnrolled = !!enrolledCourse;
+  const courseProgress = enrolledCourse?.progress ?? 0;
+
+  const onEnrollClick = async () => {
+      if (!user) {
+          router.push('/login');
+          return;
+      }
+      setIsEnrolling(true);
+      const success = await handleEnroll(user.uid, course.id);
+
+      if (success) {
+          const updatedProgress = await getStudentProgress(user.uid);
+          setStudentProgress(updatedProgress);
+          toast({
+              title: "Enrolled Successfully!",
+              description: `You can now start the "${course.title}" course.`,
+              variant: "success" as any,
+          });
+      } else {
+          toast({
+              title: "Enrollment Failed",
+              description: "There was an error enrolling you in the course. Please try again.",
+              variant: "destructive"
+          });
+      }
+      setIsEnrolling(false);
+  }
+
   const categoryColor = COURSE_CATEGORY_COLORS[course.category];
+  
+  const renderEnrollmentButton = () => {
+    if (!user) {
+        return <Button size="lg" onClick={onEnrollClick}>Enroll Now for ₦{course.price.toLocaleString()}</Button>;
+    }
+
+    if (isLoadingProgress) {
+        return <Button size="lg" disabled><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Loading...</Button>
+    }
+
+    if (isEnrolled) {
+        if (courseProgress === 100) {
+            return <Link href={`/certificate/${course.id}`}><Button size="lg" variant="success">View Certificate</Button></Link>;
+        }
+        return <Button size="lg">Continue Course</Button>;
+    }
+    
+    return (
+        <Button size="lg" onClick={onEnrollClick} disabled={isEnrolling}>
+            {isEnrolling && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {course.price > 0 ? `Enroll Now for ₦${course.price.toLocaleString()}` : 'Enroll for Free'}
+        </Button>
+    );
+  };
+
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
@@ -53,11 +145,8 @@ export default function CoursePage() {
                 </div>
               </div>
 
-              {course.price > 0 ? (
-                <Button size="lg">Enroll Now for ₦{course.price.toLocaleString()}</Button>
-              ) : (
-                <Button size="lg" variant="success">Enroll for Free</Button>
-              )}
+              {renderEnrollmentButton()}
+
             </div>
             <div>
               <Image
@@ -118,16 +207,22 @@ export default function CoursePage() {
                 <CardTitle className="font-headline">Your Progress</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium">Completed</span>
-                    <span className="text-sm font-bold text-primary">{course.progress}%</span>
-                </div>
-                <Progress value={course.progress} />
-                <p className="text-xs text-muted-foreground mt-2">Complete the course to earn your certificate.</p>
+                {isEnrolled ? (
+                    <>
+                        <div className="flex justify-between items-center mb-2">
+                            <span className="text-sm font-medium">Completed</span>
+                            <span className="text-sm font-bold text-primary">{courseProgress}%</span>
+                        </div>
+                        <Progress value={courseProgress} />
+                        <p className="text-xs text-muted-foreground mt-2">Complete the course to earn your certificate.</p>
+                    </>
+                ) : (
+                    <p className="text-sm text-muted-foreground">Enroll in this course to start tracking your progress.</p>
+                )}
               </CardContent>
               <CardFooter>
                   <Link href={`/certificate/${course.id}`} className="w-full">
-                     <Button className="w-full" variant="success" disabled={course.progress < 100}>
+                     <Button className="w-full" variant="success" disabled={courseProgress < 100}>
                         Get Certificate
                      </Button>
                   </Link>
