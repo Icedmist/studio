@@ -7,6 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { CheckCircle, Clock } from 'lucide-react';
 import Link from 'next/link';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function CoursePage({ params }: { params: { id: string } }) {
   const course = courses.find((c) => c.id === params.id);
