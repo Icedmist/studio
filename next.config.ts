@@ -18,6 +18,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  webpack: (config, { isServer }) => {
+    // Genkit uses Handlebars, which in turn uses a feature not supported by
+    // Webpack. We mark it as external to avoid this error.
+    if (isServer) {
+      config.externals.push('handlebars');
+    }
+    return config;
+  },
 };
 
 export default nextConfig;
