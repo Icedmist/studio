@@ -8,9 +8,9 @@ import { Menu } from 'lucide-react';
 
 const navLinks = [
   { href: '/courses', label: 'Courses' },
+  { href: '/dashboard', label: 'Dashboard' },
   { href: '/#features', label: 'Features' },
   { href: '/#testimonials', label: 'Testimonials' },
-  { href: '/admin', label: 'Admin' },
 ];
 
 export const Header = () => {
