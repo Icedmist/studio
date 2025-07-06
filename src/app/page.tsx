@@ -7,8 +7,10 @@ import { Award, Bot, BarChart, Library, Search, MessageSquare } from 'lucide-rea
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { useAuth } from '@/hooks/use-auth';
 
 export default function Home() {
+  const { user } = useAuth();
   const animatedWords = ["Learn.", "Trade.", "Dominate."];
   const animatedColors = ["text-primary", "text-secondary", "text-purple-400"];
   const [wordIndex, setWordIndex] = useState(0);
@@ -217,19 +219,21 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="w-full text-center py-20 md:py-32 bg-card/50 backdrop-blur-lg">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-headline font-bold mb-4">Ready to Start Learning?</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Join thousands of students and professionals who are leveling up their skills with TechTradeHub Academy.
-          </p>
-          <Link href="/signup">
-            <Button size="lg" variant="secondary">
-              Sign Up
-            </Button>
-          </Link>
-        </div>
-      </section>
+      {!user && (
+        <section className="w-full text-center py-20 md:py-32 bg-card/50 backdrop-blur-lg">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-headline font-bold mb-4">Ready to Start Learning?</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+              Join thousands of students and professionals who are leveling up their skills with TechTradeHub Academy.
+            </p>
+            <Link href="/signup">
+              <Button size="lg" variant="secondary">
+                Sign Up
+              </Button>
+            </Link>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
