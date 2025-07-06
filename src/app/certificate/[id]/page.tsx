@@ -1,7 +1,7 @@
 'use client';
 
 import { courses } from '@/lib/courses';
-import { notFound, useRouter } from 'next/navigation';
+import { notFound, useRouter, useParams } from 'next/navigation';
 import { Logo } from '@/components/Logo';
 import { Button } from '@/components/ui/button';
 import { Download, Loader2 } from 'lucide-react';
@@ -13,7 +13,8 @@ import { generateCertificateImage } from '@/ai/flows/generate-certificate-image-
 import { Skeleton } from '@/components/ui/skeleton';
 
 
-export default function CertificatePage({ params }: { params: { id: string } }) {
+export default function CertificatePage() {
+  const params = useParams<{ id: string }>();
   const course = courses.find((c) => c.id === params.id);
   const { user } = useAuth();
   const router = useRouter();

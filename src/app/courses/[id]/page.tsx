@@ -1,7 +1,7 @@
 'use client';
 
 import { courses } from '@/lib/courses';
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,8 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
 import { motion } from 'framer-motion';
 
-export default function CoursePage({ params }: { params: { id: string } }) {
+export default function CoursePage() {
+  const params = useParams<{ id: string }>();
   const course = courses.find((c) => c.id === params.id);
 
   if (!course) {
