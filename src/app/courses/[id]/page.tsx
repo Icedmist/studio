@@ -89,7 +89,7 @@ export default function CoursePage({ params }: { params: { id: string } }) {
               </CardContent>
               <CardFooter>
                   <Link href={`/certificate/${course.id}`} className="w-full">
-                     <Button className="w-full" disabled={course.progress < 100}>
+                     <Button className="w-full" variant="success" disabled={course.progress < 100}>
                         Get Certificate
                      </Button>
                   </Link>

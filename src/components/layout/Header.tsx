@@ -33,7 +33,7 @@ export const Header = () => {
               <Button variant="ghost">Login</Button>
             </Link>
             <Link href="/signup">
-              <Button>Sign Up</Button>
+              <Button variant="secondary">Sign Up</Button>
             </Link>
           </div>
           <div className="md:hidden">
@@ -61,7 +61,7 @@ export const Header = () => {
                         <Button variant="outline" className="w-full">Login</Button>
                      </Link>
                      <Link href="/signup">
-                       <Button className="w-full">Sign Up</Button>
+                       <Button variant="secondary" className="w-full">Sign Up</Button>
                      </Link>
                   </div>
                 </div>

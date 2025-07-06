@@ -3,27 +3,59 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Award, Bot, BarChart } from 'lucide-react';
+import { Award, Bot, BarChart, Library, Search, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
+  const animatedWords = ["Future", "Skills", "Success"];
+  const animatedColors = ["text-teal-400", "text-blue-400", "text-green-400"];
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+        setWordIndex((prevIndex) => (prevIndex + 1) % animatedWords.length);
+    }, 2500);
+    return () => clearInterval(timer);
+  }, []);
+
   const features = [
     {
-      icon: <BarChart className="w-10 h-10 text-primary" />,
+      icon: <Library className="w-8 h-8" />,
+      title: 'Extensive Course Library',
+      description: 'Explore a vast range of courses across the most in-demand tech fields.',
+      color: 'text-blue-400 bg-blue-900/30',
+    },
+    {
+      icon: <BarChart className="w-8 h-8" />,
       title: 'Track Your Progress',
-      description: 'Stay motivated with real-time tracking of your course completion and achievements.',
+      description: 'Stay motivated with real-time tracking of your achievements.',
+      color: 'text-teal-400 bg-teal-900/30',
     },
     {
-      icon: <Award className="w-10 h-10 text-primary" />,
-      title: 'Earn Verifiable Certificates',
-      description: 'Showcase your expertise with industry-recognized certificates upon course completion.',
+      icon: <Award className="w-8 h-8" />,
+      title: 'Earn Certificates',
+      description: 'Showcase your expertise with industry-recognized certificates.',
+      color: 'text-yellow-400 bg-yellow-900/30',
     },
     {
-      icon: <Bot className="w-10 h-10 text-primary" />,
+      icon: <Bot className="w-8 h-8" />,
       title: 'AI-Powered Assistance',
-      description: 'Get instant help and answers to your questions from our AI assistant, Tech Gee.',
+      description: 'Get instant help from our AI assistant, Tech Gee.',
+      color: 'text-green-400 bg-green-900/30',
+    },
+    {
+        icon: <Search className="w-8 h-8" />,
+        title: 'Smart Search',
+        description: 'Easily find the courses and content you need to succeed.',
+        color: 'text-orange-400 bg-orange-900/30',
+    },
+    {
+        icon: <MessageSquare className="w-8 h-8" />,
+        title: 'Community Access',
+        description: 'Connect with peers and instructors for support and collaboration.',
+        color: 'text-purple-400 bg-purple-900/30',
     },
   ];
 
@@ -67,7 +99,20 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="text-4xl md:text-6xl font-headline font-bold mb-4"
           >
-            Unlock Your Future in Tech & Trading
+            Unlock Your{' '}
+            <AnimatePresence mode="wait">
+                <motion.span
+                    key={animatedWords[wordIndex]}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                    className={`inline-block ${animatedColors[wordIndex]}`}
+                >
+                    {animatedWords[wordIndex]}
+                </motion.span>
+            </AnimatePresence>
+            {' '}in Tech & Trading
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0 }}
@@ -83,7 +128,7 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <Link href="/courses">
-              <Button size="lg">Explore Courses</Button>
+              <Button size="lg" variant="default">Explore Courses</Button>
             </Link>
           </motion.div>
         </div>
@@ -93,53 +138,33 @@ export default function Home() {
       <section id="features" className="w-full py-20 md:py-24 bg-card/50 backdrop-blur-lg">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-headline font-bold text-center mb-12">
-            Why Choose TechTradeHub?
+            Everything You Need to Succeed
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
             {features.map((feature, index) => (
               <motion.div 
                 key={index} 
-                className="flex flex-col items-center"
                 variants={cardVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.5 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className="p-4 bg-background rounded-full mb-4">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-headline font-semibold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                 <Card className="bg-card/60 backdrop-blur-sm border-border/50 hover:border-primary transition-all cursor-pointer h-full p-6 flex flex-col items-center justify-center">
+                    <div className={`p-4 rounded-full mb-4 ${feature.color}`}>
+                      {feature.icon}
+                    </div>
+                    <h3 className="text-xl font-headline font-semibold mb-2">{feature.title}</h3>
+                    <p className="text-muted-foreground text-sm">{feature.description}</p>
+                 </Card>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
       
-      {/* Course Categories Teaser */}
-      <section className="w-full py-20 md:py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-headline font-bold text-center mb-12">
-            Find Your Path
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {['Futures Trading', 'Web3', 'Crypto', 'Tech Skills', 'AI & ML'].map(category => (
-               <Link href="/courses" key={category}>
-                  <Card className="bg-card/60 backdrop-blur-sm border-border/50 hover:border-primary transition-all cursor-pointer h-full">
-                    <CardContent className="p-6 flex flex-col items-center justify-center text-center">
-                       <p className="font-semibold font-headline">{category}</p>
-                    </CardContent>
-                  </Card>
-               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
       {/* Testimonials Section */}
-      <section id="testimonials" className="w-full py-20 md:py-24 bg-card/50 backdrop-blur-lg">
+      <section id="testimonials" className="w-full py-20 md:py-24 bg-background">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-headline font-bold text-center mb-12">
             What Our Students Say
@@ -154,7 +179,7 @@ export default function Home() {
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card className="bg-background/50 backdrop-blur-sm border-border/50 h-full">
+                <Card className="bg-card/80 backdrop-blur-sm border-border/50 h-full">
                   <CardHeader>
                     <div className="flex items-center gap-4">
                       <Avatar>
@@ -178,7 +203,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="w-full text-center py-20 md:py-32 bg-background">
+      <section className="w-full text-center py-20 md:py-32 bg-card/50 backdrop-blur-lg">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-headline font-bold mb-4">Ready to Start Learning?</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
