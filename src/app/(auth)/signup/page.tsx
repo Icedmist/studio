@@ -1,25 +1,40 @@
 import { SignUpForm } from "@/components/auth/SignUpForm";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { LineChart, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 export default function SignUpPage() {
   return (
-    <Card className="w-full max-w-md bg-card/60 backdrop-blur-sm border-border/50">
-      <CardHeader className="text-center">
-        <CardTitle className="text-2xl font-headline">Create an Account</CardTitle>
-        <CardDescription>
-          Start your learning journey with us today.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+    <div className="w-full max-w-md mx-auto flex flex-col justify-center py-12">
+        <div className="flex flex-col items-center text-center">
+            <div className="space-y-2 mb-8">
+            <div className="flex items-center justify-center gap-3 text-foreground/80">
+                <LineChart className="w-5 h-5 text-primary" />
+                <span>Track your learning progress</span>
+            </div>
+            <div className="flex items-center justify-center gap-3 text-foreground/80">
+                <Sparkles className="w-5 h-5 text-primary" />
+                <span>Earn verifiable certificates</span>
+            </div>
+            </div>
+
+            <h1 className="text-4xl font-headline font-bold text-primary">
+            Tech Trade Hub
+            </h1>
+            <p className="text-muted-foreground mt-2 mb-8">
+            Master The Future
+            </p>
+        </div>
+
+        <div className="flex justify-center border-b border-border/40 mb-8">
+            <Link href="/login" className="px-8 py-3 font-medium text-muted-foreground hover:text-foreground">
+                Login
+            </Link>
+            <Link href="/signup" className="px-8 py-3 font-medium border-b-2 border-primary text-foreground -mb-px">
+                Sign Up
+            </Link>
+        </div>
+        
         <SignUpForm />
-        <p className="mt-4 text-center text-sm text-muted-foreground">
-          Already have an account?{' '}
-          <Link href="/login" className="font-semibold text-primary hover:underline">
-            Login
-          </Link>
-        </p>
-      </CardContent>
-    </Card>
+    </div>
   );
 }

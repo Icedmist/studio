@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast";
 import { User, Mail, Lock } from "lucide-react";
 import { SocialLogins } from "./SocialLogins";
+import Link from "next/link";
 
 const formSchema = z.object({
   fullName: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -38,7 +39,7 @@ export function SignUpForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="fullName"
@@ -46,7 +47,7 @@ export function SignUpForm() {
             <FormItem>
               <FormLabel>Full Name</FormLabel>
               <FormControl>
-                <Input icon={<User />} placeholder="John Doe" {...field} />
+                <Input icon={<User />} placeholder="John Doe" {...field} className="rounded-lg"/>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -59,7 +60,7 @@ export function SignUpForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input icon={<Mail />} placeholder="you@example.com" {...field} />
+                <Input icon={<Mail />} placeholder="you@example.com" {...field} className="rounded-lg"/>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -72,27 +73,33 @@ export function SignUpForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input icon={<Lock />} type="password" placeholder="********" {...field} />
+                <Input icon={<Lock />} type="password" placeholder="********" {...field} className="rounded-lg"/>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full rounded-full font-bold text-lg" size="lg">
           Create Account
         </Button>
       </form>
-       <div className="relative my-4">
+       <div className="relative my-6">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-card px-2 text-muted-foreground">
+          <span className="bg-background px-2 text-muted-foreground">
             Or sign up with
           </span>
         </div>
       </div>
       <SocialLogins />
+       <p className="mt-6 text-center text-sm text-muted-foreground">
+            Already have an account?{' '}
+            <Link href="/login" className="font-semibold text-primary hover:underline">
+                Login
+            </Link>
+        </p>
     </Form>
   );
 }

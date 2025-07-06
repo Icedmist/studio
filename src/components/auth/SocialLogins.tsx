@@ -1,17 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { GoogleIcon } from "@/components/icons/GoogleIcon";
 import { XIcon } from "@/components/icons/XIcon";
+import { FacebookIcon } from "@/components/icons/FacebookIcon";
 
 export function SocialLogins() {
   return (
-    <div className="grid grid-cols-2 gap-4">
-      <Button variant="outline">
-        <GoogleIcon className="mr-2 h-4 w-4" />
-        Google
+    <div className="flex justify-center gap-4">
+      <Button variant="outline" size="icon" className="rounded-full h-12 w-12">
+        <GoogleIcon className="h-6 w-6" />
       </Button>
-      <Button variant="outline">
-        <XIcon className="mr-2 h-4 w-4" />
-        X
+      <Button variant="outline" size="icon" className="rounded-full h-12 w-12">
+        <FacebookIcon className="h-6 w-6" />
+      </Button>
+      <Button variant="outline" size="icon" className="rounded-full h-12 w-12">
+        <XIcon className="h-6 w-6" />
       </Button>
     </div>
   );
