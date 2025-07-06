@@ -122,9 +122,10 @@ export default function DashboardPage() {
       }
     }
     async function fetchRecommendations() {
+        if (!user) return;
         try {
             setIsRecsLoading(true);
-            const recs = await getRecommendations();
+            const recs = await getRecommendations(user.uid);
             setRecommendations(recs);
         } catch (error) {
             console.error('Failed to fetch recommendations:', error);

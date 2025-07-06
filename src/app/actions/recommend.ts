@@ -4,11 +4,13 @@ import { recommendCourses } from "@/ai/flows/recommend-courses-flow";
 import { getStudentProgress } from "@/services/student-data";
 import type { Course } from "@/lib/types";
 
-export async function getRecommendations(): Promise<Course[]> {
+export async function getRecommendations(userId: string): Promise<Course[]> {
+  if (!userId) {
+    console.error("No user ID provided for recommendations.");
+    return [];
+  }
   try {
-    // In a real app, studentId would come from the user's session.
-    const studentId = 'user_alex_johnson'; 
-    const studentProgress = await getStudentProgress(studentId);
+    const studentProgress = await getStudentProgress(userId);
     const recommendations = await recommendCourses(studentProgress);
     return recommendations;
   } catch (error) {

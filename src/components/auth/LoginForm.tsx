@@ -100,21 +100,29 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <FormField
-            control={form.control}
-            name="remember"
-            render={({ field }) => (
-            <FormItem className="flex flex-row items-center space-x-2 space-y-0">
-                <FormControl>
-                <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                />
-                </FormControl>
-                <FormLabel className="font-normal text-sm text-muted-foreground">Remember me</FormLabel>
-            </FormItem>
-            )}
-        />
+        <div className="flex items-center justify-between">
+            <FormField
+                control={form.control}
+                name="remember"
+                render={({ field }) => (
+                <FormItem className="flex flex-row items-center space-x-2 space-y-0">
+                    <FormControl>
+                    <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                    />
+                    </FormControl>
+                    <FormLabel className="font-normal text-sm text-muted-foreground">Remember me</FormLabel>
+                </FormItem>
+                )}
+            />
+             <p className="text-sm">
+                <Link href="/forgot-password" className="font-semibold text-primary hover:underline">
+                    Forgot your password?
+                </Link>
+            </p>
+        </div>
+
         <Button type="submit" className="w-full font-bold text-lg" size="lg" disabled={isLoading}>
           {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Login to Account
@@ -136,11 +144,6 @@ export function LoginForm() {
           <Link href="/signup" className="font-semibold text-primary hover:underline">
             Sign up
           </Link>
-        </p>
-        <p className="mt-2 text-center text-sm">
-            <Link href="#" className="font-semibold text-primary hover:underline">
-                Forgot your password?
-            </Link>
         </p>
     </Form>
   );
