@@ -33,15 +33,19 @@ export default function Chatbot() {
   }, [isOpen, messages.length])
 
   useEffect(() => {
-    // Auto-scroll to bottom
-    if (isOpen && scrollAreaRef.current) {
-      const viewport =
-        scrollAreaRef.current.querySelector<HTMLDivElement>(
-          'div[data-radix-scroll-area-viewport]'
-        );
-      if (viewport) {
-        viewport.scrollTop = viewport.scrollHeight;
-      }
+    if (isOpen) {
+      // Use a timeout to ensure the DOM has updated before we try to scroll.
+      // This prevents a race condition where the ref is not yet attached.
+      setTimeout(() => {
+        if (scrollAreaRef.current) {
+          const viewport = scrollAreaRef.current.querySelector<HTMLDivElement>(
+            'div[data-radix-scroll-area-viewport]'
+          );
+          if (viewport) {
+            viewport.scrollTop = viewport.scrollHeight;
+          }
+        }
+      }, 0);
     }
   }, [messages, isOpen]);
 
