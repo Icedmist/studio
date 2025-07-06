@@ -1,3 +1,5 @@
+'use client';
+
 import { courses } from '@/lib/courses';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
@@ -9,6 +11,7 @@ import { CheckCircle, Clock } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
+import { motion } from 'framer-motion';
 
 export default function CoursePage({ params }: { params: { id: string } }) {
   const course = courses.find((c) => c.id === params.id);
@@ -20,11 +23,16 @@ export default function CoursePage({ params }: { params: { id: string } }) {
   const categoryColor = COURSE_CATEGORY_COLORS[course.category];
 
   return (
-    <div>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
       {/* Hero Section */}
-      <section className="bg-card/60 py-12">
+      <section className="bg-card/60 backdrop-blur-sm py-12">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="grid md:grid-cols-2 gap-8 items-center"
+          >
             <div>
               <div className="flex gap-2 mb-2">
                 <Badge variant="secondary" style={{ backgroundColor: categoryColor, color: 'hsl(var(--primary-foreground))' }}>{course.category}</Badge>
@@ -44,14 +52,19 @@ export default function CoursePage({ params }: { params: { id: string } }) {
                 data-ai-hint={`${course.category} abstract`}
               />
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Main Content */}
       <section className="container mx-auto px-4 py-12">
         <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="lg:col-span-2"
+          >
             <h2 className="text-2xl font-headline font-bold mb-4">Course Curriculum</h2>
             <Accordion type="single" collapsible className="w-full">
               {course.modules.map((module, index) => (
@@ -76,8 +89,13 @@ export default function CoursePage({ params }: { params: { id: string } }) {
                 </AccordionItem>
               ))}
             </Accordion>
-          </div>
-          <div className="lg:col-span-1">
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="lg:col-span-1"
+          >
             <Card className="sticky top-24 bg-card/60 backdrop-blur-sm border-border/50">
               <CardHeader>
                 <CardTitle className="font-headline">Your Progress</CardTitle>
@@ -98,9 +116,9 @@ export default function CoursePage({ params }: { params: { id: string } }) {
                   </Link>
               </CardFooter>
             </Card>
-          </div>
+          </motion.div>
         </div>
       </section>
-    </div>
+    </motion.div>
   );
 }

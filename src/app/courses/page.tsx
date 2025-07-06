@@ -63,7 +63,7 @@ function CoursesDisplay() {
           <Button variant="ghost" onClick={clearLevelFilter} className="mb-4">
             <ArrowLeft className="mr-2 h-4 w-4" /> Back to Levels
           </Button>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {filteredCourses.length > 0 ? (
               filteredCourses.map((course) => (
                 <CourseCard key={course.id} course={course} />

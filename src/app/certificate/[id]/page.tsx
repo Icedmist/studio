@@ -1,8 +1,11 @@
+'use client';
+
 import { courses } from '@/lib/courses';
 import { notFound } from 'next/navigation';
 import { Logo } from '@/components/Logo';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const QrCodePlaceholder = () => (
   <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-foreground">
@@ -25,7 +28,12 @@ export default function CertificatePage({ params }: { params: { id: string } }) 
   }
 
   return (
-    <div className="bg-background py-12 px-4 flex flex-col items-center">
+    <motion.div 
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+      className="bg-background py-12 px-4 flex flex-col items-center"
+    >
       <div className="w-full max-w-4xl mx-auto flex justify-between items-center mb-4">
         <h1 className="text-2xl font-headline font-bold">Your Certificate</h1>
         <Button>
@@ -34,7 +42,7 @@ export default function CertificatePage({ params }: { params: { id: string } }) 
         </Button>
       </div>
 
-      <div className="w-full max-w-4xl bg-card border-4 border-primary p-8 aspect-[1.414/1] flex flex-col text-center shadow-2xl">
+      <div className="w-full max-w-4xl bg-card/80 backdrop-blur-lg border-4 border-primary/80 p-8 aspect-[1.414/1] flex flex-col text-center shadow-2xl rounded-2xl">
         <div className="flex justify-between items-start mb-4">
             <Logo />
             <div className="text-right">
@@ -71,6 +79,6 @@ export default function CertificatePage({ params }: { params: { id: string } }) 
             </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

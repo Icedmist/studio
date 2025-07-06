@@ -1,9 +1,17 @@
+'use client';
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Shield } from "lucide-react";
+import { motion } from 'framer-motion';
 
 export default function AdminPage() {
   return (
-    <div className="container mx-auto py-12">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="container mx-auto py-12"
+    >
       <div className="flex items-center gap-2 mb-4">
         <Shield className="h-8 w-8 text-primary" />
         <h1 className="text-3xl md:text-4xl font-headline font-bold">
@@ -29,6 +37,6 @@ export default function AdminPage() {
           </ul>
         </CardContent>
       </Card>
-    </div>
+    </motion.div>
   );
 }
