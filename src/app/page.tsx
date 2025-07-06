@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 
 export default function Home() {
   const animatedWords = ["Learn.", "Trade.", "Dominate."];
-  const animatedColors = ["text-teal-400", "text-blue-400", "text-green-400"];
+  const animatedColors = ["text-blue-400", "text-green-400", "text-purple-400"];
   const [wordIndex, setWordIndex] = useState(0);
 
   useEffect(() => {
@@ -31,13 +31,13 @@ export default function Home() {
       icon: <BarChart className="w-6 h-6" />,
       title: 'Track Your Progress',
       description: 'Stay motivated with real-time tracking of your achievements.',
-      color: 'text-teal-400 bg-teal-900/30',
+      color: 'text-green-400 bg-green-900/30',
     },
     {
       icon: <Award className="w-6 h-6" />,
       title: 'Earn Certificates',
       description: 'Showcase your expertise with industry-recognized certificates.',
-      color: 'text-yellow-400 bg-yellow-900/30',
+      color: 'text-blue-400 bg-blue-900/30',
     },
     {
       icon: <Bot className="w-6 h-6" />,
@@ -49,13 +49,13 @@ export default function Home() {
         icon: <Search className="w-6 h-6" />,
         title: 'Smart Search',
         description: 'Easily find the courses and content you need to succeed.',
-        color: 'text-orange-400 bg-orange-900/30',
+        color: 'text-purple-400 bg-purple-900/30',
     },
     {
         icon: <MessageSquare className="w-6 h-6" />,
         title: 'Community Access',
         description: 'Connect with peers and instructors for support and collaboration.',
-        color: 'text-purple-400 bg-purple-900/30',
+        color: 'text-blue-400 bg-blue-900/30',
     },
   ];
 
