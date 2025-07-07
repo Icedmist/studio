@@ -177,7 +177,7 @@ service cloud.firestore {
           After pasting the code, click the <strong>Publish</strong> button at the top of the Firebase console, then refresh this page. All admin features should now work correctly.
         </p>
          <p className="mt-4 text-xs">
-          <strong>Note for Admin Access:</strong> For the admin features to work, you must also create a specific document in your Firestore database. Go to the Firestore "Data" tab, create a new collection named `metadata`, and within that, add a document with the exact ID `admins`. Inside this `admins` document, add a field named `uids`. This field must be of type `array`, and it should contain your Firebase User UID as a string (e.g., `['dqrHnJtM27bMpNudHxO5hL3wsNE3']`).
+          <strong>Note for Admin Access:</strong> For the admin features to work, you must also create a specific document in your Firestore database. Go to the Firestore "Data" tab, create a new collection named \`metadata\`, and within that, add a document with the exact ID \`admins\`. Inside this \`admins\` document, add a field named \`uids\`. This field must be of type \`array\`, and it should contain your Firebase User UID as a string (e.g., \`['dqrHnJtM27bMpNudHxO5hL3wsNE3']\`).
         </p>
       </CardContent>
     </Card>
