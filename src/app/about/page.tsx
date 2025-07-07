@@ -1,12 +1,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Target, Lightbulb, Linkedin, Twitter } from 'lucide-react';
-import { instructors } from '@/lib/instructors';
-import Image from 'next/image';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { getInstructors } from '@/services/instructor-data';
 
-export default function AboutUsPage() {
+export default async function AboutUsPage() {
+  const instructors = await getInstructors();
+
   return (
     <div className="container mx-auto py-12 px-4">
       <Card className="bg-card/60 backdrop-blur-sm border-border/50">

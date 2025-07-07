@@ -19,17 +19,16 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Shield, Users, Library, Pencil, Trash2, UserPlus, Linkedin, Twitter } from 'lucide-react';
+import { Shield, Users, Library, Pencil, Trash2 } from 'lucide-react';
 import { courses } from '@/lib/courses';
-import type { Course, Instructor } from '@/lib/types';
+import type { Course } from '@/lib/types';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { instructors } from '@/lib/instructors';
-import Link from 'next/link';
+import { InstructorManager } from '@/components/admin/InstructorManager';
 
 // Mock data for users - in a real app, this would come from an API
 const mockUsers = [
@@ -63,7 +62,7 @@ export default function AdminPage() {
               <Library className="mr-2 h-4 w-4" /> Courses
             </TabsTrigger>
             <TabsTrigger value="instructors">
-              <UserPlus className="mr-2 h-4 w-4" /> Instructors
+              <Users className="mr-2 h-4 w-4" /> Instructors
             </TabsTrigger>
           </TabsList>
           <TabsContent value="users">
@@ -183,70 +182,7 @@ export default function AdminPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead>Bio</TableHead>
-                      <TableHead>Socials</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {instructors.map((instructor: Instructor) => (
-                      <TableRow key={instructor.id}>
-                        <TableCell className="font-medium">{instructor.name}</TableCell>
-                        <TableCell className="text-muted-foreground max-w-sm">{instructor.bio}</TableCell>
-                        <TableCell>
-                          <div className='flex gap-2'>
-                            {instructor.socials.twitter && (
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <Link href={instructor.socials.twitter} target="_blank">
-                                    <Button variant="outline" size="icon" className="h-8 w-8">
-                                      <Twitter className="h-4 w-4" />
-                                    </Button>
-                                  </Link>
-                                </TooltipTrigger>
-                                <TooltipContent><p>View Twitter Profile</p></TooltipContent>
-                              </Tooltip>
-                            )}
-                             {instructor.socials.linkedin && (
-                              <Tooltip>
-                                <TooltipTrigger asChild>
-                                  <Link href={instructor.socials.linkedin} target="_blank">
-                                    <Button variant="outline" size="icon" className="h-8 w-8">
-                                      <Linkedin className="h-4 w-4" />
-                                    </Button>
-                                  </Link>
-                                </TooltipTrigger>
-                                <TooltipContent><p>View LinkedIn Profile</p></TooltipContent>
-                              </Tooltip>
-                            )}
-                          </div>
-                        </TableCell>
-                        <TableCell className="text-right space-x-2">
-                           <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button variant="ghost" size="icon" disabled>
-                                  <Pencil className="h-4 w-4" />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent><p>Edit instructor (Not implemented)</p></TooltipContent>
-                          </Tooltip>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive" disabled>
-                                  <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent><p>Delete instructor (Not implemented)</p></TooltipContent>
-                          </Tooltip>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                <InstructorManager />
               </CardContent>
             </Card>
           </TabsContent>
