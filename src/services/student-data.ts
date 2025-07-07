@@ -82,21 +82,23 @@ export async function enrollInCourse(userId: string, courseId: string): Promise<
     const studentProgressRef = doc(db, "studentProgress", userId);
     const studentData = await getStudentProgress(userId);
 
-    // Check if already enrolled
     if (studentData.enrolledCourses.some(c => c.id === courseId)) {
-        console.log("User already enrolled in this course.");
-        // We can just return successfully as the state is already what we want.
         return;
     }
 
-    // Add the course with 0 progress
-    const updatedCourses = [...studentData.enrolledCourses, {...courseToEnroll, progress: 0}];
+    const courseToEnrollWithProgress = {
+        ...courseToEnroll,
+        progress: 0,
+        modules: courseToEnroll.modules.map(module => ({
+            ...module,
+            lessons: module.lessons.map(lesson => ({ ...lesson, completed: false }))
+        }))
+    };
+
+    const updatedCourses = [...studentData.enrolledCourses, courseToEnrollWithProgress];
     
-    // Recalculate progress metrics
     const { coursesInProgress, completedCourses, overallProgress } = calculateProgressMetrics(updatedCourses);
 
-    // Firestore has issues with deeply nested objects and custom types.
-    // We convert the updated course list to a plain JavaScript object array.
     const plainCourses = updatedCourses.map(course => JSON.parse(JSON.stringify(course)));
 
     await updateDoc(studentProgressRef, {
@@ -105,6 +107,49 @@ export async function enrollInCourse(userId: string, courseId: string): Promise<
         completedCourses,
         overallProgress
     });
+}
 
-    console.log(`User ${userId} enrolled in course ${courseId}.`);
+/**
+ * Updates a lesson's completion status and recalculates progress.
+ * @param userId The user's ID.
+ * @param courseId The course's ID.
+ * @param moduleIndex The index of the module.
+ * @param lessonIndex The index of the lesson within the module.
+ * @param completed The new completion status.
+ * @returns The updated student progress object.
+ */
+export async function updateLessonStatus(userId: string, courseId: string, moduleIndex: number, lessonIndex: number, completed: boolean): Promise<StudentProgress> {
+    if (!db) throw new Error("Firestore not initialized.");
+    const studentProgressRef = doc(db, "studentProgress", userId);
+    const studentData = await getStudentProgress(userId);
+
+    const courseIndex = studentData.enrolledCourses.findIndex(c => c.id === courseId);
+    if (courseIndex === -1) throw new Error("Course not found in student's enrolled list.");
+
+    const updatedCourses = [...studentData.enrolledCourses];
+    const course = updatedCourses[courseIndex];
+
+    if (course.modules[moduleIndex] && course.modules[moduleIndex].lessons[lessonIndex]) {
+        course.modules[moduleIndex].lessons[lessonIndex].completed = completed;
+    } else {
+        throw new Error("Lesson not found at specified index.");
+    }
+
+    const totalLessons = course.modules.reduce((sum, module) => sum + module.lessons.length, 0);
+    const completedLessons = course.modules.reduce((sum, module) => sum + module.lessons.filter(l => l.completed).length, 0);
+    course.progress = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+
+    const { coursesInProgress, completedCourses, overallProgress } = calculateProgressMetrics(updatedCourses);
+    
+    const updatedStudentData: StudentProgress = {
+        ...studentData,
+        enrolledCourses: updatedCourses,
+        coursesInProgress,
+        completedCourses,
+        overallProgress
+    };
+    
+    const plainData = JSON.parse(JSON.stringify(updatedStudentData));
+    await setDoc(studentProgressRef, plainData);
+    return updatedStudentData;
 }

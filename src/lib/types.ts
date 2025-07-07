@@ -9,13 +9,17 @@ export type CourseLevel = (typeof COURSE_LEVELS)[number];
 const LessonSchema = z.object({
   title: z.string().min(1, 'Lesson title cannot be empty'),
   duration: z.string().min(1, 'Lesson duration cannot be empty'),
+  completed: z.boolean().default(false),
 });
+export type Lesson = z.infer<typeof LessonSchema>;
+
 
 // Zod schema for a Module
 const ModuleSchema = z.object({
   title: z.string().min(1, 'Module title cannot be empty'),
   lessons: z.array(LessonSchema).min(1, 'A module must have at least one lesson'),
 });
+export type Module = z.infer<typeof ModuleSchema>;
 
 // Zod schema for a Course
 export const CourseSchema = z.object({

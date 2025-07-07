@@ -106,7 +106,6 @@ export default function CoursePage() {
   }
 
   if (!course) {
-    // This will be handled by notFound() in useEffect, but as a fallback
     return notFound();
   }
 
@@ -130,6 +129,7 @@ export default function CoursePage() {
               description: `You can now start the "${course.title}" course.`,
               variant: "success",
           });
+          router.push(`/learn/${course.id}`);
       } else {
           toast({
               title: "Enrollment Failed",
@@ -139,6 +139,19 @@ export default function CoursePage() {
       }
       setIsEnrolling(false);
   }
+
+  const getFirstIncompleteLessonLink = () => {
+    if (!enrolledCourse) return `/learn/${course.id}`;
+    for (let mIdx = 0; mIdx < enrolledCourse.modules.length; mIdx++) {
+        for (let lIdx = 0; lIdx < enrolledCourse.modules[mIdx].lessons.length; lIdx++) {
+            if (!enrolledCourse.modules[mIdx].lessons[lIdx].completed) {
+                return `/learn/${course.id}?module=${mIdx}&lesson=${lIdx}`;
+            }
+        }
+    }
+    // If all are complete, link to the first lesson
+    return `/learn/${course.id}?module=0&lesson=0`;
+  };
 
   const categoryColor = COURSE_CATEGORY_COLORS[course.category];
   
@@ -151,7 +164,7 @@ export default function CoursePage() {
         if (courseProgress === 100) {
             return <Link href={`/certificate/${course.id}`}><Button size="lg" variant="success">View Certificate</Button></Link>;
         }
-        return <Button size="lg">Continue Course</Button>;
+        return <Link href={getFirstIncompleteLessonLink()}><Button size="lg">Continue Course</Button></Link>;
     }
     
     return (

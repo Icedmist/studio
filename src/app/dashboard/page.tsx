@@ -176,7 +176,6 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!user) {
-      // This is handled by AuthProvider's redirect, but as a fallback.
       return;
     }
 
@@ -205,7 +204,6 @@ export default function DashboardPage() {
             setRecommendations(recs);
         } catch (error) {
             console.error('Failed to fetch recommendations:', error);
-            // Don't set a blocking error for recommendations
         } finally {
             setIsRecsLoading(false);
         }
@@ -215,7 +213,6 @@ export default function DashboardPage() {
   }, [user]);
   
   if (!user) {
-    // AuthProvider will redirect, so we can just show a loader.
     return <DashboardSkeleton />;
   }
 
@@ -287,6 +284,17 @@ export default function DashboardPage() {
     { title: 'In Progress', value: data.coursesInProgress, icon: <BookOpen className="h-6 w-6 text-secondary" />, description: 'Courses started' },
     { title: 'Completed', value: data.completedCourses, icon: <Trophy className="h-6 w-6 text-success" />, description: 'Courses finished' },
   ]
+  
+  const getContinueLink = (course: Course) => {
+    for (let mIdx = 0; mIdx < course.modules.length; mIdx++) {
+        for (let lIdx = 0; lIdx < course.modules[mIdx].lessons.length; lIdx++) {
+            if (!(course.modules[mIdx].lessons[lIdx] as any).completed) {
+                return `/learn/${course.id}?module=${mIdx}&lesson=${lIdx}`;
+            }
+        }
+    }
+    return `/learn/${course.id}`;
+  };
 
   return (
     <motion.div
@@ -376,7 +384,7 @@ export default function DashboardPage() {
                         <div key={course.id} className="bg-card/80 p-3 rounded-lg">
                             <div className="flex justify-between items-center mb-2">
                                 <h4 className="font-semibold text-sm truncate pr-4">{course.title}</h4>
-                                <Link href={`/courses/${course.id}`}>
+                                <Link href={getContinueLink(course)}>
                                     <Button size="sm" className="text-xs shrink-0">Continue</Button>
                                 </Link>
                             </div>
@@ -451,4 +459,5 @@ export default function DashboardPage() {
     
 
     
+
 

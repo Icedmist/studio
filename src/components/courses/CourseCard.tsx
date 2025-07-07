@@ -22,6 +22,21 @@ export function CourseCard({ course }: CourseCardProps) {
         visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
     };
 
+    const getLink = () => {
+        if (course.progress > 0 && course.progress < 100) {
+            // Find first incomplete lesson to continue
+            for (let mIdx = 0; mIdx < course.modules.length; mIdx++) {
+                for (let lIdx = 0; lIdx < course.modules[mIdx].lessons.length; lIdx++) {
+                    if (!(course.modules[mIdx].lessons[lIdx] as any).completed) {
+                        return `/learn/${course.id}?module=${mIdx}&lesson=${lIdx}`;
+                    }
+                }
+            }
+        }
+        // Default to the main course page
+        return `/courses/${course.id}`;
+    };
+
     return (
         <motion.div
             variants={cardVariants}
@@ -83,9 +98,9 @@ export function CourseCard({ course }: CourseCardProps) {
                         )}
                         <p className="text-[10px] text-muted-foreground">ID: {course.id}</p>
                     </div>
-                    <Link href={`/courses/${course.id}`}>
+                    <Link href={getLink()}>
                         <Button size="sm" className="text-xs px-2 h-8">
-                            {course.progress > 0 ? 'Continue' : course.price > 0 ? 'Details' : 'Start Free'}
+                            {course.progress > 0 && course.progress < 100 ? 'Continue' : 'View Details'}
                         </Button>
                     </Link>
                 </div>
