@@ -36,6 +36,7 @@ import { CourseCard } from '@/components/courses/CourseCard';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import { ADMIN_UIDS } from '@/lib/admin';
+import { Badge } from '@/components/ui/badge';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -284,6 +285,18 @@ export default function DashboardPage() {
     { title: 'Completed', value: data.completedCourses, icon: <Trophy className="h-6 w-6 text-success" />, description: 'Courses finished' },
   ]
 
+  const isAdmin = ADMIN_UIDS.includes(user.uid);
+  
+  if (isAdmin) {
+    return (
+      <div className="container mx-auto py-8">
+        <Link href="/admin">
+          <Button>Go to Admin Panel</Button>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <motion.div
       initial="hidden"
@@ -443,3 +456,5 @@ export default function DashboardPage() {
     </motion.div>
   );
 }
+
+    
