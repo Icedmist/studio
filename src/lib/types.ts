@@ -44,3 +44,16 @@ export const StudentProgressSchema = z.object({
     coursesInProgress: z.number(),
 });
 export type StudentProgress = z.infer<typeof StudentProgressSchema>;
+
+// Zod schema for an Instructor
+export const InstructorSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  bio: z.string(),
+  avatarUrl: z.string(),
+  socials: z.object({
+    twitter: z.string().optional(),
+    linkedin: z.string().optional(),
+  }),
+});
+export type Instructor = z.infer<typeof InstructorSchema>;

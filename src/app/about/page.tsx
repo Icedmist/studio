@@ -1,5 +1,10 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, Target, Lightbulb } from 'lucide-react';
+import { Target, Lightbulb, Linkedin, Twitter } from 'lucide-react';
+import { instructors } from '@/lib/instructors';
+import Image from 'next/image';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function AboutUsPage() {
   return (
@@ -11,35 +16,56 @@ export default function AboutUsPage() {
             Our mission is to empower the next generation of innovators, traders, and technologists with accessible, high-quality education.
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-12 mt-8">
+        <CardContent className="space-y-16 mt-8">
             <div className="text-center max-w-3xl mx-auto">
                 <h2 className="text-2xl font-headline font-semibold mb-4 text-primary">Our Story</h2>
                 <p className="text-muted-foreground">
-                    This is a placeholder for your story. You can tell me about the founding of TechTradeHub and the vision behind creating the academy. What was the problem you wanted to solve? What is the journey that led you here? I am ready to update this section with your content.
+                    Founded with a vision to democratize elite tech and financial education, TechTradeHub Academy was born from a desire to bridge the skills gap in a rapidly evolving digital world. We believe that knowledge in cutting-edge fields like AI, Web3, and advanced trading should be accessible to everyone, everywhere. Our journey is one of passion for technology and a commitment to empowering individuals to master their future.
                 </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div className="grid md:grid-cols-2 gap-8 text-center">
                 <div className="flex flex-col items-center">
                     <Target className="w-12 h-12 text-secondary mb-4" />
                     <h3 className="text-xl font-headline font-semibold mb-2">Our Mission</h3>
                     <p className="text-muted-foreground">
-                        A placeholder for your mission statement. What is the core purpose of your academy? (e.g., "To democratize access to elite tech and financial education...")
+                        To provide practical, affordable, and high-quality education in high-demand technology and finance sectors, enabling our students to achieve their career goals and drive innovation.
                     </p>
                 </div>
                 <div className="flex flex-col items-center">
                     <Lightbulb className="w-12 h-12 text-success mb-4" />
                     <h3 className="text-xl font-headline font-semibold mb-2">Our Vision</h3>
                     <p className="text-muted-foreground">
-                        A placeholder for your vision statement. Where do you see the academy in the future? (e.g., "To be the leading global platform for practical, cutting-edge skills...")
+                        To be the leading global platform for practical, cutting-edge skills, creating a community of lifelong learners who are prepared to shape the future of technology and finance.
                     </p>
                 </div>
-                 <div className="flex flex-col items-center">
-                    <Users className="w-12 h-12 text-primary mb-4" />
-                    <h3 className="text-xl font-headline font-semibold mb-2">Our Team</h3>
-                    <p className="text-muted-foreground">
-                        A placeholder for information about your team. You can introduce key instructors or founders to build trust and add a personal touch.
-                    </p>
+            </div>
+
+             <div className="text-center max-w-5xl mx-auto">
+                <h2 className="text-2xl font-headline font-semibold mb-8 text-primary">Meet the Team</h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {instructors.map((instructor) => (
+                        <Card key={instructor.id} className="bg-card/80 p-6">
+                            <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-primary">
+                                <AvatarImage src={instructor.avatarUrl} data-ai-hint="professional portrait" />
+                                <AvatarFallback>{instructor.name.charAt(0)}</AvatarFallback>
+                            </Avatar>
+                            <h3 className="text-xl font-headline font-bold">{instructor.name}</h3>
+                            <p className="text-muted-foreground mt-2 text-sm">{instructor.bio}</p>
+                            <div className="flex justify-center gap-4 mt-4">
+                               {instructor.socials.twitter && (
+                                 <Link href={instructor.socials.twitter} target="_blank" aria-label={`${instructor.name}'s Twitter`}>
+                                     <Button variant="ghost" size="icon"><Twitter className="h-5 w-5"/></Button>
+                                 </Link>
+                               )}
+                               {instructor.socials.linkedin && (
+                                   <Link href={instructor.socials.linkedin} target="_blank" aria-label={`${instructor.name}'s LinkedIn`}>
+                                     <Button variant="ghost" size="icon"><Linkedin className="h-5 w-5"/></Button>
+                                   </Link>
+                               )}
+                            </div>
+                        </Card>
+                    ))}
                 </div>
             </div>
 
