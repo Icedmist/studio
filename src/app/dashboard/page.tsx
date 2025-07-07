@@ -100,7 +100,6 @@ service cloud.firestore {
 
     // Helper function to check if the user is an admin.
     function isAdmin() {
-      // Your UID is correctly placed here.
       return request.auth != null && request.auth.uid in [
         'dqrHnJtM27bMpNudHxO5hL3wsNE3'
       ];
@@ -452,3 +451,4 @@ export default function DashboardPage() {
     
 
     
+
