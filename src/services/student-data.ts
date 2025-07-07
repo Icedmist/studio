@@ -1,8 +1,8 @@
 // Service to manage student data in Firestore.
 import { db } from '@/lib/firebase';
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore"; 
+import { doc, getDoc, setDoc, updateDoc, collection, getDocs } from "firebase/firestore"; 
 import type { StudentProgress } from '@/lib/types';
-import { courses } from '@/lib/courses';
+import { getCourse } from './course-data';
 
 /**
  * Fetches a student's progress from Firestore.
@@ -42,6 +42,18 @@ export async function getStudentProgress(userId: string, name?: string): Promise
 }
 
 /**
+ * Fetches all student progress documents.
+ * @returns An array of all student progress data.
+ */
+export async function getAllStudentProgresses(): Promise<StudentProgress[]> {
+     if (!db) throw new Error("Firestore not initialized.");
+    const progressCol = collection(db, 'studentProgress');
+    const progressSnapshot = await getDocs(progressCol);
+    return progressSnapshot.docs.map(doc => doc.data() as StudentProgress);
+}
+
+
+/**
  * Recalculates progress metrics based on the current list of enrolled courses.
  * @param enrolledCourses Array of courses the student is enrolled in.
  * @returns An object with calculated progress metrics.
@@ -64,7 +76,7 @@ function calculateProgressMetrics(enrolledCourses: StudentProgress['enrolledCour
 export async function enrollInCourse(userId: string, courseId: string): Promise<void> {
     if (!db) throw new Error("Firestore not initialized.");
 
-    const courseToEnroll = courses.find(c => c.id === courseId);
+    const courseToEnroll = await getCourse(courseId);
     if (!courseToEnroll) throw new Error("Course not found.");
 
     const studentProgressRef = doc(db, "studentProgress", userId);
@@ -83,8 +95,12 @@ export async function enrollInCourse(userId: string, courseId: string): Promise<
     // Recalculate progress metrics
     const { coursesInProgress, completedCourses, overallProgress } = calculateProgressMetrics(updatedCourses);
 
+    // Firestore has issues with deeply nested objects and custom types.
+    // We convert the updated course list to a plain JavaScript object array.
+    const plainCourses = updatedCourses.map(course => JSON.parse(JSON.stringify(course)));
+
     await updateDoc(studentProgressRef, {
-        enrolledCourses: updatedCourses.map(c => ({...c})), // Convert to plain objects for Firestore
+        enrolledCourses: plainCourses,
         coursesInProgress,
         completedCourses,
         overallProgress

@@ -12,7 +12,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import { getStudentProgress } from '@/services/student-data';
-import { courses } from '@/lib/courses';
+import { getCourses } from '@/services/course-data';
 import type { Course } from '@/lib/types';
 import { StudentProgressSchema } from '@/lib/types';
 
@@ -46,6 +46,7 @@ const searchCoursesTool = ai.defineTool(
     })),
   },
   async ({ query }) => {
+    const courses = await getCourses();
     const lowerCaseQuery = query.toLowerCase();
     const matchingCourses = courses.filter(course => 
         course.title.toLowerCase().includes(lowerCaseQuery) ||

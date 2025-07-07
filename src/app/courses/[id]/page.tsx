@@ -1,6 +1,5 @@
 'use client';
 
-import { courses } from '@/lib/courses';
 import { notFound, useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
@@ -15,36 +14,100 @@ import { motion } from 'framer-motion';
 import { useAuth } from '@/hooks/use-auth';
 import { useState, useEffect } from 'react';
 import { getStudentProgress } from '@/services/student-data';
-import type { StudentProgress } from '@/lib/types';
+import type { StudentProgress, Course } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { handleEnroll } from '@/app/actions/enroll';
+import { getCourse } from '@/services/course-data';
+import { Skeleton } from '@/components/ui/skeleton';
+
+
+function CoursePageSkeleton() {
+  return (
+    <div>
+      <section className="bg-card/60 backdrop-blur-sm py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <div className="flex gap-2 mb-2">
+                <Skeleton className="h-6 w-24" />
+                <Skeleton className="h-6 w-20" />
+              </div>
+              <Skeleton className="h-10 w-full mb-4" />
+              <Skeleton className="h-20 w-full mb-6" />
+              <Skeleton className="h-12 w-48" />
+            </div>
+            <div>
+              <Skeleton className="rounded-lg w-full h-[400px]" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="container mx-auto px-4 py-12">
+        <div className="grid lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-4">
+                <Skeleton className="h-8 w-1/3" />
+                <Skeleton className="h-12 w-full" />
+                <Skeleton className="h-12 w-full" />
+                <Skeleton className="h-12 w-full" />
+            </div>
+            <div className="lg:col-span-1">
+                 <Card className="sticky top-24 bg-card/60 backdrop-blur-sm border-border/50">
+                    <CardHeader>
+                        <Skeleton className="h-6 w-1/2" />
+                    </CardHeader>
+                    <CardContent>
+                        <Skeleton className="h-10 w-full" />
+                    </CardContent>
+                 </Card>
+            </div>
+        </div>
+      </section>
+    </div>
+  )
+}
 
 
 export default function CoursePage() {
   const params = useParams<{ id: string }>();
-  const course = courses.find((c) => c.id === params.id);
   const router = useRouter();
   const { user } = useAuth();
   const { toast } = useToast();
 
+  const [course, setCourse] = useState<Course | null>(null);
   const [studentProgress, setStudentProgress] = useState<StudentProgress | null>(null);
   const [isEnrolling, setIsEnrolling] = useState(false);
-  const [isLoadingProgress, setIsLoadingProgress] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (user) {
-      setIsLoadingProgress(true);
-      getStudentProgress(user.uid)
-        .then(setStudentProgress)
-        .catch(err => console.error("Failed to fetch user progress", err))
-        .finally(() => setIsLoadingProgress(false));
-    } else {
-        setIsLoadingProgress(false);
+    async function fetchData() {
+      setIsLoading(true);
+      const courseData = await getCourse(params.id);
+      if (!courseData) {
+        notFound();
+        return;
+      }
+      setCourse(courseData);
+
+      if (user) {
+        try {
+          const progressData = await getStudentProgress(user.uid);
+          setStudentProgress(progressData);
+        } catch (err) {
+          console.error("Failed to fetch user progress", err);
+        }
+      }
+      setIsLoading(false);
     }
-  }, [user]);
+    fetchData();
+  }, [user, params.id]);
+
+  if (isLoading) {
+    return <CoursePageSkeleton />;
+  }
 
   if (!course) {
-    notFound();
+    // This will be handled by notFound() in useEffect, but as a fallback
+    return notFound();
   }
 
   const enrolledCourse = studentProgress?.enrolledCourses.find(c => c.id === course.id);
@@ -82,10 +145,6 @@ export default function CoursePage() {
   const renderEnrollmentButton = () => {
     if (!user) {
         return <Button size="lg" onClick={onEnrollClick}>Enroll Now for ₦{course.price.toLocaleString()}</Button>;
-    }
-
-    if (isLoadingProgress) {
-        return <Button size="lg" disabled><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Loading...</Button>
     }
 
     if (isEnrolled) {

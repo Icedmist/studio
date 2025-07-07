@@ -13,7 +13,7 @@ import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 import { StudentProgressSchema, CourseSchema } from '@/lib/types';
 import type { Course, StudentProgress } from '@/lib/types';
-import { courses } from '@/lib/courses';
+import { getCourses } from '@/services/course-data';
 
 const RecommendCoursesInputSchema = z.object({
   studentProgress: StudentProgressSchema.describe("The student's current progress, including enrolled courses."),
@@ -27,7 +27,8 @@ const RecommendCoursesOutputSchema = z.object({
 export type RecommendCoursesOutput = z.infer<typeof RecommendCoursesOutputSchema>;
 
 export async function recommendCourses(studentProgress: StudentProgress): Promise<Course[]> {
-   const input = { studentProgress, allCourses: courses };
+   const allCourses = await getCourses();
+   const input = { studentProgress, allCourses };
    const result = await recommendCoursesFlow(input);
    // The AI might recommend a course the user is already enrolled in, so we filter those out.
    const enrolledIds = new Set(studentProgress.enrolledCourses.map(c => c.id));

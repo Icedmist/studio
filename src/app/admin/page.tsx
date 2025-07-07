@@ -20,8 +20,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Shield, Users, Library, Pencil, Trash2 } from 'lucide-react';
-import { courses } from '@/lib/courses';
-import type { Course } from '@/lib/types';
 import {
   Tooltip,
   TooltipContent,
@@ -29,17 +27,38 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { InstructorManager } from '@/components/admin/InstructorManager';
-
-// Mock data for users - in a real app, this would come from an API
-const mockUsers = [
-    { id: 'user_alex_johnson', name: 'Alex Johnson', email: 'alex@example.com', role: 'Student' },
-    { id: 'user_maria_garcia', name: 'Maria Garcia', email: 'maria@example.com', role: 'Student' },
-    { id: 'user_chen_wang', name: 'Chen Wang', email: 'chen@example.com', role: 'Student' },
-    { id: 'user_admin_main', name: 'Admin User', email: 'admin@techtradehub.com', role: 'Admin' },
-];
+import { useEffect, useState } from 'react';
+import type { StudentProgress } from '@/lib/types';
+import { getAllStudentProgresses } from '@/services/student-data';
+import { useToast } from '@/hooks/use-toast';
+import { Skeleton } from '@/components/ui/skeleton';
+import { CourseManager } from '@/components/admin/CourseManager';
 
 
 export default function AdminPage() {
+  const [users, setUsers] = useState<StudentProgress[]>([]);
+  const [isLoadingUsers, setIsLoadingUsers] = useState(true);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    async function fetchUsers() {
+      try {
+        setIsLoadingUsers(true);
+        const userProgresses = await getAllStudentProgresses();
+        setUsers(userProgresses);
+      } catch (error) {
+        toast({
+          title: "Error fetching users",
+          description: "Could not load the list of students.",
+          variant: "destructive",
+        })
+      } finally {
+        setIsLoadingUsers(false);
+      }
+    }
+    fetchUsers();
+  }, [toast]);
+
   return (
     <div className="container mx-auto py-8">
       <div className="flex items-center gap-2 mb-4">
@@ -70,7 +89,7 @@ export default function AdminPage() {
               <CardHeader>
                 <CardTitle>User Management</CardTitle>
                 <CardDescription>
-                  View and manage all registered users.
+                  View and manage all registered users with profiles in the system.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -78,20 +97,31 @@ export default function AdminPage() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Name</TableHead>
-                      <TableHead>Email</TableHead>
-                      <TableHead>Role</TableHead>
+                      <TableHead>User ID</TableHead>
+                      <TableHead>Courses Enrolled</TableHead>
+                      <TableHead>Overall Progress</TableHead>
                       <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {mockUsers.map((user) => (
-                      <TableRow key={user.id}>
+                    {isLoadingUsers ? (
+                      [...Array(3)].map((_, i) => (
+                        <TableRow key={i}>
+                          <TableCell colSpan={5}>
+                            <Skeleton className="h-8 w-full" />
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    ) : users.length > 0 ? (
+                      users.map((user) => (
+                      <TableRow key={user.studentId}>
                         <TableCell className="font-medium">{user.name}</TableCell>
-                        <TableCell>{user.email}</TableCell>
+                        <TableCell className="text-muted-foreground text-xs">{user.studentId}</TableCell>
                         <TableCell>
-                          <Badge variant={user.role === 'Admin' ? 'destructive' : 'secondary'}>
-                            {user.role}
-                          </Badge>
+                          {user.enrolledCourses.length}
+                        </TableCell>
+                         <TableCell>
+                          {user.overallProgress}%
                         </TableCell>
                         <TableCell className="text-right space-x-2">
                           <Tooltip>
@@ -112,7 +142,13 @@ export default function AdminPage() {
                           </Tooltip>
                         </TableCell>
                       </TableRow>
-                    ))}
+                    ))) : (
+                      <TableRow>
+                        <TableCell colSpan={5} className="text-center text-muted-foreground">
+                          No users have created a profile yet.
+                        </TableCell>
+                      </TableRow>
+                    )}
                   </TableBody>
                 </Table>
               </CardContent>
@@ -123,53 +159,11 @@ export default function AdminPage() {
               <CardHeader>
                 <CardTitle>Course Management</CardTitle>
                 <CardDescription>
-                  View and manage all courses in the catalog. Functionality to edit modules and syllabus coming soon.
+                  Add, edit, and delete courses in the catalog.
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Title</TableHead>
-                      <TableHead>Category</TableHead>
-                      <TableHead>Level</TableHead>
-                      <TableHead>Price (₦)</TableHead>
-                      <TableHead className="text-right">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {courses.map((course: Course) => (
-                      <TableRow key={course.id}>
-                        <TableCell className="font-medium">{course.title}</TableCell>
-                        <TableCell>{course.category}</TableCell>
-                        <TableCell>
-                          <Badge variant="outline">{course.level}</Badge>
-                        </TableCell>
-                        <TableCell>
-                          {course.price > 0 ? course.price.toLocaleString() : 'Free'}
-                        </TableCell>
-                        <TableCell className="text-right space-x-2">
-                           <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button variant="ghost" size="icon" disabled>
-                                  <Pencil className="h-4 w-4" />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent><p>Edit course (Not implemented)</p></TooltipContent>
-                          </Tooltip>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive" disabled>
-                                  <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent><p>Delete course (Not implemented)</p></TooltipContent>
-                          </Tooltip>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                <CourseManager />
               </CardContent>
             </Card>
           </TabsContent>

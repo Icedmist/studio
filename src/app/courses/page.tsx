@@ -1,17 +1,17 @@
 'use client';
 
-import { Suspense, useCallback, useMemo } from 'react';
+import { Suspense, useCallback, useMemo, useState, useEffect } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { CourseCard } from "@/components/courses/CourseCard";
-import { courses } from "@/lib/courses";
 import { Library, ArrowLeft } from "lucide-react";
 import type { Course } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { COURSE_CATEGORIES, COURSE_LEVELS, COURSE_CATEGORY_COLORS } from '@/lib/constants';
+import { getCourses } from '@/services/course-data';
 
 function CoursesDisplay() {
   const router = useRouter();
@@ -19,6 +19,24 @@ function CoursesDisplay() {
   const searchParams = useSearchParams();
   const category = searchParams.get('category') as Course['category'] | null;
   const level = searchParams.get('level') as Course['level'] | null;
+
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchCourses() {
+      setIsLoading(true);
+      try {
+        const courseData = await getCourses();
+        setCourses(courseData);
+      } catch (error) {
+        console.error("Failed to fetch courses:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchCourses();
+  }, []);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -46,17 +64,21 @@ function CoursesDisplay() {
   });
 
   const availableLevels = useMemo(() => {
-    if (!category) return [];
+    if (!category || courses.length === 0) return [];
     const levelsInCategory = courses
         .filter(course => course.category === category)
         .map(course => course.level);
     const uniqueLevels = [...new Set(levelsInCategory)];
     // Ensure the levels are sorted correctly: Beginner, Intermediate, Advanced
     return COURSE_LEVELS.filter(lvl => uniqueLevels.includes(lvl));
-  }, [category]);
+  }, [category, courses]);
 
 
   const renderContent = () => {
+    if (isLoading) {
+      return <CoursesPageSkeleton />;
+    }
+    
     if (category && level) {
       // View 3: Show courses
       return (
@@ -163,7 +185,7 @@ function CoursesPageSkeleton() {
                 </h1>
             </div>
             <p className="text-muted-foreground mb-8">
-                Browse our extensive catalog of courses to find the perfect one for you.
+                Loading our extensive catalog of courses...
             </p>
 
              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
