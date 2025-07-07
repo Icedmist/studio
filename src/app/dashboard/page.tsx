@@ -145,7 +145,7 @@ service cloud.firestore {
           Action Required: Secure Your Database
         </CardTitle>
         <CardDescription className="text-destructive/80">
-          Your app is being blocked by incorrect Firestore security rules. This is the final and correct set of rules. To fix this permanently, you must update the rules in your Firebase project.
+          Your Firestore security rules are blocking the application. To fix this permanently, you must update the rules in your Firebase project.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -189,7 +189,7 @@ export default function DashboardPage() {
         setData(progressData);
       } catch (error: any) {
         console.error('Failed to fetch student progress:', error);
-         if (error.code === 'permission-denied' || error.code === 'failed-precondition') {
+         if (error.code === 'permission-denied' || error.code === 'failed-precondition' || error.message.includes('permission-denied')) {
             setError('permission-denied');
         } else {
             setError('An unknown error occurred while fetching your data.');
@@ -448,5 +448,7 @@ export default function DashboardPage() {
     </motion.div>
   );
 }
+
+    
 
     
