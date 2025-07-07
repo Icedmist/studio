@@ -95,48 +95,44 @@ const DashboardSkeleton = () => (
 const ActionRequiredCard = ({ uids }: { uids: string[] }) => {
   const firestoreRules = `rules_version = '2';
 
-// This helper function checks if a user's ID is in the admin list.
-// Your UID is already included here from src/lib/admin.ts.
-function isAdmin() {
-  return request.auth.uid in {
-    ${uids.map(uid => `'${uid}': true`).join(',\n    ')}
-  };
-}
-
 service cloud.firestore {
   match /databases/{database}/documents {
-    
-    // Rule 1: Admins can read and write ALL documents.
-    match /{document=**} {
-      allow read, write: if isAdmin();
+
+    // Helper function to check if the user is an admin.
+    function isAdmin() {
+      // Your UID is correctly placed here.
+      return request.auth.uid in [
+        ${uids.map(uid => `'${uid}'`).join(',\n        ')}
+      ];
     }
-    
-    // --- Permissions for non-admin, logged-in users ---
-    
-    // Rule 2: Students can read all courses and instructors.
-    // Write access is not granted here, so only admins (from Rule 1) can write.
+
+    // Rule 1: Students can read their own progress and admins can read/write all progress documents.
+    match /studentProgress/{userId} {
+      allow read, write: if request.auth != null && (request.auth.uid == userId || isAdmin());
+    }
+
+    // Rule 2: Any logged-in user can read courses, but only admins can create/update/delete them.
     match /courses/{courseId} {
       allow read: if request.auth != null;
+      allow write: if isAdmin();
     }
+
+    // Rule 3: Any logged-in user can read instructors, but only admins can write.
     match /instructors/{instructorId} {
       allow read: if request.auth != null;
+      allow write: if isAdmin();
     }
 
-    // Rule 3: Students can read PUBLISHED blog posts.
+    // Rule 4: Students can read published blog posts. Admins can read/write all blog posts.
     match /blogPosts/{postId} {
-      allow read: if request.auth != null && resource.data.status == 'published';
+      allow read: if request.auth != null && (resource.data.status == 'published' || isAdmin());
+      allow write: if isAdmin();
     }
 
-    // Rule 4: Students can read and write THEIR OWN progress document.
-    // This is more specific than Rule 1, so it correctly scopes access for a student's own data.
-    match /studentProgress/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-
-    // Rule 5: Any logged-in user can CREATE feedback.
-    // Reading/updating/deleting feedback is not granted here, so only admins can do it (from Rule 1).
+    // Rule 5: Any logged-in user can create feedback. Only admins can read/update/delete it.
     match /feedback/{feedbackId} {
       allow create: if request.auth != null;
+      allow read, update, delete: if isAdmin();
     }
   }
 }`;
@@ -149,7 +145,7 @@ service cloud.firestore {
           Action Required: Secure Your Database
         </CardTitle>
         <CardDescription className="text-destructive/80">
-          Your app is being blocked by incorrect Firestore security rules. To fix this permanently, you must update the rules in your Firebase project. These new rules are secure and properly distinguish between Admins and Students.
+          Your app is being blocked by incorrect Firestore security rules. This is the final and correct set of rules. To fix this permanently, you must update the rules in your Firebase project.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -452,3 +448,5 @@ export default function DashboardPage() {
     </motion.div>
   );
 }
+
+    
