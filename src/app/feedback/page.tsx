@@ -13,8 +13,9 @@ import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/use-auth";
+import { submitFeedback } from "@/app/actions/feedback";
 
-const feedbackSchema = z.object({
+const feedbackFormSchema = z.object({
   name: z.string().min(2, { message: "Please enter your name." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
   message: z.string().min(10, { message: "Feedback must be at least 10 characters long." }),
@@ -25,8 +26,8 @@ export default function FeedbackPage() {
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
 
-    const form = useForm<z.infer<typeof feedbackSchema>>({
-        resolver: zodResolver(feedbackSchema),
+    const form = useForm<z.infer<typeof feedbackFormSchema>>({
+        resolver: zodResolver(feedbackFormSchema),
         defaultValues: {
             name: user?.displayName || "",
             email: user?.email || "",
@@ -34,23 +35,28 @@ export default function FeedbackPage() {
         },
     });
 
-    async function onSubmit(values: z.infer<typeof feedbackSchema>) {
+    async function onSubmit(values: z.infer<typeof feedbackFormSchema>) {
         setIsLoading(true);
-        console.log("Feedback Submitted:", values);
         
-        // In a real app, you would send this data to a backend server or a service like Formspree.
-        // For now, we'll simulate an API call.
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        const result = await submitFeedback(values, user?.uid || null);
 
-        toast({
-            title: "Feedback Submitted!",
-            description: "Thank you for helping us improve our platform.",
-            variant: "success",
-        });
-        
-        form.reset();
-        form.setValue('name', user?.displayName || "");
-        form.setValue('email', user?.email || "");
+        if (result.success) {
+            toast({
+                title: "Feedback Submitted!",
+                description: "Thank you for helping us improve our platform.",
+                variant: "success",
+            });
+            
+            form.reset();
+            form.setValue('name', user?.displayName || "");
+            form.setValue('email', user?.email || "");
+        } else {
+             toast({
+                title: "Submission Failed",
+                description: result.error || "There was an issue submitting your feedback. Please try again.",
+                variant: "destructive",
+            });
+        }
 
         setIsLoading(false);
     }

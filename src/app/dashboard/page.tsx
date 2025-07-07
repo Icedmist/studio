@@ -128,9 +128,14 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
-    // Allow logged-in users to read their own student progress
+    // Allow logged-in users to read/write their own student progress
     match /studentProgress/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Allow any logged-in user to submit feedback
+    match /feedback/{feedbackId} {
+      allow create: if request.auth != null;
     }
 
     // Allow any logged-in user to read course and instructor data
@@ -144,7 +149,7 @@ service cloud.firestore {
     // Allow admins to do anything.
     // See the note below on how to set up the admins document.
     match /{document=**} {
-      allow read, write: if request.auth != null && request.auth.uid in get(/databases/$(database)/documents/metadata/admins).data.uids;
+      allow read, write: if request.auth != null && get(/databases/$(database)/documents/metadata/admins).data.uids[0] == request.auth.uid;
     }
   }
 }`}
@@ -153,7 +158,7 @@ service cloud.firestore {
           After pasting the code, click the <strong>Publish</strong> button at the top of the Firebase console, then refresh this page.
         </p>
          <p className="mt-4 text-xs">
-          <strong>Note for Admin Access:</strong> For the admin dashboard to work, you must also create a document in Firestore. Go to the Firestore Data tab, create a collection named \`metadata\`, add a document with the ID \`admins\`, and add a field named \`uids\` of type \`array\` containing your Firebase UID as a string.
+          <strong>Note for Admin Access:</strong> For the admin dashboard to work, you must also create a document in Firestore. Go to the Firestore Data tab, create a collection named \`metadata\`, add a document with the ID \`admins\`, and add a field named \`uids\` of type \`array\` containing your Firebase UID as a string inside that array.
         </p>
       </CardContent>
     </Card>
@@ -185,7 +190,7 @@ export default function DashboardPage() {
         setData(progressData);
       } catch (error: any) {
         console.error('Failed to fetch student progress:', error);
-        if (error.message && (error.message.toLowerCase().includes('permission-denied') || error.message.toLowerCase().includes('insufficient permissions'))) {
+        if (error.code && (error.code.includes('permission-denied') || error.code.includes('insufficient-permissions'))) {
             setError('permission-denied');
         } else {
             setError('An unknown error occurred while fetching your data.');
