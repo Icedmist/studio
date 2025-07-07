@@ -90,7 +90,7 @@ const DashboardSkeleton = () => (
 export default function DashboardPage() {
   const [data, setData] = useState<StudentProgress | null>(null);
   const [recommendations, setRecommendations] = useState<Course[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isDataLoading, setIsDataLoading] = useState(true);
   const [isRecsLoading, setIsRecsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
@@ -105,9 +105,8 @@ export default function DashboardPage() {
 
     async function fetchData() {
       try {
-        setIsLoading(true);
+        setIsDataLoading(true);
         setError(null);
-        // Pass user's ID and name to fetch/create their specific progress
         const progressData = await getStudentProgress(user.uid, user.displayName || user.email!);
         setData(progressData);
       } catch (error: any) {
@@ -118,7 +117,7 @@ export default function DashboardPage() {
         }
         setError(errorMessage);
       } finally {
-        setIsLoading(false);
+        setIsDataLoading(false);
       }
     }
     async function fetchRecommendations() {
@@ -137,7 +136,7 @@ export default function DashboardPage() {
     fetchRecommendations();
   }, [user, router]);
 
-  if (isLoading || !user) {
+  if (isDataLoading) {
     return <DashboardSkeleton />;
   }
 

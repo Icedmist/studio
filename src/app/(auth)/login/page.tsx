@@ -1,7 +1,7 @@
 'use client';
 
 import { LoginForm } from "@/components/auth/LoginForm";
-import { LineChart, Sparkles } from "lucide-react";
+import { LineChart, Sparkles, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { motion } from 'framer-motion';
@@ -10,17 +10,17 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function LoginPage() {
-  const { user, isLoading } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoading && user) {
+    if (user) {
       router.push('/dashboard');
     }
-  }, [user, isLoading, router]);
+  }, [user, router]);
 
-  if (isLoading || user) {
-    return <div className="h-screen w-screen flex items-center justify-center">Loading...</div>; // Or a spinner
+  if (user) {
+    return <div className="h-screen w-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
   }
   
   return (

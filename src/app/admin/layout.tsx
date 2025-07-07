@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ShieldAlert } from 'lucide-react';
+import { ShieldAlert, Loader2 } from 'lucide-react';
 import { ADMIN_UIDS } from '@/lib/admin';
 
 export default function AdminLayout({
@@ -12,17 +12,18 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user, isLoading } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!isLoading && !user) {
+    if (!user) {
       router.push('/login');
     }
-  }, [user, isLoading, router]);
+  }, [user, router]);
 
-  if (isLoading || !user) {
-    return <div className="h-screen w-screen flex items-center justify-center">Loading...</div>;
+  if (!user) {
+    // AuthProvider shows a global loader, so we just need a spinner for the redirect.
+    return <div className="h-screen w-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin"/></div>;
   }
   
   const isAuthorized = ADMIN_UIDS.includes(user.uid);
