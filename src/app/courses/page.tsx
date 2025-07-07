@@ -1,24 +1,26 @@
 'use client';
 
-import { Suspense, useCallback, useMemo, useState, useEffect } from 'react';
+import { Suspense, useCallback, useState, useEffect } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { CourseCard } from "@/components/courses/CourseCard";
-import { Library, ArrowLeft } from "lucide-react";
+import { Library, ArrowLeft, Filter } from "lucide-react";
 import type { Course } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { COURSE_CATEGORIES, COURSE_LEVELS, COURSE_CATEGORY_COLORS } from '@/lib/constants';
 import { getCourses } from '@/services/course-data';
+import { cn } from '@/lib/utils';
 
 function CoursesDisplay() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  
   const category = searchParams.get('category') as Course['category'] | null;
-  const level = searchParams.get('level') as Course['level'] | null;
+  const level = searchParams.get('level') as Course['level'] | 'All' | null;
 
   const [courses, setCourses] = useState<Course[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -41,89 +43,68 @@ function CoursesDisplay() {
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+      if (value === 'All') {
+          params.delete(name);
+      } else {
+          params.set(name, value);
+      }
       return params.toString();
     },
     [searchParams]
   );
-
-  const clearFilters = useCallback(() => {
+  
+  const clearCategoryFilter = useCallback(() => {
     router.push(pathname);
   }, [router, pathname]);
 
-  const clearLevelFilter = useCallback(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete('level');
-    router.push(`${pathname}?${params.toString()}`);
-  }, [router, pathname, searchParams]);
 
   const filteredCourses = courses.filter((course: Course) => {
-    const categoryMatch = !category || course.category === category;
-    const levelMatch = !level || course.level === level;
+    if (!category) return false;
+    const categoryMatch = course.category === category;
+    const levelMatch = !level || level === 'All' || course.level === level;
     return categoryMatch && levelMatch;
   });
-
-  const availableLevels = useMemo(() => {
-    if (!category || courses.length === 0) return [];
-    const levelsInCategory = courses
-        .filter(course => course.category === category)
-        .map(course => course.level);
-    const uniqueLevels = [...new Set(levelsInCategory)];
-    // Ensure the levels are sorted correctly: Beginner, Intermediate, Advanced
-    return COURSE_LEVELS.filter(lvl => uniqueLevels.includes(lvl));
-  }, [category, courses]);
-
 
   const renderContent = () => {
     if (isLoading) {
       return <CoursesPageSkeleton />;
     }
     
-    if (category && level) {
-      // View 3: Show courses
+    if (category) {
+      // View 2: Show courses and level filters
       return (
         <div>
-          <Button variant="ghost" onClick={clearLevelFilter} className="mb-4">
-            <ArrowLeft className="mr-2 h-4 w-4" /> Back to Levels
+          <Button variant="ghost" onClick={clearCategoryFilter} className="mb-4">
+            <ArrowLeft className="mr-2 h-4 w-4" /> Back to Categories
           </Button>
+
+          <Card className="p-4 mb-8 bg-card/60 backdrop-blur-sm border-border/50">
+            <div className="flex flex-wrap items-center gap-4">
+                 <h3 className="text-lg font-headline font-semibold flex items-center gap-2">
+                    <Filter className="w-5 h-5"/>
+                    Filter by Level
+                 </h3>
+                 <div className="flex flex-wrap gap-2">
+                    {['All', ...COURSE_LEVELS].map((lvl) => (
+                        <Button
+                            key={lvl}
+                            variant={(!level && lvl === 'All') || level === lvl ? 'default' : 'outline'}
+                            onClick={() => router.push(`${pathname}?${createQueryString('level', lvl)}`)}
+                        >
+                            {lvl}
+                        </Button>
+                    ))}
+                 </div>
+            </div>
+          </Card>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {filteredCourses.length > 0 ? (
               filteredCourses.map((course) => (
                 <CourseCard key={course.id} course={course} />
               ))
             ) : (
-              <p className="col-span-full text-center text-muted-foreground mt-8">No courses found for this level.</p>
-            )}
-          </div>
-        </div>
-      );
-    }
-
-    if (category) {
-      // View 2: Show levels
-      return (
-        <div>
-          <Button variant="ghost" onClick={clearFilters} className="mb-8">
-            <ArrowLeft className="mr-2 h-4 w-4" /> Back to Categories
-          </Button>
-          <h2 className="text-2xl font-headline font-bold text-center mb-2">Select a Level</h2>
-          <p className="text-muted-foreground text-center mb-8">You've chosen <span className="font-semibold text-primary">{category}</span>. Now, pick your proficiency level.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {availableLevels.map((lvl) => (
-              <Link key={lvl} href={`${pathname}?${createQueryString('level', lvl)}`} passHref>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Card className="p-8 text-center bg-card/60 backdrop-blur-sm border-border/50 hover:border-primary transition-all cursor-pointer hover:shadow-lg">
-                    <h3 className="text-xl font-headline font-semibold">{lvl}</h3>
-                  </Card>
-                </motion.div>
-              </Link>
-            ))}
-             {availableLevels.length === 0 && (
-                <p className="col-span-full text-center text-muted-foreground mt-8">No courses available yet for the <span className="font-semibold text-primary">{category}</span> category.</p>
+              <p className="col-span-full text-center text-muted-foreground mt-8">No courses found for this filter.</p>
             )}
           </div>
         </div>
@@ -166,7 +147,7 @@ function CoursesDisplay() {
         </h1>
       </div>
       <p className="text-muted-foreground mb-12">
-        Follow the steps to find the perfect course for you.
+        Browse our catalog or filter by category and level to find the perfect course for you.
       </p>
 
       {renderContent()}

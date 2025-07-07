@@ -3,7 +3,7 @@
 import { db } from '@/lib/firebase';
 import { collection, getDocs, getDoc, addDoc, updateDoc, deleteDoc, doc, query, where, serverTimestamp, type DocumentData, orderBy } from "firebase/firestore";
 import type { Blog } from '@/lib/types';
-import { BlogSchema, NewBlogSchema } from '@/lib/types';
+import { BlogSchema } from '@/lib/types';
 
 type NewBlog = Omit<Blog, 'id' | 'createdAt' | 'publishedAt'>;
 
@@ -16,6 +16,16 @@ const toBlog = (doc: DocumentData): Blog => {
     });
 };
 
+function slugify(text: string): string {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-');
+}
+
 export async function getPosts(status?: 'published' | 'draft'): Promise<Blog[]> {
     if (!db) throw new Error("Firestore not initialized.");
     
@@ -26,7 +36,55 @@ export async function getPosts(status?: 'published' | 'draft'): Promise<Blog[]> 
     }
 
     const postsSnapshot = await getDocs(q);
-    const postList = postsSnapshot.docs.map(doc => toBlog(doc));
+    let postList = postsSnapshot.docs.map(doc => toBlog(doc));
+
+    // If there are no posts at all, create a welcome post.
+    if (postList.length === 0 && !status) {
+        console.log('No blog posts found. Seeding a welcome post.');
+        const welcomePostContent = `Welcome to the official blog of TechTradeHub Academy! We are thrilled to have you here as part of our growing community of learners, innovators, and future leaders in the tech and finance industries.
+
+### Our Vision
+At TechTradeHub, our mission is simple: to democratize education in cutting-edge fields. We believe that everyone, regardless of their background, deserves access to high-quality, practical knowledge in areas like Futures Trading, Web3, Cryptocurrency, AI & Machine Learning, and other essential Tech Skills. The digital landscape is evolving at a breakneck pace, and we're here to ensure you have the tools and expertise to not just keep up, but to get ahead.
+
+### What to Expect from This Blog
+This blog will be your go-to resource for a variety of topics, including:
+- **In-depth Tutorials:** Step-by-step guides on complex topics from our courses.
+- **Industry Insights:** Analysis of market trends, new technologies, and what they mean for you.
+- **Student Success Stories:** Get inspired by the journeys of fellow learners from our community.
+- **Academy News & Updates:** Be the first to know about new courses, features, and events.
+- **Career Advice:** Tips and tricks to help you land your dream job in tech or finance.
+
+### Your Journey Starts Now
+Whether you're a complete beginner looking to take your first step into a new field, or a seasoned professional aiming to sharpen your skills, you've come to the right place. Our courses are designed by industry experts to be practical, engaging, and immediately applicable.
+
+We invite you to explore our [course library](/courses), engage with our content, and join the conversation. Your journey to mastering the future starts today.
+
+Let's build the future, together.
+
+Warmly,
+The TechTradeHub Academy Team`;
+        
+        const welcomePost = {
+            title: 'Welcome to TechTradeHub Academy: Your Journey to Mastery Begins!',
+            slug: 'welcome-to-techtradehub-academy',
+            content: welcomePostContent,
+            imageUrl: 'https://placehold.co/800x400.png',
+            authorName: 'The TechTradeHub Team',
+            authorId: 'system',
+            status: 'published' as const,
+        };
+        
+        await addDoc(collection(db, 'blogPosts'), {
+            ...welcomePost,
+            createdAt: serverTimestamp(),
+            publishedAt: serverTimestamp(),
+        });
+
+        // Re-fetch to include the newly created post
+        const newSnapshot = await getDocs(q);
+        postList = newSnapshot.docs.map(doc => toBlog(doc));
+    }
+
     return postList;
 }
 

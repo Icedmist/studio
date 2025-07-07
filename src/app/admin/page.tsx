@@ -19,7 +19,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Shield, Users, Library, Pencil, Trash2, Newspaper } from 'lucide-react';
+import { Shield, Users, Library, Pencil, Trash2, Newspaper, MessageSquare } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -35,6 +35,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { CourseManager } from '@/components/admin/CourseManager';
 import { ADMIN_UIDS } from '@/lib/admin';
 import { BlogManager } from './BlogManager';
+import { FeedbackManager } from './FeedbackManager';
 
 const ProgressBadge = ({ progress }: { progress: number }) => {
     let variant: "success" | "warning" | "destructive" | "secondary" = "secondary";
@@ -86,7 +87,7 @@ export default function AdminPage() {
 
       <TooltipProvider>
         <Tabs defaultValue="users">
-          <TabsList className="grid w-full grid-cols-4 max-w-2xl">
+          <TabsList className="grid w-full grid-cols-5 max-w-3xl">
             <TabsTrigger value="users">
               <Users className="mr-2 h-4 w-4" /> Users
             </TabsTrigger>
@@ -98,6 +99,9 @@ export default function AdminPage() {
             </TabsTrigger>
             <TabsTrigger value="blog">
                 <Newspaper className="mr-2 h-4 w-4" /> Blog
+            </TabsTrigger>
+             <TabsTrigger value="feedback">
+                <MessageSquare className="mr-2 h-4 w-4" /> Feedback
             </TabsTrigger>
           </TabsList>
           <TabsContent value="users">
@@ -212,6 +216,19 @@ export default function AdminPage() {
               </CardHeader>
               <CardContent>
                 <BlogManager />
+              </CardContent>
+            </Card>
+          </TabsContent>
+           <TabsContent value="feedback">
+            <Card className="bg-card/60 backdrop-blur-sm border-border/50">
+              <CardHeader>
+                <CardTitle>User Feedback</CardTitle>
+                <CardDescription>
+                  View and manage feedback submitted by your users.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <FeedbackManager />
               </CardContent>
             </Card>
           </TabsContent>

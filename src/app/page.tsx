@@ -3,23 +3,44 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Award, Bot, BarChart, Library, Search, MessageSquare } from 'lucide-react';
+import { Award, Bot, BarChart, Library, Search, MessageSquare, Star } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/use-auth';
+import { getCourses } from '@/services/course-data';
+import type { Course } from '@/lib/types';
+import { CourseCard } from '@/components/courses/CourseCard';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function Home() {
   const { user } = useAuth();
   const animatedWords = ["Learn.", "Trade.", "Dominate."];
   const animatedColors = ["text-primary", "text-secondary", "text-purple-400"];
   const [wordIndex, setWordIndex] = useState(0);
+  const [featuredCourses, setFeaturedCourses] = useState<Course[]>([]);
+  const [isLoadingCourses, setIsLoadingCourses] = useState(true);
 
   useEffect(() => {
     const timer = setInterval(() => {
         setWordIndex((prevIndex) => (prevIndex + 1) % animatedWords.length);
     }, 2500);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    async function fetchCourses() {
+        setIsLoadingCourses(true);
+        try {
+            const allCourses = await getCourses();
+            setFeaturedCourses(allCourses.slice(0, 4)); // Get first 4 courses
+        } catch (error) {
+            console.error("Failed to load featured courses", error);
+        } finally {
+            setIsLoadingCourses(false);
+        }
+    }
+    fetchCourses();
   }, []);
 
   const features = [
@@ -150,8 +171,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Featured Courses Section */}
+      <section id="featured-courses" className="w-full py-20 md:py-24 bg-card/50 backdrop-blur-lg">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-headline font-bold text-center mb-4">
+            Explore Our Top Courses
+          </h2>
+          <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">
+            Hand-picked courses to help you get started on your learning journey, no matter your skill level.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {isLoadingCourses ? (
+                [...Array(4)].map((_, i) => <Skeleton key={i} className="h-80" />)
+            ) : (
+                featuredCourses.map((course) => <CourseCard key={course.id} course={course} />)
+            )}
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
-      <section id="features" className="w-full py-20 md:py-24 bg-card/50 backdrop-blur-lg">
+      <section id="features" className="w-full py-20 md:py-24 bg-background">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-headline font-bold text-center mb-12">
             Everything You Need to Succeed
@@ -180,7 +220,7 @@ export default function Home() {
       </section>
       
       {/* Testimonials Section */}
-      <section id="testimonials" className="w-full py-20 md:py-24 bg-background">
+      <section id="testimonials" className="w-full py-20 md:py-24 bg-card/50 backdrop-blur-lg">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-headline font-bold text-center mb-12">
             What Our Students Say
@@ -220,7 +260,7 @@ export default function Home() {
 
       {/* CTA Section */}
       {!user && (
-        <section className="w-full text-center py-20 md:py-32 bg-card/50 backdrop-blur-lg">
+        <section className="w-full text-center py-20 md:py-32 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-headline font-bold mb-4">Ready to Start Learning?</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">

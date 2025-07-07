@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import { COURSE_CATEGORIES, COURSE_LEVELS } from './constants';
-import { serverTimestamp } from 'firebase/firestore';
 
 export type CourseCategory = (typeof COURSE_CATEGORIES)[number];
 export type CourseLevel = (typeof COURSE_LEVELS)[number];
@@ -68,13 +67,15 @@ export type Instructor = z.infer<typeof InstructorSchema>;
 
 // Zod schema for feedback
 export const FeedbackSchema = z.object({
+  id: z.string(),
   name: z.string().min(2, { message: "Please enter your name." }),
   email: z.string().email({ message: "Please enter a valid email address." }),
   message: z.string().min(10, { message: "Feedback must be at least 10 characters long." }),
   userId: z.string().optional(),
-  createdAt: z.custom<ReturnType<typeof serverTimestamp>>(),
+  createdAt: z.any(), // Allow Firestore Timestamp on read
 });
 export type Feedback = z.infer<typeof FeedbackSchema>;
+
 
 // Zod schema for a Blog Post
 export const BlogSchema = z.object({
