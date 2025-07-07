@@ -96,7 +96,7 @@ const ActionRequiredCard = ({ uids }: { uids: string[] }) => {
   const firestoreRules = `rules_version = '2';
 
 // This helper function checks if a user's ID is in the admin list.
-// Make sure the UIDs here match the ones in your src/lib/admin.ts file.
+// Your UID is already included here from src/lib/admin.ts.
 function isAdmin() {
   return request.auth.uid in {
     ${uids.map(uid => `'${uid}': true`).join(',\n    ')}
@@ -106,37 +106,37 @@ function isAdmin() {
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Admins can read and write all documents.
+    // Rule 1: Admins can read and write ALL documents.
     match /{document=**} {
-      allow read, write: if request.auth != null && isAdmin();
+      allow read, write: if isAdmin();
     }
-
-    // --- Rules for Students (non-admins) ---
-
-    // Students can read all courses, instructors, and published blog posts.
+    
+    // --- Permissions for non-admin, logged-in users ---
+    
+    // Rule 2: Students can read all courses and instructors.
+    // Write access is not granted here, so only admins (from Rule 1) can write.
     match /courses/{courseId} {
       allow read: if request.auth != null;
-      allow write: if false; // Only admins can write
     }
     match /instructors/{instructorId} {
       allow read: if request.auth != null;
-      allow write: if false; // Only admins can write
-    }
-    match /blogPosts/{postId} {
-      allow read: if request.auth != null && resource.data.status == 'published';
-      allow write: if false; // Only admins can write
     }
 
-    // Students can read and write to their own progress document ONLY.
+    // Rule 3: Students can read PUBLISHED blog posts.
+    match /blogPosts/{postId} {
+      allow read: if request.auth != null && resource.data.status == 'published';
+    }
+
+    // Rule 4: Students can read and write THEIR OWN progress document.
+    // This is more specific than Rule 1, so it correctly scopes access for a student's own data.
     match /studentProgress/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
 
-    // Any authenticated user can submit feedback.
+    // Rule 5: Any logged-in user can CREATE feedback.
+    // Reading/updating/deleting feedback is not granted here, so only admins can do it (from Rule 1).
     match /feedback/{feedbackId} {
       allow create: if request.auth != null;
-      // Only admins can read/manage feedback submissions.
-      allow read, update, delete: if false; 
     }
   }
 }`;
@@ -149,16 +149,16 @@ service cloud.firestore {
           Action Required: Secure Your Database
         </CardTitle>
         <CardDescription className="text-destructive/80">
-          Your app is blocked by Firestore security rules. To fix this, you must update the rules in your Firebase project. These new rules are secure and properly distinguish between Admins and Students.
+          Your app is being blocked by incorrect Firestore security rules. To fix this permanently, you must update the rules in your Firebase project. These new rules are secure and properly distinguish between Admins and Students.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <p className="font-bold mb-2">Follow these steps:</p>
         <ol className="list-decimal list-inside space-y-2 mb-4">
-            <li><a href="https://console.firebase.google.com/project/tech-trade-hub-academy/firestore/rules" target="_blank" rel="noopener noreferrer" className="underline font-semibold">Click here to open your Firestore Rules</a>.</li>
+            <li><a href="https://console.firebase.google.com/project/tech-trade-hub-academy/firestore/rules" target="_blank" rel="noopener noreferrer" className="underline font-semibold">Click here to open your Firestore Rules editor</a>.</li>
             <li>Delete all the text in the editor.</li>
             <li>Copy the complete ruleset below and paste it into the editor.</li>
-            <li>Click "Publish".</li>
+            <li>Click "Publish". This will resolve all permission errors.</li>
         </ol>
         <pre className="mt-4 text-left bg-destructive/20 p-4 rounded-md text-xs font-mono whitespace-pre-wrap overflow-auto">
             {firestoreRules}
@@ -224,6 +224,8 @@ export default function DashboardPage() {
     return <DashboardSkeleton />;
   }
 
+  const isAdmin = ADMIN_UIDS.includes(user.uid);
+
   if (isDataLoading) {
     return <DashboardSkeleton />;
   }
@@ -252,6 +254,12 @@ export default function DashboardPage() {
       </div>
     );
   }
+  
+  if (isAdmin) {
+    router.push('/admin');
+    return <DashboardSkeleton />;
+  }
+
 
   if (!data) {
     return (
@@ -284,18 +292,6 @@ export default function DashboardPage() {
     { title: 'In Progress', value: data.coursesInProgress, icon: <BookOpen className="h-6 w-6 text-secondary" />, description: 'Courses started' },
     { title: 'Completed', value: data.completedCourses, icon: <Trophy className="h-6 w-6 text-success" />, description: 'Courses finished' },
   ]
-
-  const isAdmin = ADMIN_UIDS.includes(user.uid);
-  
-  if (isAdmin) {
-    return (
-      <div className="container mx-auto py-8">
-        <Link href="/admin">
-          <Button>Go to Admin Panel</Button>
-        </Link>
-      </div>
-    );
-  }
 
   return (
     <motion.div
@@ -456,5 +452,3 @@ export default function DashboardPage() {
     </motion.div>
   );
 }
-
-    
