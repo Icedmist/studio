@@ -88,103 +88,6 @@ const DashboardSkeleton = () => (
   </div>
 );
 
-const SecurityRulesError = ({ projectId }: { projectId: string | undefined }) => (
-  <div className="container mx-auto p-4 sm:p-8">
-    <Card className="bg-destructive/10 border-destructive/50 text-destructive">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-3">
-          <AlertTriangle className="h-8 w-8" />
-          Action Required: Update Firestore Security Rules
-        </CardTitle>
-        <CardDescription className="text-destructive/80">
-          Your database is currently blocking the app from creating, updating, or deleting data. To fix this, you must update your Firestore security rules with the correct configuration below.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <p className="font-bold mb-2">Please follow these steps exactly:</p>
-        <ol className="list-decimal list-inside space-y-2 mb-4">
-          <li>
-            <a 
-              href={`https://console.firebase.google.com/project/${projectId}/firestore/rules`} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="font-bold underline hover:text-destructive-foreground"
-            >
-              Click here to open your Firestore Rules editor
-            </a> 
-            (opens in a new tab).
-          </li>
-          <li>Select the correct Firebase project if prompted: <strong>{projectId || 'tech-trade-hub-academy'}</strong>.</li>
-          <li>Delete all the text currently in the rules editor.</li>
-          <li>Copy the entire block of code below and paste it into the editor.</li>
-        </ol>
-        <pre className="mt-4 text-left bg-destructive/20 p-4 rounded-md text-sm font-mono whitespace-pre-wrap">
-          {`rules_version = '2';
-
-service cloud.firestore {
-  match /databases/{database}/documents {
-
-    // --- Helper Functions ---
-    function isOwner(userId) {
-      return request.auth != null && request.auth.uid == userId;
-    }
-
-    function isSignedIn() {
-      return request.auth != null;
-    }
-    
-    // --- Admin Rules ---
-    // You MUST create this document in Firestore for admin access to work:
-    // Collection: 'metadata', Document ID: 'admins', Field: 'uids' (array of strings)
-    function isAdmin() {
-      return isSignedIn() && request.auth.uid in get(/databases/$(database)/documents/metadata/admins).data.uids;
-    }
-
-    // --- Public Read Rules ---
-    // Anyone can read published blog posts, courses, and instructors.
-    match /courses/{courseId} {
-      allow read: if true;
-    }
-    match /instructors/{instructorId} {
-      allow read: if true;
-    }
-    match /blogPosts/{postId} {
-      allow read: if resource.data.status == 'published';
-    }
-
-    // --- User-Specific Write Rules ---
-    // Users can manage their own progress document.
-    match /studentProgress/{userId} {
-      allow read, write: if isOwner(userId);
-    }
-    
-    // Any signed-in user can submit feedback.
-    match /feedback/{feedbackId} {
-      allow create: if isSignedIn();
-    }
-    
-    // --- Admin Catch-All Rule ---
-    // Admins have full read/write access to everything else.
-    // This includes creating/updating/deleting courses, instructors, blogs,
-    // and reading all student progress and feedback.
-    match /{path=**} {
-      allow read, write: if isAdmin();
-    }
-  }
-}`}
-        </pre>
-        <p className="mt-4">
-          After pasting the code, click the <strong>Publish</strong> button at the top of the Firebase console, then refresh this page. All admin features should now work correctly.
-        </p>
-         <p className="mt-4 text-xs">
-          <strong>Note for Admin Access:</strong> For the admin features to work, you must also create a specific document in your Firestore database. Go to the Firestore "Data" tab, create a new collection named \`metadata\`, and within that, add a document with the exact ID \`admins\`. Inside this \`admins\` document, add a field named \`uids\`. This field must be of type \`array\`, and it should contain your Firebase User UID as a string (e.g., \`['dqrHnJtM27bMpNudHxO5hL3wsNE3']\`).
-        </p>
-      </CardContent>
-    </Card>
-  </div>
-);
-
-
 export default function DashboardPage() {
   const [data, setData] = useState<StudentProgress | null>(null);
   const [recommendations, setRecommendations] = useState<Course[]>([]);
@@ -209,11 +112,7 @@ export default function DashboardPage() {
         setData(progressData);
       } catch (error: any) {
         console.error('Failed to fetch student progress:', error);
-        if (error.code && (error.code.includes('permission-denied') || error.code.includes('insufficient-permissions'))) {
-            setError('permission-denied');
-        } else {
-            setError('An unknown error occurred while fetching your data.');
-        }
+        setError('An unknown error occurred while fetching your data.');
       } finally {
         setIsDataLoading(false);
       }
@@ -243,11 +142,7 @@ export default function DashboardPage() {
   if (isDataLoading) {
     return <DashboardSkeleton />;
   }
-
-  if (error === 'permission-denied') {
-    return <SecurityRulesError projectId={process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID} />;
-  }
-
+  
   if (error) {
      return (
       <div className="container mx-auto p-4 sm:p-8">
@@ -259,7 +154,7 @@ export default function DashboardPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p>There was a problem loading your dashboard.</p>
+            <p>There was a problem loading your dashboard. Please try reloading the page.</p>
             <pre className="mt-4 text-left bg-destructive/20 p-4 rounded-md text-sm font-mono whitespace-pre-wrap">
               {error}
             </pre>
@@ -271,7 +166,7 @@ export default function DashboardPage() {
 
   if (!data) {
     return (
-      <div className="container mx-auto p-8 text-center text-red-500">
+      <div className="container mx-auto p-8 text-center text-muted-foreground">
         Could not load student data. Please try again later.
       </div>
     );
