@@ -87,6 +87,80 @@ const DashboardSkeleton = () => (
   </div>
 );
 
+const SecurityRulesError = ({ projectId }: { projectId: string | undefined }) => (
+  <div className="container mx-auto p-4 sm:p-8">
+    <Card className="bg-destructive/10 border-destructive/50 text-destructive">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-3">
+          <AlertTriangle className="h-8 w-8" />
+          Action Required: Update Firestore Security Rules
+        </CardTitle>
+        <CardDescription className="text-destructive/80">
+          Your database is currently blocking the app from accessing data. To fix this, you must update your Firestore security rules.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p className="font-bold mb-2">Please follow these steps exactly:</p>
+        <ol className="list-decimal list-inside space-y-2 mb-4">
+          <li>
+            <a 
+              href={`https://console.firebase.google.com/project/${projectId}/firestore/rules`} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="font-bold underline hover:text-destructive-foreground"
+            >
+              Click here to open your Firestore Rules editor
+            </a> 
+            (opens in a new tab).
+          </li>
+          <li>Select the correct Firebase project if prompted: <strong>{projectId || 'tech-trade-hub-academy'}</strong>.</li>
+          <li>Delete all the text currently in the rules editor.</li>
+          <li>Copy the entire block of code below and paste it into the editor.</li>
+        </ol>
+        <pre className="mt-4 text-left bg-destructive/20 p-4 rounded-md text-sm font-mono whitespace-pre-wrap">
+          {`rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Default-deny all access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Allow logged-in users to read their own student progress
+    match /studentProgress/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Allow any logged-in user to read course and instructor data
+    match /courses/{courseId} {
+      allow read: if request.auth != null;
+    }
+    match /instructors/{instructorId} {
+      allow read: if request.auth != null;
+    }
+    
+    // Allow admins to do anything
+    // IMPORTANT: Add your admin UID to the list in src/lib/admin.ts
+    match /{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid in get(/databases/$(database)/documents/metadata/admins).data.uids;
+    }
+  }
+}`}
+        </pre>
+        <p className="mt-4">
+          After pasting the code, click the <strong>Publish</strong> button at the top of the Firebase console, then refresh this page.
+        </p>
+         <p className="mt-4 text-xs">
+          <strong>Note for Admin Access:</strong> For the admin dashboard to work, you must also create a document in Firestore. Go to the Firestore Data tab, create a collection named `metadata`, add a document named `admins`, and add a field named `uids` of type `array` containing your Firebase UID as a string.
+        </p>
+      </CardContent>
+    </Card>
+  </div>
+);
+
+
 export default function DashboardPage() {
   const [data, setData] = useState<StudentProgress | null>(null);
   const [recommendations, setRecommendations] = useState<Course[]>([]);
@@ -99,7 +173,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!user) {
-      router.push('/login');
+      // This is handled by AuthProvider's redirect, but as a fallback.
       return;
     }
 
@@ -111,11 +185,11 @@ export default function DashboardPage() {
         setData(progressData);
       } catch (error: any) {
         console.error('Failed to fetch student progress:', error);
-        let errorMessage = `An error occurred while fetching your data: ${error.message}.`;
-        if (error.code === 'permission-denied' || (error.message && error.message.includes('permission-denied'))) {
-            errorMessage += "\n\nThis is often due to Firestore security rules. Please ensure that authenticated users have read/write access to the 'studentProgress' collection for their own documents.";
+        if (error.message && (error.message.toLowerCase().includes('permission-denied') || error.message.toLowerCase().includes('insufficient permissions'))) {
+            setError('permission-denied');
+        } else {
+            setError('An unknown error occurred while fetching your data.');
         }
-        setError(errorMessage);
       } finally {
         setIsDataLoading(false);
       }
@@ -128,36 +202,43 @@ export default function DashboardPage() {
             setRecommendations(recs);
         } catch (error) {
             console.error('Failed to fetch recommendations:', error);
+            // Don't set a blocking error for recommendations
         } finally {
             setIsRecsLoading(false);
         }
     }
     fetchData();
     fetchRecommendations();
-  }, [user, router]);
+  }, [user]);
+  
+  if (!user) {
+    // AuthProvider will redirect, so we can just show a loader.
+    return <DashboardSkeleton />;
+  }
 
   if (isDataLoading) {
     return <DashboardSkeleton />;
   }
 
+  if (error === 'permission-denied') {
+    return <SecurityRulesError projectId={process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID} />;
+  }
+
   if (error) {
-    return (
+     return (
       <div className="container mx-auto p-4 sm:p-8">
         <Card className="bg-destructive/10 border-destructive/50 text-destructive">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <AlertTriangle />
-              Failed to load dashboard data
+              An Error Occurred
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p>There was a problem connecting to the database. This is often caused by Firestore security rules not being configured correctly.</p>
+            <p>There was a problem loading your dashboard.</p>
             <pre className="mt-4 text-left bg-destructive/20 p-4 rounded-md text-sm font-mono whitespace-pre-wrap">
               {error}
             </pre>
-            <p className="mt-4">
-                Please visit the <a href="https://console.firebase.google.com/" target="_blank" rel="noopener noreferrer" className="font-bold underline">Firebase Console</a> to ensure your security rules for the `studentProgress` collection allow read and write access for authenticated users.
-            </p>
           </CardContent>
         </Card>
       </div>
@@ -167,7 +248,7 @@ export default function DashboardPage() {
   if (!data) {
     return (
       <div className="container mx-auto p-8 text-center text-red-500">
-        Failed to load dashboard data. Please try again later.
+        Could not load student data. Please try again later.
       </div>
     );
   }
