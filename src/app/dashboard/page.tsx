@@ -96,7 +96,7 @@ const SecurityRulesError = ({ projectId }: { projectId: string | undefined }) =>
           Action Required: Update Firestore Security Rules
         </CardTitle>
         <CardDescription className="text-destructive/80">
-          Your database is currently blocking the app from accessing data. To fix this, you must update your Firestore security rules.
+          Your database is currently blocking the app from accessing data. This is the most common issue for new projects. To fix this, you must update your Firestore security rules.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -123,33 +123,52 @@ const SecurityRulesError = ({ projectId }: { projectId: string | undefined }) =>
 service cloud.firestore {
   match /databases/{database}/documents {
     
-    // Default-deny all access
-    match /{document=**} {
-      allow read, write: if false;
+    // Helper function to check if the user is an admin.
+    function isAdmin() {
+      // Ensure the user is authenticated and their UID is in the admin list.
+      return request.auth != null && request.auth.uid in get(/databases/$(database)/documents/metadata/admins).data.uids;
     }
 
-    // Allow logged-in users to read/write their own student progress
-    match /studentProgress/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+    // ---- ADMIN RULES ----
+    // Admins can read and write all data collections.
+    match /courses/{docId} {
+      allow read, write: if isAdmin();
+    }
+    match /instructors/{docId} {
+      allow read, write: if isAdmin();
+    }
+    match /blogPosts/{docId} {
+      allow read, write: if isAdmin();
+    }
+    match /feedback/{docId} {
+      allow read, write: if isAdmin();
+    }
+    match /studentProgress/{docId} {
+       allow read, write: if isAdmin();
     }
 
-    // Allow any logged-in user to submit feedback
-    match /feedback/{feedbackId} {
-      allow create: if request.auth != null;
-    }
-
-    // Allow any logged-in user to read course and instructor data
+    // ---- STUDENT/USER RULES ----
+    
+    // Any authenticated user can read public-facing data.
     match /courses/{courseId} {
       allow read: if request.auth != null;
     }
     match /instructors/{instructorId} {
       allow read: if request.auth != null;
     }
-    
-    // Allow admins to do anything.
-    // See the note below on how to set up the admins document.
-    match /{document=**} {
-      allow read, write: if request.auth != null && get(/databases/$(database)/documents/metadata/admins).data.uids[0] == request.auth.uid;
+    match /blogPosts/{postId} {
+      // Allow reading only if the post status is 'published'.
+      allow read: if request.auth != null && resource.data.status == 'published';
+    }
+
+    // Allow users to manage their own progress document.
+    match /studentProgress/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Allow any authenticated user to create feedback.
+    match /feedback/{feedbackId} {
+      allow create: if request.auth != null;
     }
   }
 }`}
@@ -158,7 +177,7 @@ service cloud.firestore {
           After pasting the code, click the <strong>Publish</strong> button at the top of the Firebase console, then refresh this page.
         </p>
          <p className="mt-4 text-xs">
-          <strong>Note for Admin Access:</strong> For the admin dashboard to work, you must also create a document in Firestore. Go to the Firestore Data tab, create a collection named \`metadata\`, add a document with the ID \`admins\`, and add a field named \`uids\` of type \`array\` containing your Firebase UID as a string inside that array.
+          <strong>Note for Admin Access:</strong> For the admin features to work, you must also create a specific document in your Firestore database. Go to the Firestore "Data" tab, create a new collection named `metadata`, and within that, add a document with the exact ID `admins`. Inside this `admins` document, add a field named `uids`. This field must be of type `array`, and it should contain your Firebase User UID as a string inside it (e.g., `['dqrHnJtM27bMpNudHxO5hL3wsNE3']`).
         </p>
       </CardContent>
     </Card>
