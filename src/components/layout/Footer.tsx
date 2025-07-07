@@ -40,7 +40,7 @@ export const Footer = () => {
               <h4 className="font-headline font-semibold mb-4">Community</h4>
                <ul className="space-y-2 text-sm">
                 <li><a href="https://whatsapp.com/channel/0029Vb6Auu6G3R3gqLmqfz0t" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary">Join Study Group</a></li>
-                <li><Link href="#" className="text-muted-foreground hover:text-primary">Blog</Link></li>
+                <li><Link href="/blog" className="text-muted-foreground hover:text-primary">Blog</Link></li>
                 <li><Link href="#" className="text-muted-foreground hover:text-primary">Events</Link></li>
               </ul>
             </div>

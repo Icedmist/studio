@@ -62,7 +62,7 @@ export function InstructorManager() {
       toast({
         title: `Instructor ${editingInstructor ? 'updated' : 'added'}`,
         description: `The instructor details have been saved successfully.`,
-        variant: "success" as any,
+        variant: "success",
       });
       setDialogOpen(false);
       setEditingInstructor(null);
@@ -100,7 +100,7 @@ export function InstructorManager() {
       toast({
         title: "Instructor Deleted",
         description: "The instructor has been removed successfully.",
-        variant: "success" as any,
+        variant: "success",
       });
        await fetchInstructors(); // Refresh data
     } else {

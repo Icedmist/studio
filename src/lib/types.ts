@@ -71,3 +71,20 @@ export const FeedbackSchema = z.object({
   createdAt: z.custom<ReturnType<typeof serverTimestamp>>(),
 });
 export type Feedback = z.infer<typeof FeedbackSchema>;
+
+// Zod schema for a Blog Post
+export const BlogSchema = z.object({
+  id: z.string(),
+  title: z.string().min(1, 'Title is required'),
+  slug: z.string().min(1, 'Slug is required'),
+  content: z.string().min(1, 'Content is required'),
+  imageUrl: z.string().url('A valid image URL is required'),
+  authorName: z.string().min(1, 'Author name is required'),
+  authorId: z.string().optional(),
+  status: z.enum(['draft', 'published']),
+  createdAt: z.any(), // Firestore Timestamp
+  publishedAt: z.any().optional(), // Firestore Timestamp
+});
+export type Blog = z.infer<typeof BlogSchema>;
+
+export const NewBlogSchema = BlogSchema.omit({ id: true, slug: true, authorId: true, createdAt: true, publishedAt: true });

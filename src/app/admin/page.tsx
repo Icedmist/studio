@@ -19,7 +19,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Shield, Users, Library, Pencil, Trash2 } from 'lucide-react';
+import { Shield, Users, Library, Pencil, Trash2, Newspaper } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -33,7 +33,20 @@ import { getAllStudentProgresses } from '@/services/student-data';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CourseManager } from '@/components/admin/CourseManager';
+import { ADMIN_UIDS } from '@/lib/admin';
+import { BlogManager } from './BlogManager';
 
+const ProgressBadge = ({ progress }: { progress: number }) => {
+    let variant: "success" | "warning" | "destructive" | "secondary" = "secondary";
+    if (progress === 100) {
+        variant = "success";
+    } else if (progress > 0) {
+        variant = "warning";
+    } else {
+        variant = "destructive";
+    }
+    return <Badge variant={variant}>{progress}%</Badge>
+}
 
 export default function AdminPage() {
   const [users, setUsers] = useState<StudentProgress[]>([]);
@@ -73,7 +86,7 @@ export default function AdminPage() {
 
       <TooltipProvider>
         <Tabs defaultValue="users">
-          <TabsList className="grid w-full grid-cols-3 max-w-lg">
+          <TabsList className="grid w-full grid-cols-4 max-w-2xl">
             <TabsTrigger value="users">
               <Users className="mr-2 h-4 w-4" /> Users
             </TabsTrigger>
@@ -82,6 +95,9 @@ export default function AdminPage() {
             </TabsTrigger>
             <TabsTrigger value="instructors">
               <Users className="mr-2 h-4 w-4" /> Instructors
+            </TabsTrigger>
+            <TabsTrigger value="blog">
+                <Newspaper className="mr-2 h-4 w-4" /> Blog
             </TabsTrigger>
           </TabsList>
           <TabsContent value="users">
@@ -97,7 +113,7 @@ export default function AdminPage() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Name</TableHead>
-                      <TableHead>User ID</TableHead>
+                      <TableHead>Role</TableHead>
                       <TableHead>Courses Enrolled</TableHead>
                       <TableHead>Overall Progress</TableHead>
                       <TableHead className="text-right">Actions</TableHead>
@@ -116,12 +132,18 @@ export default function AdminPage() {
                       users.map((user) => (
                       <TableRow key={user.studentId}>
                         <TableCell className="font-medium">{user.name}</TableCell>
-                        <TableCell className="text-muted-foreground text-xs">{user.studentId}</TableCell>
+                        <TableCell>
+                            {ADMIN_UIDS.includes(user.studentId) ? (
+                                <Badge variant="default">Admin</Badge>
+                            ) : (
+                                <Badge variant="outline">Student</Badge>
+                            )}
+                        </TableCell>
                         <TableCell>
                           {user.enrolledCourses.length}
                         </TableCell>
                          <TableCell>
-                          {user.overallProgress}%
+                            <ProgressBadge progress={user.overallProgress} />
                         </TableCell>
                         <TableCell className="text-right space-x-2">
                           <Tooltip>
@@ -177,6 +199,19 @@ export default function AdminPage() {
               </CardHeader>
               <CardContent>
                 <InstructorManager />
+              </CardContent>
+            </Card>
+          </TabsContent>
+           <TabsContent value="blog">
+            <Card className="bg-card/60 backdrop-blur-sm border-border/50">
+              <CardHeader>
+                <CardTitle>Blog Management</CardTitle>
+                <CardDescription>
+                  Create, edit, and manage blog posts for your audience.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <BlogManager />
               </CardContent>
             </Card>
           </TabsContent>

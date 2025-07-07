@@ -1,45 +1,45 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type { Course } from '@/lib/types';
-import { getCourses } from '@/services/course-data';
-import { handleAddCourse, handleUpdateCourse, handleDeleteCourse } from '@/app/actions/courses';
+import type { Blog } from '@/lib/types';
+import { getPosts } from '@/services/blog-data';
+import { handleAddPost, handleUpdatePost, handleDeletePost } from '@/app/actions/blog';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Pencil, Trash2, Library } from 'lucide-react';
+import { Pencil, Trash2, Badge, Newspaper, FileText } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { CourseForm } from './CourseForm';
+import { BlogForm } from './BlogForm';
 import { Skeleton } from '@/components/ui/skeleton';
 import { z } from 'zod';
-import { NewCourseSchema } from '@/lib/types';
-import { Badge } from '@/components/ui/badge';
+import { NewBlogSchema } from '@/lib/types';
+import { format } from 'date-fns';
 
-type CourseFormData = z.infer<typeof NewCourseSchema>;
+type BlogFormData = z.infer<typeof NewBlogSchema>;
 
-export function CourseManager() {
-  const [courses, setCourses] = useState<Course[]>([]);
+export function BlogManager() {
+  const [posts, setPosts] = useState<Blog[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [editingCourse, setEditingCourse] = useState<Course | null>(null);
+  const [editingPost, setEditingPost] = useState<Blog | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
-    fetchCourses();
+    fetchPosts();
   }, []);
 
-  const fetchCourses = async () => {
+  const fetchPosts = async () => {
     setIsLoading(true);
     try {
-      const data = await getCourses();
-      setCourses(data);
+      const data = await getPosts();
+      setPosts(data);
     } catch (error) {
       toast({
         title: "Error",
-        description: "Could not fetch courses.",
+        description: "Could not fetch blog posts.",
         variant: "destructive",
       });
     } finally {
@@ -47,24 +47,24 @@ export function CourseManager() {
     }
   };
 
-  const handleFormSubmit = async (data: CourseFormData) => {
+  const handleFormSubmit = async (data: BlogFormData) => {
     setIsSubmitting(true);
     let result;
-    if (editingCourse) {
-      result = await handleUpdateCourse(editingCourse.id, data);
+    if (editingPost) {
+      result = await handleUpdatePost(editingPost.id, data);
     } else {
-      result = await handleAddCourse(data);
+      result = await handleAddPost(data);
     }
 
     if (result.success) {
       toast({
-        title: `Course ${editingCourse ? 'updated' : 'added'}`,
-        description: `The course details have been saved successfully.`,
+        title: `Post ${editingPost ? 'updated' : 'created'}`,
+        description: `The blog post has been saved successfully.`,
         variant: "success",
       });
       setDialogOpen(false);
-      setEditingCourse(null);
-      await fetchCourses();
+      setEditingPost(null);
+      await fetchPosts();
     } else {
       toast({
         title: "Error",
@@ -75,32 +75,32 @@ export function CourseManager() {
     setIsSubmitting(false);
   };
 
-  const openEditDialog = (course: Course) => {
-    setEditingCourse(course);
+  const openEditDialog = (post: Blog) => {
+    setEditingPost(post);
     setDialogOpen(true);
   };
 
   const openAddDialog = () => {
-    setEditingCourse(null);
+    setEditingPost(null);
     setDialogOpen(true);
   };
 
   const onDialogClose = () => {
     if (!isSubmitting) {
       setDialogOpen(false);
-      setEditingCourse(null);
+      setEditingPost(null);
     }
   }
 
   const confirmDelete = async (id: string) => {
-    const result = await handleDeleteCourse(id);
+    const result = await handleDeletePost(id);
     if (result.success) {
       toast({
-        title: "Course Deleted",
-        description: "The course has been removed successfully.",
+        title: "Post Deleted",
+        description: "The blog post has been removed successfully.",
         variant: "success",
       });
-      await fetchCourses();
+      await fetchPosts();
     } else {
       toast({
         title: "Error",
@@ -122,22 +122,22 @@ export function CourseManager() {
     <TooltipProvider>
       <div className="flex justify-end mb-4">
         <Button onClick={openAddDialog}>
-          <Library className="mr-2 h-4 w-4" />
-          Add Course
+          <FileText className="mr-2 h-4 w-4" />
+          Create Post
         </Button>
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={onDialogClose}>
         <DialogContent className="max-w-4xl">
           <DialogHeader>
-            <DialogTitle>{editingCourse ? 'Edit Course' : 'Add New Course'}</DialogTitle>
-             <DialogDescription>
-                Fill in the details for the course. All fields are required.
+            <DialogTitle>{editingPost ? 'Edit Post' : 'Create New Post'}</DialogTitle>
+            <DialogDescription>
+                Fill in the details for the blog post. Content supports Markdown.
             </DialogDescription>
           </DialogHeader>
-          <CourseForm 
+          <BlogForm 
             onSubmit={handleFormSubmit} 
-            initialData={editingCourse}
+            initialData={editingPost}
             isSubmitting={isSubmitting}
             onCancel={onDialogClose}
           />
@@ -148,31 +148,31 @@ export function CourseManager() {
         <TableHeader>
           <TableRow>
             <TableHead>Title</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Level</TableHead>
-            <TableHead>Price (₦)</TableHead>
+            <TableHead>Author</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Created At</TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {courses.length > 0 ? courses.map((course) => (
-            <TableRow key={course.id}>
-              <TableCell className="font-medium">{course.title}</TableCell>
-              <TableCell>{course.category}</TableCell>
+          {posts.length > 0 ? posts.map((post) => (
+            <TableRow key={post.id}>
+              <TableCell className="font-medium">{post.title}</TableCell>
+              <TableCell>{post.authorName}</TableCell>
               <TableCell>
-                <Badge variant="outline">{course.level}</Badge>
+                <Badge variant={post.status === 'published' ? 'success' : 'secondary'}>{post.status}</Badge>
               </TableCell>
               <TableCell>
-                {course.price > 0 ? course.price.toLocaleString() : 'Free'}
+                {post.createdAt?.toDate ? format(post.createdAt.toDate(), 'PPP') : 'N/A'}
               </TableCell>
               <TableCell className="text-right space-x-2">
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon" onClick={() => openEditDialog(course)}>
+                    <Button variant="ghost" size="icon" onClick={() => openEditDialog(post)}>
                       <Pencil className="h-4 w-4" />
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent><p>Edit course</p></TooltipContent>
+                  <TooltipContent><p>Edit post</p></TooltipContent>
                 </Tooltip>
                 <AlertDialog>
                   <Tooltip>
@@ -183,18 +183,18 @@ export function CourseManager() {
                         </Button>
                       </AlertDialogTrigger>
                     </TooltipTrigger>
-                    <TooltipContent><p>Delete course</p></TooltipContent>
+                    <TooltipContent><p>Delete post</p></TooltipContent>
                   </Tooltip>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                      <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                       <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete the course and all its data.
+                        This will permanently delete the blog post. This action cannot be undone.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={() => confirmDelete(course.id)}>Continue</AlertDialogAction>
+                      <AlertDialogAction onClick={() => confirmDelete(post.id)}>Continue</AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
@@ -203,7 +203,7 @@ export function CourseManager() {
           )) : (
             <TableRow>
               <TableCell colSpan={5} className="text-center text-muted-foreground">
-                No courses found. Click "Add Course" to get started.
+                No blog posts found. Click "Create Post" to get started.
               </TableCell>
             </TableRow>
           )}

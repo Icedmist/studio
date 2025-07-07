@@ -16,37 +16,33 @@ export function SocialLogins() {
   const { toast } = useToast();
   const router = useRouter();
 
-  const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
+  const handleSignIn = async (provider: GoogleAuthProvider | TwitterAuthProvider, providerName: string) => {
     try {
       await signInWithPopup(auth, provider);
       toast({
         title: "Login Successful",
         description: "Welcome!",
+        variant: "success",
       });
       router.push("/dashboard");
     } catch (error: any) {
+      let errorMessage = `Could not sign in with ${providerName}.`;
+      switch (error.code) {
+        case 'auth/operation-not-allowed':
+          errorMessage = `Sign-in with ${providerName} is not enabled. Please enable it in your Firebase console under Authentication > Sign-in method.`;
+          break;
+        case 'auth/popup-closed-by-user':
+          errorMessage = `Sign-in with ${providerName} was cancelled.`;
+          return; // Don't show a toast for this
+        case 'auth/cancelled-popup-request':
+            return; // Don't show a toast for this
+        default:
+          errorMessage = `Could not sign in with ${providerName}. ${error.message}`;
+          break;
+      }
       toast({
         title: "Login Failed",
-        description: `Could not sign in with Google. ${error.message}`,
-        variant: "destructive",
-      });
-    }
-  };
-  
-  const handleXSignIn = async () => {
-    const provider = new TwitterAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-      toast({
-        title: "Login Successful",
-        description: "Welcome!",
-      });
-      router.push("/dashboard");
-    } catch (error: any) {
-        toast({
-        title: "Login Failed",
-        description: `Could not sign in with X. ${error.message}`,
+        description: errorMessage,
         variant: "destructive",
       });
     }
@@ -57,7 +53,7 @@ export function SocialLogins() {
       <div className="flex justify-center gap-4">
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="outline" size="icon" className="rounded-full h-12 w-12" onClick={handleGoogleSignIn}>
+            <Button variant="outline" size="icon" className="rounded-full h-12 w-12" onClick={() => handleSignIn(new GoogleAuthProvider(), 'Google')}>
               <GoogleIcon className="h-6 w-6" />
             </Button>
           </TooltipTrigger>
@@ -68,7 +64,7 @@ export function SocialLogins() {
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="outline" size="icon" className="rounded-full h-12 w-12" onClick={handleXSignIn}>
+            <Button variant="outline" size="icon" className="rounded-full h-12 w-12" onClick={() => handleSignIn(new TwitterAuthProvider(), 'X')}>
               <XIcon className="h-6 w-6" />
             </Button>
           </TooltipTrigger>
