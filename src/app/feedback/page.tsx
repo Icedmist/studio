@@ -45,7 +45,7 @@ export default function FeedbackPage() {
         toast({
             title: "Feedback Submitted!",
             description: "Thank you for helping us improve our platform.",
-            variant: "success" as any,
+            variant: "success",
         });
         
         form.reset();

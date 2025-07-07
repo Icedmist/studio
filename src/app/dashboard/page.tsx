@@ -141,8 +141,8 @@ service cloud.firestore {
       allow read: if request.auth != null;
     }
     
-    // Allow admins to do anything
-    // IMPORTANT: Add your admin UID to the list in src/lib/admin.ts
+    // Allow admins to do anything.
+    // See the note below on how to set up the admins document.
     match /{document=**} {
       allow read, write: if request.auth != null && request.auth.uid in get(/databases/$(database)/documents/metadata/admins).data.uids;
     }
@@ -153,7 +153,7 @@ service cloud.firestore {
           After pasting the code, click the <strong>Publish</strong> button at the top of the Firebase console, then refresh this page.
         </p>
          <p className="mt-4 text-xs">
-          <strong>Note for Admin Access:</strong> For the admin dashboard to work, you must also create a document in Firestore. Go to the Firestore Data tab, create a collection named `metadata`, add a document named `admins`, and add a field named `uids` of type `array` containing your Firebase UID as a string.
+          <strong>Note for Admin Access:</strong> For the admin dashboard to work, you must also create a document in Firestore. Go to the Firestore Data tab, create a collection named \`metadata\`, add a document with the ID \`admins\`, and add a field named \`uids\` of type \`array\` containing your Firebase UID as a string.
         </p>
       </CardContent>
     </Card>

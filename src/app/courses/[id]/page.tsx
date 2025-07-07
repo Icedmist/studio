@@ -128,7 +128,7 @@ export default function CoursePage() {
           toast({
               title: "Enrolled Successfully!",
               description: `You can now start the "${course.title}" course.`,
-              variant: "success" as any,
+              variant: "success",
           });
       } else {
           toast({
