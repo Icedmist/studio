@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -96,7 +97,7 @@ const SecurityRulesError = ({ projectId }: { projectId: string | undefined }) =>
           Action Required: Update Firestore Security Rules
         </CardTitle>
         <CardDescription className="text-destructive/80">
-          Your database is currently blocking the app from accessing data. This is the most common issue for new projects. To fix this, you must update your Firestore security rules.
+          Your database is currently blocking the app from creating, updating, or deleting data. To fix this, you must update your Firestore security rules with the correct configuration below.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -122,62 +123,61 @@ const SecurityRulesError = ({ projectId }: { projectId: string | undefined }) =>
 
 service cloud.firestore {
   match /databases/{database}/documents {
+
+    // --- Helper Functions ---
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
     
-    // Helper function to check if the user is an admin.
+    // --- Admin Rules ---
+    // You MUST create this document in Firestore for admin access to work:
+    // Collection: 'metadata', Document ID: 'admins', Field: 'uids' (array of strings)
     function isAdmin() {
-      // Ensure the user is authenticated and their UID is in the admin list.
-      return request.auth != null && request.auth.uid in get(/databases/$(database)/documents/metadata/admins).data.uids;
+      return isSignedIn() && request.auth.uid in get(/databases/$(database)/documents/metadata/admins).data.uids;
     }
 
-    // ---- ADMIN RULES ----
-    // Admins can read and write all data collections.
-    match /courses/{docId} {
-      allow read, write: if isAdmin();
-    }
-    match /instructors/{docId} {
-      allow read, write: if isAdmin();
-    }
-    match /blogPosts/{docId} {
-      allow read, write: if isAdmin();
-    }
-    match /feedback/{docId} {
-      allow read, write: if isAdmin();
-    }
-    match /studentProgress/{docId} {
-       allow read, write: if isAdmin();
-    }
-
-    // ---- STUDENT/USER RULES ----
-    
-    // Any authenticated user can read public-facing data.
+    // --- Public Read Rules ---
+    // Anyone can read published blog posts, courses, and instructors.
     match /courses/{courseId} {
-      allow read: if request.auth != null;
+      allow read: if true;
     }
     match /instructors/{instructorId} {
-      allow read: if request.auth != null;
+      allow read: if true;
     }
     match /blogPosts/{postId} {
-      // Allow reading only if the post status is 'published'.
-      allow read: if request.auth != null && resource.data.status == 'published';
+      allow read: if resource.data.status == 'published';
     }
 
-    // Allow users to manage their own progress document.
+    // --- User-Specific Write Rules ---
+    // Users can manage their own progress document.
     match /studentProgress/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow read, write: if isOwner(userId);
     }
-
-    // Allow any authenticated user to create feedback.
+    
+    // Any signed-in user can submit feedback.
     match /feedback/{feedbackId} {
-      allow create: if request.auth != null;
+      allow create: if isSignedIn();
+    }
+    
+    // --- Admin Catch-All Rule ---
+    // Admins have full read/write access to everything else.
+    // This includes creating/updating/deleting courses, instructors, blogs,
+    // and reading all student progress and feedback.
+    match /{path=**} {
+      allow read, write: if isAdmin();
     }
   }
 }`}
         </pre>
         <p className="mt-4">
-          After pasting the code, click the <strong>Publish</strong> button at the top of the Firebase console, then refresh this page.
+          After pasting the code, click the <strong>Publish</strong> button at the top of the Firebase console, then refresh this page. All admin features should now work correctly.
         </p>
          <p className="mt-4 text-xs">
-          <strong>Note for Admin Access:</strong> For the admin features to work, you must also create a specific document in your Firestore database. Go to the Firestore "Data" tab, create a new collection named `metadata`, and within that, add a document with the exact ID `admins`. Inside this `admins` document, add a field named `uids`. This field must be of type `array`, and it should contain your Firebase User UID as a string inside it (e.g., `['dqrHnJtM27bMpNudHxO5hL3wsNE3']`).
+          <strong>Note for Admin Access:</strong> For the admin features to work, you must also create a specific document in your Firestore database. Go to the Firestore "Data" tab, create a new collection named `metadata`, and within that, add a document with the exact ID `admins`. Inside this `admins` document, add a field named `uids`. This field must be of type `array`, and it should contain your Firebase User UID as a string (e.g., `['dqrHnJtM27bMpNudHxO5hL3wsNE3']`).
         </p>
       </CardContent>
     </Card>
