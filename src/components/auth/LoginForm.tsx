@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -48,14 +49,11 @@ export function LoginForm() {
     } catch (error: any) {
         let errorMessage = "An unknown error occurred.";
         switch (error.code) {
-            case 'auth/user-not-found':
-                errorMessage = "No account found with this email.";
-                break;
-            case 'auth/wrong-password':
-                errorMessage = "Incorrect password. Please try again.";
+            case 'auth/api-key-not-valid':
+                errorMessage = "The Firebase API key is not valid. Please check your app's configuration.";
                 break;
             case 'auth/invalid-credential':
-                 errorMessage = "Invalid credentials. Please check your email and password.";
+                 errorMessage = "Incorrect email or password. Please check your credentials and try again.";
                  break;
             default:
                 errorMessage = `Login failed: ${error.message}`;
