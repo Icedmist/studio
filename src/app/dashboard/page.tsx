@@ -101,8 +101,8 @@ service cloud.firestore {
     // Helper function to check if the user is an admin.
     function isAdmin() {
       // Your UID is correctly placed here.
-      return request.auth.uid in [
-        ${uids.map(uid => `'${uid}'`).join(',\n        ')}
+      return request.auth != null && request.auth.uid in [
+        'dqrHnJtM27bMpNudHxO5hL3wsNE3'
       ];
     }
 
@@ -145,7 +145,7 @@ service cloud.firestore {
           Action Required: Secure Your Database
         </CardTitle>
         <CardDescription className="text-destructive/80">
-          Your Firestore security rules are blocking the application. To fix this permanently, you must update the rules in your Firebase project.
+          Your Firestore security rules might be misconfigured, causing permission errors. To fix this permanently, you must update the rules in your Firebase project.
         </CardDescription>
       </CardHeader>
       <CardContent>
