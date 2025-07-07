@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -12,6 +13,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -25,7 +27,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { Trophy, BookOpen, LineChart, CheckCircle, Lightbulb, AlertTriangle } from 'lucide-react';
+import { Trophy, BookOpen, LineChart, CheckCircle, Lightbulb, AlertTriangle, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
@@ -33,6 +35,7 @@ import type { CourseCategory, Course } from '@/lib/types';
 import { CourseCard } from '@/components/courses/CourseCard';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
+import { ADMIN_UIDS } from '@/lib/admin';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -88,6 +91,83 @@ const DashboardSkeleton = () => (
   </div>
 );
 
+const ActionRequiredCard = ({ uids }: { uids: string[] }) => {
+  const firestoreRules = `rules_version = '2';
+
+// This helper function checks if a user's ID is in the admin list.
+// Make sure the UIDs here match the ones in your src/lib/admin.ts file.
+function isAdmin() {
+  return request.auth.uid in {
+    ${uids.map(uid => `'${uid}': true`).join(',\n    ')}
+  };
+}
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Admins can read and write all documents.
+    match /{document=**} {
+      allow read, write: if request.auth != null && isAdmin();
+    }
+
+    // --- Rules for Students (non-admins) ---
+
+    // Students can read all courses, instructors, and published blog posts.
+    match /courses/{courseId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only admins can write
+    }
+    match /instructors/{instructorId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only admins can write
+    }
+    match /blogPosts/{postId} {
+      allow read: if request.auth != null && resource.data.status == 'published';
+      allow write: if false; // Only admins can write
+    }
+
+    // Students can read and write to their own progress document ONLY.
+    match /studentProgress/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Any authenticated user can submit feedback.
+    match /feedback/{feedbackId} {
+      allow create: if request.auth != null;
+      // Only admins can read/manage feedback submissions.
+      allow read, update, delete: if false; 
+    }
+  }
+}`;
+
+  return (
+    <Card className="bg-destructive/10 border-destructive text-destructive">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <AlertTriangle />
+          Action Required: Secure Your Database
+        </CardTitle>
+        <CardDescription className="text-destructive/80">
+          Your app is blocked by Firestore security rules. To fix this, you must update the rules in your Firebase project. These new rules are secure and properly distinguish between Admins and Students.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p className="font-bold mb-2">Follow these steps:</p>
+        <ol className="list-decimal list-inside space-y-2 mb-4">
+            <li><a href="https://console.firebase.google.com/project/tech-trade-hub-academy/firestore/rules" target="_blank" rel="noopener noreferrer" className="underline font-semibold">Click here to open your Firestore Rules</a>.</li>
+            <li>Delete all the text in the editor.</li>
+            <li>Copy the complete ruleset below and paste it into the editor.</li>
+            <li>Click "Publish".</li>
+        </ol>
+        <pre className="mt-4 text-left bg-destructive/20 p-4 rounded-md text-xs font-mono whitespace-pre-wrap overflow-auto">
+            {firestoreRules}
+        </pre>
+      </CardContent>
+    </Card>
+  );
+}
+
+
 export default function DashboardPage() {
   const [data, setData] = useState<StudentProgress | null>(null);
   const [recommendations, setRecommendations] = useState<Course[]>([]);
@@ -112,7 +192,11 @@ export default function DashboardPage() {
         setData(progressData);
       } catch (error: any) {
         console.error('Failed to fetch student progress:', error);
-        setError('An unknown error occurred while fetching your data.');
+         if (error.code === 'permission-denied' || error.code === 'failed-precondition') {
+            setError('permission-denied');
+        } else {
+            setError('An unknown error occurred while fetching your data.');
+        }
       } finally {
         setIsDataLoading(false);
       }
@@ -146,20 +230,24 @@ export default function DashboardPage() {
   if (error) {
      return (
       <div className="container mx-auto p-4 sm:p-8">
-        <Card className="bg-destructive/10 border-destructive/50 text-destructive">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <AlertTriangle />
-              An Error Occurred
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>There was a problem loading your dashboard. Please try reloading the page.</p>
-            <pre className="mt-4 text-left bg-destructive/20 p-4 rounded-md text-sm font-mono whitespace-pre-wrap">
-              {error}
-            </pre>
-          </CardContent>
-        </Card>
+        {error === 'permission-denied' ? (
+          <ActionRequiredCard uids={ADMIN_UIDS} />
+        ) : (
+          <Card className="bg-destructive/10 border-destructive/50 text-destructive">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <AlertTriangle />
+                An Error Occurred
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>There was a problem loading your dashboard. Please try reloading the page.</p>
+              <pre className="mt-4 text-left bg-destructive/20 p-4 rounded-md text-sm font-mono whitespace-pre-wrap">
+                {error}
+              </pre>
+            </CardContent>
+          </Card>
+        )}
       </div>
     );
   }

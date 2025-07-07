@@ -72,6 +72,12 @@ export const Header = () => {
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  <Link href="/account">
+                    <DropdownMenuItem>
+                        <User className="mr-2 h-4 w-4" />
+                        <span>Account Settings</span>
+                    </DropdownMenuItem>
+                  </Link>
                   {isAuthorizedAdmin && (
                     <Link href="/admin">
                       <DropdownMenuItem>
@@ -80,6 +86,7 @@ export const Header = () => {
                       </DropdownMenuItem>
                     </Link>
                   )}
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout}>
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Log out</span>
@@ -117,6 +124,10 @@ export const Header = () => {
                         {link.label}
                       </Link>
                     ))}
+                     <Link href="/account" className="transition-colors hover:text-primary flex items-center">
+                        <User className="mr-2 h-4 w-4" />
+                        Account Settings
+                     </Link>
                      {isAuthorizedAdmin && (
                         <Link href="/admin" className="transition-colors hover:text-primary flex items-center">
                            <Shield className="mr-2 h-4 w-4" />
