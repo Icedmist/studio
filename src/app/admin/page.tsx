@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -35,6 +36,7 @@ import { CourseManager } from '@/components/admin/CourseManager';
 import { ADMIN_UIDS } from '@/lib/admin';
 import { BlogManager } from './BlogManager';
 import { FeedbackManager } from './FeedbackManager';
+import { useAuth } from '@/hooks/use-auth';
 
 const ProgressBadge = ({ progress }: { progress: number }) => {
     let variant: "success" | "warning" | "destructive" | "secondary" = "secondary";
@@ -52,17 +54,20 @@ export default function AdminPage() {
   const [users, setUsers] = useState<StudentProgress[]>([]);
   const [isLoadingUsers, setIsLoadingUsers] = useState(true);
   const { toast } = useToast();
+  const { user } = useAuth();
 
   useEffect(() => {
     async function fetchUsers() {
+      if (!user) return; // Wait for user to be authenticated
+
       try {
         setIsLoadingUsers(true);
         const userProgresses = await getAllStudentProgresses();
         setUsers(userProgresses);
-      } catch (error) {
+      } catch (error: any) {
         toast({
-          title: "Error fetching users",
-          description: "Could not load the list of students.",
+          title: "Error Fetching Users",
+          description: `Could not load student list. This may be a permissions issue. Please ensure your Firestore security rules are correct. (${error.message})`,
           variant: "destructive",
         })
       } finally {
@@ -70,7 +75,7 @@ export default function AdminPage() {
       }
     }
     fetchUsers();
-  }, [toast]);
+  }, [toast, user]);
 
   return (
     <div className="container mx-auto py-8">
