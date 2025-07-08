@@ -12,20 +12,30 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const router = useRouter();
 
+  // This effect will run once after the initial render and whenever dependencies change.
+  // It handles the redirection logic cleanly.
   useEffect(() => {
-    if (!user) {
+    // If auth state is resolved and there is no user, redirect to login.
+    if (!isLoading && !user) {
       router.push('/login');
     }
-  }, [user, router]);
+  }, [isLoading, user, router]);
 
+  // While authentication is in progress, show a loading spinner.
+  if (isLoading) {
+    return <div className="h-screen w-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin"/></div>;
+  }
+
+  // If auth is resolved, but there is no user, we are in the process of redirecting.
+  // Show a loader to prevent a flash of content or an empty screen.
   if (!user) {
-    // AuthProvider shows a global loader, so we just need a spinner for the redirect.
     return <div className="h-screen w-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin"/></div>;
   }
   
+  // If the user is logged in, check if they are an authorized admin.
   const isAuthorized = ADMIN_UIDS.includes(user.uid);
 
   if (!isAuthorized) {
@@ -47,5 +57,6 @@ export default function AdminLayout({
     )
   }
 
+  // If all checks pass, render the admin dashboard.
   return <>{children}</>;
 }
