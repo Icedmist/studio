@@ -29,7 +29,8 @@ import {
 import { InstructorManager } from '@/components/admin/InstructorManager';
 import { useEffect, useState } from 'react';
 import type { StudentProgress } from '@/lib/types';
-import { getAllStudentProgresses } from '@/services/student-data';
+import { db } from '@/lib/firebase';
+import { collection, getDocs } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CourseManager } from '@/components/admin/CourseManager';
@@ -62,23 +63,20 @@ export default function AdminPage() {
 
       try {
         setIsLoadingUsers(true);
-        const userProgresses = await getAllStudentProgresses();
+        if (!db) {
+            throw new Error("Firestore is not initialized.");
+        }
+        const progressCol = collection(db, 'studentProgress');
+        const progressSnapshot = await getDocs(progressCol);
+        const userProgresses = progressSnapshot.docs.map(doc => doc.data() as StudentProgress);
         setUsers(userProgresses);
       } catch (error: any) {
-         if (error.code === 'permission-denied' || error.message.includes('permission-denied') || error.message.includes('insufficient permissions')) {
-            toast({
-              title: "Action Required: Update Firestore Rules",
-              description: "Your security rules are blocking access to the user list. Please update them in the Firebase Console.",
-              variant: "destructive",
-              duration: 10000,
-            });
-        } else {
-            toast({
-              title: "Error Fetching Users",
-              description: `Could not load student list. (${error.message})`,
-              variant: "destructive",
-            })
-        }
+        console.error("Error fetching user list:", error);
+        toast({
+            title: "Error Fetching Users",
+            description: `Could not load student list. This might be a permissions issue. Error: ${error.message}`,
+            variant: "destructive",
+        })
       } finally {
         setIsLoadingUsers(false);
       }
