@@ -1,3 +1,4 @@
+
 'use server';
 
 import { db } from '@/lib/firebase';
@@ -21,13 +22,23 @@ export async function getPosts(status?: 'published' | 'draft'): Promise<Blog[]> 
     const blogPostsCollection = collection(db, 'blogPosts');
     
     if (status) {
-        q = query(blogPostsCollection, where('status', '==', status), orderBy('createdAt', 'desc'));
+        // We query only by status to avoid needing a composite index.
+        // Sorting will be done in-memory after fetching.
+        q = query(blogPostsCollection, where('status', '==', status));
     } else {
+        // For internal use (like the admin panel), we can still sort.
         q = query(blogPostsCollection, orderBy('createdAt', 'desc'));
     }
 
     const postsSnapshot = await getDocs(q);
-    const postList = postsSnapshot.docs.map(doc => toBlog(doc));
+    let postList = postsSnapshot.docs.map(doc => toBlog(doc));
+    
+    // Sort posts by creation date descending if we filtered by status
+    postList.sort((a, b) => {
+        const dateA = a.createdAt?.toDate ? a.createdAt.toDate().getTime() : 0;
+        const dateB = b.createdAt?.toDate ? b.createdAt.toDate().getTime() : 0;
+        return dateB - dateA;
+    });
     
     return postList;
 }

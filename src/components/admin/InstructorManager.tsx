@@ -1,11 +1,10 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
 import type { Instructor } from '@/lib/types';
 import { getInstructors } from '@/services/instructor-data';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc, getDoc, type DocumentData } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -18,11 +17,17 @@ import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
 import { z } from 'zod';
 import { InstructorSchema } from '@/lib/types';
-import { useRouter } from 'next/navigation';
 
 const NewInstructorSchema = InstructorSchema.omit({ id: true });
 type InstructorFormData = z.infer<typeof NewInstructorSchema>;
 
+const toInstructor = (doc: DocumentData): Instructor => {
+    const data = doc.data();
+    return InstructorSchema.parse({
+        id: doc.id,
+        ...data,
+    });
+};
 
 export function InstructorManager() {
   const [instructors, setInstructors] = useState<Instructor[]>([]);
@@ -31,37 +36,42 @@ export function InstructorManager() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingInstructor, setEditingInstructor] = useState<Instructor | null>(null);
   const { toast } = useToast();
-  const router = useRouter();
-
-  const fetchInstructors = async () => {
-    setIsLoading(true);
-    try {
-      const data = await getInstructors();
-      setInstructors(data);
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Could not fetch instructors.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const fetchInstructors = async () => {
+      setIsLoading(true);
+      try {
+        const data = await getInstructors();
+        setInstructors(data);
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Could not fetch instructors.",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
     fetchInstructors();
-  }, []);
+  }, [toast]);
 
   const handleFormSubmit = async (data: InstructorFormData) => {
     setIsSubmitting(true);
     try {
         const validatedData = NewInstructorSchema.parse(data);
         if (editingInstructor) {
-            const instructorDoc = doc(db, 'instructors', editingInstructor.id);
-            await updateDoc(instructorDoc, validatedData);
+            const instructorDocRef = doc(db, 'instructors', editingInstructor.id);
+            await updateDoc(instructorDocRef, validatedData);
+            const updatedSnap = await getDoc(instructorDocRef);
+            const updatedInstructor = toInstructor(updatedSnap);
+            setInstructors(instructors.map(i => i.id === updatedInstructor.id ? updatedInstructor : i));
+
         } else {
-            await addDoc(collection(db, 'instructors'), validatedData);
+            const docRef = await addDoc(collection(db, 'instructors'), validatedData);
+            const newSnap = await getDoc(docRef);
+            const newInstructor = toInstructor(newSnap);
+            setInstructors(prevInstructors => [newInstructor, ...prevInstructors]);
         }
 
         toast({
@@ -71,8 +81,6 @@ export function InstructorManager() {
         });
         setDialogOpen(false);
         setEditingInstructor(null);
-        router.refresh();
-        await fetchInstructors(); // Refresh data
     } catch (error: any) {
         toast({
             title: "Error",
@@ -104,13 +112,12 @@ export function InstructorManager() {
   const confirmDelete = async (id: string) => {
     try {
         await deleteDoc(doc(db, 'instructors', id));
+        setInstructors(instructors.filter(i => i.id !== id));
         toast({
             title: "Instructor Deleted",
             description: "The instructor has been removed successfully.",
             variant: "success",
         });
-        router.refresh();
-        await fetchInstructors(); // Refresh data
     } catch (error: any) {
         toast({
             title: "Error",

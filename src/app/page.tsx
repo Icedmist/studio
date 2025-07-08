@@ -1,15 +1,15 @@
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Award, Bot, BarChart, Library, Search, MessageSquare, Star } from 'lucide-react';
+import { Award, Bot, BarChart, Library, Search, MessageSquare, Star, Newspaper } from 'lucide-react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { getCourses } from '@/services/course-data';
-import type { Course } from '@/lib/types';
 import { CourseCard } from '@/components/courses/CourseCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { AnimatedHeroText } from './page-client';
 import { Suspense } from 'react';
+import { motion } from 'framer-motion';
 
 const testimonials = [
     {
@@ -230,8 +230,24 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="w-full text-center py-20 md:py-32 bg-background">
+      {/* Blog CTA Section */}
+      <section className="w-full py-20 md:py-24 bg-background">
+        <div className="container mx-auto px-4 text-center">
+          <Newspaper className="w-12 h-12 text-primary mx-auto mb-4" />
+          <h2 className="text-3xl font-headline font-bold mb-4">
+            From Our Blog
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
+            Get the latest insights, tips, and academy news from our team of experts.
+          </p>
+          <Link href="/blog">
+            <Button size="lg">Read The Blog</Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="w-full text-center py-20 md:py-32 bg-card/50 backdrop-blur-lg">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-headline font-bold mb-4">Ready to Start Learning?</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
