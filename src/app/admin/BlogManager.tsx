@@ -25,9 +25,9 @@ function slugify(text: string): string {
     .toString()
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, '-')           // Replace spaces with -
-    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-    .replace(/\-\-+/g, '-');        // Replace multiple - with single -
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-');
 }
 
 async function seedWelcomePost() {
@@ -60,7 +60,6 @@ The TechTradeHub Academy Team`;
         imageUrl: 'https://placehold.co/800x400.png',
         authorName: 'The TechTradeHub Team',
         status: 'published' as const,
-        authorId: 'system',
         slug: 'welcome-to-techtradehub-academy'
     };
 
