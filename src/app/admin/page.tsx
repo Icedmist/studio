@@ -26,14 +26,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { InstructorManager } from '@/components/admin/InstructorManager';
+import { InstructorManager } from './InstructorManager';
 import { useEffect, useState } from 'react';
 import type { StudentProgress } from '@/lib/types';
 import { db } from '@/lib/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
-import { CourseManager } from '@/components/admin/CourseManager';
+import { CourseManager } from './CourseManager';
 import { ADMIN_UIDS } from '@/lib/admin';
 import { BlogManager } from './BlogManager';
 import { FeedbackManager } from './FeedbackManager';

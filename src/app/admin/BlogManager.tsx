@@ -1,16 +1,16 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
 import type { Blog } from '@/lib/types';
-import { getPosts } from '@/services/blog-data';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, getDoc, type DocumentData } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, getDoc, getDocs, type DocumentData, query, orderBy } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Pencil, Trash2, Badge, Newspaper, FileText } from 'lucide-react';
+import { Pencil, Trash2, Badge, FileText } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { BlogForm } from './BlogForm';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -18,7 +18,6 @@ import { z } from 'zod';
 import { NewBlogSchema, BlogSchema } from '@/lib/types';
 import { format } from 'date-fns';
 import { useAuth } from '@/hooks/use-auth';
-import { useRouter } from 'next/navigation';
 
 type BlogFormData = z.infer<typeof NewBlogSchema>;
 
@@ -32,7 +31,15 @@ function slugify(text: string): string {
     .replace(/\-\-+/g, '-');
 }
 
-async function seedWelcomePost() {
+const toBlog = (doc: DocumentData): Blog => {
+    const data = doc.data();
+    return BlogSchema.parse({
+        id: doc.id,
+        ...data,
+    });
+};
+
+async function seedWelcomePost(user: any): Promise<Blog | null> {
     const welcomePostContent = `Welcome to the official blog of TechTradeHub Academy! We are thrilled to have you here as part of our growing community of learners, innovators, and future leaders in the tech and finance industries.
 
 ### Our Vision
@@ -61,6 +68,7 @@ The TechTradeHub Academy Team`;
         content: welcomePostContent,
         imageUrl: 'https://placehold.co/800x400.png',
         authorName: 'The TechTradeHub Team',
+        authorId: user.uid,
         status: 'published' as const,
         slug: 'welcome-to-techtradehub-academy',
         createdAt: serverTimestamp(),
@@ -77,15 +85,6 @@ The TechTradeHub Academy Team`;
     }
 }
 
-const toBlog = (doc: DocumentData): Blog => {
-    const data = doc.data();
-    return BlogSchema.parse({
-        id: doc.id,
-        ...data,
-    });
-};
-
-
 export function BlogManager() {
   const [posts, setPosts] = useState<Blog[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -96,12 +95,18 @@ export function BlogManager() {
   const { user } = useAuth();
 
   useEffect(() => {
+    if (!user) return;
+
     const fetchPosts = async () => {
       setIsLoading(true);
       try {
-        let data = await getPosts();
+        const blogPostsCollection = collection(db, 'blogPosts');
+        const q = query(blogPostsCollection, orderBy('createdAt', 'desc'));
+        const postsSnapshot = await getDocs(q);
+        let data = postsSnapshot.docs.map(doc => toBlog(doc));
+
         if (data.length === 0) {
-          const seededPost = await seedWelcomePost();
+          const seededPost = await seedWelcomePost(user);
           if (seededPost) {
             data = [seededPost];
           }
@@ -118,7 +123,7 @@ export function BlogManager() {
       }
     };
     fetchPosts();
-  }, [toast]);
+  }, [toast, user]);
 
   const handleFormSubmit = async (data: BlogFormData) => {
     if (!user) {

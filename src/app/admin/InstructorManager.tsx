@@ -1,10 +1,10 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
 import type { Instructor } from '@/lib/types';
-import { getInstructors } from '@/services/instructor-data';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, updateDoc, deleteDoc, doc, getDoc, type DocumentData } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc, getDoc, getDocs, type DocumentData } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -41,8 +41,10 @@ export function InstructorManager() {
     const fetchInstructors = async () => {
       setIsLoading(true);
       try {
-        const data = await getInstructors();
-        setInstructors(data);
+        const instructorsCol = collection(db, 'instructors');
+        const instructorSnapshot = await getDocs(instructorsCol);
+        const instructorList = instructorSnapshot.docs.map(doc => toInstructor(doc));
+        setInstructors(instructorList);
       } catch (error) {
         toast({
           title: "Error",
@@ -71,7 +73,7 @@ export function InstructorManager() {
             const docRef = await addDoc(collection(db, 'instructors'), validatedData);
             const newSnap = await getDoc(docRef);
             const newInstructor = toInstructor(newSnap);
-            setInstructors(prev => [newInstructor, ...prev]);
+            setInstructors(prevInstructors => [newInstructor, ...prevInstructors]);
         }
 
         toast({

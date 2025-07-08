@@ -1,10 +1,10 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
 import type { Course } from '@/lib/types';
-import { getCourses } from '@/services/course-data';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, updateDoc, deleteDoc, doc, getDoc, type DocumentData } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc, getDoc, getDocs, type DocumentData } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -41,8 +41,10 @@ export function CourseManager() {
     const fetchCourses = async () => {
       setIsLoading(true);
       try {
-        const data = await getCourses();
-        setCourses(data);
+        const coursesCol = collection(db, 'courses');
+        const courseSnapshot = await getDocs(coursesCol);
+        const courseList = courseSnapshot.docs.map(doc => toCourse(doc));
+        setCourses(courseList);
       } catch (error) {
         toast({
           title: "Error",
