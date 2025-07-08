@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import type { Blog } from '@/lib/types';
 import { getPosts } from '@/services/blog-data';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, updateDoc, deleteDoc, doc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc, serverTimestamp, getDoc, type DocumentData } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -15,7 +15,7 @@ import { useToast } from '@/hooks/use-toast';
 import { BlogForm } from './BlogForm';
 import { Skeleton } from '@/components/ui/skeleton';
 import { z } from 'zod';
-import { NewBlogSchema } from '@/lib/types';
+import { NewBlogSchema, BlogSchema } from '@/lib/types';
 import { format } from 'date-fns';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
@@ -68,13 +68,22 @@ The TechTradeHub Academy Team`;
     };
 
     try {
-      await addDoc(collection(db, 'blogPosts'), welcomePost);
-      return true;
+      const docRef = await addDoc(collection(db, 'blogPosts'), welcomePost);
+      const newPostSnap = await getDoc(docRef);
+      return toBlog(newPostSnap);
     } catch(error) {
       console.error("Failed to seed welcome post:", error);
-      return false;
+      return null;
     }
 }
+
+const toBlog = (doc: DocumentData): Blog => {
+    const data = doc.data();
+    return BlogSchema.parse({
+        id: doc.id,
+        ...data,
+    });
+};
 
 
 export function BlogManager() {
@@ -85,33 +94,31 @@ export function BlogManager() {
   const [editingPost, setEditingPost] = useState<Blog | null>(null);
   const { toast } = useToast();
   const { user } = useAuth();
-  const router = useRouter();
-
-  const fetchPosts = async () => {
-    setIsLoading(true);
-    try {
-      let data = await getPosts();
-      if (data.length === 0) {
-        const seeded = await seedWelcomePost();
-        if (seeded) {
-          data = await getPosts();
-        }
-      }
-      setPosts(data);
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Could not fetch blog posts.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const fetchPosts = async () => {
+      setIsLoading(true);
+      try {
+        let data = await getPosts();
+        if (data.length === 0) {
+          const seededPost = await seedWelcomePost();
+          if (seededPost) {
+            data = [seededPost];
+          }
+        }
+        setPosts(data);
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Could not fetch blog posts.",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
     fetchPosts();
-  }, []);
+  }, [toast]);
 
   const handleFormSubmit = async (data: BlogFormData) => {
     if (!user) {
@@ -122,7 +129,7 @@ export function BlogManager() {
 
     try {
         if (editingPost) {
-            const postDoc = doc(db, 'blogPosts', editingPost.id);
+            const postDocRef = doc(db, 'blogPosts', editingPost.id);
             const dataToUpdate: any = { 
                 ...data, 
                 slug: slugify(data.title) 
@@ -130,7 +137,11 @@ export function BlogManager() {
             if (data.status === 'published' && editingPost.status !== 'published') {
                 dataToUpdate.publishedAt = serverTimestamp();
             }
-            await updateDoc(postDoc, dataToUpdate);
+            await updateDoc(postDocRef, dataToUpdate);
+            const updatedSnap = await getDoc(postDocRef);
+            const updatedPost = toBlog(updatedSnap);
+            setPosts(posts.map(p => p.id === updatedPost.id ? updatedPost : p));
+
         } else {
             const dataToSave = { 
                 ...data, 
@@ -139,7 +150,10 @@ export function BlogManager() {
                 createdAt: serverTimestamp(),
                 publishedAt: data.status === 'published' ? serverTimestamp() : null,
             };
-            await addDoc(collection(db, 'blogPosts'), dataToSave);
+            const docRef = await addDoc(collection(db, 'blogPosts'), dataToSave);
+            const newPostSnap = await getDoc(docRef);
+            const newPost = toBlog(newPostSnap);
+            setPosts(prevPosts => [newPost, ...prevPosts]);
         }
 
         toast({
@@ -150,8 +164,6 @@ export function BlogManager() {
 
         setDialogOpen(false);
         setEditingPost(null);
-        router.refresh();
-        await fetchPosts();
     } catch (error: any) {
       toast({
         title: "Error",
@@ -183,13 +195,12 @@ export function BlogManager() {
   const confirmDelete = async (id: string) => {
     try {
         await deleteDoc(doc(db, 'blogPosts', id));
+        setPosts(posts.filter(p => p.id !== id));
         toast({
             title: "Post Deleted",
             description: "The blog post has been removed successfully.",
             variant: "success",
         });
-        router.refresh();
-        await fetchPosts();
     } catch (error: any) {
         toast({
             title: "Error",

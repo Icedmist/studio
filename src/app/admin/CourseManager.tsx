@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import type { Course } from '@/lib/types';
 import { getCourses } from '@/services/course-data';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc, getDoc, type DocumentData } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -15,11 +15,19 @@ import { useToast } from '@/hooks/use-toast';
 import { CourseForm } from './CourseForm';
 import { Skeleton } from '@/components/ui/skeleton';
 import { z } from 'zod';
-import { NewCourseSchema } from '@/lib/types';
+import { NewCourseSchema, CourseSchema } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
-import { useRouter } from 'next/navigation';
 
 type CourseFormData = z.infer<typeof NewCourseSchema>;
+
+const toCourse = (doc: DocumentData): Course => {
+    const data = doc.data();
+    return CourseSchema.parse({
+        ...data,
+        id: doc.id,
+        progress: 0, 
+    });
+};
 
 export function CourseManager() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -28,37 +36,41 @@ export function CourseManager() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const { toast } = useToast();
-  const router = useRouter();
-
-  const fetchCourses = async () => {
-    setIsLoading(true);
-    try {
-      const data = await getCourses();
-      setCourses(data);
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Could not fetch courses.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const fetchCourses = async () => {
+      setIsLoading(true);
+      try {
+        const data = await getCourses();
+        setCourses(data);
+      } catch (error) {
+        toast({
+          title: "Error",
+          description: "Could not fetch courses.",
+          variant: "destructive",
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
     fetchCourses();
-  }, []);
+  }, [toast]);
 
   const handleFormSubmit = async (data: CourseFormData) => {
     setIsSubmitting(true);
     try {
       const validatedData = NewCourseSchema.parse(data);
       if (editingCourse) {
-        const courseDoc = doc(db, 'courses', editingCourse.id);
-        await updateDoc(courseDoc, validatedData);
+        const courseDocRef = doc(db, 'courses', editingCourse.id);
+        await updateDoc(courseDocRef, validatedData);
+        const updatedSnap = await getDoc(courseDocRef);
+        const updatedCourse = toCourse(updatedSnap);
+        setCourses(courses.map(c => c.id === updatedCourse.id ? updatedCourse : c));
       } else {
-        await addDoc(collection(db, 'courses'), validatedData);
+        const docRef = await addDoc(collection(db, 'courses'), validatedData);
+        const newSnap = await getDoc(docRef);
+        const newCourse = toCourse(newSnap);
+        setCourses(prev => [newCourse, ...prev]);
       }
 
       toast({
@@ -68,8 +80,6 @@ export function CourseManager() {
       });
       setDialogOpen(false);
       setEditingCourse(null);
-      router.refresh();
-      await fetchCourses();
     } catch (error: any) {
       toast({
         title: "Error",
@@ -101,13 +111,12 @@ export function CourseManager() {
   const confirmDelete = async (id: string) => {
     try {
       await deleteDoc(doc(db, 'courses', id));
+      setCourses(courses.filter(c => c.id !== id));
       toast({
         title: "Course Deleted",
         description: "The course has been removed successfully.",
         variant: "success",
       });
-      router.refresh();
-      await fetchCourses();
     } catch (error: any) {
       toast({
         title: "Error",
