@@ -99,38 +99,49 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     // Helper function to check if the user is an admin.
+    // Your UID is correctly placed here.
     function isAdmin() {
-      return request.auth != null && request.auth.uid in [
+      return request.auth.uid in [
         'dqrHnJtM27bMpNudHxO5hL3wsNE3'
       ];
     }
 
-    // Rule 1: Students can read their own progress and admins can read/write all progress documents.
+    // Rule 1: Student Progress
     match /studentProgress/{userId} {
+      // Admins can read/write ANY progress doc.
+      // Students can read/write their OWN progress doc.
       allow read, write: if request.auth != null && (request.auth.uid == userId || isAdmin());
     }
 
-    // Rule 2: Any logged-in user can read courses, but only admins can create/update/delete them.
+    // Rule 2: Courses
     match /courses/{courseId} {
+      // Any logged-in user can read courses.
       allow read: if request.auth != null;
+      // ONLY admins can create, update, or delete courses.
       allow write: if isAdmin();
     }
 
-    // Rule 3: Any logged-in user can read instructors, but only admins can write.
+    // Rule 3: Instructors
     match /instructors/{instructorId} {
+      // Any logged-in user can read instructors.
       allow read: if request.auth != null;
+      // ONLY admins can create, update, or delete instructors.
       allow write: if isAdmin();
     }
 
-    // Rule 4: Students can read published blog posts. Admins can read/write all blog posts.
+    // Rule 4: Blog Posts
     match /blogPosts/{postId} {
-      allow read: if request.auth != null && (resource.data.status == 'published' || isAdmin());
+      // Admins can read all posts. Students can only read 'published' posts.
+      allow read: if (request.auth != null && resource.data.status == 'published') || isAdmin();
+      // ONLY admins can create, update, or delete posts.
       allow write: if isAdmin();
     }
 
-    // Rule 5: Any logged-in user can create feedback. Only admins can read/update/delete it.
+    // Rule 5: Feedback
     match /feedback/{feedbackId} {
+      // Any logged-in user can CREATE feedback.
       allow create: if request.auth != null;
+      // ONLY admins can read, update, or delete feedback.
       allow read, update, delete: if isAdmin();
     }
   }
@@ -144,7 +155,7 @@ service cloud.firestore {
           Action Required: Secure Your Database
         </CardTitle>
         <CardDescription className="text-destructive/80">
-          Your Firestore security rules might be misconfigured, causing permission errors. To fix this permanently, you must update the rules in your Firebase project.
+          Your Firestore security rules are blocking the app from working correctly. This is the final step to fix all permission errors.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -461,3 +472,6 @@ export default function DashboardPage() {
     
 
 
+
+
+    
