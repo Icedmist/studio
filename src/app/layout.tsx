@@ -1,10 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
-import { Toaster } from '@/components/ui/toaster';
-import Chatbot from '@/components/chatbot/Chatbot';
 import { AuthProvider } from '@/hooks/use-auth';
 import { Poppins, Montserrat, Playfair_Display } from 'next/font/google';
 
@@ -46,13 +42,7 @@ export default function RootLayout({
           playfairDisplay.variable
         )}
       >
-        <AuthProvider>
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-            <Chatbot />
-            <Toaster />
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
