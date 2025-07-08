@@ -93,3 +93,10 @@ export const BlogSchema = z.object({
 export type Blog = z.infer<typeof BlogSchema>;
 
 export const NewBlogSchema = BlogSchema.omit({ id: true, slug: true, createdAt: true, publishedAt: true });
+
+// A "plain" version of the Blog type for Client Components
+export const PlainBlogSchema = BlogSchema.omit({ createdAt: true, publishedAt: true }).extend({
+  createdAt: z.string(),
+  publishedAt: z.string().optional(),
+});
+export type PlainBlog = z.infer<typeof PlainBlogSchema>;

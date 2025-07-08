@@ -1,6 +1,6 @@
 'use client';
 
-import type { Blog } from "@/lib/types";
+import type { PlainBlog } from "@/lib/types";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
@@ -10,7 +10,7 @@ import { User, Calendar } from 'lucide-react';
 import { format } from "date-fns";
 
 interface PostCardProps {
-  post: Blog;
+  post: PlainBlog;
 }
 
 export function PostCard({ post }: PostCardProps) {
@@ -19,7 +19,7 @@ export function PostCard({ post }: PostCardProps) {
         visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
     };
 
-    const publishedDate = post.publishedAt?.toDate ? format(post.publishedAt.toDate(), 'PPP') : 'N/A';
+    const publishedDate = post.publishedAt ? format(new Date(post.publishedAt), 'PPP') : 'N/A';
 
     return (
         <motion.div

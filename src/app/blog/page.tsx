@@ -1,9 +1,18 @@
 import { getPosts } from '@/services/blog-data';
 import { PostCard } from '@/components/blog/PostCard';
 import { Newspaper } from 'lucide-react';
+import type { Blog, PlainBlog } from '@/lib/types';
 
 export default async function BlogListPage() {
-  const posts = await getPosts('published');
+  const posts: Blog[] = await getPosts('published');
+  
+  // Convert Firestore Timestamp objects to plain strings for the client component
+  const plainPosts: PlainBlog[] = posts.map(post => ({
+    ...post,
+    createdAt: post.createdAt.toDate().toISOString(),
+    publishedAt: post.publishedAt?.toDate().toISOString(),
+  }));
+
 
   return (
     <div className="container mx-auto py-12 px-4">
@@ -17,9 +26,9 @@ export default async function BlogListPage() {
         Insights, tutorials, and news from the forefront of tech and finance.
       </p>
 
-      {posts.length > 0 ? (
+      {plainPosts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map(post => (
+          {plainPosts.map(post => (
             <PostCard key={post.id} post={post} />
           ))}
         </div>
