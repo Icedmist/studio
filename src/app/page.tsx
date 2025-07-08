@@ -1,82 +1,17 @@
-'use client';
-
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Award, Bot, BarChart, Library, Search, MessageSquare, Star } from 'lucide-react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import { useAuth } from '@/hooks/use-auth';
+import { motion } from 'framer-motion';
 import { getCourses } from '@/services/course-data';
 import type { Course } from '@/lib/types';
 import { CourseCard } from '@/components/courses/CourseCard';
 import { Skeleton } from '@/components/ui/skeleton';
+import { AnimatedHeroText } from './page-client';
+import { Suspense } from 'react';
 
-export default function Home() {
-  const { user } = useAuth();
-  const animatedWords = ["Learn.", "Trade.", "Dominate."];
-  const animatedColors = ["text-primary", "text-secondary", "text-purple-400"];
-  const [wordIndex, setWordIndex] = useState(0);
-  const [featuredCourses, setFeaturedCourses] = useState<Course[]>([]);
-  const [isLoadingCourses, setIsLoadingCourses] = useState(true);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-        setWordIndex((prevIndex) => (prevIndex + 1) % animatedWords.length);
-    }, 2500);
-    return () => clearInterval(timer);
-  }, []);
-
-  useEffect(() => {
-    async function fetchCourses() {
-        setIsLoadingCourses(true);
-        try {
-            const allCourses = await getCourses();
-            setFeaturedCourses(allCourses.slice(0, 4)); // Get first 4 courses
-        } catch (error) {
-            console.error("Failed to load featured courses", error);
-        } finally {
-            setIsLoadingCourses(false);
-        }
-    }
-    fetchCourses();
-  }, []);
-
-  const features = [
-    {
-      icon: <Library className="w-6 h-6 text-primary" />,
-      title: 'Extensive Course Library',
-      description: 'Explore a vast range of courses across the most in-demand tech fields.',
-    },
-    {
-      icon: <BarChart className="w-6 h-6 text-success" />,
-      title: 'Track Your Progress',
-      description: 'Stay motivated with real-time tracking of your achievements.',
-    },
-    {
-      icon: <Award className="w-6 h-6 text-secondary" />,
-      title: 'Earn Certificates',
-      description: 'Showcase your expertise with industry-recognized certificates.',
-    },
-    {
-      icon: <Bot className="w-6 h-6 text-success" />,
-      title: 'AI-Powered Assistance',
-      description: 'Get instant help from our AI assistant, Tech Gee.',
-    },
-    {
-        icon: <Search className="w-6 h-6 text-purple-400" />,
-        title: 'Smart Search',
-        description: 'Easily find the courses and content you need to succeed.',
-    },
-    {
-        icon: <MessageSquare className="w-6 h-6 text-primary" />,
-        title: 'Community Access',
-        description: 'Connect with peers and instructors for support and collaboration.',
-    },
-  ];
-
-  const testimonials = [
+const testimonials = [
     {
       name: 'Alex Johnson',
       role: 'Futures Trader',
@@ -119,13 +54,65 @@ export default function Home() {
       dataAiHint: 'student smiling',
       comment: 'As a beginner, I found the courses easy to follow. The progress tracking keeps me motivated to learn every day!',
     },
-  ];
+];
 
-  const cardVariants = {
+const features = [
+    {
+      icon: <Library className="w-6 h-6 text-primary" />,
+      title: 'Extensive Course Library',
+      description: 'Explore a vast range of courses across the most in-demand tech fields.',
+    },
+    {
+      icon: <BarChart className="w-6 h-6 text-success" />,
+      title: 'Track Your Progress',
+      description: 'Stay motivated with real-time tracking of your achievements.',
+    },
+    {
+      icon: <Award className="w-6 h-6 text-secondary" />,
+      title: 'Earn Certificates',
+      description: 'Showcase your expertise with industry-recognized certificates.',
+    },
+    {
+      icon: <Bot className="w-6 h-6 text-success" />,
+      title: 'AI-Powered Assistance',
+      description: 'Get instant help from our AI assistant, Tech Gee.',
+    },
+    {
+        icon: <Search className="w-6 h-6 text-purple-400" />,
+        title: 'Smart Search',
+        description: 'Easily find the courses and content you need to succeed.',
+    },
+    {
+        icon: <MessageSquare className="w-6 h-6 text-primary" />,
+        title: 'Community Access',
+        description: 'Connect with peers and instructors for support and collaboration.',
+    },
+];
+
+const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
-  };
+};
 
+async function FeaturedCourses() {
+  const featuredCourses = await getCourses();
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {featuredCourses.slice(0, 4).map((course) => <CourseCard key={course.id} course={course} />)}
+    </div>
+  )
+}
+
+function FeaturedCoursesSkeleton() {
+    return (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[...Array(4)].map((_, i) => <Skeleton key={i} className="h-80" />)}
+        </div>
+    )
+}
+
+export default async function Home() {
   return (
     <div className="flex flex-col items-center text-foreground">
       {/* Hero Section */}
@@ -138,18 +125,7 @@ export default function Home() {
             className="text-4xl md:text-6xl font-headline font-bold mb-4"
           >
             Master the Future –{' '}
-            <AnimatePresence mode="wait">
-                <motion.span
-                    key={animatedWords[wordIndex]}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.5 }}
-                    className={`inline-block ${animatedColors[wordIndex]}`}
-                >
-                    {animatedWords[wordIndex]}
-                </motion.span>
-            </AnimatePresence>
+            <AnimatedHeroText />
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0 }}
@@ -180,13 +156,9 @@ export default function Home() {
           <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">
             Hand-picked courses to help you get started on your learning journey, no matter your skill level.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {isLoadingCourses ? (
-                [...Array(4)].map((_, i) => <Skeleton key={i} className="h-80" />)
-            ) : (
-                featuredCourses.map((course) => <CourseCard key={course.id} course={course} />)
-            )}
-          </div>
+          <Suspense fallback={<FeaturedCoursesSkeleton />}>
+            <FeaturedCourses />
+          </Suspense>
         </div>
       </section>
 
@@ -259,8 +231,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      {!user && (
-        <section className="w-full text-center py-20 md:py-32 bg-background">
+      <section className="w-full text-center py-20 md:py-32 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-headline font-bold mb-4">Ready to Start Learning?</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
@@ -268,12 +239,11 @@ export default function Home() {
             </p>
             <Link href="/signup">
               <Button size="lg" variant="secondary">
-                Sign Up
+                Sign Up Now
               </Button>
             </Link>
           </div>
-        </section>
-      )}
+      </section>
     </div>
   );
 }
