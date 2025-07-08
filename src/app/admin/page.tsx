@@ -19,7 +19,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Shield, Users, Library, Pencil, Trash2, Newspaper, MessageSquare, ShieldAlert } from 'lucide-react';
+import { Shield, Users, Library, Pencil, Trash2, Newspaper, MessageSquare } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -50,78 +50,9 @@ const ProgressBadge = ({ progress }: { progress: number }) => {
     return <Badge variant={variant}>{progress}%</Badge>
 }
 
-const FirestoreRulesError = () => (
-    <Card className="bg-destructive/10 border-destructive/50 text-destructive my-8">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <ShieldAlert />
-          Action Required: Update Firestore Rules
-        </CardTitle>
-        <CardDescription className="text-destructive/90">
-          Your admin dashboard failed to load because your Firestore security rules are blocking access. This is the final step to get your admin panel working.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div>
-          <p className="font-bold">Please follow these steps exactly:</p>
-          <ol className="list-decimal list-inside space-y-2 mt-2 text-sm">
-            <li><a href="https://console.firebase.google.com/project/tech-trade-hub-academy/firestore/rules" target="_blank" rel="noopener noreferrer" className="underline font-semibold">Click here to open your Firestore Rules editor.</a></li>
-            <li>Delete all the text currently in the editor.</li>
-            <li>Copy the entire code block below and paste it into the empty editor.</li>
-            <li>Click the "Publish" button at the top of the screen.</li>
-          </ol>
-        </div>
-        <div>
-          <h4 className="font-bold mb-2">Correct Security Rules:</h4>
-          <pre className="p-4 rounded-md bg-background/80 text-xs font-mono whitespace-pre-wrap text-foreground">
-            {`rules_version = '2';
-
-service cloud.firestore {
-  match /databases/{database}/documents {
-
-    function isAdmin() {
-      return request.auth != null && request.auth.uid in [
-        'dqrHnJtM27bMpNudHxO5hL3wsNE3'
-      ];
-    }
-
-    match /studentProgress/{userId} {
-      // Admins can list all users. Students can only get/write their own.
-      allow list: if isAdmin();
-      allow get, write: if request.auth != null && (request.auth.uid == userId || isAdmin());
-    }
-
-    match /courses/{courseId} {
-      allow read: if request.auth != null;
-      allow write: if isAdmin();
-    }
-
-    match /instructors/{instructorId} {
-      allow read: if request.auth != null;
-      allow write: if isAdmin();
-    }
-
-    match /blogPosts/{postId} {
-      allow read: if (request.auth != null && resource.data.status == 'published') || isAdmin();
-      allow write: if isAdmin();
-    }
-
-    match /feedback/{feedbackId} {
-      allow create: if request.auth != null;
-      allow read, update, delete: if isAdmin();
-    }
-  }
-}`}
-          </pre>
-        </div>
-      </CardContent>
-    </Card>
-);
-
 export default function AdminPage() {
   const [users, setUsers] = useState<StudentProgress[]>([]);
   const [isLoadingUsers, setIsLoadingUsers] = useState(true);
-  const [permissionError, setPermissionError] = useState(false);
   const { toast } = useToast();
   const { user } = useAuth();
 
@@ -131,12 +62,16 @@ export default function AdminPage() {
 
       try {
         setIsLoadingUsers(true);
-        setPermissionError(false);
         const userProgresses = await getAllStudentProgresses();
         setUsers(userProgresses);
       } catch (error: any) {
          if (error.code === 'permission-denied' || error.message.includes('permission-denied') || error.message.includes('insufficient permissions')) {
-            setPermissionError(true);
+            toast({
+              title: "Action Required: Update Firestore Rules",
+              description: "Your security rules are blocking access to the user list. Please update them in the Firebase Console.",
+              variant: "destructive",
+              duration: 10000,
+            });
         } else {
             toast({
               title: "Error Fetching Users",
@@ -162,8 +97,6 @@ export default function AdminPage() {
       <p className="text-muted-foreground mb-8">
         Manage courses, users, and site content from this secure dashboard.
       </p>
-      
-      {permissionError && <FirestoreRulesError />}
 
       <TooltipProvider>
         <Tabs defaultValue="users">
@@ -251,7 +184,7 @@ export default function AdminPage() {
                     ))) : (
                       <TableRow>
                         <TableCell colSpan={5} className="text-center text-muted-foreground">
-                          {permissionError ? 'Update your security rules to see user data.' : 'No users have created a profile yet.'}
+                          No users have created a profile yet, or your security rules are preventing access.
                         </TableCell>
                       </TableRow>
                     )}
