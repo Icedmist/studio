@@ -2,11 +2,27 @@
 
 import { useState, useEffect } from 'react';
 import type { Feedback } from '@/lib/types';
-import { getFeedback } from '@/services/feedback-data';
+import { db } from '@/lib/firebase';
+import { collection, getDocs, orderBy, query, type DocumentData } from "firebase/firestore";
+import { FeedbackSchema } from '@/lib/types';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import { formatDistanceToNow } from 'date-fns';
+
+// Helper to convert Firestore doc to Feedback type
+const toFeedback = (doc: DocumentData): Feedback => {
+    const data = doc.data();
+    const result = FeedbackSchema.safeParse({
+        ...data,
+        id: doc.id,
+    });
+    if (!result.success) {
+        console.error("Failed to parse feedback:", result.error.issues);
+        throw new Error(`Invalid feedback data structure for doc ${doc.id}`);
+    }
+    return result.data;
+};
 
 export function FeedbackManager() {
   const [feedback, setFeedback] = useState<Feedback[]>([]);
@@ -17,14 +33,19 @@ export function FeedbackManager() {
     async function fetchFeedback() {
       setIsLoading(true);
       try {
-        const data = await getFeedback();
+        if (!db) throw new Error("Firestore not initialized.");
+        const feedbackCol = collection(db, 'feedback');
+        const q = query(feedbackCol, orderBy('createdAt', 'desc'));
+        const feedbackSnapshot = await getDocs(q);
+        const data = feedbackSnapshot.docs.map(doc => toFeedback(doc));
         setFeedback(data);
       } catch (error) {
         toast({
           title: "Error",
-          description: "Could not fetch feedback submissions.",
+          description: "Could not fetch feedback submissions. Check Firestore security rules.",
           variant: "destructive",
         });
+        console.error("Feedback fetch error:", error);
       } finally {
         setIsLoading(false);
       }
