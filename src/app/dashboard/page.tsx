@@ -27,7 +27,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { Trophy, BookOpen, LineChart, CheckCircle, Lightbulb, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Trophy, BookOpen, LineChart, CheckCircle, Lightbulb, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
@@ -92,87 +92,25 @@ const DashboardSkeleton = () => (
   </div>
 );
 
-const ActionRequiredCard = ({ uids }: { uids: string[] }) => {
-  const firestoreRules = `rules_version = '2';
-
-service cloud.firestore {
-  match /databases/{database}/documents {
-
-    // Helper function to check if the user is an admin.
-    // Your UID is correctly placed here.
-    function isAdmin() {
-      return request.auth.uid in [
-        'dqrHnJtM27bMpNudHxO5hL3wsNE3'
-      ];
-    }
-
-    // Rule 1: Student Progress
-    match /studentProgress/{userId} {
-      // Admins can read/write ANY progress doc.
-      // Students can read/write their OWN progress doc.
-      allow read, write: if request.auth != null && (request.auth.uid == userId || isAdmin());
-    }
-
-    // Rule 2: Courses
-    match /courses/{courseId} {
-      // Any logged-in user can read courses.
-      allow read: if request.auth != null;
-      // ONLY admins can create, update, or delete courses.
-      allow write: if isAdmin();
-    }
-
-    // Rule 3: Instructors
-    match /instructors/{instructorId} {
-      // Any logged-in user can read instructors.
-      allow read: if request.auth != null;
-      // ONLY admins can create, update, or delete instructors.
-      allow write: if isAdmin();
-    }
-
-    // Rule 4: Blog Posts
-    match /blogPosts/{postId} {
-      // Admins can read all posts. Students can only read 'published' posts.
-      allow read: if (request.auth != null && resource.data.status == 'published') || isAdmin();
-      // ONLY admins can create, update, or delete posts.
-      allow write: if isAdmin();
-    }
-
-    // Rule 5: Feedback
-    match /feedback/{feedbackId} {
-      // Any logged-in user can CREATE feedback.
-      allow create: if request.auth != null;
-      // ONLY admins can read, update, or delete feedback.
-      allow read, update, delete: if isAdmin();
-    }
-  }
-}`;
-
-  return (
-    <Card className="bg-destructive/10 border-destructive text-destructive">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <AlertTriangle />
-          Action Required: Secure Your Database
-        </CardTitle>
-        <CardDescription className="text-destructive/80">
-          Your Firestore security rules are blocking the app from working correctly. This is the final step to fix all permission errors.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <p className="font-bold mb-2">Follow these steps:</p>
-        <ol className="list-decimal list-inside space-y-2 mb-4">
-            <li><a href="https://console.firebase.google.com/project/tech-trade-hub-academy/firestore/rules" target="_blank" rel="noopener noreferrer" className="underline font-semibold">Click here to open your Firestore Rules editor</a>.</li>
-            <li>Delete all the text in the editor.</li>
-            <li>Copy the complete ruleset below and paste it into the editor.</li>
-            <li>Click "Publish". This will resolve all permission errors.</li>
-        </ol>
-        <pre className="mt-4 text-left bg-destructive/20 p-4 rounded-md text-xs font-mono whitespace-pre-wrap overflow-auto">
-            {firestoreRules}
-        </pre>
-      </CardContent>
-    </Card>
-  );
-}
+const ErrorState = ({ errorMessage }: { errorMessage: string }) => (
+    <div className="container mx-auto p-4 sm:p-8">
+        <Card className="bg-destructive/10 border-destructive/50 text-destructive">
+        <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+            <AlertTriangle />
+            An Error Occurred
+            </CardTitle>
+        </CardHeader>
+        <CardContent>
+            <p>There was a problem loading your dashboard. This might be due to a network issue or a permissions problem.</p>
+            <p className='mt-2'>Please ensure your Firestore security rules are set up correctly.</p>
+            <pre className="mt-4 text-left bg-destructive/20 p-4 rounded-md text-sm font-mono whitespace-pre-wrap">
+            {errorMessage}
+            </pre>
+        </CardContent>
+        </Card>
+    </div>
+);
 
 
 export default function DashboardPage() {
@@ -198,11 +136,7 @@ export default function DashboardPage() {
         setData(progressData);
       } catch (error: any) {
         console.error('Failed to fetch student progress:', error);
-         if (error.code === 'permission-denied' || error.code === 'failed-precondition' || error.message.includes('permission-denied')) {
-            setError('permission-denied');
-        } else {
-            setError('An unknown error occurred while fetching your data.');
-        }
+        setError(error.message || 'An unknown error occurred while fetching your data.');
       } finally {
         setIsDataLoading(false);
       }
@@ -234,28 +168,7 @@ export default function DashboardPage() {
   }
   
   if (error) {
-     return (
-      <div className="container mx-auto p-4 sm:p-8">
-        {error === 'permission-denied' ? (
-          <ActionRequiredCard uids={ADMIN_UIDS} />
-        ) : (
-          <Card className="bg-destructive/10 border-destructive/50 text-destructive">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <AlertTriangle />
-                An Error Occurred
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>There was a problem loading your dashboard. Please try reloading the page.</p>
-              <pre className="mt-4 text-left bg-destructive/20 p-4 rounded-md text-sm font-mono whitespace-pre-wrap">
-                {error}
-              </pre>
-            </CardContent>
-          </Card>
-        )}
-      </div>
-    );
+     return <ErrorState errorMessage={error} />;
   }
   
   if (isAdmin) {
@@ -473,5 +386,7 @@ export default function DashboardPage() {
 
 
 
+
+    
 
     
