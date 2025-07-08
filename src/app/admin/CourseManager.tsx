@@ -2,19 +2,20 @@
 
 import { useState, useEffect } from 'react';
 import type { Course } from '@/lib/types';
-import { getCourses } from '@/services/course-data';
-import { handleAddCourse, handleUpdateCourse, handleDeleteCourse } from '@/app/actions/courses';
+import { getCourses, addCourse, updateCourse, deleteCourse } from '@/services/course-data';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Pencil, Trash2, Library, Badge } from 'lucide-react';
+import { Pencil, Trash2, Library } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { CourseForm } from './CourseForm';
 import { Skeleton } from '@/components/ui/skeleton';
 import { z } from 'zod';
 import { NewCourseSchema } from '@/lib/types';
+import { Badge } from '@/components/ui/badge';
+import { useRouter } from 'next/navigation';
 
 type CourseFormData = z.infer<typeof NewCourseSchema>;
 
@@ -25,10 +26,7 @@ export function CourseManager() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const { toast } = useToast();
-
-  useEffect(() => {
-    fetchCourses();
-  }, []);
+  const router = useRouter();
 
   const fetchCourses = async () => {
     setIsLoading(true);
@@ -46,32 +44,37 @@ export function CourseManager() {
     }
   };
 
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
   const handleFormSubmit = async (data: CourseFormData) => {
     setIsSubmitting(true);
-    let result;
-    if (editingCourse) {
-      result = await handleUpdateCourse(editingCourse.id, data);
-    } else {
-      result = await handleAddCourse(data);
-    }
+    try {
+        if (editingCourse) {
+            await updateCourse(editingCourse.id, data);
+        } else {
+            await addCourse(data);
+        }
 
-    if (result.success) {
-      toast({
-        title: `Course ${editingCourse ? 'updated' : 'added'}`,
-        description: `The course details have been saved successfully.`,
-        variant: "success",
-      });
-      setDialogOpen(false);
-      setEditingCourse(null);
-      await fetchCourses();
-    } else {
-      toast({
-        title: "Error",
-        description: result.error || "An unknown error occurred.",
-        variant: "destructive",
-      });
+        toast({
+            title: `Course ${editingCourse ? 'updated' : 'added'}`,
+            description: `The course details have been saved successfully.`,
+            variant: "success",
+        });
+        setDialogOpen(false);
+        setEditingCourse(null);
+        router.refresh();
+        await fetchCourses();
+    } catch (error: any) {
+        toast({
+            title: "Error",
+            description: error.message || "An unknown error occurred.",
+            variant: "destructive",
+        });
+    } finally {
+        setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   const openEditDialog = (course: Course) => {
@@ -92,20 +95,21 @@ export function CourseManager() {
   }
 
   const confirmDelete = async (id: string) => {
-    const result = await handleDeleteCourse(id);
-    if (result.success) {
-      toast({
-        title: "Course Deleted",
-        description: "The course has been removed successfully.",
-        variant: "success",
-      });
-      await fetchCourses();
-    } else {
-      toast({
-        title: "Error",
-        description: result.error || "An unknown error occurred.",
-        variant: "destructive",
-      });
+    try {
+        await deleteCourse(id);
+        toast({
+            title: "Course Deleted",
+            description: "The course has been removed successfully.",
+            variant: "success",
+        });
+        router.refresh();
+        await fetchCourses();
+    } catch (error: any) {
+        toast({
+            title: "Error",
+            description: error.message || "An unknown error occurred.",
+            variant: "destructive",
+        });
     }
   };
 

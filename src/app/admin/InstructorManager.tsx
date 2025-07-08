@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import type { Instructor } from '@/lib/types';
-import { getInstructors } from '@/services/instructor-data';
-import { handleAddInstructor, handleUpdateInstructor, handleDeleteInstructor } from '@/app/actions/instructors';
+import { getInstructors, addInstructor, updateInstructor, deleteInstructor } from '@/services/instructor-data';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -16,6 +15,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
 import { z } from 'zod';
 import { InstructorSchema } from '@/lib/types';
+import { useRouter } from 'next/navigation';
 
 const InstructorFormSchema = InstructorSchema.omit({ id: true });
 type InstructorFormData = z.infer<typeof InstructorFormSchema>;
@@ -28,10 +28,7 @@ export function InstructorManager() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingInstructor, setEditingInstructor] = useState<Instructor | null>(null);
   const { toast } = useToast();
-
-  useEffect(() => {
-    fetchInstructors();
-  }, []);
+  const router = useRouter();
 
   const fetchInstructors = async () => {
     setIsLoading(true);
@@ -49,32 +46,37 @@ export function InstructorManager() {
     }
   };
 
+  useEffect(() => {
+    fetchInstructors();
+  }, []);
+
   const handleFormSubmit = async (data: InstructorFormData) => {
     setIsSubmitting(true);
-    let result;
-    if (editingInstructor) {
-      result = await handleUpdateInstructor(editingInstructor.id, data);
-    } else {
-      result = await handleAddInstructor(data);
-    }
+    try {
+        if (editingInstructor) {
+            await updateInstructor(editingInstructor.id, data);
+        } else {
+            await addInstructor(data);
+        }
 
-    if (result.success) {
-      toast({
-        title: `Instructor ${editingInstructor ? 'updated' : 'added'}`,
-        description: `The instructor details have been saved successfully.`,
-        variant: "success",
-      });
-      setDialogOpen(false);
-      setEditingInstructor(null);
-      await fetchInstructors(); // Refresh data
-    } else {
-      toast({
-        title: "Error",
-        description: result.error || "An unknown error occurred.",
-        variant: "destructive",
-      });
+        toast({
+            title: `Instructor ${editingInstructor ? 'updated' : 'added'}`,
+            description: `The instructor details have been saved successfully.`,
+            variant: "success",
+        });
+        setDialogOpen(false);
+        setEditingInstructor(null);
+        router.refresh();
+        await fetchInstructors(); // Refresh data
+    } catch (error: any) {
+        toast({
+            title: "Error",
+            description: error.message || "An unknown error occurred.",
+            variant: "destructive",
+        });
+    } finally {
+        setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   const openEditDialog = (instructor: Instructor) => {
@@ -95,18 +97,19 @@ export function InstructorManager() {
   }
 
   const confirmDelete = async (id: string) => {
-    const result = await handleDeleteInstructor(id);
-    if (result.success) {
-      toast({
-        title: "Instructor Deleted",
-        description: "The instructor has been removed successfully.",
-        variant: "success",
-      });
-       await fetchInstructors(); // Refresh data
-    } else {
+    try {
+        await deleteInstructor(id);
+        toast({
+            title: "Instructor Deleted",
+            description: "The instructor has been removed successfully.",
+            variant: "success",
+        });
+        router.refresh();
+        await fetchInstructors(); // Refresh data
+    } catch (error: any) {
         toast({
             title: "Error",
-            description: result.error || "An unknown error occurred.",
+            description: error.message || "An unknown error occurred.",
             variant: "destructive",
         });
     }

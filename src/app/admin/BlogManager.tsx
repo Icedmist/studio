@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import type { Blog } from '@/lib/types';
-import { getPosts } from '@/services/blog-data';
-import { handleAddPost, handleUpdatePost, handleDeletePost } from '@/app/actions/blog';
+import { getPosts, addPost, updatePost, deletePost } from '@/services/blog-data';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -16,8 +15,64 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { z } from 'zod';
 import { NewBlogSchema } from '@/lib/types';
 import { format } from 'date-fns';
+import { useAuth } from '@/hooks/use-auth';
+import { useRouter } from 'next/navigation';
 
 type BlogFormData = z.infer<typeof NewBlogSchema>;
+
+function slugify(text: string): string {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-');        // Replace multiple - with single -
+}
+
+async function seedWelcomePost() {
+    const welcomePostContent = `Welcome to the official blog of TechTradeHub Academy! We are thrilled to have you here as part of our growing community of learners, innovators, and future leaders in the tech and finance industries.
+
+### Our Vision
+At TechTradeHub, our mission is simple: to democratize education in cutting-edge fields. We believe that everyone, regardless of their background, deserves access to high-quality, practical knowledge in areas like Futures Trading, Web3, Cryptocurrency, AI & Machine Learning, and other essential Tech Skills. The digital landscape is evolving at a breakneck pace, and we're here to ensure you have the tools and expertise to not just keep up, but to get ahead.
+
+### What to Expect from This Blog
+This blog will be your go-to resource for a variety of topics, including:
+- **In-depth Tutorials:** Step-by-step guides on complex topics from our courses.
+- **Industry Insights:** Analysis of market trends, new technologies, and what they mean for you.
+- **Student Success Stories:** Get inspired by the journeys of fellow learners from our community.
+- **Academy News & Updates:** Be the first to know about new courses, features, and events.
+- **Career Advice:** Tips and tricks to help you land your dream job in tech or finance.
+
+### Your Journey Starts Now
+Whether you're a complete beginner looking to take your first step into a new field, or a seasoned professional aiming to sharpen your skills, you've come to the right place. Our courses are designed by industry experts to be practical, engaging, and immediately applicable.
+
+We invite you to explore our [course library](/courses), engage with our content, and join the conversation. Your journey to mastering the future starts today.
+
+Let's build the future, together.
+
+Warmly,
+The TechTradeHub Academy Team`;
+        
+    const welcomePost = {
+        title: 'Welcome to TechTradeHub Academy: Your Journey to Mastery Begins!',
+        content: welcomePostContent,
+        imageUrl: 'https://placehold.co/800x400.png',
+        authorName: 'The TechTradeHub Team',
+        status: 'published' as const,
+        authorId: 'system',
+        slug: 'welcome-to-techtradehub-academy'
+    };
+
+    try {
+      await addPost(welcomePost);
+      return true;
+    } catch(error) {
+      console.error("Failed to seed welcome post:", error);
+      return false;
+    }
+}
+
 
 export function BlogManager() {
   const [posts, setPosts] = useState<Blog[]>([]);
@@ -26,15 +81,19 @@ export function BlogManager() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<Blog | null>(null);
   const { toast } = useToast();
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
+  const { user } = useAuth();
+  const router = useRouter();
 
   const fetchPosts = async () => {
     setIsLoading(true);
     try {
-      const data = await getPosts();
+      let data = await getPosts();
+      if (data.length === 0) {
+        const seeded = await seedWelcomePost();
+        if (seeded) {
+          data = await getPosts();
+        }
+      }
       setPosts(data);
     } catch (error) {
       toast({
@@ -47,32 +106,45 @@ export function BlogManager() {
     }
   };
 
-  const handleFormSubmit = async (data: BlogFormData) => {
-    setIsSubmitting(true);
-    let result;
-    if (editingPost) {
-      result = await handleUpdatePost(editingPost.id, data);
-    } else {
-      result = await handleAddPost(data);
-    }
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
-    if (result.success) {
-      toast({
-        title: `Post ${editingPost ? 'updated' : 'created'}`,
-        description: `The blog post has been saved successfully.`,
-        variant: "success",
-      });
-      setDialogOpen(false);
-      setEditingPost(null);
-      await fetchPosts();
-    } else {
+  const handleFormSubmit = async (data: BlogFormData) => {
+    if (!user) {
+        toast({ title: "Authentication Error", description: "You must be logged in.", variant: "destructive" });
+        return;
+    }
+    setIsSubmitting(true);
+
+    try {
+        if (editingPost) {
+            const dataToUpdate = { ...data, slug: slugify(data.title) };
+            await updatePost(editingPost.id, dataToUpdate);
+        } else {
+            const dataToSave = { ...data, slug: slugify(data.title), authorId: user.uid };
+            await addPost(dataToSave);
+        }
+
+        toast({
+            title: `Post ${editingPost ? 'updated' : 'created'}`,
+            description: `The blog post has been saved successfully.`,
+            variant: "success",
+        });
+
+        setDialogOpen(false);
+        setEditingPost(null);
+        router.refresh();
+        await fetchPosts();
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: result.error || "An unknown error occurred.",
+        description: error.message || "An unknown error occurred.",
         variant: "destructive",
       });
+    } finally {
+        setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   const openEditDialog = (post: Blog) => {
@@ -93,20 +165,21 @@ export function BlogManager() {
   }
 
   const confirmDelete = async (id: string) => {
-    const result = await handleDeletePost(id);
-    if (result.success) {
-      toast({
-        title: "Post Deleted",
-        description: "The blog post has been removed successfully.",
-        variant: "success",
-      });
-      await fetchPosts();
-    } else {
-      toast({
-        title: "Error",
-        description: result.error || "An unknown error occurred.",
-        variant: "destructive",
-      });
+    try {
+        await deletePost(id);
+        toast({
+            title: "Post Deleted",
+            description: "The blog post has been removed successfully.",
+            variant: "success",
+        });
+        router.refresh();
+        await fetchPosts();
+    } catch (error: any) {
+        toast({
+            title: "Error",
+            description: error.message || "An unknown error occurred.",
+            variant: "destructive",
+        });
     }
   };
 

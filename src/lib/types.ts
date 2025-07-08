@@ -92,4 +92,4 @@ export const BlogSchema = z.object({
 });
 export type Blog = z.infer<typeof BlogSchema>;
 
-export const NewBlogSchema = BlogSchema.omit({ id: true, slug: true, authorId: true, createdAt: true, publishedAt: true });
+export const NewBlogSchema = BlogSchema.omit({ id: true, slug: true, createdAt: true, publishedAt: true });

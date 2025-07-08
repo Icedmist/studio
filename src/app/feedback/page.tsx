@@ -13,7 +13,8 @@ import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/use-auth";
-import { submitFeedback } from "@/app/actions/feedback";
+import { db } from '@/lib/firebase';
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const feedbackFormSchema = z.object({
   name: z.string().min(2, { message: "Please enter your name." }),
@@ -38,9 +39,15 @@ export default function FeedbackPage() {
     async function onSubmit(values: z.infer<typeof feedbackFormSchema>) {
         setIsLoading(true);
         
-        const result = await submitFeedback(values, user?.uid || null);
+        try {
+            const feedbackData = {
+                ...values,
+                userId: user?.uid,
+                createdAt: serverTimestamp()
+            };
+            
+            await addDoc(collection(db, 'feedback'), feedbackData);
 
-        if (result.success) {
             toast({
                 title: "Feedback Submitted!",
                 description: "Thank you for helping us improve our platform.",
@@ -50,15 +57,16 @@ export default function FeedbackPage() {
             form.reset();
             form.setValue('name', user?.displayName || "");
             form.setValue('email', user?.email || "");
-        } else {
+
+        } catch (error: any) {
              toast({
                 title: "Submission Failed",
-                description: result.error || "There was an issue submitting your feedback. Please try again.",
+                description: error.message || "There was an issue submitting your feedback. Please try again.",
                 variant: "destructive",
             });
+        } finally {
+            setIsLoading(false);
         }
-
-        setIsLoading(false);
     }
 
     return (
