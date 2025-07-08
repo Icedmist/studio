@@ -10,13 +10,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2, User, Mail, Lock, ShieldAlert } from 'lucide-react';
-import { updateProfile, updateEmail, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
+import { Loader2, User, Mail, Lock } from 'lucide-react';
+import { updateEmail, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-
-const profileFormSchema = z.object({
-  fullName: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
-});
+import { Label } from '@/components/ui/label';
 
 const emailFormSchema = z.object({
   newEmail: z.string().email({ message: 'Please enter a valid email.' }),
@@ -36,12 +33,7 @@ export default function AccountPage() {
   const { user } = useAuth();
   const { toast } = useToast();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState({ profile: false, email: false, password: false });
-
-  const profileForm = useForm<z.infer<typeof profileFormSchema>>({
-    resolver: zodResolver(profileFormSchema),
-    defaultValues: { fullName: user?.displayName ?? '' },
-  });
+  const [isLoading, setIsLoading] = useState({ email: false, password: false });
 
   const emailForm = useForm<z.infer<typeof emailFormSchema>>({
     resolver: zodResolver(emailFormSchema),
@@ -71,18 +63,6 @@ export default function AccountPage() {
         variant: 'destructive',
       });
       return false;
-    }
-  };
-
-  const onProfileSubmit = async (values: z.infer<typeof profileFormSchema>) => {
-    setIsLoading(prev => ({ ...prev, profile: true }));
-    try {
-      await updateProfile(user, { displayName: values.fullName });
-      toast({ title: 'Success', description: 'Your profile has been updated.', variant: 'success' });
-    } catch (error: any) {
-      toast({ title: 'Error', description: `Failed to update profile: ${error.message}`, variant: 'destructive' });
-    } finally {
-      setIsLoading(prev => ({ ...prev, profile: false }));
     }
   };
 
@@ -124,30 +104,16 @@ export default function AccountPage() {
         <Card className="bg-card/60 backdrop-blur-sm border-border/50">
           <CardHeader>
             <CardTitle>Profile Information</CardTitle>
-            <CardDescription>Update your display name.</CardDescription>
+            <CardDescription>Your name is set from your initial sign-up and cannot be changed.</CardDescription>
           </CardHeader>
           <CardContent>
-            <Form {...profileForm}>
-              <form onSubmit={profileForm.handleSubmit(onProfileSubmit)} className="space-y-4">
-                <FormField
-                  control={profileForm.control}
-                  name="fullName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Full Name</FormLabel>
-                      <FormControl>
-                        <Input icon={<User />} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" disabled={isLoading.profile}>
-                  {isLoading.profile && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Save Profile
-                </Button>
-              </form>
-            </Form>
+            <div className="space-y-4">
+                <div className="space-y-2">
+                    <Label htmlFor="fullName">Full Name</Label>
+                    <Input id="fullName" icon={<User />} value={user?.displayName ?? ''} disabled />
+                </div>
+                 <Button disabled>Save Profile</Button>
+            </div>
           </CardContent>
         </Card>
 

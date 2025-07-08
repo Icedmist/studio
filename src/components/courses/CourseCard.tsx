@@ -42,11 +42,13 @@ export function CourseCard({ course }: CourseCardProps) {
             variants={cardVariants}
             initial="hidden"
             whileInView="visible"
+            whileHover={{ scale: 1.03, y: -5 }}
+            transition={{ duration: 0.2 }}
             viewport={{ once: true, amount: 0.3 }}
             className="h-full"
         >
             <Card 
-                className="flex flex-col h-full overflow-hidden transition-all hover:shadow-lg hover:shadow-primary/10 bg-card/60 backdrop-blur-sm border-border/50"
+                className="flex flex-col h-full overflow-hidden transition-shadow hover:shadow-lg hover:shadow-primary/20 bg-card/60 backdrop-blur-sm border-border/50"
                 style={{ '--category-color': categoryColor, borderBottom: `3px solid var(--category-color)` }}
             >
             <CardHeader className="p-0">
