@@ -1,7 +1,8 @@
+
 'use server';
 
 import { db } from '@/lib/firebase';
-import { collection, getDocs, type DocumentData, doc } from "firebase/firestore";
+import { collection, getDocs, type DocumentData } from "firebase/firestore";
 import type { Instructor } from '@/lib/types';
 
 // Helper to convert Firestore doc to Instructor type

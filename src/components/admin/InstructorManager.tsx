@@ -1,8 +1,11 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
 import type { Instructor } from '@/lib/types';
-import { getInstructors, addInstructor, updateInstructor, deleteInstructor } from '@/services/instructor-data';
+import { getInstructors } from '@/services/instructor-data';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -17,8 +20,8 @@ import { z } from 'zod';
 import { InstructorSchema } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 
-const InstructorFormSchema = InstructorSchema.omit({ id: true });
-type InstructorFormData = z.infer<typeof InstructorFormSchema>;
+const NewInstructorSchema = InstructorSchema.omit({ id: true });
+type InstructorFormData = z.infer<typeof NewInstructorSchema>;
 
 
 export function InstructorManager() {
@@ -53,10 +56,12 @@ export function InstructorManager() {
   const handleFormSubmit = async (data: InstructorFormData) => {
     setIsSubmitting(true);
     try {
+        const validatedData = NewInstructorSchema.parse(data);
         if (editingInstructor) {
-            await updateInstructor(editingInstructor.id, data);
+            const instructorDoc = doc(db, 'instructors', editingInstructor.id);
+            await updateDoc(instructorDoc, validatedData);
         } else {
-            await addInstructor(data);
+            await addDoc(collection(db, 'instructors'), validatedData);
         }
 
         toast({
@@ -67,7 +72,7 @@ export function InstructorManager() {
         setDialogOpen(false);
         setEditingInstructor(null);
         router.refresh();
-        await fetchInstructors();
+        await fetchInstructors(); // Refresh data
     } catch (error: any) {
         toast({
             title: "Error",
@@ -98,14 +103,14 @@ export function InstructorManager() {
 
   const confirmDelete = async (id: string) => {
     try {
-        await deleteInstructor(id);
+        await deleteDoc(doc(db, 'instructors', id));
         toast({
             title: "Instructor Deleted",
             description: "The instructor has been removed successfully.",
             variant: "success",
         });
         router.refresh();
-        await fetchInstructors();
+        await fetchInstructors(); // Refresh data
     } catch (error: any) {
         toast({
             title: "Error",
