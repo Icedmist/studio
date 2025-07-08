@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export function AnimatedHeroText() {
     const animatedWords = ["Learn.", "Trade.", "Dominate."];
-    const animatedColors = ["text-primary", "text-secondary", "text-purple-400"];
+    const animatedColors = ["text-primary", "text-secondary", "text-success"];
     const [wordIndex, setWordIndex] = useState(0);
 
     useEffect(() => {
