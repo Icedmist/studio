@@ -12,7 +12,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Pencil, Trash2, UserPlus, Twitter, Linkedin } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { InstructorForm } from './InstructorForm';
+import { InstructorForm } from '@/components/admin/InstructorForm';
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
 import { z } from 'zod';

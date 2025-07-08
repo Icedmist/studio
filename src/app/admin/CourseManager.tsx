@@ -12,7 +12,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Pencil, Trash2, Library } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { CourseForm } from './CourseForm';
+import { CourseForm } from '@/components/admin/CourseForm';
 import { Skeleton } from '@/components/ui/skeleton';
 import { z } from 'zod';
 import { NewCourseSchema, CourseSchema } from '@/lib/types';
