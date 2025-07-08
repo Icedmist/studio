@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import type { Course } from '@/lib/types';
-import { getCourses, addCourse, updateCourse, deleteCourse } from '@/services/course-data';
+import { getCourses } from '@/services/course-data';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -51,29 +53,31 @@ export function CourseManager() {
   const handleFormSubmit = async (data: CourseFormData) => {
     setIsSubmitting(true);
     try {
-        if (editingCourse) {
-            await updateCourse(editingCourse.id, data);
-        } else {
-            await addCourse(data);
-        }
+      const validatedData = NewCourseSchema.parse(data);
+      if (editingCourse) {
+        const courseDoc = doc(db, 'courses', editingCourse.id);
+        await updateDoc(courseDoc, validatedData);
+      } else {
+        await addDoc(collection(db, 'courses'), validatedData);
+      }
 
-        toast({
-            title: `Course ${editingCourse ? 'updated' : 'added'}`,
-            description: `The course details have been saved successfully.`,
-            variant: "success",
-        });
-        setDialogOpen(false);
-        setEditingCourse(null);
-        router.refresh();
-        await fetchCourses();
+      toast({
+        title: `Course ${editingCourse ? 'updated' : 'added'}`,
+        description: `The course details have been saved successfully.`,
+        variant: "success",
+      });
+      setDialogOpen(false);
+      setEditingCourse(null);
+      router.refresh();
+      await fetchCourses();
     } catch (error: any) {
-        toast({
-            title: "Error",
-            description: error.message || "An unknown error occurred.",
-            variant: "destructive",
-        });
+      toast({
+        title: "Error",
+        description: error.message || "An unknown error occurred.",
+        variant: "destructive",
+      });
     } finally {
-        setIsSubmitting(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -96,20 +100,20 @@ export function CourseManager() {
 
   const confirmDelete = async (id: string) => {
     try {
-        await deleteCourse(id);
-        toast({
-            title: "Course Deleted",
-            description: "The course has been removed successfully.",
-            variant: "success",
-        });
-        router.refresh();
-        await fetchCourses();
+      await deleteDoc(doc(db, 'courses', id));
+      toast({
+        title: "Course Deleted",
+        description: "The course has been removed successfully.",
+        variant: "success",
+      });
+      router.refresh();
+      await fetchCourses();
     } catch (error: any) {
-        toast({
-            title: "Error",
-            description: error.message || "An unknown error occurred.",
-            variant: "destructive",
-        });
+      toast({
+        title: "Error",
+        description: error.message || "An unknown error occurred.",
+        variant: "destructive",
+      });
     }
   };
 

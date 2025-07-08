@@ -1,11 +1,9 @@
 'use server';
 
 import { db } from '@/lib/firebase';
-import { collection, getDocs, getDoc, addDoc, updateDoc, deleteDoc, doc, query, where, serverTimestamp, type DocumentData, orderBy } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, query, where, type DocumentData, orderBy } from "firebase/firestore";
 import type { Blog } from '@/lib/types';
 import { BlogSchema } from '@/lib/types';
-
-type NewBlog = Omit<Blog, 'id' | 'createdAt' | 'publishedAt'>;
 
 // Helper to convert Firestore doc to Blog type
 const toBlog = (doc: DocumentData): Blog => {
@@ -16,23 +14,16 @@ const toBlog = (doc: DocumentData): Blog => {
     });
 };
 
-function slugify(text: string): string {
-  return text
-    .toString()
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w\-]+/g, '')
-    .replace(/\-\-+/g, '-');
-}
-
 export async function getPosts(status?: 'published' | 'draft'): Promise<Blog[]> {
     if (!db) throw new Error("Firestore not initialized.");
     
-    let q = query(collection(db, 'blogPosts'), orderBy('createdAt', 'desc'));
+    let q;
+    const blogPostsCollection = collection(db, 'blogPosts');
     
     if (status) {
-        q = query(q, where('status', '==', status));
+        q = query(blogPostsCollection, where('status', '==', status), orderBy('createdAt', 'desc'));
+    } else {
+        q = query(blogPostsCollection, orderBy('createdAt', 'desc'));
     }
 
     const postsSnapshot = await getDocs(q);
@@ -59,38 +50,4 @@ export async function getPostBySlug(slug: string): Promise<Blog | null> {
         return null;
     }
     return toBlog(snapshot.docs[0]);
-}
-
-export async function addPost(postData: Partial<NewBlog>): Promise<string> {
-    if (!db) throw new Error("Firestore not initialized.");
-    
-    const dataWithTimestamp = {
-        ...postData,
-        createdAt: serverTimestamp(),
-        publishedAt: postData.status === 'published' ? serverTimestamp() : null,
-    };
-
-    const docRef = await addDoc(collection(db, 'blogPosts'), dataWithTimestamp);
-    return docRef.id;
-}
-
-export async function updatePost(id: string, postData: Partial<NewBlog>): Promise<void> {
-    if (!db) throw new Error("Firestore not initialized.");
-    const postDoc = doc(db, 'blogPosts', id);
-
-    const dataToUpdate: any = { ...postData };
-    
-    const currentDoc = await getDoc(postDoc);
-    const currentStatus = currentDoc.data()?.status;
-
-    if (postData.status === 'published' && currentStatus !== 'published') {
-        dataToUpdate.publishedAt = serverTimestamp();
-    }
-    
-    await updateDoc(postDoc, dataToUpdate);
-}
-
-export async function deletePost(id: string): Promise<void> {
-    if (!db) throw new Error("Firestore not initialized.");
-    await deleteDoc(doc(db, 'blogPosts', id));
 }

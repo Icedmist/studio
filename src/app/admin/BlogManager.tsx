@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import type { Blog } from '@/lib/types';
-import { getPosts, addPost, updatePost, deletePost } from '@/services/blog-data';
+import { getPosts } from '@/services/blog-data';
+import { db } from '@/lib/firebase';
+import { collection, addDoc, updateDoc, deleteDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -60,11 +62,13 @@ The TechTradeHub Academy Team`;
         imageUrl: 'https://placehold.co/800x400.png',
         authorName: 'The TechTradeHub Team',
         status: 'published' as const,
-        slug: 'welcome-to-techtradehub-academy'
+        slug: 'welcome-to-techtradehub-academy',
+        createdAt: serverTimestamp(),
+        publishedAt: serverTimestamp(),
     };
 
     try {
-      await addPost(welcomePost);
+      await addDoc(collection(db, 'blogPosts'), welcomePost);
       return true;
     } catch(error) {
       console.error("Failed to seed welcome post:", error);
@@ -118,11 +122,24 @@ export function BlogManager() {
 
     try {
         if (editingPost) {
-            const dataToUpdate = { ...data, slug: slugify(data.title) };
-            await updatePost(editingPost.id, dataToUpdate);
+            const postDoc = doc(db, 'blogPosts', editingPost.id);
+            const dataToUpdate: any = { 
+                ...data, 
+                slug: slugify(data.title) 
+            };
+            if (data.status === 'published' && editingPost.status !== 'published') {
+                dataToUpdate.publishedAt = serverTimestamp();
+            }
+            await updateDoc(postDoc, dataToUpdate);
         } else {
-            const dataToSave = { ...data, slug: slugify(data.title), authorId: user.uid };
-            await addPost(dataToSave);
+            const dataToSave = { 
+                ...data, 
+                slug: slugify(data.title), 
+                authorId: user.uid,
+                createdAt: serverTimestamp(),
+                publishedAt: data.status === 'published' ? serverTimestamp() : null,
+            };
+            await addDoc(collection(db, 'blogPosts'), dataToSave);
         }
 
         toast({
@@ -165,7 +182,7 @@ export function BlogManager() {
 
   const confirmDelete = async (id: string) => {
     try {
-        await deletePost(id);
+        await deleteDoc(doc(db, 'blogPosts', id));
         toast({
             title: "Post Deleted",
             description: "The blog post has been removed successfully.",
