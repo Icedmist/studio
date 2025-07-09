@@ -21,13 +21,24 @@ export async function getEvents(status?: 'upcoming' | 'past' | 'cancelled'): Pro
     let q;
 
     if (status) {
-        q = query(eventsCollection, where('status', '==', status), orderBy('date', 'desc'));
+        // Query by status first to avoid needing a composite index
+        q = query(eventsCollection, where('status', '==', status));
     } else {
+        // If no status, just order by date
         q = query(eventsCollection, orderBy('date', 'desc'));
     }
 
     const eventsSnapshot = await getDocs(q);
-    const eventList = eventsSnapshot.docs.map(doc => toEvent(doc));
+    let eventList = eventsSnapshot.docs.map(doc => toEvent(doc));
+
+    // If we filtered by status, we need to sort in-memory
+    if (status) {
+        eventList.sort((a, b) => {
+            const dateA = a.date?.toDate ? a.date.toDate().getTime() : 0;
+            const dateB = b.date?.toDate ? b.date.toDate().getTime() : 0;
+            return dateB - dateA; // Sort descending
+        });
+    }
     
     return eventList;
 }
