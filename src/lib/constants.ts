@@ -11,9 +11,9 @@ export const COURSE_CATEGORIES = [
 export const COURSE_LEVELS = ['Beginner', 'Intermediate', 'Advanced'] as const;
 
 export const COURSE_CATEGORY_COLORS: Record<CourseCategory, string> = {
-  'Futures Trading': 'hsl(var(--primary))',
-  'Web3': 'hsl(var(--chart-1))',
-  'Crypto': 'hsl(var(--chart-3))',
-  'Tech Skills': 'hsl(var(--secondary))',
-  'AI & Machine Learning': 'hsl(var(--success))',
+  'Futures Trading': 'hsl(var(--chart-1))', // Blue
+  'Web3': 'hsl(var(--primary))', // Green
+  'Crypto': 'hsl(var(--chart-4))', // Yellow
+  'Tech Skills': 'hsl(var(--secondary))', // Purple
+  'AI & Machine Learning': 'hsl(var(--destructive))', // Red
 };
