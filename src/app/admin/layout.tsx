@@ -1,11 +1,71 @@
 'use client';
 
 import { useAuth } from '@/hooks/use-auth';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ShieldAlert, Loader2 } from 'lucide-react';
+import { ShieldAlert, Loader2, Users, Library, UserPlus, Newspaper, CalendarDays, MessageSquare, Shield, Home } from 'lucide-react';
 import { ADMIN_UIDS } from '@/lib/admin';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
+
+const navLinks = [
+  { href: '/admin', label: 'Users', icon: Users, exact: true },
+  { href: '/admin/courses', label: 'Courses', icon: Library },
+  { href: '/admin/instructors', label: 'Instructors', icon: UserPlus },
+  { href: '/admin/blog', label: 'Blog', icon: Newspaper },
+  { href: '/admin/events', label: 'Events', icon: CalendarDays },
+  { href: '/admin/feedback', 'label': 'Feedback', icon: MessageSquare },
+];
+
+function AdminSidebar() {
+    const pathname = usePathname();
+
+    return (
+        <aside className="w-64 flex-shrink-0 border-r bg-card/50 hidden md:flex flex-col">
+            <div className="p-4 border-b h-16 flex items-center">
+                <Link href="/admin" className='flex items-center gap-2'>
+                    <Shield className='h-7 w-7 text-primary' />
+                    <h2 className="text-xl font-headline font-bold">Admin Panel</h2>
+                </Link>
+            </div>
+            <nav className="flex-grow p-4 space-y-2">
+              <TooltipProvider delayDuration={0}>
+                {navLinks.map(link => {
+                    const isActive = link.exact ? pathname === link.href : pathname.startsWith(link.href);
+                    return (
+                      <Tooltip key={link.href}>
+                        <TooltipTrigger asChild>
+                           <Link href={link.href}>
+                                <div className={cn(
+                                    "flex items-center gap-3 rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary",
+                                    isActive && "bg-primary/10 text-primary font-semibold"
+                                )}>
+                                    <link.icon className="h-5 w-5" />
+                                    <span>{link.label}</span>
+                                </div>
+                            </Link>
+                        </TooltipTrigger>
+                        <TooltipContent side="right">
+                          <p>{link.label}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    )
+                })}
+              </TooltipProvider>
+            </nav>
+            <div className="p-4 border-t">
+                <Link href="/" className="w-full">
+                   <div className="flex items-center gap-3 rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground">
+                        <Home className="h-5 w-5" />
+                        <span>Back to Site</span>
+                    </div>
+                </Link>
+            </div>
+        </aside>
+    )
+}
 
 export default function AdminLayout({
   children,
@@ -15,27 +75,16 @@ export default function AdminLayout({
   const { user, isLoading } = useAuth();
   const router = useRouter();
 
-  // This effect will run once after the initial render and whenever dependencies change.
-  // It handles the redirection logic cleanly.
   useEffect(() => {
-    // If auth state is resolved and there is no user, redirect to login.
     if (!isLoading && !user) {
       router.push('/login');
     }
   }, [isLoading, user, router]);
 
-  // While authentication is in progress, show a loading spinner.
-  if (isLoading) {
-    return <div className="h-screen w-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin"/></div>;
-  }
-
-  // If auth is resolved, but there is no user, we are in the process of redirecting.
-  // Show a loader to prevent a flash of content or an empty screen.
-  if (!user) {
+  if (isLoading || !user) {
     return <div className="h-screen w-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin"/></div>;
   }
   
-  // If the user is logged in, check if they are an authorized admin.
   const isAuthorized = ADMIN_UIDS.includes(user.uid);
 
   if (!isAuthorized) {
@@ -57,6 +106,12 @@ export default function AdminLayout({
     )
   }
 
-  // If all checks pass, render the admin dashboard.
-  return <>{children}</>;
+  return (
+    <div className='flex min-h-screen bg-muted/40'>
+        <AdminSidebar />
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+            {children}
+        </main>
+    </div>
+  );
 }
