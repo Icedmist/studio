@@ -1,25 +1,92 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type { Event } from '@/lib/types';
+import type { Event, Attendee } from '@/lib/types';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs, query, orderBy } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Pencil, Trash2, CalendarDays } from 'lucide-react';
+import { Pencil, Trash2, CalendarDays, Users, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { EventForm } from './EventForm';
 import { Skeleton } from '@/components/ui/skeleton';
 import { z } from 'zod';
 import { NewEventSchema } from '@/lib/types';
-import { format } from 'date-fns';
+import { format, formatDistanceToNow } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
-import { getEvents } from '@/services/event-data';
+import { getEvents, getEventAttendees } from '@/services/event-data';
 
 type EventFormData = z.infer<typeof NewEventSchema>;
+
+function AttendeesDialog({ eventId, eventTitle }: { eventId: string, eventTitle: string }) {
+    const [attendees, setAttendees] = useState<Attendee[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const fetchAttendees = async () => {
+        setIsLoading(true);
+        const data = await getEventAttendees(eventId);
+        setAttendees(data);
+        setIsLoading(false);
+    }
+
+    return (
+        <Dialog onOpenChange={(open) => open && fetchAttendees()}>
+            <Tooltip>
+                 <TooltipTrigger asChild>
+                    <DialogTrigger asChild>
+                         <Button variant="ghost" size="icon">
+                            <Users className="h-4 w-4" />
+                        </Button>
+                    </DialogTrigger>
+                 </TooltipTrigger>
+                 <TooltipContent><p>View Attendees</p></TooltipContent>
+            </Tooltip>
+            <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                    <DialogTitle>Attendees for "{eventTitle}"</DialogTitle>
+                    <DialogDescription>
+                        A list of all users who have registered for this event.
+                    </DialogDescription>
+                </DialogHeader>
+                {isLoading ? (
+                    <div className="space-y-2 mt-4">
+                        <Skeleton className="h-8 w-full" />
+                        <Skeleton className="h-8 w-full" />
+                        <Skeleton className="h-8 w-full" />
+                    </div>
+                ) : (
+                    <div className="max-h-[60vh] overflow-y-auto mt-4">
+                         <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Name</TableHead>
+                                    <TableHead>Email</TableHead>
+                                    <TableHead>Registered</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {attendees.length > 0 ? attendees.map(attendee => (
+                                    <TableRow key={attendee.id}>
+                                        <TableCell>{attendee.name}</TableCell>
+                                        <TableCell>{attendee.email}</TableCell>
+                                        <TableCell>{attendee.registeredAt?.toDate ? formatDistanceToNow(attendee.registeredAt.toDate(), { addSuffix: true }) : 'N/A'}</TableCell>
+                                    </TableRow>
+                                )) : (
+                                    <TableRow>
+                                        <TableCell colSpan={3} className="text-center text-muted-foreground">No one has registered yet.</TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </div>
+                )}
+            </DialogContent>
+        </Dialog>
+    )
+}
 
 export function EventManager() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -179,7 +246,8 @@ export function EventManager() {
               <TableCell>
                 <Badge variant={getStatusVariant(event.status)}>{event.status}</Badge>
               </TableCell>
-              <TableCell className="text-right space-x-2">
+              <TableCell className="text-right space-x-1">
+                <AttendeesDialog eventId={event.id} eventTitle={event.title} />
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button variant="ghost" size="icon" onClick={() => openEditDialog(event)}>
@@ -203,7 +271,7 @@ export function EventManager() {
                     <AlertDialogHeader>
                       <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                       <AlertDialogDescription>
-                        This will permanently delete the event. This action cannot be undone.
+                        This will permanently delete the event and all associated registration data. This action cannot be undone.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

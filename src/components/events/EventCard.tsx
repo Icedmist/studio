@@ -1,20 +1,49 @@
 'use client';
 
+import { useState, useEffect } from "react";
 import type { PlainEvent } from "@/lib/types";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Calendar, MapPin } from 'lucide-react';
+import { Calendar, MapPin, Ticket, Loader2 } from 'lucide-react';
 import { format } from "date-fns";
 import { Badge } from "../ui/badge";
+import { useAuth } from "@/hooks/use-auth";
+import { isUserRegisteredForEvent } from "@/services/event-data";
+import { handleEventRegistration } from "@/app/actions/events";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 interface EventCardProps {
   event: PlainEvent;
 }
 
 export function EventCard({ event }: EventCardProps) {
+    const { user } = useAuth();
+    const { toast } = useToast();
+    const router = useRouter();
+
+    const [isRegistered, setIsRegistered] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isRegistering, setIsRegistering] = useState(false);
+
+    useEffect(() => {
+        if (!user) {
+            setIsLoading(false);
+            return;
+        }
+        async function checkRegistration() {
+            setIsLoading(true);
+            const registered = await isUserRegisteredForEvent(event.id, user!.uid);
+            setIsRegistered(registered);
+            setIsLoading(false);
+        }
+        checkRegistration();
+    }, [user, event.id]);
+
+
     const cardVariants = {
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
@@ -29,6 +58,60 @@ export function EventCard({ event }: EventCardProps) {
             case 'cancelled': return 'destructive';
             default: return 'secondary';
         }
+    }
+
+    const onRegisterClick = async () => {
+        if (!user) {
+            router.push('/login');
+            return;
+        }
+        setIsRegistering(true);
+        const result = await handleEventRegistration(event.id, user.uid, user.displayName || 'Student', user.email || '');
+
+        if (result.success) {
+            toast({
+                title: 'Registration Successful!',
+                description: `We've sent a confirmation to ${user.email}.`,
+                variant: 'success'
+            });
+            setIsRegistered(true);
+        } else {
+            toast({
+                title: 'Registration Failed',
+                description: result.message,
+                variant: 'destructive'
+            });
+        }
+        setIsRegistering(false);
+    };
+
+    const renderButton = () => {
+        if (event.status !== 'upcoming') {
+            return <Button variant="outline" className="w-full" disabled>Event {event.status}</Button>;
+        }
+
+        if (isLoading) {
+            return <Button className="w-full" disabled><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Checking Status...</Button>
+        }
+
+        if (isRegistered) {
+            return (
+                <Link href={`/events/${event.id}/ticket`} className="w-full">
+                    <Button variant="outline" className="w-full">
+                        <Ticket className="mr-2 h-4 w-4" /> View Ticket
+                    </Button>
+                </Link>
+            )
+        }
+
+        return (
+            <Button className="w-full" onClick={onRegisterClick} disabled={isRegistering}>
+                {isRegistering ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : null}
+                Register Now
+            </Button>
+        )
     }
 
     return (
@@ -71,11 +154,7 @@ export function EventCard({ event }: EventCardProps) {
                     </CardDescription>
                 </CardContent>
                 <CardFooter className="p-4 pt-0 mt-auto">
-                    <Link href={event.link} target="_blank" rel="noopener noreferrer" className="w-full">
-                        <Button variant="outline" className="w-full" disabled={event.status !== 'upcoming'}>
-                            {event.status === 'upcoming' ? 'Register Now' : 'View Details'}
-                        </Button>
-                    </Link>
+                    {renderButton()}
                 </CardFooter>
             </Card>
         </motion.div>

@@ -1,9 +1,9 @@
 'use server';
 
 import { db } from '@/lib/firebase';
-import { collection, getDocs, getDoc, doc, query, where, orderBy, type DocumentData } from "firebase/firestore";
-import type { Event } from '@/lib/types';
-import { EventSchema } from '@/lib/types';
+import { collection, getDocs, getDoc, doc, query, where, orderBy, type DocumentData, setDoc, serverTimestamp } from "firebase/firestore";
+import type { Event, Attendee } from '@/lib/types';
+import { EventSchema, AttendeeSchema } from '@/lib/types';
 
 // Helper to convert Firestore doc to Event type
 const toEvent = (doc: DocumentData): Event => {
@@ -51,4 +51,38 @@ export async function getEvent(id: string): Promise<Event | null> {
         return toEvent(eventSnapshot);
     }
     return null;
+}
+
+
+// New functions for event registration
+
+export async function registerForEvent(eventId: string, userId: string, userName: string, userEmail: string): Promise<void> {
+    if (!db) throw new Error("Firestore not initialized.");
+    
+    const attendeeRef = doc(db, `events/${eventId}/attendees`, userId);
+    
+    const newAttendee = {
+        userId,
+        name: userName,
+        email: userEmail,
+        registeredAt: serverTimestamp(),
+    };
+
+    await setDoc(attendeeRef, newAttendee);
+}
+
+export async function isUserRegisteredForEvent(eventId: string, userId: string): Promise<boolean> {
+    if (!db) throw new Error("Firestore not initialized.");
+    const attendeeRef = doc(db, `events/${eventId}/attendees`, userId);
+    const docSnap = await getDoc(attendeeRef);
+    return docSnap.exists();
+}
+
+export async function getEventAttendees(eventId: string): Promise<Attendee[]> {
+    if (!db) throw new Error("Firestore not initialized.");
+    const attendeesCol = collection(db, `events/${eventId}/attendees`);
+    const q = query(attendeesCol, orderBy('registeredAt', 'desc'));
+    const snapshot = await getDocs(q);
+    
+    return snapshot.docs.map(d => AttendeeSchema.parse({ id: d.id, ...d.data() }));
 }

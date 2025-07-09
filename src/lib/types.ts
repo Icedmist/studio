@@ -124,3 +124,13 @@ export const PlainEventSchema = EventSchema.omit({ date: true }).extend({
   date: z.string(),
 });
 export type PlainEvent = z.infer<typeof PlainEventSchema>;
+
+// Zod schema for an Event Attendee
+export const AttendeeSchema = z.object({
+    id: z.string(),
+    userId: z.string(),
+    name: z.string(),
+    email: z.string().email(),
+    registeredAt: z.any(),
+});
+export type Attendee = z.infer<typeof AttendeeSchema>;
