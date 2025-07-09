@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { Bot, Send, X, User } from "lucide-react";
+import { Bot, Send, X, User, Cpu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -94,7 +94,7 @@ export default function Chatbot() {
             >
               <header className="p-4 border-b border-border/50 flex justify-between items-center rounded-t-lg">
                 <div className="flex items-center gap-2">
-                  <Bot className="w-6 h-6 text-primary" />
+                  <Cpu className="w-6 h-6 text-primary" />
                   <h3 className="font-headline font-semibold">Tech Gee Assistant</h3>
                 </div>
                 <Button variant="ghost" size="icon" onClick={toggleChat}>
@@ -114,7 +114,7 @@ export default function Chatbot() {
                       {message.role === "assistant" && (
                         <Avatar className="w-8 h-8 bg-primary text-primary-foreground">
                           <AvatarFallback>
-                            <Bot className="w-5 h-5" />
+                            <Cpu className="w-5 h-5" />
                           </AvatarFallback>
                         </Avatar>
                       )}
@@ -141,7 +141,7 @@ export default function Chatbot() {
                      <div className="flex items-start gap-3 justify-start">
                          <Avatar className="w-8 h-8 bg-primary text-primary-foreground">
                           <AvatarFallback>
-                            <Bot className="w-5 h-5" />
+                            <Cpu className="w-5 h-5" />
                           </AvatarFallback>
                         </Avatar>
                         <div className="p-3 rounded-lg bg-muted">
