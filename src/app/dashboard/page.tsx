@@ -27,7 +27,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { Trophy, BookOpen, LineChart, CheckCircle, Lightbulb, AlertTriangle } from 'lucide-react';
+import { Trophy, BookOpen, LineChart, CheckCircle, Lightbulb, AlertTriangle, Cpu } from 'lucide-react';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
@@ -119,12 +119,21 @@ export default function DashboardPage() {
   const [isDataLoading, setIsDataLoading] = useState(true);
   const [isRecsLoading, setIsRecsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { user } = useAuth();
+  const { user, isLoading: isAuthLoading } = useAuth();
   const router = useRouter();
 
 
   useEffect(() => {
+    if (isAuthLoading) return; // Wait for auth to finish loading
+    
     if (!user) {
+      router.push('/login');
+      return;
+    }
+
+    const isAdmin = ADMIN_UIDS.includes(user.uid);
+    if (isAdmin) {
+      router.push('/admin');
       return;
     }
 
@@ -141,6 +150,7 @@ export default function DashboardPage() {
         setIsDataLoading(false);
       }
     }
+
     async function fetchRecommendations() {
         if (!user) return;
         try {
@@ -153,36 +163,17 @@ export default function DashboardPage() {
             setIsRecsLoading(false);
         }
     }
+    
     fetchData();
     fetchRecommendations();
-  }, [user]);
+  }, [user, isAuthLoading, router]);
   
-  if (!user) {
-    return <DashboardSkeleton />;
-  }
-
-  const isAdmin = ADMIN_UIDS.includes(user.uid);
-
-  if (isDataLoading) {
+  if (isAuthLoading || isDataLoading || !data) {
     return <DashboardSkeleton />;
   }
   
   if (error) {
      return <ErrorState errorMessage={error} />;
-  }
-  
-  if (isAdmin) {
-    router.push('/admin');
-    return <DashboardSkeleton />;
-  }
-
-
-  if (!data) {
-    return (
-      <div className="container mx-auto p-8 text-center text-muted-foreground">
-        Could not load student data. Please try again later.
-      </div>
-    );
   }
 
   const inProgressCourses = data.enrolledCourses.filter(
@@ -379,14 +370,3 @@ export default function DashboardPage() {
     </motion.div>
   );
 }
-
-    
-
-    
-
-
-
-
-    
-
-    
