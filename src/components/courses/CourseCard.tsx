@@ -58,7 +58,7 @@ export function CourseCard({ course }: CourseCardProps) {
                     width={400}
                     height={200}
                     className="w-full h-28 object-cover"
-                    data-ai-hint={course.title.toLowerCase()}
+                    data-ai-hint={course.title.toLowerCase().split(' ').slice(0, 2).join(' ')}
                 />
                 <div className="p-2">
                     <div className="flex justify-between items-start gap-2 mb-1">

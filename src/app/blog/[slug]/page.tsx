@@ -25,7 +25,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
               alt={post.title}
               fill
               className="object-cover"
-              data-ai-hint="blog post header"
+              data-ai-hint={post.title.toLowerCase().split(' ').slice(0, 2).join(' ')}
               priority
             />
           </div>

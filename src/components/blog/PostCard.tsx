@@ -38,7 +38,7 @@ export function PostCard({ post }: PostCardProps) {
                                 alt={post.title}
                                 fill
                                 className="object-cover"
-                                data-ai-hint="blog post header"
+                                data-ai-hint={post.title.toLowerCase().split(' ').slice(0, 2).join(' ')}
                             />
                         </div>
                     </Link>

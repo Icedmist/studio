@@ -130,7 +130,7 @@ export function EventCard({ event }: EventCardProps) {
                             alt={event.title}
                             fill
                             className="object-cover"
-                            data-ai-hint="event announcement"
+                            data-ai-hint={event.title.toLowerCase().split(' ').slice(0, 2).join(' ')}
                         />
                     </div>
                     <Badge variant={getStatusVariant(event.status)} className="absolute top-2 right-2 capitalize">{event.status}</Badge>

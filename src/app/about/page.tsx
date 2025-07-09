@@ -48,7 +48,7 @@ export default async function AboutUsPage() {
                     {instructors.map((instructor) => (
                         <Card key={instructor.id} className="bg-card/80 p-6">
                             <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-primary">
-                                <AvatarImage src={instructor.avatarUrl} data-ai-hint="professional portrait" />
+                                <AvatarImage src={instructor.avatarUrl} data-ai-hint="instructor portrait" />
                                 <AvatarFallback>{instructor.name.charAt(0)}</AvatarFallback>
                             </Avatar>
                             <h3 className="text-xl font-headline font-bold">{instructor.name}</h3>

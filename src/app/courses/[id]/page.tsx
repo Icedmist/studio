@@ -216,7 +216,7 @@ export default function CoursePage() {
                 width={600}
                 height={400}
                 className="rounded-lg w-full object-cover"
-                data-ai-hint={`${course.title.toLowerCase()}`}
+                data-ai-hint={course.title.toLowerCase().split(' ').slice(0, 2).join(' ')}
               />
             </div>
           </motion.div>
