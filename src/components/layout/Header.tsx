@@ -23,6 +23,7 @@ import { ADMIN_UIDS } from '@/lib/admin';
 const navLinks = [
   { href: '/courses', label: 'Courses' },
   { href: '/dashboard', label: 'Dashboard' },
+  { href: '/events', label: 'Events' },
   { href: '/#features', label: 'Features' },
   { href: '/#testimonials', label: 'Testimonials' },
 ];

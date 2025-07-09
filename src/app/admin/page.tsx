@@ -19,7 +19,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Shield, Users, Library, Pencil, Trash2, Newspaper, MessageSquare } from 'lucide-react';
+import { Shield, Users, Library, Pencil, Trash2, Newspaper, MessageSquare, CalendarDays } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -30,13 +30,14 @@ import { InstructorManager } from './InstructorManager';
 import { useEffect, useState } from 'react';
 import type { StudentProgress } from '@/lib/types';
 import { db } from '@/lib/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CourseManager } from './CourseManager';
 import { ADMIN_UIDS } from '@/lib/admin';
 import { BlogManager } from './BlogManager';
 import { FeedbackManager } from './FeedbackManager';
+import { EventManager } from './EventManager';
 import { useAuth } from '@/hooks/use-auth';
 
 const ProgressBadge = ({ progress }: { progress: number }) => {
@@ -54,12 +55,13 @@ const ProgressBadge = ({ progress }: { progress: number }) => {
 export default function AdminPage() {
   const [users, setUsers] = useState<StudentProgress[]>([]);
   const [isLoadingUsers, setIsLoadingUsers] = useState(true);
+  const [referrers, setReferrers] = useState<Record<string, string>>({});
   const { toast } = useToast();
   const { user } = useAuth();
 
   useEffect(() => {
     async function fetchUsers() {
-      if (!user) return; // Wait for user to be authenticated
+      if (!user) return; 
 
       try {
         setIsLoadingUsers(true);
@@ -70,6 +72,18 @@ export default function AdminPage() {
         const progressSnapshot = await getDocs(progressCol);
         const userProgresses = progressSnapshot.docs.map(doc => doc.data() as StudentProgress);
         setUsers(userProgresses);
+
+        const referrerIds = new Set(userProgresses.map(u => u.referredBy).filter(Boolean) as string[]);
+        const referrerData: Record<string, string> = {};
+        for (const uid of referrerIds) {
+            const userDoc = await getDocs(collection(db, 'studentProgress'));
+            const docSnap = userDoc.docs.find(d => d.id === uid);
+            if (docSnap && docSnap.exists()) {
+                referrerData[uid] = docSnap.data().name;
+            }
+        }
+        setReferrers(referrerData);
+
       } catch (error: any) {
         console.error("Error fetching user list:", error);
         toast({
@@ -98,7 +112,7 @@ export default function AdminPage() {
 
       <TooltipProvider>
         <Tabs defaultValue="users">
-          <TabsList className="grid w-full grid-cols-5 max-w-3xl">
+          <TabsList className="grid w-full grid-cols-1 md:grid-cols-6 max-w-4xl">
             <TabsTrigger value="users">
               <Users className="mr-2 h-4 w-4" /> Users
             </TabsTrigger>
@@ -110,6 +124,9 @@ export default function AdminPage() {
             </TabsTrigger>
             <TabsTrigger value="blog">
                 <Newspaper className="mr-2 h-4 w-4" /> Blog
+            </TabsTrigger>
+             <TabsTrigger value="events">
+                <CalendarDays className="mr-2 h-4 w-4" /> Events
             </TabsTrigger>
              <TabsTrigger value="feedback">
                 <MessageSquare className="mr-2 h-4 w-4" /> Feedback
@@ -129,6 +146,7 @@ export default function AdminPage() {
                     <TableRow>
                       <TableHead>Name</TableHead>
                       <TableHead>Role</TableHead>
+                      <TableHead>Referred By</TableHead>
                       <TableHead>Courses Enrolled</TableHead>
                       <TableHead>Overall Progress</TableHead>
                       <TableHead className="text-right">Actions</TableHead>
@@ -138,7 +156,7 @@ export default function AdminPage() {
                     {isLoadingUsers ? (
                       [...Array(3)].map((_, i) => (
                         <TableRow key={i}>
-                          <TableCell colSpan={5}>
+                          <TableCell colSpan={6}>
                             <Skeleton className="h-8 w-full" />
                           </TableCell>
                         </TableRow>
@@ -153,6 +171,9 @@ export default function AdminPage() {
                             ) : (
                                 <Badge variant="outline">Student</Badge>
                             )}
+                        </TableCell>
+                        <TableCell>
+                           {user.referredBy ? referrers[user.referredBy] || user.referredBy.substring(0,6) : 'N/A'}
                         </TableCell>
                         <TableCell>
                           {user.enrolledCourses.length}
@@ -181,7 +202,7 @@ export default function AdminPage() {
                       </TableRow>
                     ))) : (
                       <TableRow>
-                        <TableCell colSpan={5} className="text-center text-muted-foreground">
+                        <TableCell colSpan={6} className="text-center text-muted-foreground">
                           No users have created a profile yet, or your security rules are preventing access.
                         </TableCell>
                       </TableRow>
@@ -227,6 +248,19 @@ export default function AdminPage() {
               </CardHeader>
               <CardContent>
                 <BlogManager />
+              </CardContent>
+            </Card>
+          </TabsContent>
+           <TabsContent value="events">
+            <Card className="bg-card/60 backdrop-blur-sm border-border/50">
+              <CardHeader>
+                <CardTitle>Event Management</CardTitle>
+                <CardDescription>
+                  Create, edit, and manage events for your community.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <EventManager />
               </CardContent>
             </Card>
           </TabsContent>

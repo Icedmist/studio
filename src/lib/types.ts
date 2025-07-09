@@ -49,6 +49,7 @@ export const StudentProgressSchema = z.object({
     overallProgress: z.number(),
     completedCourses: z.number(),
     coursesInProgress: z.number(),
+    referredBy: z.string().optional(),
 });
 export type StudentProgress = z.infer<typeof StudentProgressSchema>;
 
@@ -100,3 +101,26 @@ export const PlainBlogSchema = BlogSchema.omit({ createdAt: true, publishedAt: t
   publishedAt: z.string().optional(),
 });
 export type PlainBlog = z.infer<typeof PlainBlogSchema>;
+
+
+// Zod schema for an Event
+export const EventSchema = z.object({
+  id: z.string(),
+  title: z.string().min(1, 'Title is required'),
+  description: z.string().min(1, 'Description is required'),
+  imageUrl: z.string().url('A valid image URL is required'),
+  date: z.any(), // Firestore Timestamp
+  location: z.string().min(1, 'Location is required'),
+  status: z.enum(['upcoming', 'past', 'cancelled']),
+  link: z.string().url('A valid link is required'),
+});
+export type Event = z.infer<typeof EventSchema>;
+
+export const NewEventSchema = EventSchema.omit({ id: true });
+export type NewEvent = z.infer<typeof NewEventSchema>;
+
+// A "plain" version of the Event type for Client Components
+export const PlainEventSchema = EventSchema.omit({ date: true }).extend({
+  date: z.string(),
+});
+export type PlainEvent = z.infer<typeof PlainEventSchema>;
