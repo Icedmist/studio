@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -24,7 +25,7 @@ import {
 import { useEffect, useState } from 'react';
 import type { StudentProgress } from '@/lib/types';
 import { db } from '@/lib/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ADMIN_UIDS } from '@/lib/admin';
@@ -65,12 +66,16 @@ export default function AdminUsersPage() {
 
         const referrerIds = new Set(userProgresses.map(u => u.referredBy).filter(Boolean) as string[]);
         const referrerData: Record<string, string> = {};
+
         for (const uid of referrerIds) {
-            const userDoc = await getDocs(collection(db, 'studentProgress'));
-            const docSnap = userDoc.docs.find(d => d.id === uid);
-            if (docSnap && docSnap.exists()) {
-                referrerData[uid] = docSnap.data().name;
+          if (!referrerData[uid]) { // Fetch only if not already fetched
+            const userDoc = await getDoc(doc(db, 'studentProgress', uid));
+            if (userDoc.exists()) {
+                referrerData[uid] = userDoc.data().name;
+            } else {
+                referrerData[uid] = 'Unknown User';
             }
+          }
         }
         setReferrers(referrerData);
 
@@ -134,7 +139,7 @@ export default function AdminUsersPage() {
                       )}
                   </TableCell>
                   <TableCell>
-                      {user.referredBy ? referrers[user.referredBy] || user.referredBy.substring(0,6) : 'N/A'}
+                      {user.referredBy ? referrers[user.referredBy] || 'N/A' : 'N/A'}
                   </TableCell>
                   <TableCell>
                     {user.enrolledCourses.length}

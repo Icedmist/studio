@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -7,19 +8,26 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { User, Mail, Lock, Loader2 } from "lucide-react";
+import { User, Mail, Lock, Loader2, Gift } from "lucide-react";
 import { SocialLogins } from "./SocialLogins";
 import Link from "next/link";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { auth, db } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import type { StudentProgress } from "@/lib/types";
 
 
 const formSchema = z.object({
   fullName: z.string().min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Invalid email address." }),
   password: z.string().min(8, { message: "Password must be at least 8 characters." }),
+  confirmPassword: z.string(),
+  referralCode: z.string().optional(),
+}).refine(data => data.password === data.confirmPassword, {
+    message: "Passwords do not match.",
+    path: ["confirmPassword"],
 });
 
 export function SignUpForm() {
@@ -33,6 +41,8 @@ export function SignUpForm() {
       fullName: "",
       email: "",
       password: "",
+      confirmPassword: "",
+      referralCode: "",
     },
   });
 
@@ -40,11 +50,25 @@ export function SignUpForm() {
     setIsLoading(true);
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+        const user = userCredential.user;
 
-        if (userCredential.user) {
-            await updateProfile(userCredential.user, {
+        if (user) {
+            await updateProfile(user, {
                 displayName: values.fullName
             });
+
+            // Create the student progress document immediately
+            const studentProgressRef = doc(db, "studentProgress", user.uid);
+            const newStudentData: StudentProgress = {
+                studentId: user.uid,
+                name: values.fullName,
+                enrolledCourses: [],
+                overallProgress: 0,
+                completedCourses: 0,
+                coursesInProgress: 0,
+                referredBy: values.referralCode || undefined,
+            };
+            await setDoc(studentProgressRef, newStudentData);
         }
         
         toast({
@@ -52,12 +76,19 @@ export function SignUpForm() {
             description: "You have been successfully signed up.",
         });
         router.push("/dashboard");
+
     } catch (error: any) {
         let errorMessage = "An unknown error occurred.";
-        if (error.code === 'auth/email-already-in-use') {
-            errorMessage = "This email is already in use. Please login or use a different email.";
-        } else {
-            errorMessage = `Signup failed: ${error.message}`;
+        switch (error.code) {
+            case 'auth/email-already-in-use':
+                errorMessage = "This email is already in use. Please login or use a different email.";
+                break;
+            case 'auth/api-key-not-valid':
+                errorMessage = "The Firebase API key is not valid. Please check your .env file.";
+                break;
+            default:
+                errorMessage = `Signup failed: ${error.message}`;
+                break;
         }
 
         toast({
@@ -72,7 +103,7 @@ export function SignUpForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="fullName"
@@ -107,6 +138,32 @@ export function SignUpForm() {
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input icon={<Lock />} type="password" placeholder="********" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+         <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <Input icon={<Lock />} type="password" placeholder="********" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="referralCode"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Referral Code (Optional)</FormLabel>
+              <FormControl>
+                <Input icon={<Gift />} placeholder="Enter referrer's code" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

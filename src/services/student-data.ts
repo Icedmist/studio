@@ -1,3 +1,4 @@
+
 // Service to manage student data in Firestore.
 import { db } from '@/lib/firebase';
 import { doc, getDoc, setDoc, updateDoc, collection, getDocs } from "firebase/firestore"; 
@@ -9,9 +10,10 @@ import { getCourse } from './course-data';
  * If the student doesn't have a profile yet, it creates one.
  * @param userId The UID of the authenticated user.
  * @param name The display name of the user, used for creating a new profile.
+ * @param referralCode The UID of the user who referred this student.
  * @returns The student's progress data.
  */
-export async function getStudentProgress(userId: string, name?: string): Promise<StudentProgress> {
+export async function getStudentProgress(userId: string, name?: string, referralCode?: string): Promise<StudentProgress> {
     if (!db) {
         throw new Error("Firestore is not initialized. Check your Firebase configuration.");
     }
@@ -32,6 +34,7 @@ export async function getStudentProgress(userId: string, name?: string): Promise
             overallProgress: 0,
             completedCourses: 0,
             coursesInProgress: 0,
+            referredBy: referralCode || undefined,
         };
 
         // Set the new document in Firestore
