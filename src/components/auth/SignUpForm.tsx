@@ -30,7 +30,7 @@ const formSchema = z.object({
     path: ["confirmPassword"],
 });
 
-export function SignUpForm() {
+export function SignUpForm({ referralCode }: { referralCode: string | null }) {
   const { toast } = useToast();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +42,7 @@ export function SignUpForm() {
       email: "",
       password: "",
       confirmPassword: "",
-      referralCode: "",
+      referralCode: referralCode || "",
     },
   });
 

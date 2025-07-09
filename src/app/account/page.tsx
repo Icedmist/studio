@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -10,7 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2, User, Mail, Lock } from 'lucide-react';
+import { Loader2, User, Mail, Lock, Gift, Copy } from 'lucide-react';
 import { updateEmail, updatePassword, EmailAuthProvider, reauthenticateWithCredential } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { Label } from '@/components/ui/label';
@@ -96,6 +97,16 @@ export default function AccountPage() {
     setIsLoading(prev => ({ ...prev, password: false }));
   };
 
+  const handleCopyReferral = () => {
+    const referralLink = `${window.location.origin}/signup?ref=${user.uid}`;
+    navigator.clipboard.writeText(referralLink);
+    toast({
+      title: 'Copied to Clipboard!',
+      description: 'Your referral link has been copied.',
+      variant: 'success',
+    });
+  };
+
   return (
     <div className="container mx-auto py-12 px-4 max-w-4xl">
       <h1 className="text-3xl md:text-4xl font-headline font-bold mb-8">Account Settings</h1>
@@ -113,6 +124,27 @@ export default function AccountPage() {
                     <Input id="fullName" icon={<User />} value={user?.displayName ?? ''} disabled />
                 </div>
                  <Button disabled>Save Profile</Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Referral Link */}
+        <Card className="bg-card/60 backdrop-blur-sm border-border/50">
+          <CardHeader>
+            <CardTitle>Your Referral Link</CardTitle>
+            <CardDescription>Share this link with friends. When they sign up, you'll be credited as the referrer.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex gap-2">
+                <Input 
+                    icon={<Gift />} 
+                    readOnly 
+                    value={`${typeof window !== 'undefined' ? window.location.origin : ''}/signup?ref=${user.uid}`}
+                />
+                <Button variant="outline" onClick={handleCopyReferral}>
+                    <Copy className="mr-2 h-4 w-4" />
+                    Copy Link
+                </Button>
             </div>
           </CardContent>
         </Card>
