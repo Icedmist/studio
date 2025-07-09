@@ -9,9 +9,11 @@ export const Logo = ({ className }: { className?: string }) => (
                 <stop offset="100%" stopColor="hsl(var(--secondary))" />
             </linearGradient>
         </defs>
-        <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" stroke="url(#logo-grad)" strokeWidth="2" strokeLinejoin="round"/>
-        <path d="M2 7L12 12L22 7" stroke="url(#logo-grad)" strokeWidth="2" strokeLinejoin="round"/>
-        <path d="M12 12V22" stroke="url(#logo-grad)" strokeWidth="2" strokeLinejoin="round"/>
+        <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" fill="url(#logo-grad)" fillOpacity="0.1" stroke="url(#logo-grad)" strokeWidth="1.5" strokeLinejoin="round"/>
+        <circle cx="12" cy="12" r="2.5" fill="url(#logo-grad)" />
+        <path d="M12 14.5V22" stroke="url(#logo-grad)" strokeWidth="1.5" strokeLinejoin="round"/>
+        <path d="M12 2V9.5" stroke="url(#logo-grad)" strokeWidth="1.5" strokeLinejoin="round"/>
+        <path d="M2 7L12 12L22 7" stroke="url(#logo-grad)" strokeWidth="1.5" strokeLinejoin="round"/>
     </svg>
     <span className="text-foreground">TechTradeHub</span>
   </div>

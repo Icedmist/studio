@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { Bot, Send, X, User, Cpu } from "lucide-react";
+import { Bot, Send, X, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -16,6 +16,23 @@ interface Message {
   role: "user" | "assistant";
   content: string;
 }
+
+const BrainIcon = (props: React.ComponentProps<'svg'>) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M12 2a4.5 4.5 0 0 0-4.5 4.5v.5a4.5 4.5 0 0 0-4.5 4.5v3a4.5 4.5 0 0 0 4.5 4.5h.5a4.5 4.5 0 0 0 4.5 4.5h3a4.5 4.5 0 0 0 4.5-4.5v-.5a4.5 4.5 0 0 0 4.5-4.5v-3a4.5 4.5 0 0 0-4.5-4.5h-.5A4.5 4.5 0 0 0 12 2z" />
+        <path d="M12 2v20" />
+        <path d="M2 12h20" />
+        <path d="M12 2a4.5 4.5 0 0 1 4.5 4.5v.5" />
+        <path d="M12 2a4.5 4.5 0 0 0-4.5 4.5v.5" />
+        <path d="M12 22a4.5 4.5 0 0 0 4.5-4.5v-.5" />
+        <path d="M12 22a4.5 4.5 0 0 1-4.5-4.5v-.5" />
+        <path d="M2 12a4.5 4.5 0 0 0 4.5 4.5h.5" />
+        <path d="M2 12a4.5 4.5 0 0 1 4.5-4.5h.5" />
+        <path d="M22 12a4.5 4.5 0 0 1-4.5-4.5h-.5" />
+        <path d="M22 12a4.5 4.5 0 0 0-4.5 4.5h-.5" />
+    </svg>
+)
+
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -94,7 +111,7 @@ export default function Chatbot() {
             >
               <header className="p-4 border-b border-border/50 flex justify-between items-center rounded-t-lg">
                 <div className="flex items-center gap-2">
-                  <Cpu className="w-6 h-6 text-primary" />
+                  <BrainIcon className="w-6 h-6 text-primary" />
                   <h3 className="font-headline font-semibold">Tech Gee Assistant</h3>
                 </div>
                 <Button variant="ghost" size="icon" onClick={toggleChat}>
@@ -114,7 +131,7 @@ export default function Chatbot() {
                       {message.role === "assistant" && (
                         <Avatar className="w-8 h-8 bg-primary text-primary-foreground">
                           <AvatarFallback>
-                            <Cpu className="w-5 h-5" />
+                            <BrainIcon className="w-5 h-5" />
                           </AvatarFallback>
                         </Avatar>
                       )}
@@ -141,7 +158,7 @@ export default function Chatbot() {
                      <div className="flex items-start gap-3 justify-start">
                          <Avatar className="w-8 h-8 bg-primary text-primary-foreground">
                           <AvatarFallback>
-                            <Cpu className="w-5 h-5" />
+                            <BrainIcon className="w-5 h-5" />
                           </AvatarFallback>
                         </Avatar>
                         <div className="p-3 rounded-lg bg-muted">
