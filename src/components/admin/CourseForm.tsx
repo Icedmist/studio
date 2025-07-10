@@ -7,11 +7,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2, PlusCircle, Trash2, BookText, Clock, User, Tag, BarChart, DollarSign, Image as ImageIcon, BookOpen, Clock4 } from 'lucide-react';
+import { Loader2, PlusCircle, Trash2, BookText, Clock, User, Tag, BarChart, DollarSign, Image as ImageIcon, BookOpen, Clock4, HelpCircle } from 'lucide-react';
 import type { Course } from '@/lib/types';
 import { NewCourseSchema } from '@/lib/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { COURSE_CATEGORIES, COURSE_LEVELS } from '@/lib/constants';
+import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 
 type CourseFormData = z.infer<typeof NewCourseSchema>;
 
@@ -22,13 +23,103 @@ interface CourseFormProps {
   onCancel: () => void;
 }
 
+const QuestionForm = ({ control, namePrefix }: { control: any, namePrefix: `modules.${number}.quiz` | `finalAssessment` }) => {
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: namePrefix
+    });
+
+    return (
+        <div className="space-y-4">
+            {fields.map((questionItem, questionIndex) => (
+                 <div key={questionItem.id} className="space-y-3 rounded-md border bg-card/70 p-4 relative">
+                     <Button type="button" variant="destructive" size="icon" className="absolute -top-3 -right-3 h-6 w-6" onClick={() => remove(questionIndex)}>
+                        <Trash2 className="h-4 w-4" />
+                    </Button>
+                    <FormField
+                        control={control}
+                        name={`${namePrefix}.${questionIndex}.questionText`}
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Question {questionIndex + 1}</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="What is the capital of France?" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                     <Controller
+                        control={control}
+                        name={`${namePrefix}.${questionIndex}.options`}
+                        render={() => {
+                            const { fields: optionFields, append: appendOption, remove: removeOption } = useFieldArray({
+                                control,
+                                name: `${namePrefix}.${questionIndex}.options`
+                            });
+
+                            return (
+                                <div className='space-y-2'>
+                                  <FormLabel>Options</FormLabel>
+                                  <FormField
+                                    control={control}
+                                    name={`${namePrefix}.${questionIndex}.correctAnswerIndex`}
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <FormControl>
+                                          <RadioGroup
+                                            onValueChange={(value) => field.onChange(parseInt(value, 10))}
+                                            value={field.value?.toString()}
+                                            className="space-y-1"
+                                          >
+                                            {optionFields.map((optionItem, optionIndex) => (
+                                                <div key={optionItem.id} className="flex gap-2 items-center">
+                                                    <FormControl>
+                                                        <RadioGroupItem value={optionIndex.toString()} id={`${namePrefix}.${questionIndex}.options.${optionIndex}`}/>
+                                                    </FormControl>
+                                                    <FormField
+                                                      control={control}
+                                                      name={`${namePrefix}.${questionIndex}.options.${optionIndex}`}
+                                                      render={({ field }) => (
+                                                          <FormItem className='flex-grow'>
+                                                              <FormControl>
+                                                                  <Input placeholder={`Option ${optionIndex + 1}`} {...field} />
+                                                              </FormControl>
+                                                          </FormItem>
+                                                      )}
+                                                    />
+                                                    <Button type="button" variant="ghost" size="icon" className="h-8 w-8" onClick={() => removeOption(optionIndex)}>
+                                                        <Trash2 className="h-4 w-4" />
+                                                    </Button>
+                                                </div>
+                                            ))}
+                                            <FormMessage />
+                                          </RadioGroup>
+                                        </FormControl>
+                                      </FormItem>
+                                    )}
+                                  />
+                                    <Button type="button" variant="outline" size="sm" onClick={() => appendOption('')}>
+                                        <PlusCircle className="mr-2 h-4 w-4" /> Add Option
+                                    </Button>
+                                </div>
+                            )
+                        }}
+                     />
+                </div>
+            ))}
+            <Button type="button" variant="secondary" onClick={() => append({ questionText: '', options: ['', ''], correctAnswerIndex: 0 })}>
+                <PlusCircle className="mr-2 h-4 w-4" /> Add Question
+            </Button>
+        </div>
+    )
+}
+
 export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: CourseFormProps) {
   const form = useForm<CourseFormData>({
     resolver: zodResolver(NewCourseSchema),
     defaultValues: initialData 
-      ? {
-        ...NewCourseSchema.parse(initialData)
-      }
+      ? NewCourseSchema.parse(initialData)
       : {
         title: '',
         description: '',
@@ -36,7 +127,8 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
         category: 'Tech Skills',
         level: 'Beginner',
         imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{ title: '', lessons: [{ title: '', duration: '' }] }],
+        modules: [{ title: '', lessons: [{ title: '', duration: '' }], quiz: [] }],
+        finalAssessment: [],
         price: 0,
         duration: '',
         instructor: '',
@@ -215,10 +307,11 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
                         )}
                     />
                     <div className="pl-4 border-l-2 space-y-2">
+                         <h4 className='font-medium text-sm'>Lessons</h4>
                          <Controller
                             control={form.control}
                             name={`modules.${moduleIndex}.lessons`}
-                            render={({ field }) => {
+                            render={() => {
                                 const { fields: lessonFields, append: appendLesson, remove: removeLesson } = useFieldArray({
                                     control: form.control,
                                     name: `modules.${moduleIndex}.lessons`
@@ -268,11 +361,22 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
                             }}
                          />
                     </div>
+                    <div className="pl-4 border-l-2 space-y-2">
+                         <h4 className='font-medium text-sm'>Module {moduleIndex + 1} Quiz</h4>
+                         <p className='text-xs text-muted-foreground'>6 questions required, 4 must be correct to pass.</p>
+                         <QuestionForm control={form.control} namePrefix={`modules.${moduleIndex}.quiz`} />
+                    </div>
                 </div>
             ))}
-            <Button type="button" variant="secondary" onClick={() => appendModule({ title: '', lessons: [{ title: '', duration: '' }] })}>
+            <Button type="button" variant="secondary" onClick={() => appendModule({ title: '', lessons: [{ title: '', duration: '' }], quiz: [] })}>
                  <PlusCircle className="mr-2 h-4 w-4" /> Add Module
             </Button>
+        </div>
+
+        <div className="space-y-4 rounded-md border p-4">
+            <h3 className="font-semibold text-lg flex items-center gap-2"><HelpCircle className="h-5 w-5 text-primary"/>Final Assessment</h3>
+            <p className='text-sm text-muted-foreground'>15 questions required, 70% must be correct to earn the certificate.</p>
+            <QuestionForm control={form.control} namePrefix="finalAssessment" />
         </div>
 
         <div className="flex justify-end gap-2 pt-4">

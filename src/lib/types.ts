@@ -4,6 +4,14 @@ import { COURSE_CATEGORIES, COURSE_LEVELS } from './constants';
 export type CourseCategory = (typeof COURSE_CATEGORIES)[number];
 export type CourseLevel = (typeof COURSE_LEVELS)[number];
 
+// Zod schema for a Quiz Question
+export const QuestionSchema = z.object({
+  questionText: z.string().min(1, 'Question text cannot be empty'),
+  options: z.array(z.string().min(1, 'Option text cannot be empty')).min(2, 'A question must have at least two options'),
+  correctAnswerIndex: z.number().min(0, 'A correct answer must be selected'),
+});
+export type Question = z.infer<typeof QuestionSchema>;
+
 // Zod schema for a Lesson
 const LessonSchema = z.object({
   title: z.string().min(1, 'Lesson title cannot be empty'),
@@ -17,6 +25,7 @@ export type Lesson = z.infer<typeof LessonSchema>;
 const ModuleSchema = z.object({
   title: z.string().min(1, 'Module title cannot be empty'),
   lessons: z.array(LessonSchema).min(1, 'A module must have at least one lesson'),
+  quiz: z.array(QuestionSchema).optional(),
 });
 export type Module = z.infer<typeof ModuleSchema>;
 
@@ -31,6 +40,7 @@ export const CourseSchema = z.object({
   imageUrl: z.string().url('Must be a valid URL'),
   progress: z.number().min(0).max(100),
   modules: z.array(ModuleSchema).min(1, 'A course must have at least one module'),
+  finalAssessment: z.array(QuestionSchema).optional(),
   price: z.number().min(0, 'Price cannot be negative'),
   duration: z.string().min(1, 'Duration is required'),
   instructor: z.string().min(1, 'Instructor name is required'),
