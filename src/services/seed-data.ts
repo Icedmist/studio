@@ -2,8 +2,129 @@
 'use server';
 
 import { db } from '@/lib/firebase';
-import { collection, getDocs, writeBatch } from "firebase/firestore";
+import { collection, getDocs, writeBatch, doc } from "firebase/firestore";
 import type { NewCourse } from '@/lib/types';
+
+const aiCourse: NewCourse = {
+    title: "Artificial Intelligence",
+    description: "An intensive course covering the foundations, applications, and ethical considerations of AI.",
+    longDescription: "This advanced course provides a comprehensive overview of Artificial Intelligence, from its theoretical and mathematical foundations to its real-world applications in computer vision, NLP, and decision-making. Students will learn to build AI systems using Python, understand the nuances of AI ethics and bias, and become capable of leading AI projects and research.",
+    category: "AI & Machine Learning",
+    level: "Advanced",
+    imageUrl: "https://placehold.co/600x400.png",
+    duration: "18h",
+    instructor: "The AI Faculty",
+    price: 7000,
+    modules: [
+        {
+            title: "Module 1: The Foundations of Artificial Intelligence",
+            lessons: [
+                { title: "What Is AI and Key Concepts", duration: "1h 30m", completed: false },
+                { title: "Branches of AI and History", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "The Turing Test evaluates:", options: ["Machine intelligence", "Internet speed", "CPU temperature"], correctAnswerIndex: 0 },
+                { questionText: "AI agents interact with:", options: ["Environments", "Data cables", "HTML pages"], correctAnswerIndex: 0 },
+                { questionText: "NLP stands for:", options: ["Natural Language Processing", "Network Layer Protocol", "New Logic Path"], correctAnswerIndex: 0 },
+                { questionText: "An expert system is based on:", options: ["Rules and logic", "Sound and graphics", "CSS and HTML"], correctAnswerIndex: 0 },
+                { questionText: "Machine Learning enables:", options: ["Learning from data", "Reading JavaScript", "Spinning hard drives"], correctAnswerIndex: 0 },
+                { questionText: "A robot is an AI that:", options: ["Interacts with the physical world", "Edits photos", "Plays MP3s"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 2: Machine Learning in Depth",
+            lessons: [
+                { title: "Types of Machine Learning", duration: "1h 30m", completed: false },
+                { title: "Core ML Concepts and Code", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "Supervised learning uses:", options: ["Labeled data", "Random loops", "Audio signals"], correctAnswerIndex: 0 },
+                { questionText: "The purpose of a model is to:", options: ["Map inputs to outputs", "Beautify data", "Format pages"], correctAnswerIndex: 0 },
+                { questionText: "Reinforcement learning learns by:", options: ["Trial and error", "HTML parsing", "Screenshotting"], correctAnswerIndex: 0 },
+                { questionText: "fit() function is used to:", options: ["Train a model", "Plot a graph", "Import JSON"], correctAnswerIndex: 0 },
+                { questionText: "A loss function measures:", options: ["Prediction errors", "File sizes", "Speed"], correctAnswerIndex: 0 },
+                { questionText: "Backpropagation is used in:", options: ["Neural networks", "CSS", "Data scraping"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 3: Deep Learning and Neural Networks",
+            lessons: [
+                { title: "Introduction to Neural Networks", duration: "1h 30m", completed: false },
+                { title: "Types of Networks and TensorFlow Example", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "CNNs are used for:", options: ["Images", "Text docs", "Audio only"], correctAnswerIndex: 0 },
+                { questionText: "An epoch is:", options: ["One full training pass", "A plot style", "An API method"], correctAnswerIndex: 0 },
+                { questionText: "RNNs work well with:", options: ["Sequences", "Buttons", "Tables"], correctAnswerIndex: 0 },
+                { questionText: "GANs are used to:", options: ["Generate new data", "Encrypt passwords", "Write SQL"], correctAnswerIndex: 0 },
+                { questionText: "TensorFlow is a:", options: ["Deep learning library", "Browser", "CMS"], correctAnswerIndex: 0 },
+                { questionText: "Activation functions decide:", options: ["Node output", "URL path", "Font weight"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 4: Natural Language Processing (NLP)",
+            lessons: [
+                { title: "Understanding NLP Tasks", duration: "1h 30m", completed: false },
+                { title: "Practical NLP with SpaCy", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "NLP helps with:", options: ["Language tasks", "Drawing shapes", "Graphing"], correctAnswerIndex: 0 },
+                { questionText: "Tokenization breaks text into:", options: ["Words/tokens", "Folders", "Emails"], correctAnswerIndex: 0 },
+                { questionText: "NER finds:", options: ["Entities in text", "Passwords", "Ping speeds"], correctAnswerIndex: 0 },
+                { questionText: "Sentiment analysis detects:", options: ["Emotion", "Spam", "Graph colors"], correctAnswerIndex: 0 },
+                { questionText: "spacy.load() loads:", options: ["NLP model", "GraphQL query", "CSS theme"], correctAnswerIndex: 0 },
+                { questionText: "Text generation is done by:", options: ["Language models", "React components", "Loops"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 5: Computer Vision and Real-World AI",
+            lessons: [
+                { title: "Intro to Computer Vision", duration: "1h 30m", completed: false },
+                { title: "Computer Vision with OpenCV", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "OpenCV is used for:", options: ["Image processing", "APIs", "Game engines"], correctAnswerIndex: 0 },
+                { questionText: "OCR means:", options: ["Optical Character Recognition", "Online CSS Resource", "Object Circular Rendering"], correctAnswerIndex: 0 },
+                { questionText: "cv2.imread() loads:", options: ["Images", "APIs", "Fonts"], correctAnswerIndex: 0 },
+                { questionText: "Object tracking is used in:", options: ["Surveillance", "HTML parsing", "SQL Joins"], correctAnswerIndex: 0 },
+                { questionText: "Medical imaging is part of:", options: ["AI in healthcare", "Databases", "Frontend dev"], correctAnswerIndex: 0 },
+                { questionText: "cv2.imshow() displays:", options: ["Image windows", "JSON", "Web pages"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 6: Ethics, AI Safety, and the Future",
+            lessons: [
+                { title: "AI Ethics and Bias", duration: "1h 30m", completed: false },
+                { title: "AI Safety and the Future", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "AI bias is caused by:", options: ["Biased training data", "CPU errors", "Loud speakers"], correctAnswerIndex: 0 },
+                { questionText: "AI ethics involves:", options: ["Fairness, privacy, transparency", "Styling rules", "Loops and breaks"], correctAnswerIndex: 0 },
+                { questionText: "AGI means:", options: ["Artificial General Intelligence", "Advanced Graphical Interface", "API Governance Index"], correctAnswerIndex: 0 },
+                { questionText: "Explainable AI is:", options: ["Transparent decision-making", "Graph styling", "Audio filters"], correctAnswerIndex: 0 },
+                { questionText: "Job displacement by AI is:", options: ["Real concern", "Science fiction", "Browser setting"], correctAnswerIndex: 0 },
+                { questionText: "AI safety ensures:", options: ["Human-friendly outcomes", "Keyboard security", "JavaScript efficiency"], correctAnswerIndex: 0 },
+            ]
+        }
+    ],
+    finalAssessment: [
+        { questionText: "Define Artificial Intelligence and its main goal.", options: ["Simulating human thinking in machines", "Creating websites", "Managing databases"], correctAnswerIndex: 0 },
+        { questionText: "Name 3 branches of AI.", options: ["Machine Learning, NLP, Computer Vision", "HTML, CSS, JavaScript", "TCP, IP, HTTP"], correctAnswerIndex: 0 },
+        { questionText: "What is supervised vs unsupervised learning?", options: ["Supervised uses labeled data, unsupervised uses unlabeled data", "Supervised is for text, unsupervised is for images", "One requires a supervisor, the other doesn't"], correctAnswerIndex: 0 },
+        { questionText: "In scikit-learn, what method is used to train a model?", options: [".fit()", ".predict()", ".transform()"], correctAnswerIndex: 0 },
+        { questionText: "Explain what a neural network does.", options: ["Models complex patterns, inspired by the human brain", "Stores data in tables", "Styles web pages"], correctAnswerIndex: 0 },
+        { questionText: "What does CNN stand for, and what’s it used for?", options: ["Convolutional Neural Network, for image recognition", "Cascading Neural Network, for text", "Complex Nodal Network, for audio"], correctAnswerIndex: 0 },
+        { questionText: "Compare RNN and CNN.", options: ["RNNs are for sequences, CNNs are for spatial data like images", "RNNs are faster than CNNs", "They are the same thing"], correctAnswerIndex: 0 },
+        { questionText: "Define NLP and give two examples of its use.", options: ["Understanding human language; e.g., chatbots, sentiment analysis", "Network Level Protocol; e.g., routers, switches", "Natural Logic Programming; e.g., expert systems"], correctAnswerIndex: 0 },
+        { questionText: "What is tokenization?", options: ["Breaking text into words or sentences", "Encrypting data", "Creating a user token for authentication"], correctAnswerIndex: 0 },
+        { questionText: "In SpaCy, `doc.ents` is used for what?", options: ["Named Entity Recognition", "Document editing", "Counting entities"], correctAnswerIndex: 0 },
+        { questionText: "What does OpenCV do?", options: ["It's a library for computer vision tasks", "It's a 3D modeling software", "It's a code editor"], correctAnswerIndex: 0 },
+        { questionText: "Explain the risks of biased AI.", options: ["It can lead to unfair or discriminatory outcomes", "It can make the AI run slower", "It has no real-world risks"], correctAnswerIndex: 0 },
+        { questionText: "What is AGI?", options: ["Artificial General Intelligence, a hypothetical AI with human-like intelligence", "Advanced Graphics Interface", "Automated General-purpose Installer"], correctAnswerIndex: 0 },
+        { questionText: "How can we ensure ethical use of AI?", options: ["Through transparency, fairness, and accountability", "By using faster computers", "By ignoring the data source"], correctAnswerIndex: 0 },
+        { questionText: "List 2 real-world applications of AI today.", options: ["Virtual assistants (Siri, Alexa) and recommendation engines (Netflix, Amazon)", "Calculators and spreadsheets", "Email and web browsing"], correctAnswerIndex: 0 },
+    ]
+};
 
 const advancedTechSkillsCourse: NewCourse = {
     title: "Advanced Tech Skills Certification",
@@ -219,6 +340,8 @@ const advancedTechSkillsCourse: NewCourse = {
     ]
 };
 
+const allCourses = [advancedTechSkillsCourse, aiCourse];
+
 export async function seedInitialCourses() {
     const coursesCollection = collection(db, 'courses');
     const snapshot = await getDocs(coursesCollection);
@@ -226,10 +349,12 @@ export async function seedInitialCourses() {
     if (snapshot.empty) {
         console.log('Courses collection is empty. Seeding initial data...');
         const batch = writeBatch(db);
-        const newCourseDoc = doc(coursesCollection);
-        batch.set(newCourseDoc, advancedTechSkillsCourse);
+        allCourses.forEach(course => {
+            const newCourseDoc = doc(coursesCollection); // Creates a new doc with a random ID
+            batch.set(newCourseDoc, course);
+        });
         await batch.commit();
-        console.log('Successfully seeded 1 course.');
+        console.log(`Successfully seeded ${allCourses.length} courses.`);
     } else {
         console.log('Courses collection already has data. Skipping seed.');
     }
