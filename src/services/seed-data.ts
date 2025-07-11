@@ -4,6 +4,131 @@
 import { db } from '@/lib/firebase';
 import { collection, getDocs, writeBatch, doc } from "firebase/firestore";
 import type { NewCourse } from '@/lib/types';
+import { CourseSchema } from '@/lib/types';
+
+const apiDevelopmentCourse: NewCourse = {
+    title: "API Development (Advanced)",
+    description: "Designing, scaling, securing, and managing modern APIs.",
+    longDescription: "Build scalable REST and GraphQL APIs with proper design patterns, implement authentication with OAuth2, OpenID Connect, and JWT, use Swagger (OpenAPI) for documentation, apply API versioning, caching, rate limiting, and monitoring, design for multi-client consumption, and deploy using microservices and CI/CD pipelines.",
+    category: "Tech Skills",
+    level: "Advanced",
+    imageUrl: "https://placehold.co/600x400.png",
+    duration: "18h",
+    instructor: "The API Architects",
+    price: 7000,
+    modules: [
+        {
+            title: "Module 1: Designing Scalable REST APIs",
+            lessons: [
+                { title: "REST Principles and Best Practices", duration: "1h 30m", completed: false },
+                { title: "Advanced Design Patterns (Pagination, Filtering)", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "REST APIs are based on:", options: ["HTTP", "FTP", "WebSockets"], correctAnswerIndex: 0 },
+                { questionText: "A 201 status code means:", options: ["Resource created", "Forbidden", "Server crash"], correctAnswerIndex: 0 },
+                { questionText: "URLs should contain:", options: ["Nouns", "Verbs", "Emojis"], correctAnswerIndex: 0 },
+                { questionText: "GET /products?page=2 is used for:", options: ["Pagination", "Authentication", "File upload"], correctAnswerIndex: 0 },
+                { questionText: "Error 404 means:", options: ["Not Found", "Unauthorized", "Timeout"], correctAnswerIndex: 0 },
+                { questionText: "REST is a:", options: ["Stateless architecture", "Stateful API", "Proxy protocol"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 2: API Authentication (OAuth2, OpenID, JWT)",
+            lessons: [
+                { title: "Authentication vs. Authorization", duration: "1h", completed: false },
+                { title: "OAuth 2.0 and OpenID Connect", duration: "1h", completed: false },
+                { title: "Working with JWT Tokens", duration: "1h", completed: false },
+            ],
+            quiz: [
+                { questionText: "OAuth2 is used for:", options: ["Authorization", "Logging", "Graphing"], correctAnswerIndex: 0 },
+                { questionText: "JWT stands for:", options: ["JSON Web Token", "JavaScript Web Tool", "Job Waiting Token"], correctAnswerIndex: 0 },
+                { questionText: "OpenID Connect provides:", options: ["Identity layer", "API monitoring", "Styling rules"], correctAnswerIndex: 0 },
+                { questionText: "jwt.sign() is used to:", options: ["Create token", "Encrypt DB", "Ping server"], correctAnswerIndex: 0 },
+                { questionText: "OAuth2 uses:", options: ["Access tokens", "MAC address", "URL paths"], correctAnswerIndex: 0 },
+                { questionText: "Authentication means:", options: ["Identifying the user", "Formatting a page", "Scaling server"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 3: Documenting APIs with Swagger and Postman",
+            lessons: [
+                { title: "The OpenAPI Specification (Swagger)", duration: "1h 30m", completed: false },
+                { title: "Creating Postman Collections for Testing", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "Swagger is used to:", options: ["Document APIs", "Test UI", "Send emails"], correctAnswerIndex: 0 },
+                { questionText: "OpenAPI is another name for:", options: ["Swagger", "Axios", "WebRTC"], correctAnswerIndex: 0 },
+                { questionText: "Postman environments store:", options: ["Variables like tokens", "Fonts", "Firewalls"], correctAnswerIndex: 0 },
+                { questionText: "Swagger uses:", options: ["YAML/JSON", "HTML", "CSS"], correctAnswerIndex: 0 },
+                { questionText: "API docs help:", options: ["Other devs understand usage", "Format images", "Stream media"], correctAnswerIndex: 0 },
+                { questionText: "Postman scripts can:", options: ["Run tests", "Fetch CSS", "Convert fonts"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 4: Versioning, Rate Limiting, and Caching",
+            lessons: [
+                { title: "API Versioning Strategies", duration: "1h 30m", completed: false },
+                { title: "Implementing Rate Limiting and Caching", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "/v1/users is an example of:", options: ["URI versioning", "REST endpoint", "DNS setup"], correctAnswerIndex: 0 },
+                { questionText: "Rate limiting helps prevent:", options: ["Abuse & spam", "Layout issues", "Data loss"], correctAnswerIndex: 0 },
+                { questionText: "Redis is used for:", options: ["Caching", "Deployment", "Auth"], correctAnswerIndex: 0 },
+                { questionText: "express-rate-limit is:", options: ["Node.js middleware", "SQL query", "Font loader"], correctAnswerIndex: 0 },
+                { questionText: "Cache-Control is for:", options: ["Client-side caching", "OAuth", "Sorting data"], correctAnswerIndex: 0 },
+                { questionText: "Header versioning uses:", options: ["Accept headers", "IP address", "HTML5"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 5: API Testing and Monitoring",
+            lessons: [
+                { title: "Automated API Testing Strategies", duration: "1h 30m", completed: false },
+                { title: "Monitoring with Prometheus and Grafana", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "Unit tests check:", options: ["Small parts of code", "Whole systems", "UI buttons"], correctAnswerIndex: 0 },
+                { questionText: "Supertest is used for:", options: ["API testing", "HTML rendering", "CSS animations"], correctAnswerIndex: 0 },
+                { questionText: "New Relic is a:", options: ["Monitoring tool", "Text editor", "Token"], correctAnswerIndex: 0 },
+                { questionText: "Monitoring shows:", options: ["API health", "JSON size", "Page color"], correctAnswerIndex: 0 },
+                { questionText: "Postman can:", options: ["Schedule monitors", "Play videos", "Resize icons"], correctAnswerIndex: 0 },
+                { questionText: "A test should include:", options: ["Expected result", "Font size", "CSS loader"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 6: Building APIs for Scale (Microservices)",
+            lessons: [
+                { title: "Monolith vs. Microservices Architecture", duration: "1h 30m", completed: false },
+                { title: "Communication Patterns and API Gateways", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "Microservices are:", options: ["Small independent APIs", "Large monolithic apps", "Excel plugins"], correctAnswerIndex: 0 },
+                { questionText: "API Gateway helps:", options: ["Manage requests", "Draw diagrams", "Save cookies"], correctAnswerIndex: 0 },
+                { questionText: "Kafka is used for:", options: ["Messaging", "Routing pages", "Encrypting tokens"], correctAnswerIndex: 0 },
+                { questionText: "Each service in microservices:", options: ["Has its own DB", "Shares tables", "Uses same port"], correctAnswerIndex: 0 },
+                { questionText: "Service discovery helps:", options: ["Find API endpoints", "Draw diagrams", "Create tokens"], correctAnswerIndex: 0 },
+                { questionText: "RabbitMQ is a:", options: ["Message broker", "JavaScript engine", "Cookie manager"], correctAnswerIndex: 0 },
+            ]
+        }
+    ],
+    finalAssessment: {
+        questions: [
+            { questionText: "What’s the difference between REST and GraphQL?" },
+            { questionText: "Describe a standard OAuth2 flow." },
+            { questionText: "What’s the purpose of the API Gateway?" },
+            { questionText: "Write a basic rate-limiter snippet in Node.js." },
+            { questionText: "How do you use Swagger to document an endpoint?" },
+            { questionText: "What is JWT, and how is it used in APIs?" },
+            { questionText: "Compare URI versioning and Header versioning." },
+            { questionText: "List two tools for monitoring live APIs." },
+            { questionText: "What’s the use of Postman environments?" },
+            { questionText: "Explain the difference between unit and integration tests." },
+            { questionText: "What does Redis help with in API design?" },
+            { questionText: "Give an example of caching headers." },
+            { questionText: "List 3 benefits of microservices architecture." },
+            { questionText: "What’s the use of service discovery in APIs?" },
+            { questionText: "Write a GET endpoint in Express that returns a paginated list of users." },
+        ]
+    }
+};
 
 const aiCourse: NewCourse = {
     title: "Artificial Intelligence",
@@ -107,23 +232,25 @@ const aiCourse: NewCourse = {
             ]
         }
     ],
-    finalAssessment: [
-        { questionText: "Define Artificial Intelligence and its main goal.", options: ["Simulating human thinking in machines", "Creating websites", "Managing databases"], correctAnswerIndex: 0 },
-        { questionText: "Name 3 branches of AI.", options: ["Machine Learning, NLP, Computer Vision", "HTML, CSS, JavaScript", "TCP, IP, HTTP"], correctAnswerIndex: 0 },
-        { questionText: "What is supervised vs unsupervised learning?", options: ["Supervised uses labeled data, unsupervised uses unlabeled data", "Supervised is for text, unsupervised is for images", "One requires a supervisor, the other doesn't"], correctAnswerIndex: 0 },
-        { questionText: "In scikit-learn, what method is used to train a model?", options: [".fit()", ".predict()", ".transform()"], correctAnswerIndex: 0 },
-        { questionText: "Explain what a neural network does.", options: ["Models complex patterns, inspired by the human brain", "Stores data in tables", "Styles web pages"], correctAnswerIndex: 0 },
-        { questionText: "What does CNN stand for, and what’s it used for?", options: ["Convolutional Neural Network, for image recognition", "Cascading Neural Network, for text", "Complex Nodal Network, for audio"], correctAnswerIndex: 0 },
-        { questionText: "Compare RNN and CNN.", options: ["RNNs are for sequences, CNNs are for spatial data like images", "RNNs are faster than CNNs", "They are the same thing"], correctAnswerIndex: 0 },
-        { questionText: "Define NLP and give two examples of its use.", options: ["Understanding human language; e.g., chatbots, sentiment analysis", "Network Level Protocol; e.g., routers, switches", "Natural Logic Programming; e.g., expert systems"], correctAnswerIndex: 0 },
-        { questionText: "What is tokenization?", options: ["Breaking text into words or sentences", "Encrypting data", "Creating a user token for authentication"], correctAnswerIndex: 0 },
-        { questionText: "In SpaCy, `doc.ents` is used for what?", options: ["Named Entity Recognition", "Document editing", "Counting entities"], correctAnswerIndex: 0 },
-        { questionText: "What does OpenCV do?", options: ["It's a library for computer vision tasks", "It's a 3D modeling software", "It's a code editor"], correctAnswerIndex: 0 },
-        { questionText: "Explain the risks of biased AI.", options: ["It can lead to unfair or discriminatory outcomes", "It can make the AI run slower", "It has no real-world risks"], correctAnswerIndex: 0 },
-        { questionText: "What is AGI?", options: ["Artificial General Intelligence, a hypothetical AI with human-like intelligence", "Advanced Graphics Interface", "Automated General-purpose Installer"], correctAnswerIndex: 0 },
-        { questionText: "How can we ensure ethical use of AI?", options: ["Through transparency, fairness, and accountability", "By using faster computers", "By ignoring the data source"], correctAnswerIndex: 0 },
-        { questionText: "List 2 real-world applications of AI today.", options: ["Virtual assistants (Siri, Alexa) and recommendation engines (Netflix, Amazon)", "Calculators and spreadsheets", "Email and web browsing"], correctAnswerIndex: 0 },
-    ]
+    finalAssessment: {
+        questions: [
+            { questionText: "Define Artificial Intelligence and its main goal." },
+            { questionText: "Name 3 branches of AI." },
+            { questionText: "What is supervised vs unsupervised learning?" },
+            { questionText: "In scikit-learn, what method is used to train a model?" },
+            { questionText: "Explain what a neural network does." },
+            { questionText: "What does CNN stand for, and what’s it used for?" },
+            { questionText: "Compare RNN and CNN." },
+            { questionText: "Define NLP and give two examples of its use." },
+            { questionText: "What is tokenization?" },
+            { questionText: "In SpaCy, `doc.ents` is used for what?" },
+            { questionText: "What does OpenCV do?" },
+            { questionText: "Explain the risks of biased AI." },
+            { questionText: "What is AGI?" },
+            { questionText: "How can we ensure ethical use of AI?" },
+            { questionText: "List 2 real-world applications of AI today." },
+        ]
+    }
 };
 
 const advancedTechSkillsCourse: NewCourse = {
@@ -261,101 +388,82 @@ const advancedTechSkillsCourse: NewCourse = {
             ]
         }
     ],
-    finalAssessment: [
-        {
-            questionText: "In the context of the CIA triad in cybersecurity, what does 'Availability' ensure?",
-            options: ["Data is correct and trustworthy", "Data is accessible only to authorized users", "Systems and data are accessible when needed", "Data is stored in the cloud"],
-            correctAnswerIndex: 2
-        },
-        {
-            questionText: "A SQL Injection attack is primarily aimed at which part of an application?",
-            options: ["The user interface", "The web server", "The database", "The firewall"],
-            correctAnswerIndex: 2
-        },
-        {
-            questionText: "What is a key difference between supervised and unsupervised machine learning?",
-            options: ["Supervised learning is faster", "Supervised learning uses labeled data, while unsupervised uses unlabeled data", "Unsupervised learning is more accurate", "Unsupervised learning requires a human to monitor it"],
-            correctAnswerIndex: 1
-        },
-        {
-            questionText: "In data science, what is 'overfitting'?",
-            options: ["When a model is too simple to capture the data's patterns", "When a model performs well on training data but poorly on new, unseen data", "When a dataset is too large to process", "When a model's predictions are always wrong"],
-            correctAnswerIndex: 1
-        },
-        {
-            questionText: "What is the purpose of a `git commit` command in DevOps?",
-            options: ["To download changes from a remote repository", "To create a new branch", "To save changes to the local repository", "To upload changes to a remote repository"],
-            correctAnswerIndex: 2
-        },
-        {
-            questionText: "Which of the following is a core principle of DevOps?",
-            options: ["Separating development and operations teams", "Manual testing and deployment", "Automation of the software delivery process", "Long release cycles"],
-            correctAnswerIndex: 2
-        },
-        {
-            questionText: "What is a 'zero-day' vulnerability?",
-            options: ["A vulnerability that has been known for a long time", "A vulnerability that is discovered and exploited before a patch exists", "A vulnerability that is not critical", "A vulnerability that only affects servers"],
-            correctAnswerIndex: 1
-        },
-        {
-            questionText: "What type of machine learning model is a 'neural network'?",
-            options: ["A simple linear model", "A model inspired by the structure of the human brain", "A type of clustering algorithm", "A rule-based system"],
-            correctAnswerIndex: 1
-        },
-        {
-            questionText: "In Kubernetes, what is a 'Pod'?",
-            options: ["A tool for monitoring cluster health", "A single container", "The smallest deployable unit, which can contain one or more containers", "A network policy"],
-            correctAnswerIndex: 2
-        },
-        {
-            questionText: "What is the primary function of an Intrusion Detection System (IDS)?",
-            options: ["To block malicious traffic", "To monitor network or system activities for malicious activities or policy violations", "To encrypt network traffic", "To authenticate users"],
-            correctAnswerIndex: 1
-        },
-        {
-            questionText: "The process of cleaning and transforming raw data into a usable format is called:",
-            options: ["Data modeling", "Data visualization", "Data preprocessing", "Data warehousing"],
-            correctAnswerIndex: 2
-        },
-        {
-            questionText: "What is 'immutable infrastructure' in the context of DevOps?",
-            options: ["Infrastructure that can be changed after deployment", "Servers that are never modified after deployment; they are replaced with new ones", "Using physical servers instead of virtual ones", "A type of database"],
-            correctAnswerIndex: 1
-        },
-        {
-            questionText: "Phishing is a type of attack that relies on:",
-            options: ["Exploiting a software bug", "Overloading a server with traffic", "Social engineering to deceive users into revealing information", "Guessing passwords"],
-            correctAnswerIndex: 2
-        },
-        {
-            questionText: "Which metric is commonly used to evaluate the performance of a classification model?",
-            options: ["Mean Squared Error (MSE)", "Accuracy, Precision, and Recall", "R-squared value", "Cluster Silhouette Score"],
-            correctAnswerIndex: 1
-        },
-        {
-            questionText: "What is the purpose of a CI (Continuous Integration) server like Jenkins?",
-            options: ["To host the production website", "To automatically build, test, and integrate code changes", "To manage customer support tickets", "To design the user interface"],
-            correctAnswerIndex: 1
-        },
-    ]
+    finalAssessment: {
+        questions: [
+            {
+                questionText: "In the context of the CIA triad in cybersecurity, what does 'Availability' ensure?",
+            },
+            {
+                questionText: "A SQL Injection attack is primarily aimed at which part of an application?",
+            },
+            {
+                questionText: "What is a key difference between supervised and unsupervised machine learning?",
+            },
+            {
+                questionText: "In data science, what is 'overfitting'?",
+            },
+            {
+                questionText: "What is the purpose of a `git commit` command in DevOps?",
+            },
+            {
+                questionText: "Which of the following is a core principle of DevOps?",
+            },
+            {
+                questionText: "What is a 'zero-day' vulnerability?",
+            },
+            {
+                questionText: "What type of machine learning model is a 'neural network'?",
+            },
+            {
+                questionText: "In Kubernetes, what is a 'Pod'?",
+            },
+            {
+                questionText: "What is the primary function of an Intrusion Detection System (IDS)?",
+            },
+            {
+                questionText: "The process of cleaning and transforming raw data into a usable format is called:",
+            },
+            {
+                questionText: "What is 'immutable infrastructure' in the context of DevOps?",
+            },
+            {
+                questionText: "Phishing is a type of attack that relies on:",
+            },
+            {
+                questionText: "Which metric is commonly used to evaluate the performance of a classification model?",
+            },
+            {
+                questionText: "What is the purpose of a CI (Continuous Integration) server like Jenkins?",
+            },
+        ]
+    }
 };
 
-const allCourses = [advancedTechSkillsCourse, aiCourse];
+const allCourses: NewCourse[] = [aiCourse, advancedTechSkillsCourse, apiDevelopmentCourse];
 
 export async function seedInitialCourses() {
     const coursesCollection = collection(db, 'courses');
     const snapshot = await getDocs(coursesCollection);
+    const existingTitles = new Set(snapshot.docs.map(doc => doc.data().title));
 
-    if (snapshot.empty) {
-        console.log('Courses collection is empty. Seeding initial data...');
+    const coursesToAdd = allCourses.filter(course => !existingTitles.has(course.title));
+
+    if (coursesToAdd.length > 0) {
+        console.log(`Found ${coursesToAdd.length} new courses to seed...`);
         const batch = writeBatch(db);
-        allCourses.forEach(course => {
-            const newCourseDoc = doc(coursesCollection); // Creates a new doc with a random ID
-            batch.set(newCourseDoc, course);
+        coursesToAdd.forEach(courseData => {
+            const newCourseDoc = doc(coursesCollection); 
+             // Validate data against the schema before setting
+            try {
+                const validatedData = CourseSchema.omit({ id: true, progress: true }).parse(courseData);
+                batch.set(newCourseDoc, validatedData);
+            } catch(e) {
+                console.error("Course data validation failed for:", courseData.title, e);
+            }
         });
         await batch.commit();
-        console.log(`Successfully seeded ${allCourses.length} courses.`);
+        console.log(`Successfully seeded ${coursesToAdd.length} new courses.`);
     } else {
-        console.log('Courses collection already has data. Skipping seed.');
+        console.log('All defined courses already exist in the database. Skipping seed.');
     }
 }
