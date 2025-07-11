@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Pencil, Trash2, Library } from 'lucide-react';
+import { Pencil, Trash2, Library, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { CourseForm } from './CourseForm';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -19,6 +19,7 @@ import { z } from 'zod';
 import { NewCourseSchema } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
 import { useRouter } from 'next/navigation';
+import { seedInitialCourses } from '@/services/seed-data';
 
 type CourseFormData = z.infer<typeof NewCourseSchema>;
 
@@ -35,7 +36,14 @@ export function CourseManager() {
     setIsLoading(true);
     try {
       const data = await getCourses();
-      setCourses(data);
+      if (data.length === 0) {
+        // If no courses exist, try to seed them
+        await seedInitialCourses();
+        const seededData = await getCourses();
+        setCourses(seededData);
+      } else {
+        setCourses(data);
+      }
     } catch (error) {
       toast({
         title: "Error",
@@ -69,8 +77,7 @@ export function CourseManager() {
       });
       setDialogOpen(false);
       setEditingCourse(null);
-      router.refresh();
-      await fetchCourses();
+      await fetchCourses(); // Refresh list
     } catch (error: any) {
       toast({
         title: "Error",
@@ -107,8 +114,7 @@ export function CourseManager() {
         description: "The course has been removed successfully.",
         variant: "success",
       });
-      router.refresh();
-      await fetchCourses();
+      await fetchCourses(); // Refresh list
     } catch (error: any) {
       toast({
         title: "Error",
@@ -128,7 +134,11 @@ export function CourseManager() {
 
   return (
     <TooltipProvider>
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-end mb-4 gap-2">
+        <Button variant="outline" onClick={fetchCourses} disabled={isLoading}>
+          <RefreshCw className="mr-2 h-4 w-4" />
+          Refresh
+        </Button>
         <Button onClick={openAddDialog}>
           <Library className="mr-2 h-4 w-4" />
           Add Course
