@@ -449,7 +449,21 @@ export async function seedInitialCourses() {
             const newCourseDoc = doc(coursesCollection); 
              // Validate data against the schema before setting
             try {
-                const validatedData = CourseSchema.omit({ id: true, progress: true }).parse(courseData);
+                const validatedData = CourseSchema.omit({ id: true, progress: true, modules: true }).extend({
+                    modules: z.array(z.object({
+                        title: z.string(),
+                        lessons: z.array(z.object({
+                            title: z.string(),
+                            duration: z.string(),
+                            completed: z.boolean(),
+                        })),
+                        quiz: z.array(z.object({
+                            questionText: z.string(),
+                            options: z.array(z.string()),
+                            correctAnswerIndex: z.number(),
+                        })).optional()
+                    }))
+                }).passthrough().parse(courseData);
                 batch.set(newCourseDoc, validatedData);
             } catch(e) {
                 console.error("Course data validation failed for:", courseData.title, e);
