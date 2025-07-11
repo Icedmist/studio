@@ -120,8 +120,137 @@ const advancedProgrammingCourse: NewCourse = {
     }
 };
 
+const devOpsPracticesCourse: NewCourse = {
+    title: "DevOps Practices",
+    description: "Automate software development pipelines, use tools like GitHub Actions, Docker, Jenkins, and Kubernetes, and deploy software faster, safer, and smarter.",
+    longDescription: "This course will help you understand what DevOps is and why it matters, automate software development pipelines, use tools like GitHub Actions, Docker, Jenkins, and Kubernetes, deploy software faster, safer, and smarter, and monitor and maintain live systems like a pro.",
+    category: "Tech Skills",
+    level: "Intermediate",
+    imageUrl: "https://placehold.co/600x400.png",
+    duration: "12h",
+    instructor: "The DevOps Brigade",
+    price: 5000,
+    modules: [
+        {
+            title: "Module 1: Introduction to DevOps",
+            lessons: [{
+                title: "What is DevOps?",
+                content: "DevOps = Development + Operations\nIt’s a **culture**, **process**, and **toolset** that bridges developers and system administrators to:\n\n* Deliver software faster\n* Maintain high reliability\n* Automate repetitive tasks\n\n> Think of DevOps like this: Developers build the car. Ops fuels it, maintains it, and ensures it never crashes… even while driving 200mph.\n\n### Core Principles of DevOps\n\n1. **Automation**: Build, test, and deploy without manual effort\n2. **Continuous Integration/Continuous Deployment (CI/CD)**\n3. **Monitoring**: Real-time app performance and uptime\n4. **Collaboration**: Dev and Ops aren’t rivals. They’re teammates now.\n\n### Key Tools in DevOps\n\n| Area          | Tools                              |\n| ------------- | ---------------------------------- |\n| CI/CD         | GitHub Actions, Jenkins, GitLab CI |\n| Containers    | Docker                             |\n| Orchestration | Kubernetes                         |\n| Monitoring    | Prometheus, Grafana                |\n| Infra         | Terraform, AWS, Azure              |",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "DevOps combines:", options: ["Dev & Ops", "Design & Printing", "Debug & Export"], correctAnswerIndex: 0 },
+                { questionText: "CI/CD stands for:", options: ["Continuous Integration / Continuous Deployment", "Custom Imports / Clean Directories", "Chrome Inspect / CSS Debug"], correctAnswerIndex: 0 },
+                { questionText: "What’s a major benefit of DevOps?", options: ["Faster releases", "Bigger logos", "Manual backups"], correctAnswerIndex: 0 },
+                { questionText: "DevOps tools include:", options: ["Docker, Jenkins", "Photoshop, InDesign", "Zoom, Skype"], correctAnswerIndex: 0 },
+                { questionText: "Automation reduces:", options: ["Human error", "API usage", "CSS classes"], correctAnswerIndex: 0 },
+                { questionText: "Monitoring helps you:", options: ["Track app health", "Build landing pages", "Animate logos"], correctAnswerIndex: 0 }
+            ]
+        },
+        {
+            title: "Module 2: CI/CD Pipelines (Continuous Integration & Delivery)",
+            lessons: [{
+                title: "CI/CD Pipelines",
+                content: "### What is CI?\n\n**Continuous Integration** = automatically testing and merging code when changes are pushed to version control (e.g., GitHub).\n\n### What is CD?\n\n**Continuous Deployment/Delivery** = automatically deploying your tested app to production or staging environments.\n\n### Sample CI/CD Workflow (GitHub Actions)\n\n```yaml\nname: Node CI\n\non:\n  push:\n    branches: [ main ]\n\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v3\n      - name: Install dependencies\n        run: npm install\n      - name: Run tests\n        run: npm test\n```\n\n### Benefits of CI/CD\n\n* Faster shipping\n* Catch bugs early\n* Standardized deployment\n* Happy devs and users 🥳",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "CI stands for:", options: ["Continuous Integration", "Coding Interface", "Code Import"], correctAnswerIndex: 0 },
+                { questionText: "CD helps with:", options: ["Automatic deployment", "Photoshop exports", "CSS generation"], correctAnswerIndex: 0 },
+                { questionText: "GitHub Actions is:", options: ["A CI/CD tool", "A social network", "Game engine"], correctAnswerIndex: 0 },
+                { questionText: "What happens in a CI pipeline?", options: ["Code is built and tested", "CSS is colored", "Users are logged out"], correctAnswerIndex: 0 },
+                { questionText: "Benefits of CI/CD include:", options: ["Faster release cycles", "Slower testing", "More bugs"], correctAnswerIndex: 0 },
+                { questionText: "A YAML file in CI/CD defines:", options: ["The workflow", "Database tables", "UI layout"], correctAnswerIndex: 0 }
+            ]
+        },
+        {
+            title: "Module 3: Containers and Docker",
+            lessons: [{
+                title: "Containers and Docker",
+                content: "### What Is Docker?\n\nDocker packages your app with everything it needs (code, dependencies, environment) into **containers**.\n\n> Think of Docker as a shipping container for software — identical, portable, and consistent.\n\n### Docker vs Traditional Deployment\n\n| Traditional          | Docker             |\n| -------------------- | ------------------ |\n| Works on one machine | Works anywhere     |\n| Needs manual setup   | Prebuilt images    |\n| Inconsistent results | Predictable builds |\n\n### Basic Dockerfile Example\n\n```Dockerfile\nFROM node:16  \nWORKDIR /app  \nCOPY . .  \nRUN npm install  \nCMD [\"npm\", \"start\"]\n```\n\n### Docker Commands\n\n* `docker build . -t myapp`\n* `docker run -p 3000:3000 myapp`\n* `docker ps`\n* `docker stop <container>`",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "Docker creates:", options: ["Containers", "ZIP files", "CSS animations"], correctAnswerIndex: 0 },
+                { questionText: "What’s inside a container?", options: ["Code + environment", "Fonts", "Bootstrap themes"], correctAnswerIndex: 0 },
+                { questionText: "`docker build` does what?", options: ["Builds an image", "Creates React app", "Logs in users"], correctAnswerIndex: 0 },
+                { questionText: "Docker improves:", options: ["Portability", "Image filters", "CSS margins"], correctAnswerIndex: 0 },
+                { questionText: "What does CMD do in Dockerfile?", options: ["Specifies default command", "Closes the container", "Binds ports"], correctAnswerIndex: 0 },
+                { questionText: "Benefit of containers?", options: ["Consistent environments", "Faster typing", "Less debugging"], correctAnswerIndex: 0 }
+            ]
+        },
+        {
+            title: "Module 4: Infrastructure as Code (IaC)",
+            lessons: [{
+                title: "Infrastructure as Code",
+                content: "### What is IaC?\n\nInfrastructure as Code means **automating infrastructure setup** using code, not manual clicks.\n\n> With tools like Terraform, you can spin up servers, databases, and load balancers in seconds — with one file.\n\n### Why It Rocks\n\n* Reproducible environments\n* Version-controlled infrastructure\n* Scalable and consistent\n\n### Terraform Basics\n\nTerraform syntax:\n\n```hcl\nprovider \"aws\" {\n  region = \"us-east-1\"\n}\n\nresource \"aws_instance\" \"web\" {\n  ami           = \"ami-123456\"\n  instance_type = \"t2.micro\"\n}\n```\n\n### Tools\n\n* **Terraform** – Multi-cloud IaC\n* **Ansible** – Configuration management\n* **Pulumi** – IaC with JavaScript",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "IaC stands for:", options: ["Infrastructure as Code", "Interface as Clipboard", "Integration after Commit"], correctAnswerIndex: 0 },
+                { questionText: "Terraform is used to:", options: ["Automate infrastructure", "Animate graphics", "Upload videos"], correctAnswerIndex: 0 },
+                { questionText: "IaC improves:", options: ["Reproducibility", "Copy-paste", "Image compression"], correctAnswerIndex: 0 },
+                { questionText: "`.tf` files are used in:", options: ["Terraform", "TypeForm", "Twitter"], correctAnswerIndex: 0 },
+                { questionText: "Which is NOT an IaC tool?", options: ["Illustrator", "Terraform", "Ansible"], correctAnswerIndex: 0 },
+                { questionText: "Ansible does:", options: ["Configuration management", "CSS styling", "API routing"], correctAnswerIndex: 0 }
+            ]
+        },
+        {
+            title: "Module 5: Monitoring & Logging",
+            lessons: [{
+                title: "Monitoring & Logging",
+                content: "### Why Monitor?\n\nMonitoring shows how your app behaves in production:\n\n* Is it up?\n* Is it fast?\n* Are there errors?\n\n### Tools for Monitoring\n\n| Category | Tools                                       |\n| -------- | ------------------------------------------- |\n| Logs     | ELK Stack (Elasticsearch, Logstash, Kibana) |\n| Metrics  | Prometheus, Grafana                         |\n| Alerts   | PagerDuty, New Relic                        |\n\n### Dashboards\n\nVisualize metrics in **real-time** — CPU, memory, traffic, errors.",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "Monitoring checks for:", options: ["Uptime and health", "CSS padding", "API styles"], correctAnswerIndex: 0 },
+                { questionText: "Grafana does what?", options: ["Visualize metrics", "Compress images", "Animate buttons"], correctAnswerIndex: 0 },
+                { questionText: "Prometheus is used for:", options: ["Metrics collection", "HTML parsing", "Testing routes"], correctAnswerIndex: 0 },
+                { questionText: "ELK stack includes:", options: ["Elasticsearch, Logstash, Kibana", "Emails, Links, Keywords", "Emmet, Lint, Karma"], correctAnswerIndex: 0 },
+                { questionText: "PagerDuty alerts when:", options: ["Something breaks", "It's lunchtime", "Font fails"], correctAnswerIndex: 0 },
+                { questionText: "Why monitor logs?", options: ["Debug issues", "Resize images", "Animate dashboards"], correctAnswerIndex: 0 }
+            ]
+        },
+        {
+            title: "Module 6: DevOps Culture & Collaboration",
+            lessons: [{
+                title: "DevOps Culture & Collaboration",
+                content: "### DevOps is More Than Tools\n\nDevOps is also about:\n\n* Shared responsibility\n* Breaking silos\n* Transparency\n* Continuous improvement\n\n### Collaboration Practices\n\n* Pair programming between Dev and Ops\n* Shared dashboards\n* Blameless postmortems\n* Clear documentation\n\n### KPIs in DevOps\n\n* Deployment frequency\n* Mean time to recovery (MTTR)\n* Change failure rate\n* Lead time for changes",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "DevOps culture values:", options: ["Collaboration", "Solo work", "Siloed teams"], correctAnswerIndex: 0 },
+                { questionText: "MTTR stands for:", options: ["Mean Time to Recovery", "Most Time to Render", "Main Thread To Release"], correctAnswerIndex: 0 },
+                { questionText: "KPIs help you:", options: ["Measure performance", "Draw logos", "Color dashboards"], correctAnswerIndex: 0 },
+                { questionText: "Blameless postmortems do what?", options: ["Improve trust after failure", "Blame interns", "Track spending"], correctAnswerIndex: 0 },
+                { questionText: "DORA metrics are about:", options: ["DevOps performance", "CSS debugging", "UI animations"], correctAnswerIndex: 0 },
+                { questionText: "Clear documentation ensures:", options: ["Smooth handoffs", "Colorful screens", "Faster copying"], correctAnswerIndex: 0 }
+            ]
+        }
+    ],
+    finalAssessment: {
+        questions: [
+            { questionText: "What does DevOps aim to solve?" },
+            { questionText: "List 3 popular DevOps tools and their functions." },
+            { questionText: "What is CI/CD and why is it important?" },
+            { questionText: "Write a simple GitHub Actions CI workflow." },
+            { questionText: "What is a Docker container?" },
+            { questionText: "How does Docker differ from traditional deployment?" },
+            { questionText: "List 3 Docker commands and their purposes." },
+            { questionText: "What is IaC?" },
+            { questionText: "What are the benefits of using Terraform?" },
+            { questionText: "Name 2 monitoring tools and their roles." },
+            { questionText: "How does logging help in debugging?" },
+            { questionText: "What is a blameless postmortem and why is it useful?" },
+            { questionText: "Explain MTTR and its significance." },
+            { questionText: "How does DevOps culture differ from traditional IT?" },
+            { questionText: "Create a deployment plan for a Node.js app using Docker and GitHub Actions." },
+        ]
+    }
+};
+
+
 const allCourses: NewCourse[] = [
-    // Existing courses...
     {
         title: "Artificial Intelligence",
         description: "An intensive course covering the foundations, applications, and ethical considerations of AI.",
@@ -135,7 +264,11 @@ const allCourses: NewCourse[] = [
         modules: [
             {
                 title: "Module 1: The Foundations of Artificial Intelligence",
-                lessons: [{ title: "What Is AI?", content: "Artificial Intelligence is the science of building **intelligent machines** that simulate human thinking.\n\n> In plain English: teaching computers to *think*, *reason*, and *act smart*. Sometimes smarter than us. 😅\n\n### Key AI Concepts\n\n* **Agents**: An entity that perceives and acts\n* **Environment**: Where the agent operates\n* **Rationality**: Choosing the best action for the goal\n* **Turing Test**: Can a machine think like a human?\n\n### Branches of AI\n\n| Branch | Description |\n| --- | --- |\n| Machine Learning | Learning patterns from data |\n| Natural Language Processing (NLP) | Understanding human language |\n| Computer Vision | Interpreting visual input |\n| Robotics | Acting in the physical world |\n| Expert Systems | Rule-based reasoning |\n\n### Fun Fact:\n\nThe first AI program was written in **1956**, and it could play checkers.\nToday, we have AI writing poetry, driving cars, and diagnosing cancer.", duration: "1h 30m" }],
+                lessons: [{
+                    title: "What Is AI?",
+                    content: "Artificial Intelligence is the science of building **intelligent machines** that simulate human thinking.\n\n> In plain English: teaching computers to *think*, *reason*, and *act smart*. Sometimes smarter than us. 😅\n\n### Key AI Concepts\n\n* **Agents**: An entity that perceives and acts\n* **Environment**: Where the agent operates\n* **Rationality**: Choosing the best action for the goal\n* **Turing Test**: Can a machine think like a human?\n\n### Branches of AI\n\n| Branch | Description |\n| --- | --- |\n| Machine Learning | Learning patterns from data |\n| Natural Language Processing (NLP) | Understanding human language |\n| Computer Vision | Interpreting visual input |\n| Robotics | Acting in the physical world |\n| Expert Systems | Rule-based reasoning |\n\n### Fun Fact:\n\nThe first AI program was written in **1956**, and it could play checkers.\nToday, we have AI writing poetry, driving cars, and diagnosing cancer.",
+                    duration: "1h 30m"
+                }],
                 quiz: [
                     { questionText: "The Turing Test evaluates:", options: ["Machine intelligence", "Internet speed", "CPU temperature"], correctAnswerIndex: 0 },
                     { questionText: "AI agents interact with:", options: ["Environments", "Data cables", "HTML pages"], correctAnswerIndex: 0 },
@@ -147,7 +280,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 2: Machine Learning in Depth",
-                lessons: [{ title: "What Is Machine Learning?", content: "A method where computers **learn from data** without being explicitly programmed.\n\n> Think of it like feeding your machine examples until it gets smart enough to handle new situations.\n\n### Types of Machine Learning\n\n| Type | Description | Example |\n| --- | --- | --- |\n| Supervised | Learn from labeled data | Spam detection |\n| Unsupervised | Discover patterns | Customer segmentation |\n| Reinforcement | Learn by trial & error | Game-playing AI |\n\n### Core Concepts\n\n* **Features**: Input variables\n* **Labels**: Output results (for supervised learning)\n* **Model**: Mathematical function\n* **Training**: Adjusting model to data\n* **Loss function**: Measures errors\n* **Backpropagation**: Algorithm to optimize model\n\n### Sample ML Code (Scikit-Learn)\n\n```python\nfrom sklearn.linear_model import LogisticRegression\nmodel = LogisticRegression()\nmodel.fit(X_train, y_train)\npredictions = model.predict(X_test)\n```", duration: "1h 30m" }],
+                lessons: [{
+                    title: "What Is Machine Learning?",
+                    content: "A method where computers **learn from data** without being explicitly programmed.\n\n> Think of it like feeding your machine examples until it gets smart enough to handle new situations.\n\n### Types of Machine Learning\n\n| Type | Description | Example |\n| --- | --- | --- |\n| Supervised | Learn from labeled data | Spam detection |\n| Unsupervised | Discover patterns | Customer segmentation |\n| Reinforcement | Learn by trial & error | Game-playing AI |\n\n### Core Concepts\n\n* **Features**: Input variables\n* **Labels**: Output results (for supervised learning)\n* **Model**: Mathematical function\n* **Training**: Adjusting model to data\n* **Loss function**: Measures errors\n* **Backpropagation**: Algorithm to optimize model\n\n### Sample ML Code (Scikit-Learn)\n\n```python\nfrom sklearn.linear_model import LogisticRegression\nmodel = LogisticRegression()\nmodel.fit(X_train, y_train)\npredictions = model.predict(X_test)\n```",
+                    duration: "1h 30m"
+                }],
                 quiz: [
                     { questionText: "Supervised learning uses:", options: ["Labeled data", "Random loops", "Audio signals"], correctAnswerIndex: 0 },
                     { questionText: "The purpose of a model is to:", options: ["Map inputs to outputs", "Beautify data", "Format pages"], correctAnswerIndex: 0 },
@@ -159,7 +296,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 3: Deep Learning and Neural Networks",
-                lessons: [{ title: "Understanding Neural Networks", content: "Neural networks are modeled after the human brain — made of **neurons** (nodes), layers, and weights.\n\n### Layers of a Neural Network\n\n1. Input Layer\n2. Hidden Layer(s)\n3. Output Layer\n\n### Types of Neural Networks\n\n| Type | Use Case |\n| --- | --- |\n| Feedforward (DNN) | General tasks |\n| CNN (Convolutional) | Image recognition |\n| RNN (Recurrent) | Time-series, language |\n| GAN (Generative Adversarial Network) | Deepfake, image generation |\n\n### Deep Learning Example (TensorFlow)\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential([\n  tf.keras.layers.Dense(128, activation='relu'),\n  tf.keras.layers.Dense(1)\n])\nmodel.compile(optimizer='adam', loss='mse')\nmodel.fit(X, y, epochs=10)\n```", duration: "1h 30m" }],
+                lessons: [{
+                    title: "Understanding Neural Networks",
+                    content: "Neural networks are modeled after the human brain — made of **neurons** (nodes), layers, and weights.\n\n### Layers of a Neural Network\n\n1. Input Layer\n2. Hidden Layer(s)\n3. Output Layer\n\n### Types of Neural Networks\n\n| Type | Use Case |\n| --- | --- |\n| Feedforward (DNN) | General tasks |\n| CNN (Convolutional) | Image recognition |\n| RNN (Recurrent) | Time-series, language |\n| GAN (Generative Adversarial Network) | Deepfake, image generation |\n\n### Deep Learning Example (TensorFlow)\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential([\n  tf.keras.layers.Dense(128, activation='relu'),\n  tf.keras.layers.Dense(1)\n])\nmodel.compile(optimizer='adam', loss='mse')\nmodel.fit(X, y, epochs=10)\n```",
+                    duration: "1h 30m"
+                }],
                 quiz: [
                     { questionText: "CNNs are used for:", options: ["Images", "Text docs", "Audio only"], correctAnswerIndex: 0 },
                     { questionText: "An epoch is:", options: ["One full training pass", "A plot style", "An API method"], correctAnswerIndex: 0 },
@@ -171,7 +312,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 4: Natural Language Processing (NLP)",
-                lessons: [{ title: "Understanding NLP", content: "Natural Language Processing enables machines to understand, interpret, and generate **human language**.\n\n### NLP Tasks\n\n* **Tokenization**\n* **Stemming/Lemmatization**\n* **Named Entity Recognition (NER)**\n* **Sentiment Analysis**\n* **Text Generation** (like me! 😉)\n\n### NLP Example with SpaCy\n\n```python\nimport spacy\nnlp = spacy.load(\"en_core_web_sm\")\ndoc = nlp(\"Apple is looking at buying U.K. startup for $1 billion.\")\nfor ent in doc.ents:\n    print(ent.text, ent.label_)\n```", duration: "1h 30m" }],
+                lessons: [{
+                    title: "Understanding NLP",
+                    content: "Natural Language Processing enables machines to understand, interpret, and generate **human language**.\n\n### NLP Tasks\n\n* **Tokenization**\n* **Stemming/Lemmatization**\n* **Named Entity Recognition (NER)**\n* **Sentiment Analysis**\n* **Text Generation** (like me! 😉)\n\n### NLP Example with SpaCy\n\n```python\nimport spacy\nnlp = spacy.load(\"en_core_web_sm\")\ndoc = nlp(\"Apple is looking at buying U.K. startup for $1 billion.\")\nfor ent in doc.ents:\n    print(ent.text, ent.label_)\n```",
+                    duration: "1h 30m"
+                }],
                 quiz: [
                     { questionText: "NLP helps with:", options: ["Language tasks", "Drawing shapes", "Graphing"], correctAnswerIndex: 0 },
                     { questionText: "Tokenization breaks text into:", options: ["Words/tokens", "Folders", "Emails"], correctAnswerIndex: 0 },
@@ -183,7 +328,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 5: Computer Vision and Real-World AI",
-                lessons: [{ title: "Intro to Computer Vision", content: "It enables machines to **see, analyze, and act** on visual data.\n\n### Use Cases\n\n* Face detection\n* Object tracking\n* OCR (Text recognition)\n* Medical image analysis\n\n### OpenCV Example\n\n```python\nimport cv2\nimg = cv2.imread('image.jpg')\ngray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\ncv2.imshow('Gray Image', gray)\n```", duration: "1h 30m" }],
+                lessons: [{
+                    title: "Intro to Computer Vision",
+                    content: "It enables machines to **see, analyze, and act** on visual data.\n\n### Use Cases\n\n* Face detection\n* Object tracking\n* OCR (Text recognition)\n* Medical image analysis\n\n### OpenCV Example\n\n```python\nimport cv2\nimg = cv2.imread('image.jpg')\ngray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\ncv2.imshow('Gray Image', gray)\n```",
+                    duration: "1h 30m"
+                }],
                 quiz: [
                     { questionText: "OpenCV is used for:", options: ["Image processing", "APIs", "Game engines"], correctAnswerIndex: 0 },
                     { questionText: "OCR means:", options: ["Optical Character Recognition", "Online CSS Resource", "Object Circular Rendering"], correctAnswerIndex: 0 },
@@ -195,7 +344,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 6: Ethics, AI Safety, and the Future",
-                lessons: [{ title: "AI Ethics and the Future", content: "### AI Ethics\n\nImportant topics:\n\n* **Bias in AI**\n* **Transparency**\n* **Data privacy**\n* **AI and Jobs**\n* **Autonomous decision-making**\n\n### AI Safety\n\n* Preventing **unintended behavior**\n* Ensuring **human control**\n* Building **explainable AI**\n\n### The Future of AI\n\n* AI as co-creators\n* General AI (AGI)\n* Regulation and governance\n* *“Should AI have rights?”* 😱", duration: "1h 30m" }],
+                lessons: [{
+                    title: "AI Ethics and the Future",
+                    content: "### AI Ethics\n\nImportant topics:\n\n* **Bias in AI**\n* **Transparency**\n* **Data privacy**\n* **AI and Jobs**\n* **Autonomous decision-making**\n\n### AI Safety\n\n* Preventing **unintended behavior**\n* Ensuring **human control**\n* Building **explainable AI**\n\n### The Future of AI\n\n* AI as co-creators\n* General AI (AGI)\n* Regulation and governance\n* *“Should AI have rights?”* 😱",
+                    duration: "1h 30m"
+                }],
                 quiz: [
                     { questionText: "AI bias is caused by:", options: ["Biased training data", "CPU errors", "Loud speakers"], correctAnswerIndex: 0 },
                     { questionText: "AI ethics involves:", options: ["Fairness, privacy, transparency", "Styling rules", "Loops and breaks"], correctAnswerIndex: 0 },
@@ -239,7 +392,11 @@ const allCourses: NewCourse[] = [
         modules: [
             {
                 title: "Module 1: Designing Scalable REST APIs",
-                lessons: [{ title: "REST Principles and Best Practices", content: "### REST Recap\n\n* REST stands for **Representational State Transfer**\n* Built on HTTP methods: `GET`, `POST`, `PUT`, `DELETE`, etc.\n* Resource-based: Each entity (user, post, product) is a resource\n\n### Best Practices\n\n* **Use nouns, not verbs** in URLs:\n  ✅ `/users` instead of `/getUsers`\n\n* **Proper HTTP status codes:**\n\n  * 200 OK\n  * 201 Created\n  * 204 No Content\n  * 400 Bad Request\n  * 401 Unauthorized\n  * 404 Not Found\n  * 500 Server Error\n\n* **Pagination:** For large data\n  Example: `GET /users?page=2&limit=10`\n\n* **Filtering & Sorting:**\n  `GET /products?category=phones&sort=price_desc`\n\n### Example (Node.js + Express)\n\n```javascript\napp.get('/users/:id', async (req, res) => {\n  try {\n    const user = await User.findById(req.params.id);\n    if (!user) return res.status(404).send(\"User not found\");\n    res.json(user);\n  } catch (err) {\n    res.status(500).send(\"Server error\");\n  }\n});\n```", duration: "1h" }],
+                lessons: [{
+                    title: "REST Principles and Best Practices",
+                    content: "### REST Recap\n\n* REST stands for **Representational State Transfer**\n* Built on HTTP methods: `GET`, `POST`, `PUT`, `DELETE`, etc.\n* Resource-based: Each entity (user, post, product) is a resource\n\n### Best Practices\n\n* **Use nouns, not verbs** in URLs:\n  ✅ `/users` instead of `/getUsers`\n\n* **Proper HTTP status codes:**\n\n  * 200 OK\n  * 201 Created\n  * 204 No Content\n  * 400 Bad Request\n  * 401 Unauthorized\n  * 404 Not Found\n  * 500 Server Error\n\n* **Pagination:** For large data\n  Example: `GET /users?page=2&limit=10`\n\n* **Filtering & Sorting:**\n  `GET /products?category=phones&sort=price_desc`\n\n### Example (Node.js + Express)\n\n```javascript\napp.get('/users/:id', async (req, res) => {\n  try {\n    const user = await User.findById(req.params.id);\n    if (!user) return res.status(404).send(\"User not found\");\n    res.json(user);\n  } catch (err) {\n    res.status(500).send(\"Server error\");\n  }\n});\n```",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "REST APIs are based on:", options: ["HTTP", "FTP", "WebSockets"], correctAnswerIndex: 0 },
                     { questionText: "A 201 status code means:", options: ["Resource created", "Forbidden", "Server crash"], correctAnswerIndex: 0 },
@@ -251,7 +408,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 2: API Authentication (OAuth2, OpenID, JWT)",
-                lessons: [{ title: "Authentication vs. Authorization", content: "* **Authentication:** Who are you?\n* **Authorization:** What can you access?\n\n### OAuth 2.0 Flow (Simplified)\n\n1. Client asks for permission\n2. User authenticates with provider (Google, Facebook)\n3. Provider sends back `access_token`\n4. Client uses token to access API\n\n### OpenID Connect\n\nAdds an identity layer on top of OAuth2 (for authentication).\nTokens:\n\n* **ID Token** – Who the user is\n* **Access Token** – What the user can do\n\n### JWT Tokens\n\n```js\n// Sign\nconst token = jwt.sign({ userId: 123 }, 'secret', { expiresIn: '1h' });\n\n// Verify\njwt.verify(token, 'secret');\n```", duration: "1h" }],
+                lessons: [{
+                    title: "Authentication vs. Authorization",
+                    content: "* **Authentication:** Who are you?\n* **Authorization:** What can you access?\n\n### OAuth 2.0 Flow (Simplified)\n\n1. Client asks for permission\n2. User authenticates with provider (Google, Facebook)\n3. Provider sends back `access_token`\n4. Client uses token to access API\n\n### OpenID Connect\n\nAdds an identity layer on top of OAuth2 (for authentication).\nTokens:\n\n* **ID Token** – Who the user is\n* **Access Token** – What the user can do\n\n### JWT Tokens\n\n```js\n// Sign\nconst token = jwt.sign({ userId: 123 }, 'secret', { expiresIn: '1h' });\n\n// Verify\njwt.verify(token, 'secret');\n```",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "OAuth2 is used for:", options: ["Authorization", "Logging", "Graphing"], correctAnswerIndex: 0 },
                     { questionText: "JWT stands for:", options: ["JSON Web Token", "JavaScript Web Tool", "Job Waiting Token"], correctAnswerIndex: 0 },
@@ -263,7 +424,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 3: Documenting APIs with Swagger and Postman",
-                lessons: [{ title: "The OpenAPI Specification (Swagger)", content: "### Why Document?\n\nUnclear APIs = Confused developers = Bad adoption\nGood docs = More usage = Fewer support tickets\n\n### Tools\n\n* **Swagger (OpenAPI)**:\n  Define API structure in `openapi.yaml` or JSON\n\n* **Postman Collections**:\n  Shareable testable APIs with environment variables\n\n### Swagger Example\n\n```yaml\npaths:\n  /users:\n    get:\n      summary: Get all users\n      responses:\n        200:\n          description: A list of users\n```\n\n### Postman Tips\n\n* Use `environments` for tokens and URLs\n* Add tests and pre-request scripts\n* Export collections to share with frontend devs", duration: "1h" }],
+                lessons: [{
+                    title: "The OpenAPI Specification (Swagger)",
+                    content: "### Why Document?\n\nUnclear APIs = Confused developers = Bad adoption\nGood docs = More usage = Fewer support tickets\n\n### Tools\n\n* **Swagger (OpenAPI)**:\n  Define API structure in `openapi.yaml` or JSON\n\n* **Postman Collections**:\n  Shareable testable APIs with environment variables\n\n### Swagger Example\n\n```yaml\npaths:\n  /users:\n    get:\n      summary: Get all users\n      responses:\n        200:\n          description: A list of users\n```\n\n### Postman Tips\n\n* Use `environments` for tokens and URLs\n* Add tests and pre-request scripts\n* Export collections to share with frontend devs",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Swagger is used to:", options: ["Document APIs", "Test UI", "Send emails"], correctAnswerIndex: 0 },
                     { questionText: "OpenAPI is another name for:", options: ["Swagger", "Axios", "WebRTC"], correctAnswerIndex: 0 },
@@ -275,7 +440,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 4: Versioning, Rate Limiting, and Caching",
-                lessons: [{ title: "API Versioning Strategies", content: "### API Versioning\n\n* URI versioning: `/v1/users`\n* Header versioning: `Accept: application/vnd.api+json;version=2`\n\nWhy? Backward compatibility.\n\n### Rate Limiting\n\nLimit requests per IP/token\n**Node.js (express-rate-limit)**:\n\n```js\nconst rateLimit = require(\"express-rate-limit\");\napp.use(rateLimit({ windowMs: 15*60*1000, max: 100 }));\n```\n\n### Caching APIs\n\n* **Client-side caching**: `Cache-Control` headers\n* **Server-side caching**: Redis\n* **Reverse proxy caching**: Varnish, NGINX", duration: "1h" }],
+                lessons: [{
+                    title: "API Versioning Strategies",
+                    content: "### API Versioning\n\n* URI versioning: `/v1/users`\n* Header versioning: `Accept: application/vnd.api+json;version=2`\n\nWhy? Backward compatibility.\n\n### Rate Limiting\n\nLimit requests per IP/token\n**Node.js (express-rate-limit)**:\n\n```js\nconst rateLimit = require(\"express-rate-limit\");\napp.use(rateLimit({ windowMs: 15*60*1000, max: 100 }));\n```\n\n### Caching APIs\n\n* **Client-side caching**: `Cache-Control` headers\n* **Server-side caching**: Redis\n* **Reverse proxy caching**: Varnish, NGINX",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "/v1/users is an example of:", options: ["URI versioning", "REST endpoint", "DNS setup"], correctAnswerIndex: 0 },
                     { questionText: "Rate limiting helps prevent:", options: ["Abuse & spam", "Layout issues", "Data loss"], correctAnswerIndex: 0 },
@@ -287,7 +456,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 5: API Testing and Monitoring",
-                lessons: [{ title: "Automated API Testing Strategies", content: "### Automated Testing\n\n* **Unit tests**: Test individual functions\n* **Integration tests**: Test endpoints with dependencies\n* **Tools**: Jest, Mocha, Supertest\n\n### Example\n\n```js\nconst request = require('supertest');\nrequest(app)\n  .get('/api/users')\n  .expect(200)\n  .end((err, res) => { /* assertions */ });\n```\n\n### API Monitoring\n\n* Tools: **New Relic**, **Datadog**, **Postman Monitors**\n* Track latency, error rates, uptime, memory usage", duration: "1h" }],
+                lessons: [{
+                    title: "Automated API Testing Strategies",
+                    content: "### Automated Testing\n\n* **Unit tests**: Test individual functions\n* **Integration tests**: Test endpoints with dependencies\n* **Tools**: Jest, Mocha, Supertest\n\n### Example\n\n```js\nconst request = require('supertest');\nrequest(app)\n  .get('/api/users')\n  .expect(200)\n  .end((err, res) => { /* assertions */ });\n```\n\n### API Monitoring\n\n* Tools: **New Relic**, **Datadog**, **Postman Monitors**\n* Track latency, error rates, uptime, memory usage",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Unit tests check:", options: ["Small parts of code", "Whole systems", "UI buttons"], correctAnswerIndex: 0 },
                     { questionText: "Supertest is used for:", options: ["API testing", "HTML rendering", "CSS animations"], correctAnswerIndex: 0 },
@@ -299,7 +472,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 6: Building APIs for Scale (Microservices)",
-                lessons: [{ title: "Monolith vs. Microservices Architecture", content: "### Monolith vs Microservices\n\n| Monolith | Microservices |\n| --- | --- |\n| One large codebase | Split by services |\n| Shared memory | Communicate via APIs |\n| Easier to build | Easier to scale |\n\n### Microservice Best Practices\n\n* Each service owns its **own DB**\n* Use **service discovery**\n* Communicate via **REST or message brokers** (e.g. RabbitMQ, Kafka)\n* Use **API Gateway** for authentication, routing, and rate limiting\n\n### Example Architecture\n\n```text\nClient -> API Gateway -> Auth Service\n                        -> User Service\n                        -> Product Service\n```", duration: "1h" }],
+                lessons: [{
+                    title: "Monolith vs. Microservices Architecture",
+                    content: "### Monolith vs Microservices\n\n| Monolith | Microservices |\n| --- | --- |\n| One large codebase | Split by services |\n| Shared memory | Communicate via APIs |\n| Easier to build | Easier to scale |\n\n### Microservice Best Practices\n\n* Each service owns its **own DB**\n* Use **service discovery**\n* Communicate via **REST or message brokers** (e.g. RabbitMQ, Kafka)\n* Use **API Gateway** for authentication, routing, and rate limiting\n\n### Example Architecture\n\n```text\nClient -> API Gateway -> Auth Service\n                        -> User Service\n                        -> Product Service\n```",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Microservices are:", options: ["Small independent APIs", "Large monolithic apps", "Excel plugins"], correctAnswerIndex: 0 },
                     { questionText: "API Gateway helps:", options: ["Manage requests", "Draw diagrams", "Save cookies"], correctAnswerIndex: 0 },
@@ -343,7 +520,11 @@ const allCourses: NewCourse[] = [
         modules: [
             {
                 title: "Module 1: Understanding APIs",
-                lessons: [{ title: "What is an API?", content: "### What Is an API?\n\n**API = Application Programming Interface**\nIt's like a **waiter in a restaurant** 🍽️ — takes your request to the kitchen (server), and brings the response (data) back.\n\nAPIs let software **talk to each other** — your mobile app talks to your backend via API.\n\n### Types of APIs\n\n| Type | Description | Example |\n| --- | --- | --- |\n| REST | Web-standard, uses HTTP methods | JSONPlaceholder |\n| SOAP | XML-based, strict rules | Legacy banking APIs |\n| GraphQL | Flexible querying | GitHub API |\n| WebSocket | Real-time, 2-way | Chat apps, games |", duration: "1h" }],
+                lessons: [{
+                    title: "What is an API?",
+                    content: "### What Is an API?\n\n**API = Application Programming Interface**\nIt's like a **waiter in a restaurant** 🍽️ — takes your request to the kitchen (server), and brings the response (data) back.\n\nAPIs let software **talk to each other** — your mobile app talks to your backend via API.\n\n### Types of APIs\n\n| Type | Description | Example |\n| --- | --- | --- |\n| REST | Web-standard, uses HTTP methods | JSONPlaceholder |\n| SOAP | XML-based, strict rules | Legacy banking APIs |\n| GraphQL | Flexible querying | GitHub API |\n| WebSocket | Real-time, 2-way | Chat apps, games |",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "API stands for:", options: ["Application Programming Interface", "Advanced Program Info", "Applied Python Integration"], correctAnswerIndex: 0 },
                     { questionText: "REST uses which format?", options: ["JSON", "MP3", "ZIP"], correctAnswerIndex: 0 },
@@ -355,7 +536,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 2: Building REST APIs with Node.js & Express",
-                lessons: [{ title: "Setting Up a Simple API", content: "### Tools You'll Use\n\n* **Node.js** – JavaScript runtime\n* **Express.js** – Web framework\n* **Postman** – API testing\n* **npm** – Dependency manager\n\n### Setting Up a Simple API\n\n```bash\nnpm init -y\nnpm install express\n```\n\n```javascript\nconst express = require('express');\nconst app = express();\n\napp.use(express.json());\n\napp.get('/api/hello', (req, res) => {\n  res.json({ message: 'Hello API World!' });\n});\n\napp.listen(3000, () => console.log('Server running on port 3000'));\n```\n\n### HTTP Methods in Action\n\n| Route | Method | Purpose |\n| --- | --- | --- |\n| `/users` | GET | Get users |\n| `/users` | POST | Add user |\n| `/users/:id` | PUT | Update user |\n| `/users/:id` | DELETE | Delete user |", duration: "1h" }],
+                lessons: [{
+                    title: "Setting Up a Simple API",
+                    content: "### Tools You'll Use\n\n* **Node.js** – JavaScript runtime\n* **Express.js** – Web framework\n* **Postman** – API testing\n* **npm** – Dependency manager\n\n### Setting Up a Simple API\n\n```bash\nnpm init -y\nnpm install express\n```\n\n```javascript\nconst express = require('express');\nconst app = express();\n\napp.use(express.json());\n\napp.get('/api/hello', (req, res) => {\n  res.json({ message: 'Hello API World!' });\n});\n\napp.listen(3000, () => console.log('Server running on port 3000'));\n```\n\n### HTTP Methods in Action\n\n| Route | Method | Purpose |\n| --- | --- | --- |\n| `/users` | GET | Get users |\n| `/users` | POST | Add user |\n| `/users/:id` | PUT | Update user |\n| `/users/:id` | DELETE | Delete user |",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "`express.json()` is used to:", options: ["Parse JSON in requests", "Animate headers", "Compress responses"], correctAnswerIndex: 0 },
                     { questionText: "The method for updating a record is:", options: ["PUT", "FETCH", "EXEC"], correctAnswerIndex: 0 },
@@ -367,7 +552,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 3: API Authentication & Security",
-                lessons: [{ title: "Securing APIs with JWT", content: "### Why Secure APIs?\n\nUnsecured APIs are like **open bank vaults** — anyone can steal your data. Protect your endpoints!\n\n### Methods of API Security\n\n* **API Keys** – Basic security (limited)\n* **Bearer Tokens (JWT)** – Most common\n* **OAuth2** – Third-party login (Google, Facebook)\n* **Rate Limiting** – Prevent abuse\n\n### JWT Authentication Example\n\n```javascript\nconst jwt = require('jsonwebtoken');\nconst token = jwt.sign({ userId: 1 }, 'secret', { expiresIn: '1h' });\n```\n\n```javascript\n// Middleware to verify\nfunction authMiddleware(req, res, next) {\n  const token = req.headers.authorization?.split(' ')[1];\n  if (!token) return res.status(401).json({ message: 'Unauthorized' });\n  try {\n    req.user = jwt.verify(token, 'secret');\n    next();\n  } catch {\n    res.status(403).json({ message: 'Forbidden' });\n  }\n}\n```", duration: "1h" }],
+                lessons: [{
+                    title: "Securing APIs with JWT",
+                    content: "### Why Secure APIs?\n\nUnsecured APIs are like **open bank vaults** — anyone can steal your data. Protect your endpoints!\n\n### Methods of API Security\n\n* **API Keys** – Basic security (limited)\n* **Bearer Tokens (JWT)** – Most common\n* **OAuth2** – Third-party login (Google, Facebook)\n* **Rate Limiting** – Prevent abuse\n\n### JWT Authentication Example\n\n```javascript\nconst jwt = require('jsonwebtoken');\nconst token = jwt.sign({ userId: 1 }, 'secret', { expiresIn: '1h' });\n```\n\n```javascript\n// Middleware to verify\nfunction authMiddleware(req, res, next) {\n  const token = req.headers.authorization?.split(' ')[1];\n  if (!token) return res.status(401).json({ message: 'Unauthorized' });\n  try {\n    req.user = jwt.verify(token, 'secret');\n    next();\n  } catch {\n    res.status(403).json({ message: 'Forbidden' });\n  }\n}\n```",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "JWT stands for:", options: ["JSON Web Token", "Java Web Tool", "Just Want Tokens"], correctAnswerIndex: 0 },
                     { questionText: "An API key is:", options: ["Basic auth method", "CSS class", "Database name"], correctAnswerIndex: 0 },
@@ -379,7 +568,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 4: Connecting APIs to Databases",
-                lessons: [{ title: "Integrating MongoDB with Mongoose", content: "### Why Connect to a Database?\n\nAPIs often serve as the **middleman** between your frontend and your **database** — storing user data, posts, or products.\n\n### Example: MongoDB + Express\n\n```javascript\nconst mongoose = require('mongoose');\nmongoose.connect('mongodb://localhost/mydb');\n```\n\nDefine a model:\n\n```javascript\nconst User = mongoose.model('User', {\n  name: String,\n  email: String\n});\n```\n\nCreate a user:\n\n```javascript\napp.post('/api/users', async (req, res) => {\n  const user = new User(req.body);\n  await user.save();\n  res.status(201).json(user);\n});\n```", duration: "1h" }],
+                lessons: [{
+                    title: "Integrating MongoDB with Mongoose",
+                    content: "### Why Connect to a Database?\n\nAPIs often serve as the **middleman** between your frontend and your **database** — storing user data, posts, or products.\n\n### Example: MongoDB + Express\n\n```javascript\nconst mongoose = require('mongoose');\nmongoose.connect('mongodb://localhost/mydb');\n```\n\nDefine a model:\n\n```javascript\nconst User = mongoose.model('User', {\n  name: String,\n  email: String\n});\n```\n\nCreate a user:\n\n```javascript\napp.post('/api/users', async (req, res) => {\n  const user = new User(req.body);\n  await user.save();\n  res.status(201).json(user);\n});\n```",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Mongoose is used for:", options: ["MongoDB in Node.js", "Security testing", "UI animation"], correctAnswerIndex: 0 },
                     { questionText: "`User.find()` is used to:", options: ["Fetch users", "Generate tokens", "Render HTML"], correctAnswerIndex: 0 },
@@ -391,7 +584,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 5: GraphQL APIs",
-                lessons: [{ title: "Introduction to GraphQL", content: "### What is GraphQL?\n\nGraphQL is a **query language** that allows clients to ask **only for the data they need** — nothing more, nothing less.\n\n> “It’s like ordering à la carte instead of a whole combo meal.” 🍱\n\n### REST vs GraphQL\n\n| Feature | REST | GraphQL |\n| --- | --- | --- |\n| Data Retrieval | Multiple endpoints | One endpoint |\n| Data Format | Fixed | Flexible |\n| Overfetch/Underfetch | Yes | No |\n\n### Basic GraphQL Example\n\n```graphql\nquery {\n  user(id: \"1\") {\n    name\n    email\n  }\n}\n```\n\n### Server Setup with Apollo Server\n\n```javascript\nconst { ApolloServer, gql } = require('apollo-server');\n\nconst typeDefs = gql`\n  type User { id: ID, name: String }\n  type Query { user(id: ID): User }\n`;\n\nconst resolvers = {\n  Query: {\n    user: () => ({ id: \"1\", name: \"John\" })\n  }\n};\n\nconst server = new ApolloServer({ typeDefs, resolvers });\nserver.listen().then(() => console.log(\"GraphQL server ready\"));\n```", duration: "1h" }],
+                lessons: [{
+                    title: "Introduction to GraphQL",
+                    content: "### What is GraphQL?\n\nGraphQL is a **query language** that allows clients to ask **only for the data they need** — nothing more, nothing less.\n\n> “It’s like ordering à la carte instead of a whole combo meal.” 🍱\n\n### REST vs GraphQL\n\n| Feature | REST | GraphQL |\n| --- | --- | --- |\n| Data Retrieval | Multiple endpoints | One endpoint |\n| Data Format | Fixed | Flexible |\n| Overfetch/Underfetch | Yes | No |\n\n### Basic GraphQL Example\n\n```graphql\nquery {\n  user(id: \"1\") {\n    name\n    email\n  }\n}\n```\n\n### Server Setup with Apollo Server\n\n```javascript\nconst { ApolloServer, gql } = require('apollo-server');\n\nconst typeDefs = gql`\n  type User { id: ID, name: String }\n  type Query { user(id: ID): User }\n`;\n\nconst resolvers = {\n  Query: {\n    user: () => ({ id: \"1\", name: \"John\" })\n  }\n};\n\nconst server = new ApolloServer({ typeDefs, resolvers });\nserver.listen().then(() => console.log(\"GraphQL server ready\"));\n```",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "GraphQL is a:", options: ["Query language", "Style guide", "Route config"], correctAnswerIndex: 0 },
                     { questionText: "GraphQL queries return:", options: ["Only requested fields", "All HTML", "SQL joins"], correctAnswerIndex: 0 },
@@ -403,7 +600,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 6: Testing & Deploying Your Backend",
-                lessons: [{ title: "Automated API Testing with Jest", content: "### API Testing Tools\n\n* **Postman** – Manual testing\n* **Jest + Supertest** – Automated testing\n* **Insomnia** – Great UI for API tests\n\n### Deployment Steps\n\n1. Push code to GitHub\n2. Set up **Render, Railway, or Vercel**\n3. Connect MongoDB (MongoDB Atlas)\n4. Add environment variables\n5. Deploy and monitor", duration: "1h" }],
+                lessons: [{
+                    title: "Automated API Testing with Jest",
+                    content: "### API Testing Tools\n\n* **Postman** – Manual testing\n* **Jest + Supertest** – Automated testing\n* **Insomnia** – Great UI for API tests\n\n### Deployment Steps\n\n1. Push code to GitHub\n2. Set up **Render, Railway, or Vercel**\n3. Connect MongoDB (MongoDB Atlas)\n4. Add environment variables\n5. Deploy and monitor",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Postman is used to:", options: ["Test APIs", "Draw UIs", "Generate CSS"], correctAnswerIndex: 0 },
                     { questionText: "Render is a:", options: ["Deployment platform", "Design tool", "SQL generator"], correctAnswerIndex: 0 },
@@ -447,7 +648,11 @@ const allCourses: NewCourse[] = [
         modules: [
             {
                 title: "Module 1: Advanced Threat Modeling & Attack Surface Analysis",
-                lessons: [{ title: "Threat Modeling & Analysis", content: "### What Is Threat Modeling?\n\nIt’s the process of identifying **potential threats**, **vulnerabilities**, and **mitigation strategies** before your app even goes live.\n\n> Like imagining all the ways your house could be broken into—then setting up lasers, moats, and maybe a dragon 🐉.\n\n### Core Concepts\n\n* **Assets**: What needs protection (e.g., data, credentials)\n* **Attackers**: Who might try to harm the system\n* **Entry Points**: How attackers might get in\n* **STRIDE Model**:\n\n  * **S**poofing\n  * **T**ampering\n  * **R**epudiation\n  * **I**nformation Disclosure\n  * **D**enial of Service\n  * **E**levation of Privilege\n\n### Attack Surface\n\n* Every **publicly accessible endpoint**\n* All **third-party integrations**\n* Mobile APIs, cloud services, login pages, etc.\n\n### Tools & Practices\n\n* Microsoft Threat Modeling Tool\n* OWASP Threat Dragon\n* Visual threat maps", duration: "1h" }],
+                lessons: [{
+                    title: "Threat Modeling & Analysis",
+                    content: "### What Is Threat Modeling?\n\nIt’s the process of identifying **potential threats**, **vulnerabilities**, and **mitigation strategies** before your app even goes live.\n\n> Like imagining all the ways your house could be broken into—then setting up lasers, moats, and maybe a dragon 🐉.\n\n### Core Concepts\n\n* **Assets**: What needs protection (e.g., data, credentials)\n* **Attackers**: Who might try to harm the system\n* **Entry Points**: How attackers might get in\n* **STRIDE Model**:\n\n  * **S**poofing\n  * **T**ampering\n  * **R**epudiation\n  * **I**nformation Disclosure\n  * **D**enial of Service\n  * **E**levation of Privilege\n\n### Attack Surface\n\n* Every **publicly accessible endpoint**\n* All **third-party integrations**\n* Mobile APIs, cloud services, login pages, etc.\n\n### Tools & Practices\n\n* Microsoft Threat Modeling Tool\n* OWASP Threat Dragon\n* Visual threat maps",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "What is the purpose of threat modeling?", options: ["Identify potential threats early", "Boost server speed", "Write CSS themes"], correctAnswerIndex: 0 },
                     { questionText: "STRIDE stands for:", options: ["Spoofing, Tampering, etc.", "Static Routing in DNS Engines", "Security Tracking Interface"], correctAnswerIndex: 0 },
@@ -459,7 +664,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 2: Penetration Testing & Ethical Hacking",
-                lessons: [{ title: "Pen Testing & Hacking", content: "### What Is Pen Testing?\n\nSimulated attacks on your system to find vulnerabilities **before real attackers do**.\n\n### Pen Testing Lifecycle\n\n1. Reconnaissance (passive & active scanning)\n2. Scanning (Nmap, Nessus)\n3. Gaining Access (exploitation)\n4. Maintaining Access (backdoors, reverse shells)\n5. Covering Tracks\n\n### Red Team vs Blue Team\n\n| Team | Role |\n| --- | --- |\n| Red | Simulates attackers (ethical hackers) |\n| Blue | Defenders (security ops team) |\n\nPurple teams coordinate both for training.\n\n### Tools of the Trade\n\n* **Kali Linux**\n* **Burp Suite**\n* **Metasploit**\n* **Wireshark**\n* **OWASP ZAP**", duration: "1h" }],
+                lessons: [{
+                    title: "Pen Testing & Hacking",
+                    content: "### What Is Pen Testing?\n\nSimulated attacks on your system to find vulnerabilities **before real attackers do**.\n\n### Pen Testing Lifecycle\n\n1. Reconnaissance (passive & active scanning)\n2. Scanning (Nmap, Nessus)\n3. Gaining Access (exploitation)\n4. Maintaining Access (backdoors, reverse shells)\n5. Covering Tracks\n\n### Red Team vs Blue Team\n\n| Team | Role |\n| --- | --- |\n| Red | Simulates attackers (ethical hackers) |\n| Blue | Defenders (security ops team) |\n\nPurple teams coordinate both for training.\n\n### Tools of the Trade\n\n* **Kali Linux**\n* **Burp Suite**\n* **Metasploit**\n* **Wireshark**\n* **OWASP ZAP**",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Penetration testing is used to:", options: ["Simulate attacks", "Speed up data", "Resize images"], correctAnswerIndex: 0 },
                     { questionText: "The reconnaissance phase involves:", options: ["Info gathering", "Encryption", "Signing off users"], correctAnswerIndex: 0 },
@@ -471,7 +680,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 3: Zero Trust Architecture (ZTA)",
-                lessons: [{ title: "Understanding Zero Trust", content: "### What Is Zero Trust?\n\n“**Never trust, always verify**.”\nAssume **every user**, **device**, and **connection** is hostile by default.\n\n### Core Principles\n\n* Continuous **authentication**\n* Granular **access control**\n* Least privilege enforcement\n* Microsegmentation\n* Device posture validation\n\n### Implementing ZTA\n\n* Identity Provider (Okta, Azure AD)\n* Multi-factor Authentication (MFA)\n* Per-request validation (tokens, device checks)\n* Monitoring & logging", duration: "1h" }],
+                lessons: [{
+                    title: "Understanding Zero Trust",
+                    content: "### What Is Zero Trust?\n\n“**Never trust, always verify**.”\nAssume **every user**, **device**, and **connection** is hostile by default.\n\n### Core Principles\n\n* Continuous **authentication**\n* Granular **access control**\n* Least privilege enforcement\n* Microsegmentation\n* Device posture validation\n\n### Implementing ZTA\n\n* Identity Provider (Okta, Azure AD)\n* Multi-factor Authentication (MFA)\n* Per-request validation (tokens, device checks)\n* Monitoring & logging",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "What does Zero Trust mean?", options: ["Verify everything", "Trust all users", "Disable MFA"], correctAnswerIndex: 0 },
                     { questionText: "ZTA discourages:", options: ["Implicit trust", "Passwords", "HTTPS"], correctAnswerIndex: 0 },
@@ -483,7 +696,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 4: Secure Coding & DevSecOps",
-                lessons: [{ title: "Secure Coding Practices", content: "### Secure Code Matters\n\nBad code = vulnerable app\nYou are your first line of defense.\n\n### Common Code Vulnerabilities\n\n* SQL Injection\n* Cross-Site Scripting (XSS)\n* Insecure Deserialization\n* Broken Authentication\n* Cross-Site Request Forgery (CSRF)\n\n### Example: XSS in JavaScript\n\n```html\n<script>alert('Hacked');</script>\n```\n\nSolution:\n\n* Sanitize inputs\n* Escape outputs\n* Use CSP headers\n\n### DevSecOps Integration\n\n* Static code analysis (SonarQube, Snyk)\n* Dependency scanning\n* Secure CI/CD pipelines\n* Secrets management (Vault, AWS Secrets Manager)", duration: "1h" }],
+                lessons: [{
+                    title: "Secure Coding Practices",
+                    content: "### Secure Code Matters\n\nBad code = vulnerable app\nYou are your first line of defense.\n\n### Common Code Vulnerabilities\n\n* SQL Injection\n* Cross-Site Scripting (XSS)\n* Insecure Deserialization\n* Broken Authentication\n* Cross-Site Request Forgery (CSRF)\n\n### Example: XSS in JavaScript\n\n```html\n<script>alert('Hacked');</script>\n```\n\nSolution:\n\n* Sanitize inputs\n* Escape outputs\n* Use CSP headers\n\n### DevSecOps Integration\n\n* Static code analysis (SonarQube, Snyk)\n* Dependency scanning\n* Secure CI/CD pipelines\n* Secrets management (Vault, AWS Secrets Manager)",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Secure coding helps prevent:", options: ["Exploits", "SEO loss", "Slow CSS"], correctAnswerIndex: 0 },
                     { questionText: "XSS stands for:", options: ["Cross-Site Scripting", "External Style Sheet", "XML Secure Stack"], correctAnswerIndex: 0 },
@@ -495,7 +712,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 5: Network & Cloud Security",
-                lessons: [{ title: "Network and Cloud Security", content: "### Network Security Concepts\n\n* Firewalls (stateful/NGFW)\n* IDS/IPS systems (Snort, Suricata)\n* VPN and tunneling\n* Packet sniffing and encryption\n\n### Cloud Security Musts\n\n* Cloud-native firewalls (AWS WAF, Azure Firewall)\n* IAM roles & policies\n* Encryption at rest/in-transit\n* Bucket policies (S3), audit trails\n\n### Defense Layers\n\n* DMZ setup\n* Bastion hosts\n* Zero-trust cloud perimeters\n* DDoS protection (Cloudflare, AWS Shield)", duration: "1h" }],
+                lessons: [{
+                    title: "Network and Cloud Security",
+                    content: "### Network Security Concepts\n\n* Firewalls (stateful/NGFW)\n* IDS/IPS systems (Snort, Suricata)\n* VPN and tunneling\n* Packet sniffing and encryption\n\n### Cloud Security Musts\n\n* Cloud-native firewalls (AWS WAF, Azure Firewall)\n* IAM roles & policies\n* Encryption at rest/in-transit\n* Bucket policies (S3), audit trails\n\n### Defense Layers\n\n* DMZ setup\n* Bastion hosts\n* Zero-trust cloud perimeters\n* DDoS protection (Cloudflare, AWS Shield)",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "IDS is used to:", options: ["Detect intrusions", "Host blogs", "Load images"], correctAnswerIndex: 0 },
                     { questionText: "VPN stands for:", options: ["Virtual Private Network", "Variable Port Number", "Visual Packet Naming"], correctAnswerIndex: 0 },
@@ -507,7 +728,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 6: Incident Response and Recovery",
-                lessons: [{ title: "Incident Response and Recovery", content: "### What Is Incident Response?\n\nThe structured approach to detecting, analyzing, and mitigating cyber threats.\n\n### IR Plan Stages\n\n1. Preparation\n2. Detection & Analysis\n3. Containment\n4. Eradication\n5. Recovery\n6. Lessons Learned\n\n### IR Roles\n\n* IR Manager\n* Forensics Analyst\n* Communication Officer\n* SOC Team (Security Operations Center)\n\n### Digital Forensics Tasks\n\n* Log analysis\n* Malware reverse engineering\n* Evidence preservation\n* Chain of custody documentation", duration: "1h" }],
+                lessons: [{
+                    title: "Incident Response and Recovery",
+                    content: "### What Is Incident Response?\n\nThe structured approach to detecting, analyzing, and mitigating cyber threats.\n\n### IR Plan Stages\n\n1. Preparation\n2. Detection & Analysis\n3. Containment\n4. Eradication\n5. Recovery\n6. Lessons Learned\n\n### IR Roles\n\n* IR Manager\n* Forensics Analyst\n* Communication Officer\n* SOC Team (Security Operations Center)\n\n### Digital Forensics Tasks\n\n* Log analysis\n* Malware reverse engineering\n* Evidence preservation\n* Chain of custody documentation",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "IR stands for:", options: ["Incident Response", "Infra Router", "Internal Repo"], correctAnswerIndex: 0 },
                     { questionText: "First stage of IR plan is:", options: ["Preparation", "Firing someone", "Rebooting server"], correctAnswerIndex: 0 },
@@ -551,7 +776,11 @@ const allCourses: NewCourse[] = [
         modules: [
             {
                 title: "Module 1: The Mindset of a Tech Leader",
-                lessons: [{ title: "From Coder to Leader", content: "### From Coder to Leader\n\n> “A good developer solves problems. A great tech leader helps *others* solve problems.”\n\nThis is the evolution:\n\n* **Individual Contributor (IC)**: Write code, fix bugs, ship features\n* **Tech Lead**: Guide team technically, mentor junior devs\n* **Engineering Manager**: Drive execution, remove blockers\n* **CTO / VP Eng**: Set vision, manage teams/orgs, report to execs\n\n### Key Qualities of a Tech Leader\n\n* Vision-driven\n* Accountable\n* Empathetic\n* Strategic\n* Communicative\n* Calm under pressure (yes, even when the entire API breaks at 2 AM)\n\n### Leadership vs Management\n\n| Leadership | Management |\n| --- | --- |\n| Inspires and aligns | Plans and organizes |\n| Focuses on people | Focuses on process |\n| Vision-oriented | Execution-oriented |\n\n> A great tech leader balances **both**!", duration: "1h" }],
+                lessons: [{
+                    title: "From Coder to Leader",
+                    content: "### From Coder to Leader\n\n> “A good developer solves problems. A great tech leader helps *others* solve problems.”\n\nThis is the evolution:\n\n* **Individual Contributor (IC)**: Write code, fix bugs, ship features\n* **Tech Lead**: Guide team technically, mentor junior devs\n* **Engineering Manager**: Drive execution, remove blockers\n* **CTO / VP Eng**: Set vision, manage teams/orgs, report to execs\n\n### Key Qualities of a Tech Leader\n\n* Vision-driven\n* Accountable\n* Empathetic\n* Strategic\n* Communicative\n* Calm under pressure (yes, even when the entire API breaks at 2 AM)\n\n### Leadership vs Management\n\n| Leadership | Management |\n| --- | --- |\n| Inspires and aligns | Plans and organizes |\n| Focuses on people | Focuses on process |\n| Vision-oriented | Execution-oriented |\n\n> A great tech leader balances **both**!",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "A tech leader focuses on:", options: ["Empowering teams", "Writing solo code only", "Designing marketing flyers"], correctAnswerIndex: 0 },
                     { questionText: "Leadership vs Management difference?", options: ["Vision vs Process", "Code vs UI", "Design vs Branding"], correctAnswerIndex: 0 },
@@ -563,7 +792,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 2: Building and Leading Teams",
-                lessons: [{ title: "Team Composition and Goals", content: "### Team Composition\n\n* Balance of skills: senior, mid, junior\n* Mix of frontend/backend/QA/devops\n* Hire for **attitude and adaptability**, not just skillset\n\n### Defining Roles and Goals\n\n* Role clarity prevents burnout & overlap\n* Set **SMART goals**\n\n  * Specific\n  * Measurable\n  * Achievable\n  * Relevant\n  * Time-bound\n\n### Leading Effective Standups\n\n* Focus on blockers, not micromanaging\n* 15 minutes max\n* Foster psychological safety so all voices are heard\n\n### Feedback & Performance\n\n* Regular 1:1s\n* Constructive, timely, and specific feedback\n* Praise in public, correct in private", duration: "1h" }],
+                lessons: [{
+                    title: "Team Composition and Goals",
+                    content: "### Team Composition\n\n* Balance of skills: senior, mid, junior\n* Mix of frontend/backend/QA/devops\n* Hire for **attitude and adaptability**, not just skillset\n\n### Defining Roles and Goals\n\n* Role clarity prevents burnout & overlap\n* Set **SMART goals**\n\n  * Specific\n  * Measurable\n  * Achievable\n  * Relevant\n  * Time-bound\n\n### Leading Effective Standups\n\n* Focus on blockers, not micromanaging\n* 15 minutes max\n* Foster psychological safety so all voices are heard\n\n### Feedback & Performance\n\n* Regular 1:1s\n* Constructive, timely, and specific feedback\n* Praise in public, correct in private",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "SMART goal means:", options: ["Specific, Measurable, etc.", "Speedy, Marketable, etc.", "Snappy, Modular, etc."], correctAnswerIndex: 0 },
                     { questionText: "Team mix should include:", options: ["Diverse experience levels", "Same skill levels", "Only seniors"], correctAnswerIndex: 0 },
@@ -575,7 +808,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 3: Technical Decision-Making",
-                lessons: [{ title: "Frameworks for Decision-Making", content: "### Making Smart Tech Choices\n\nTech leaders often decide:\n\n* **Which framework?**\n* **Which architecture?**\n* **When to scale?**\n* **Buy vs build?**\n\n### Frameworks for Decision-Making\n\n* **Trade-off matrix**\n* **Risk/reward mapping**\n* **Technical debt forecasting**\n* **TAM/SAM/SOM for product scaling**\n\n### Common Architectural Patterns\n\n* Monolith vs Microservices\n* Serverless vs container-based\n* Event-driven vs REST\n\n### Communicating Decisions\n\n* Back your choices with **data and empathy**\n* Involve stakeholders\n* Be **transparent** about risks and tradeoffs", duration: "1h" }],
+                lessons: [{
+                    title: "Frameworks for Decision-Making",
+                    content: "### Making Smart Tech Choices\n\nTech leaders often decide:\n\n* **Which framework?**\n* **Which architecture?**\n* **When to scale?**\n* **Buy vs build?**\n\n### Frameworks for Decision-Making\n\n* **Trade-off matrix**\n* **Risk/reward mapping**\n* **Technical debt forecasting**\n* **TAM/SAM/SOM for product scaling**\n\n### Common Architectural Patterns\n\n* Monolith vs Microservices\n* Serverless vs container-based\n* Event-driven vs REST\n\n### Communicating Decisions\n\n* Back your choices with **data and empathy**\n* Involve stakeholders\n* Be **transparent** about risks and tradeoffs",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Leaders decide between:", options: ["Build vs buy", "Code vs design", "HTML vs CSS"], correctAnswerIndex: 0 },
                     { questionText: "Trade-off matrix is used for:", options: ["Comparing choices", "UI themes", "Button spacing"], correctAnswerIndex: 0 },
@@ -587,7 +824,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 4: Scaling Teams, Systems, and Culture",
-                lessons: [{ title: "Scaling Teams and Culture", content: "### Scaling Teams\n\n* Add structure with **pods** (small cross-functional groups)\n* Layer leadership (tech leads, team leads, EMs)\n* Maintain team rituals: retros, show & tell, standups\n\n### Scaling Systems\n\n* Infrastructure automation (Terraform, Ansible)\n* Monitoring (Datadog, New Relic, Prometheus)\n* Scaling patterns (horizontal, vertical, stateless)\n\n### Scaling Culture\n\n* Culture scales through **behavioral reinforcement**\n* Celebrate wins\n* Document what matters\n* Onboard with clarity", duration: "1h" }],
+                lessons: [{
+                    title: "Scaling Teams and Culture",
+                    content: "### Scaling Teams\n\n* Add structure with **pods** (small cross-functional groups)\n* Layer leadership (tech leads, team leads, EMs)\n* Maintain team rituals: retros, show & tell, standups\n\n### Scaling Systems\n\n* Infrastructure automation (Terraform, Ansible)\n* Monitoring (Datadog, New Relic, Prometheus)\n* Scaling patterns (horizontal, vertical, stateless)\n\n### Scaling Culture\n\n* Culture scales through **behavioral reinforcement**\n* Celebrate wins\n* Document what matters\n* Onboard with clarity",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Pods are:", options: ["Cross-functional teams", "Serverless APIs", "Bug tickets"], correctAnswerIndex: 0 },
                     { questionText: "Retros help:", options: ["Improve processes", "Boost UI speed", "Resize SVGs"], correctAnswerIndex: 0 },
@@ -599,7 +840,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 5: Communication, Influence & Conflict Resolution",
-                lessons: [{ title: "Leadership Communication", content: "### Leadership = Communication\n\n* Share the **why**, not just the **what**\n* Tailor message for audience (execs vs devs vs users)\n* Keep communication **frequent**, **clear**, and **empathetic**\n\n### Influencing Without Authority\n\n* Use **logic + emotion** to persuade\n* Align with goals\n* Gain buy-in through **storytelling**\n\n### Conflict Resolution\n\n* Address issues early\n* Focus on **problems**, not **personalities**\n* Use mediation and feedback tools\n\n### Emotional Intelligence (EQ)\n\n* Recognize your team’s stress, burnout, excitement\n* Leaders who “read the room” lead better rooms", duration: "1h" }],
+                lessons: [{
+                    title: "Leadership Communication",
+                    content: "### Leadership = Communication\n\n* Share the **why**, not just the **what**\n* Tailor message for audience (execs vs devs vs users)\n* Keep communication **frequent**, **clear**, and **empathetic**\n\n### Influencing Without Authority\n\n* Use **logic + emotion** to persuade\n* Align with goals\n* Gain buy-in through **storytelling**\n\n### Conflict Resolution\n\n* Address issues early\n* Focus on **problems**, not **personalities**\n* Use mediation and feedback tools\n\n### Emotional Intelligence (EQ)\n\n* Recognize your team’s stress, burnout, excitement\n* Leaders who “read the room” lead better rooms",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Communication should be:", options: ["Clear & empathetic", "Constant & loud", "Hidden in code"], correctAnswerIndex: 0 },
                     { questionText: "Influencing others needs:", options: ["Logic + emotion", "Emojis + memes", "Admin powers"], correctAnswerIndex: 0 },
@@ -611,7 +856,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 6: Strategic Vision and Stakeholder Alignment",
-                lessons: [{ title: "Vision and Strategy Tools", content: "### Vision = Direction\n\n* Where are we going?\n* Why does it matter?\n\nA leader paints the **future**—in terms your team can believe in.\n\n### Strategy Tools\n\n* OKRs (Objectives & Key Results)\n* V2MOM (Vision, Values, Methods, Obstacles, Measures)\n* 3 Horizons Framework (Innovation vs Sustaining projects)\n\n### Stakeholder Alignment\n\n* Identify stakeholders (product, design, execs, marketing, etc.)\n* Communicate impact + progress\n* Be proactive with risks\n\n### Leadership Reporting\n\n* Roadmaps\n* Budget & timelines\n* Metrics that matter (velocity, uptime, ROI, etc.)", duration: "1h" }],
+                lessons: [{
+                    title: "Vision and Strategy Tools",
+                    content: "### Vision = Direction\n\n* Where are we going?\n* Why does it matter?\n\nA leader paints the **future**—in terms your team can believe in.\n\n### Strategy Tools\n\n* OKRs (Objectives & Key Results)\n* V2MOM (Vision, Values, Methods, Obstacles, Measures)\n* 3 Horizons Framework (Innovation vs Sustaining projects)\n\n### Stakeholder Alignment\n\n* Identify stakeholders (product, design, execs, marketing, etc.)\n* Communicate impact + progress\n* Be proactive with risks\n\n### Leadership Reporting\n\n* Roadmaps\n* Budget & timelines\n* Metrics that matter (velocity, uptime, ROI, etc.)",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Strategy starts with:", options: ["Vision", "Uptime", "Margins"], correctAnswerIndex: 0 },
                     { questionText: "OKRs stand for:", options: ["Objectives & Key Results", "Outcomes & KPIs", "Open Kernel Requests"], correctAnswerIndex: 0 },
@@ -655,7 +904,11 @@ const allCourses: NewCourse[] = [
         modules: [
             {
                 title: "Module 1: Introduction to Research in Technology",
-                lessons: [{ title: "What Is Research in Tech?", content: "Research in technology involves **systematic investigation** to discover, analyze, and improve systems, software, hardware, or methods. It fuels innovation, powers patents, drives decisions, and influences global trends.\n\n### Types of Research\n\n* **Basic Research**: Increases general knowledge (e.g., quantum computing models)\n* **Applied Research**: Solves practical problems (e.g., reducing server latency)\n* **Experimental Research**: Controlled studies with variables\n* **Exploratory Research**: Scouting emerging areas with limited information\n\n### Examples\n\n* Google’s Transformer model → Led to GPT\n* Amazon’s delivery drone research\n* MIT’s work on solar-powered microgrids\n\n> If you're doing research and no one understands you — congrats, you might be on to something.", duration: "1h" }],
+                lessons: [{
+                    title: "What Is Research in Tech?",
+                    content: "Research in technology involves **systematic investigation** to discover, analyze, and improve systems, software, hardware, or methods. It fuels innovation, powers patents, drives decisions, and influences global trends.\n\n### Types of Research\n\n* **Basic Research**: Increases general knowledge (e.g., quantum computing models)\n* **Applied Research**: Solves practical problems (e.g., reducing server latency)\n* **Experimental Research**: Controlled studies with variables\n* **Exploratory Research**: Scouting emerging areas with limited information\n\n### Examples\n\n* Google’s Transformer model → Led to GPT\n* Amazon’s delivery drone research\n* MIT’s work on solar-powered microgrids\n\n> If you're doing research and no one understands you — congrats, you might be on to something.",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "What is the primary goal of tech research?", options: ["Discover and solve tech problems", "Increase ad revenue", "Generate memes"], correctAnswerIndex: 0 },
                     { questionText: "Basic research is mainly:", options: ["Knowledge-driven", "Product-focused", "UI styling"], correctAnswerIndex: 0 },
@@ -667,7 +920,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 2: The Research Process in Tech",
-                lessons: [{ title: "The Research Process", content: "### Key Phases\n\n1. **Problem Identification**\n2. **Literature Review**\n3. **Hypothesis Formulation**\n4. **Research Design & Methodology**\n5. **Data Collection & Analysis**\n6. **Conclusion & Recommendations**\n7. **Publishing or Application**\n\n### Literature Review\n\n* Survey past research\n* Identify what’s missing\n* Build your case for *why this matters*\n\nUse:\n\n* Google Scholar\n* IEEE Xplore\n* ACM Digital Library\n\n### Hypothesis Example\n\n> “Implementing federated learning will reduce training time for mobile AI by 30%.”\n\n### Research Design Methods\n\n* Quantitative (stats, measurement, benchmarks)\n* Qualitative (interviews, observations, open feedback)\n* Mixed Methods (both)", duration: "1h" }],
+                lessons: [{
+                    title: "The Research Process",
+                    content: "### Key Phases\n\n1. **Problem Identification**\n2. **Literature Review**\n3. **Hypothesis Formulation**\n4. **Research Design & Methodology**\n5. **Data Collection & Analysis**\n6. **Conclusion & Recommendations**\n7. **Publishing or Application**\n\n### Literature Review\n\n* Survey past research\n* Identify what’s missing\n* Build your case for *why this matters*\n\nUse:\n\n* Google Scholar\n* IEEE Xplore\n* ACM Digital Library\n\n### Hypothesis Example\n\n> “Implementing federated learning will reduce training time for mobile AI by 30%.”\n\n### Research Design Methods\n\n* Quantitative (stats, measurement, benchmarks)\n* Qualitative (interviews, observations, open feedback)\n* Mixed Methods (both)",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "What’s the first step in research?", options: ["Problem identification", "Writing results", "Applying for grants"], correctAnswerIndex: 0 },
                     { questionText: "A literature review helps to:", options: ["Understand existing research", "Skip reading", "Print graphs"], correctAnswerIndex: 0 },
@@ -679,7 +936,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 3: Emerging Technologies & Trend Analysis",
-                lessons: [{ title: "Analyzing Tech Trends", content: "### Why Trends Matter\n\nTrends help you:\n\n* Predict industry shifts\n* Guide innovation\n* Identify future opportunities\n* Stay ahead of competitors\n\n### Trend Spotting Tools\n\n* Gartner Hype Cycle\n* Google Trends\n* Stack Overflow Surveys\n* MIT Tech Review\n* Hacker News, Arxiv, GitHub repos\n\n### Areas of Growth\n\n* AI Ethics & Regulation\n* Web3 and Decentralized Identity\n* Sustainable Tech & Green Computing\n* Neurotechnology\n* Edge Computing\n* Quantum Security\n\n### Analysis Frameworks\n\n* SWOT (Strengths, Weaknesses, Opportunities, Threats)\n* PEST (Political, Economic, Social, Technological)\n* Hype Cycle Phases:\n\n  * Innovation Trigger\n  * Peak of Inflated Expectations\n  * Trough of Disillusionment\n  * Slope of Enlightenment\n  * Plateau of Productivity", duration: "1h" }],
+                lessons: [{
+                    title: "Analyzing Tech Trends",
+                    content: "### Why Trends Matter\n\nTrends help you:\n\n* Predict industry shifts\n* Guide innovation\n* Identify future opportunities\n* Stay ahead of competitors\n\n### Trend Spotting Tools\n\n* Gartner Hype Cycle\n* Google Trends\n* Stack Overflow Surveys\n* MIT Tech Review\n* Hacker News, Arxiv, GitHub repos\n\n### Areas of Growth\n\n* AI Ethics & Regulation\n* Web3 and Decentralized Identity\n* Sustainable Tech & Green Computing\n* Neurotechnology\n* Edge Computing\n* Quantum Security\n\n### Analysis Frameworks\n\n* SWOT (Strengths, Weaknesses, Opportunities, Threats)\n* PEST (Political, Economic, Social, Technological)\n* Hype Cycle Phases:\n\n  * Innovation Trigger\n  * Peak of Inflated Expectations\n  * Trough of Disillusionment\n  * Slope of Enlightenment\n  * Plateau of Productivity",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Why analyze trends?", options: ["Predict industry direction", "Design posters", "Reuse old code"], correctAnswerIndex: 0 },
                     { questionText: "A good trend tool:", options: ["MIT Tech Review", "Pinterest", "Excel shortcuts"], correctAnswerIndex: 0 },
@@ -691,7 +952,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 4: Data Collection & Hypothesis Testing",
-                lessons: [{ title: "Data Collection and Testing", content: "### Collecting Data in Tech Research\n\nMethods:\n\n* Instrumentation & telemetry\n* Logs and usage metrics\n* APIs & sensors\n* Surveys and interviews\n* GitHub analytics\n\n### Hypothesis Testing\n\n* Null Hypothesis (H0): No effect\n* Alternative Hypothesis (H1): Effect exists\n* Use p-values, confidence intervals, and statistical tests\n\n### Testing Examples\n\n* AB Testing\n* Regression analysis\n* Chi-square tests\n* T-tests for performance improvement\n\n### Tools\n\n* Jupyter Notebooks\n* Python: Pandas, NumPy, SciPy\n* R language\n* Tableau, Power BI", duration: "1h" }],
+                lessons: [{
+                    title: "Data Collection and Testing",
+                    content: "### Collecting Data in Tech Research\n\nMethods:\n\n* Instrumentation & telemetry\n* Logs and usage metrics\n* APIs & sensors\n* Surveys and interviews\n* GitHub analytics\n\n### Hypothesis Testing\n\n* Null Hypothesis (H0): No effect\n* Alternative Hypothesis (H1): Effect exists\n* Use p-values, confidence intervals, and statistical tests\n\n### Testing Examples\n\n* AB Testing\n* Regression analysis\n* Chi-square tests\n* T-tests for performance improvement\n\n### Tools\n\n* Jupyter Notebooks\n* Python: Pandas, NumPy, SciPy\n* R language\n* Tableau, Power BI",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "API logs are a source of:", options: ["Data", "Fonts", "Themes"], correctAnswerIndex: 0 },
                     { questionText: "A null hypothesis means:", options: ["No observed effect", "The data is deleted", "Too many logs"], correctAnswerIndex: 0 },
@@ -703,7 +968,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 5: Publishing, Presenting & Applying Research",
-                lessons: [{ title: "Publishing and Presenting", content: "### Where to Publish\n\n* IEEE\n* ACM\n* arXiv\n* Google Research\n* Peer-reviewed journals\n* Medium/Dev.to (non-peer informal)\n\n### Presenting Research\n\n* Use storytelling: setup, struggle, solution\n* Keep it visual\n* Know your audience (tech, non-tech, execs)\n* Summarize results, then explain the details\n\n### Tools for Publication\n\n* LaTeX\n* Overleaf\n* Google Docs (for collaboration)\n* Mendeley / Zotero for citations\n\n### Applying Research\n\n* Product prototypes\n* Technical whitepapers\n* Patent applications\n* Startup ideation\n* Innovation sprints", duration: "1h" }],
+                lessons: [{
+                    title: "Publishing and Presenting",
+                    content: "### Where to Publish\n\n* IEEE\n* ACM\n* arXiv\n* Google Research\n* Peer-reviewed journals\n* Medium/Dev.to (non-peer informal)\n\n### Presenting Research\n\n* Use storytelling: setup, struggle, solution\n* Keep it visual\n* Know your audience (tech, non-tech, execs)\n* Summarize results, then explain the details\n\n### Tools for Publication\n\n* LaTeX\n* Overleaf\n* Google Docs (for collaboration)\n* Mendeley / Zotero for citations\n\n### Applying Research\n\n* Product prototypes\n* Technical whitepapers\n* Patent applications\n* Startup ideation\n* Innovation sprints",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Peer-reviewed journals include:", options: ["IEEE", "Instagram", "Reddit"], correctAnswerIndex: 0 },
                     { questionText: "Research should be:", options: ["Presented clearly", "Hidden in code", "Auto-formatted"], correctAnswerIndex: 0 },
@@ -715,7 +984,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 6: Ethics & Responsible Innovation",
-                lessons: [{ title: "Ethics in Research", content: "### Why Ethics Matter\n\n* Innovation without boundaries → Danger\n* Trust and responsibility are non-negotiable in tech\n\n### Ethical Topics in Tech\n\n* AI bias and fairness\n* Surveillance vs privacy\n* Responsible data usage\n* Deepfake and misinformation risks\n* Automation vs job displacement\n\n### Frameworks\n\n* IEEE’s Ethically Aligned Design\n* Google AI Principles\n* EU’s GDPR & AI Act\n\n### Best Practices\n\n* Anonymous data collection\n* Consent & transparency\n* Bias audits in AI models\n* Open communication about risks", duration: "1h" }],
+                lessons: [{
+                    title: "Ethics in Research",
+                    content: "### Why Ethics Matter\n\n* Innovation without boundaries → Danger\n* Trust and responsibility are non-negotiable in tech\n\n### Ethical Topics in Tech\n\n* AI bias and fairness\n* Surveillance vs privacy\n* Responsible data usage\n* Deepfake and misinformation risks\n* Automation vs job displacement\n\n### Frameworks\n\n* IEEE’s Ethically Aligned Design\n* Google AI Principles\n* EU’s GDPR & AI Act\n\n### Best Practices\n\n* Anonymous data collection\n* Consent & transparency\n* Bias audits in AI models\n* Open communication about risks",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Ethics ensures:", options: ["Responsible innovation", "Fast prototyping", "Cheaper hosting"], correctAnswerIndex: 0 },
                     { questionText: "Bias in AI can cause:", options: ["Unfair decisions", "Style conflicts", "Slow responses"], correctAnswerIndex: 0 },
@@ -733,7 +1006,7 @@ const allCourses: NewCourse[] = [
                 { questionText: "What is a hypothesis, and how is it tested?" },
                 { questionText: "Describe the Gartner Hype Cycle and its phases." },
                 { questionText: "List and explain at least three data collection methods in tech research." },
-                { questionText: "What are tools used in technical data analysis?" },
+                { questionText: "What tools are used in technical data analysis?" },
                 { questionText: "How does exploratory research work?" },
                 { questionText: "What are the ethical concerns in AI research?" },
                 { questionText: "Define and give examples of qualitative vs quantitative research." },
@@ -759,7 +1032,11 @@ const allCourses: NewCourse[] = [
         modules: [
             {
                 title: "Module 1: Innovation Principles & Practice",
-                lessons: [{ title: "What Is Innovation (for Real)?", content: "> Innovation ≠ invention.\n> Innovation = creating *value* from *new ideas*.\n\n* Not just something new — something *usefully* new\n* Must be adopted, applied, or bought by someone\n\n### Types of Innovation\n\n* **Disruptive** (Uber, GPTs)\n* **Sustaining** (iPhone 13 → 14)\n* **Process Innovation** (Agile, CI/CD)\n* **Business Model Innovation** (Netflix, SaaS)\n\n### Innovation Frameworks\n\n* **Design Thinking** (Empathize → Define → Ideate → Prototype → Test)\n* **Blue Ocean Strategy** (Create uncontested market space)\n* **TRIZ** (Inventive principles from engineering problems)\n\n### Examples\n\n* Amazon → Prime, Cloud, 1-click ordering\n* Tesla → OTA updates, battery innovation\n* OpenAI → ChatGPT API access to public", duration: "1h" }],
+                lessons: [{
+                    title: "What Is Innovation (for Real)?",
+                    content: "> Innovation ≠ invention.\n> Innovation = creating *value* from *new ideas*.\n\n* Not just something new — something *usefully* new\n* Must be adopted, applied, or bought by someone\n\n### Types of Innovation\n\n* **Disruptive** (Uber, GPTs)\n* **Sustaining** (iPhone 13 → 14)\n* **Process Innovation** (Agile, CI/CD)\n* **Business Model Innovation** (Netflix, SaaS)\n\n### Innovation Frameworks\n\n* **Design Thinking** (Empathize → Define → Ideate → Prototype → Test)\n* **Blue Ocean Strategy** (Create uncontested market space)\n* **TRIZ** (Inventive principles from engineering problems)\n\n### Examples\n\n* Amazon → Prime, Cloud, 1-click ordering\n* Tesla → OTA updates, battery innovation\n* OpenAI → ChatGPT API access to public",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Innovation must:", options: ["Deliver value", "Just sound cool", "Be random"], correctAnswerIndex: 0 },
                     { questionText: "Design Thinking includes:", options: ["Empathy", "Coloring", "Pricing sheets"], correctAnswerIndex: 0 },
@@ -771,7 +1048,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 2: Building MVPs & Product Foundations",
-                lessons: [{ title: "What is an MVP?", content: "> **Minimum Viable Product** — the simplest version of your idea that delivers value and learns from users.\n\n* MVP ≠ junk\n* MVP = testable, usable, measurable\n* Think: \"Would people *miss* this if it disappeared?\"\n\n### The Product Lifecycle\n\n1. Idea → Prototype\n2. MVP → User feedback\n3. Product-Market Fit\n4. Scaling\n5. Maturity / Decline / Rebirth\n\n### Lean Product Cycles\n\n* Build → Measure → Learn\n* Focus: Minimize waste, maximize value\n* Uses metrics like:\n\n  * Activation\n  * Retention\n  * NPS (Net Promoter Score)\n  * Conversion Rate\n\n### Prioritization Frameworks\n\n* RICE (Reach × Impact × Confidence ÷ Effort)\n* MoSCoW (Must, Should, Could, Won’t)\n* Kano Model (Delighters vs Basics)", duration: "1h" }],
+                lessons: [{
+                    title: "What is an MVP?",
+                    content: "> **Minimum Viable Product** — the simplest version of your idea that delivers value and learns from users.\n\n* MVP ≠ junk\n* MVP = testable, usable, measurable\n* Think: \"Would people *miss* this if it disappeared?\"\n\n### The Product Lifecycle\n\n1. Idea → Prototype\n2. MVP → User feedback\n3. Product-Market Fit\n4. Scaling\n5. Maturity / Decline / Rebirth\n\n### Lean Product Cycles\n\n* Build → Measure → Learn\n* Focus: Minimize waste, maximize value\n* Uses metrics like:\n\n  * Activation\n  * Retention\n  * NPS (Net Promoter Score)\n  * Conversion Rate\n\n### Prioritization Frameworks\n\n* RICE (Reach × Impact × Confidence ÷ Effort)\n* MoSCoW (Must, Should, Could, Won’t)\n* Kano Model (Delighters vs Basics)",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "MVP stands for:", options: ["Minimum Viable Product", "Major Visual Prototype", "Market Value Pitch"], correctAnswerIndex: 0 },
                     { questionText: "Lean cycle steps:", options: ["Build → Measure → Learn", "Brainstorm → Code → Launch", "Guess → Ship → Wait"], correctAnswerIndex: 0 },
@@ -783,7 +1064,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 3: Product Engineering at Scale",
-                lessons: [{ title: "Engineering for Growth", content: "> Products scale. Code must too.\n> You’re not just shipping — you’re **engineering ecosystems**.\n\n* Decouple systems\n* API-first design\n* Backward compatibility\n* Feature flags, not feature fatigue\n\n### Key Tech for Product Builders\n\n* Feature toggles (LaunchDarkly, ConfigCat)\n* CI/CD (GitHub Actions, Jenkins)\n* Observability (Grafana, Datadog, Sentry)\n* Containerization (Docker, Kubernetes)\n\n### Performance & Resilience\n\n* Load testing\n* Failover systems\n* Canary deployments\n* Auto-scaling infra (e.g., GCP, AWS)\n\n### Developer Experience (DX)\n\n* Docs as first-class citizens\n* Internal tooling\n* Feedback loops with design + product", duration: "1h" }],
+                lessons: [{
+                    title: "Engineering for Growth",
+                    content: "> Products scale. Code must too.\n> You’re not just shipping — you’re **engineering ecosystems**.\n\n* Decouple systems\n* API-first design\n* Backward compatibility\n* Feature flags, not feature fatigue\n\n### Key Tech for Product Builders\n\n* Feature toggles (LaunchDarkly, ConfigCat)\n* CI/CD (GitHub Actions, Jenkins)\n* Observability (Grafana, Datadog, Sentry)\n* Containerization (Docker, Kubernetes)\n\n### Performance & Resilience\n\n* Load testing\n* Failover systems\n* Canary deployments\n* Auto-scaling infra (e.g., GCP, AWS)\n\n### Developer Experience (DX)\n\n* Docs as first-class citizens\n* Internal tooling\n* Feedback loops with design + product",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Product engineering means:", options: ["Building at scale", "Frontend colors", "Page animations"], correctAnswerIndex: 0 },
                     { questionText: "Feature flags help:", options: ["Rollout new features safely", "Flag bugs", "Design themes"], correctAnswerIndex: 0 },
@@ -795,7 +1080,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 4: Aligning Tech with Business Strategy",
-                lessons: [{ title: "Tech Drives Business", content: "> Tech is no longer *support* — it’s *strategy*.\n> A tech leader’s job is to map architecture to business goals.\n\n### Strategic Alignment Tools\n\n* OKRs (Objectives & Key Results)\n* Roadmapping (Now → Next → Later)\n* KPIs that matter:\n\n  * Time to Market\n  * Churn\n  * CAC\\:LTV\n  * Uptime / Latency\n  * Engineering Velocity\n\n### Speaking the Exec Language\n\n* Translate tech debt into ROI loss\n* Map uptime to customer satisfaction\n* Show how features move revenue or retention\n\n### Tools for Strategic Planning\n\n* Productboard\n* Aha!\n* Notion (for lean teams)\n* Jira Advanced Roadmaps", duration: "1h" }],
+                lessons: [{
+                    title: "Tech Drives Business",
+                    content: "> Tech is no longer *support* — it’s *strategy*.\n> A tech leader’s job is to map architecture to business goals.\n\n### Strategic Alignment Tools\n\n* OKRs (Objectives & Key Results)\n* Roadmapping (Now → Next → Later)\n* KPIs that matter:\n\n  * Time to Market\n  * Churn\n  * CAC\\:LTV\n  * Uptime / Latency\n  * Engineering Velocity\n\n### Speaking the Exec Language\n\n* Translate tech debt into ROI loss\n* Map uptime to customer satisfaction\n* Show how features move revenue or retention\n\n### Tools for Strategic Planning\n\n* Productboard\n* Aha!\n* Notion (for lean teams)\n* Jira Advanced Roadmaps",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "KPIs must connect to:", options: ["Business outcomes", "Theme colors", "Button clicks"], correctAnswerIndex: 0 },
                     { questionText: "OKRs help with:", options: ["Setting goals", "Debugging", "UX tweaking"], correctAnswerIndex: 0 },
@@ -807,7 +1096,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 5: Strategic Innovation & Market Timing",
-                lessons: [{ title: "When to Build, Buy, or Wait", content: "* Build if it’s core to your edge\n* Buy if it's utility\n* Wait if the market’s not ready\n\n### Innovation Timing Frameworks\n\n* Technology Adoption Curve\n* Moore’s Chasm\n* Jobs To Be Done (JTBD)\n* 10x Innovation Rule\n\n### Validating Innovation\n\n* Pilot programs\n* Customer interviews\n* Landing page tests\n* Internal hackathons\n\n### Competitive Advantage in Tech\n\n* Speed (Time to ship)\n* IP (patents, models)\n* Talent (A-teams)\n* Brand (reputation, community)", duration: "1h" }],
+                lessons: [{
+                    title: "When to Build, Buy, or Wait",
+                    content: "* Build if it’s core to your edge\n* Buy if it's utility\n* Wait if the market’s not ready\n\n### Innovation Timing Frameworks\n\n* Technology Adoption Curve\n* Moore’s Chasm\n* Jobs To Be Done (JTBD)\n* 10x Innovation Rule\n\n### Validating Innovation\n\n* Pilot programs\n* Customer interviews\n* Landing page tests\n* Internal hackathons\n\n### Competitive Advantage in Tech\n\n* Speed (Time to ship)\n* IP (patents, models)\n* Talent (A-teams)\n* Brand (reputation, community)",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Build vs Buy depends on:", options: ["Core business value", "Fonts", "CSS rules"], correctAnswerIndex: 0 },
                     { questionText: "Jobs To Be Done asks:", options: ["What problem are we solving?", "Who is coding?", "Which IDE?"], correctAnswerIndex: 0 },
@@ -819,7 +1112,11 @@ const allCourses: NewCourse[] = [
             },
             {
                 title: "Module 6: Leading with Vision, Speed & Impact",
-                lessons: [{ title: "What Makes Visionary Tech Leaders?", content: "* Bold, clear vision\n* Willingness to bet on future\n* Obsession with users\n* Relentless execution\n\n### Building Innovation Culture\n\n* Reward experimentation\n* Tolerate fast failure\n* Flatten the idea pipeline\n* Remove fear of “stupid questions”\n\n### Balancing Speed and Stability\n\n* Use guardrails, not roadblocks\n* Don’t sacrifice security or ethics\n* Ship fast, but **learn faster**\n\n### Influence Without Authority\n\n* Use narrative storytelling\n* Data + emotion = buy-in\n* Empower, don’t command", duration: "1h" }],
+                lessons: [{
+                    title: "What Makes Visionary Tech Leaders?",
+                    content: "* Bold, clear vision\n* Willingness to bet on future\n* Obsession with users\n* Relentless execution\n\n### Building Innovation Culture\n\n* Reward experimentation\n* Tolerate fast failure\n* Flatten the idea pipeline\n* Remove fear of “stupid questions”\n\n### Balancing Speed and Stability\n\n* Use guardrails, not roadblocks\n* Don’t sacrifice security or ethics\n* Ship fast, but **learn faster**\n\n### Influence Without Authority\n\n* Use narrative storytelling\n* Data + emotion = buy-in\n* Empower, don’t command",
+                    duration: "1h"
+                }],
                 quiz: [
                     { questionText: "Visionary leaders:", options: ["Inspire bold direction", "Just manage servers", "Rename buttons"], correctAnswerIndex: 0 },
                     { questionText: "Innovation culture means:", options: ["Rewarding risk", "Limiting ideas", "Buying logos"], correctAnswerIndex: 0 },
@@ -883,7 +1180,6 @@ export async function seedInitialCourses() {
                 const validatedData = CourseSchema.omit({ 
                     id: true, 
                     progress: true,
-                    assessmentSubmissions: true,
                 }).passthrough().parse(dataWithDefaults);
                 
                 batch.set(newCourseDoc, validatedData);
@@ -901,5 +1197,3 @@ export async function seedInitialCourses() {
         console.log('All defined courses already exist in the database. Skipping seed.');
     }
 }
-
-    
