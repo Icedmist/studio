@@ -254,188 +254,125 @@ const aiCourse: NewCourse = {
     }
 };
 
-const advancedTechSkillsCourse: NewCourse = {
-    title: "Advanced Tech Skills Certification",
-    description: "Master cybersecurity, data science, and DevOps in one comprehensive course.",
-    longDescription: "Dive deep into the most critical areas of modern technology. This advanced course is designed for professionals looking to specialize and lead in the fields of cybersecurity, data science, and DevOps. You will learn to protect systems, analyze data for actionable insights, and automate infrastructure for seamless deployment.",
+const cybersecurityCourse: NewCourse = {
+    title: "Cybersecurity Advanced",
+    description: "Identify, model, and mitigate real-world security threats.",
+    longDescription: "Learn to perform ethical hacking and penetration testing, design and implement Zero Trust Architectures, write secure code, set up enterprise-level incident response plans, and secure infrastructure across networks, servers, and the cloud.",
     category: "Tech Skills",
     level: "Advanced",
     imageUrl: "https://placehold.co/600x400.png",
     duration: "24h",
-    instructor: "Dr. Evelyn Reed",
+    instructor: "The Security Division",
     price: 7000,
     modules: [
         {
-            title: "Module 1: Advanced Cybersecurity",
+            title: "Module 1: Advanced Threat Modeling & Attack Surface Analysis",
             lessons: [
-                { title: "Threat Modeling and Risk Assessment", duration: "1h 30m", completed: false },
-                { title: "Penetration Testing Methodologies", duration: "2h", completed: false },
-                { title: "Cloud Security Architecture (AWS, Azure)", duration: "2h 30m", completed: false },
-                { title: "Incident Response and Forensics", duration: "2h", completed: false },
+                { title: "What Is Threat Modeling?", duration: "2h", completed: false },
+                { title: "Analyzing the Attack Surface", duration: "2h", completed: false },
             ],
             quiz: [
-                {
-                    questionText: "What is the primary goal of threat modeling?",
-                    options: ["To find all vulnerabilities", "To identify and mitigate potential security threats early", "To write secure code", "To configure firewalls"],
-                    correctAnswerIndex: 1
-                },
-                {
-                    questionText: "Which phase of penetration testing involves actively trying to exploit vulnerabilities?",
-                    options: ["Reconnaissance", "Scanning", "Gaining Access", "Maintaining Access"],
-                    correctAnswerIndex: 2
-                },
-                {
-                    questionText: "What does 'defense in depth' refer to in cloud security?",
-                    options: ["A single, strong security control", "Layering multiple security controls", "Encrypting all data", "Using only one cloud provider"],
-                    correctAnswerIndex: 1
-                },
-                {
-                    questionText: "Which of the following is NOT a standard phase of the incident response lifecycle?",
-                    options: ["Preparation", "Detection & Analysis", "Public Disclosure", "Containment, Eradication & Recovery"],
-                    correctAnswerIndex: 2
-                },
-                {
-                    questionText: "What is the main purpose of a 'honeypot' in cybersecurity?",
-                    options: ["To store sensitive data securely", "To attract and study attackers", "To filter network traffic", "To back up system files"],
-                    correctAnswerIndex: 1
-                },
-                {
-                    questionText: "In digital forensics, what is the 'chain of custody'?",
-                    options: ["The order of network connections", "A log of all system commands", "The chronological documentation of evidence handling", "A list of all user accounts"],
-                    correctAnswerIndex: 2
-                },
+                { questionText: "What is the purpose of threat modeling?", options: ["Identify potential threats early", "Boost server speed", "Write CSS themes"], correctAnswerIndex: 0 },
+                { questionText: "STRIDE stands for:", options: ["Spoofing, Tampering, etc.", "Static Routing in DNS Engines", "Security Tracking Interface"], correctAnswerIndex: 0 },
+                { questionText: "Entry points include:", options: ["Login forms, APIs", "USB drives only", "Video files"], correctAnswerIndex: 0 },
+                { questionText: "Which of these is an asset?", options: ["Customer credentials", "CSS file", "Blog post"], correctAnswerIndex: 0 },
+                { questionText: "Which tool is used for visual threat maps?", options: ["Threat Dragon", "Nmap", "MySQL Workbench"], correctAnswerIndex: 0 },
+                { questionText: "Information disclosure is:", options: ["Unauthorized access to data", "Cookie sharing", "Font loading"], correctAnswerIndex: 0 },
             ]
         },
         {
-            title: "Module 2: Applied Data Science",
+            title: "Module 2: Penetration Testing & Ethical Hacking",
             lessons: [
-                { title: "Advanced Machine Learning Algorithms", duration: "2h", completed: false },
-                { title: "Big Data Technologies (Spark, Hadoop)", duration: "2h 30m", completed: false },
-                { title: "Natural Language Processing (NLP)", duration: "2h", completed: false },
-                { title: "Model Deployment and MLOps", duration: "1h 30m", completed: false },
+                { title: "The Pen Testing Lifecycle", duration: "2h", completed: false },
+                { title: "Red Team vs Blue Team", duration: "2h", completed: false },
             ],
             quiz: [
-                {
-                    questionText: "Which algorithm is commonly used for anomaly detection?",
-                    options: ["Linear Regression", "K-Means Clustering", "Isolation Forest", "Decision Tree"],
-                    correctAnswerIndex: 2
-                },
-                {
-                    questionText: "What is the primary advantage of Apache Spark over Hadoop MapReduce?",
-                    options: ["Lower cost", "In-memory data processing for faster performance", "Better security features", "Wider language support"],
-                    correctAnswerIndex: 1
-                },
-                {
-                    questionText: "What is 'lemmatization' in NLP?",
-                    options: ["Reducing words to their base or dictionary form", "Counting word frequencies", "Removing punctuation", "Identifying named entities"],
-                    correctAnswerIndex: 0
-                },
-                {
-                    questionText: "MLOps primarily focuses on:",
-                    options: ["Developing new machine learning models", "Visualizing data dashboards", "Automating and managing the lifecycle of machine learning models", "Training models on larger datasets"],
-                    correctAnswerIndex: 2
-                },
-                {
-                    questionText: "Which of these is a supervised learning task?",
-                    options: ["Customer segmentation", "Image classification", "Topic modeling", "Dimensionality reduction"],
-                    correctAnswerIndex: 1
-                },
-                {
-                    questionText: "What does 'TF-IDF' stand for?",
-                    options: ["Total Frequency - Inverse Data Frequency", "Term Frequency - Inverse Document Frequency", "Text Formatting - Inverse Data Formatting", "True False - Independent Dependent"],
-                    correctAnswerIndex: 1
-                },
+                { questionText: "Penetration testing is used to:", options: ["Simulate attacks", "Speed up data", "Resize images"], correctAnswerIndex: 0 },
+                { questionText: "The reconnaissance phase involves:", options: ["Info gathering", "Encryption", "Signing off users"], correctAnswerIndex: 0 },
+                { questionText: "Red teams are:", options: ["Ethical hackers", "Network engineers", "CSS coders"], correctAnswerIndex: 0 },
+                { questionText: "Metasploit is used for:", options: ["Exploiting vulnerabilities", "Coding themes", "Rendering HTML"], correctAnswerIndex: 0 },
+                { questionText: "Maintaining access means:", options: ["Backdoors", "CSS tokens", "File renaming"], correctAnswerIndex: 0 },
+                { questionText: "Burp Suite is for:", options: ["Web app testing", "Data visualization", "File storage"], correctAnswerIndex: 0 },
             ]
         },
         {
-            title: "Module 3: DevOps and Cloud Automation",
+            title: "Module 3: Zero Trust Architecture (ZTA)",
             lessons: [
-                { title: "Infrastructure as Code (Terraform, CloudFormation)", duration: "2h 30m", completed: false },
-                { title: "CI/CD Pipelines with Jenkins and GitLab CI", duration: "2h", completed: false },
-                { title: "Containerization with Docker and Kubernetes", duration: "2h 30m", completed: false },
-                { title: "Monitoring and Observability (Prometheus, Grafana)", duration: "2h", completed: false },
+                { title: "What Is Zero Trust?", duration: "2h", completed: false },
+                { title: "Implementing ZTA", duration: "2h", completed: false },
             ],
             quiz: [
-                {
-                    questionText: "What is the role of Terraform?",
-                    options: ["To run automated tests", "To build application code", "To provision and manage infrastructure as code", "To monitor application performance"],
-                    correctAnswerIndex: 2
-                },
-                {
-                    questionText: "In a CI/CD pipeline, what does 'CD' typically stand for?",
-                    options: ["Continuous Development", "Continuous Delivery/Deployment", "Code Documentation", "Critical Damage"],
-                    correctAnswerIndex: 1
-                },
-                {
-                    questionText: "What is the primary function of Kubernetes?",
-                    options: ["To build container images", "To orchestrate and manage containerized applications", "To store application code", "To provide a database service"],
-                    correctAnswerIndex: 1
-                },
-                {
-                    questionText: "Prometheus is a tool primarily used for:",
-                    options: ["Log aggregation", "Monitoring and time-series data collection", "Code linting", "Container building"],
-                    correctAnswerIndex: 1
-                },
-                {
-                    questionText: "A Dockerfile is used to:",
-                    options: ["Run a container", "Define how to build a Docker image", "Connect containers together", "Store container data"],
-                    correctAnswerIndex: 1
-                },
-                {
-                    questionText: "What is 'Canary Deployment'?",
-                    options: ["Deploying to all users at once", "Rolling back a failed deployment", "Gradually rolling out a new version to a small subset of users", "Deploying during off-peak hours"],
-                    correctAnswerIndex: 2
-                },
+                { questionText: "What does Zero Trust mean?", options: ["Verify everything", "Trust all users", "Disable MFA"], correctAnswerIndex: 0 },
+                { questionText: "ZTA discourages:", options: ["Implicit trust", "Passwords", "HTTPS"], correctAnswerIndex: 0 },
+                { questionText: "Microsegmentation involves:", options: ["Dividing networks", "Shortening URLs", "Scaling fonts"], correctAnswerIndex: 0 },
+                { questionText: "Least privilege means:", options: ["Only needed access", "Full admin rights", "CSS-only security"], correctAnswerIndex: 0 },
+                { questionText: "ZTA starts with:", options: ["Identity and access control", "Image optimization", "Token caching"], correctAnswerIndex: 0 },
+                { questionText: "Okta is a(n):", options: ["Identity provider", "API gateway", "Code formatter"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 4: Secure Coding & DevSecOps",
+            lessons: [
+                { title: "Common Code Vulnerabilities", duration: "2h", completed: false },
+                { title: "DevSecOps Integration", duration: "2h", completed: false },
+            ],
+            quiz: [
+                { questionText: "Secure coding helps prevent:", options: ["Exploits", "SEO loss", "Slow CSS"], correctAnswerIndex: 0 },
+                { questionText: "XSS stands for:", options: ["Cross-Site Scripting", "External Style Sheet", "XML Secure Stack"], correctAnswerIndex: 0 },
+                { questionText: "SQL injection targets:", options: ["Databases", "DNS", "APIs only"], correctAnswerIndex: 0 },
+                { questionText: "DevSecOps means:", options: ["Security baked into development", "DNS load balancing", "Code minification"], correctAnswerIndex: 0 },
+                { questionText: "SonarQube is for:", options: ["Static analysis", "UX design", "Hosting fonts"], correctAnswerIndex: 0 },
+                { questionText: "CSRF attacks can be prevented using:", options: ["Anti-CSRF tokens", "Margin spacing", "Console logging"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 5: Network & Cloud Security",
+            lessons: [
+                { title: "Network Security Concepts", duration: "2h", completed: false },
+                { title: "Cloud Security Musts", duration: "2h", completed: false },
+            ],
+            quiz: [
+                { questionText: "IDS is used to:", options: ["Detect intrusions", "Host blogs", "Load images"], correctAnswerIndex: 0 },
+                { questionText: "VPN stands for:", options: ["Virtual Private Network", "Variable Port Number", "Visual Packet Naming"], correctAnswerIndex: 0 },
+                { questionText: "IAM manages:", options: ["Access to resources", "Markdown styling", "XML errors"], correctAnswerIndex: 0 },
+                { questionText: "Cloudflare helps with:", options: ["DDoS protection", "Token creation", "DNS mirroring"], correctAnswerIndex: 0 },
+                { questionText: "S3 bucket policies are:", options: ["Access rules", "Font loaders", "Upload buttons"], correctAnswerIndex: 0 },
+                { questionText: "What is a Bastion host?", options: ["Secure jump server", "Firewall rule", "Image compression tool"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 6: Incident Response and Recovery",
+            lessons: [
+                { title: "The Incident Response Plan", duration: "2h", completed: false },
+                { title: "Digital Forensics Tasks", duration: "2h", completed: false },
+            ],
+            quiz: [
+                { questionText: "IR stands for:", options: ["Incident Response", "Infra Router", "Internal Repo"], correctAnswerIndex: 0 },
+                { questionText: "First stage of IR plan is:", options: ["Preparation", "Firing someone", "Rebooting server"], correctAnswerIndex: 0 },
+                { questionText: "Forensics analysts:", options: ["Analyze evidence", "Design logos", "Delete records"], correctAnswerIndex: 0 },
+                { questionText: "Malware analysis is part of:", options: ["IR process", "SEO audits", "Font security"], correctAnswerIndex: 0 },
+                { questionText: "Chain of custody ensures:", options: ["Evidence isn’t tampered", "Password length", "Theme backup"], correctAnswerIndex: 0 },
+                { questionText: "The SOC is:", options: ["Security Operations Center", "Static Optimization Cache", "Software Onboarding Console"], correctAnswerIndex: 0 },
             ]
         }
     ],
     finalAssessment: {
         questions: [
-            {
-                questionText: "In the context of the CIA triad in cybersecurity, what does 'Availability' ensure?",
-            },
-            {
-                questionText: "A SQL Injection attack is primarily aimed at which part of an application?",
-            },
-            {
-                questionText: "What is a key difference between supervised and unsupervised machine learning?",
-            },
-            {
-                questionText: "In data science, what is 'overfitting'?",
-            },
-            {
-                questionText: "What is the purpose of a `git commit` command in DevOps?",
-            },
-            {
-                questionText: "Which of the following is a core principle of DevOps?",
-            },
-            {
-                questionText: "What is a 'zero-day' vulnerability?",
-            },
-            {
-                questionText: "What type of machine learning model is a 'neural network'?",
-            },
-            {
-                questionText: "In Kubernetes, what is a 'Pod'?",
-            },
-            {
-                questionText: "What is the primary function of an Intrusion Detection System (IDS)?",
-            },
-            {
-                questionText: "The process of cleaning and transforming raw data into a usable format is called:",
-            },
-            {
-                questionText: "What is 'immutable infrastructure' in the context of DevOps?",
-            },
-            {
-                questionText: "Phishing is a type of attack that relies on:",
-            },
-            {
-                questionText: "Which metric is commonly used to evaluate the performance of a classification model?",
-            },
-            {
-                questionText: "What is the purpose of a CI (Continuous Integration) server like Jenkins?",
-            },
+            { questionText: "Explain STRIDE threat modeling." },
+            { questionText: "What’s the difference between pen testing and vulnerability scanning?" },
+            { questionText: "Name 3 tools used in penetration testing." },
+            { questionText: "Describe the principles of Zero Trust Architecture." },
+            { questionText: "How would you prevent XSS and SQL injection?" },
+            { questionText: "What is DevSecOps, and how is it implemented?" },
+            { questionText: "Explain the difference between IDS and IPS." },
+            { questionText: "What role does IAM play in cloud security?" },
+            { questionText: "What is the purpose of a bastion host?" },
+            { questionText: "List the 6 steps of the IR lifecycle." },
+            { questionText: "What are some tools used in log analysis during IR?" },
+            { questionText: "Give an example of microsegmentation in Zero Trust." },
+            { questionText: "Why is secure CI/CD important?" },
+            { questionText: "How would you isolate and respond to a ransomware attack?" },
+            { questionText: "Describe the difference between Red, Blue, and Purple teams." },
         ]
     }
 };
@@ -564,7 +501,7 @@ const apisAndBackendCourse: NewCourse = {
 };
 
 
-const allCourses: NewCourse[] = [aiCourse, advancedTechSkillsCourse, apiDevelopmentCourse, apisAndBackendCourse];
+const allCourses: NewCourse[] = [aiCourse, apiDevelopmentCourse, apisAndBackendCourse, cybersecurityCourse];
 
 export async function seedInitialCourses() {
     const coursesCollection = collection(db, 'courses');
