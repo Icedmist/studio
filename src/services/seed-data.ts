@@ -5,6 +5,7 @@ import { db } from '@/lib/firebase';
 import { collection, getDocs, writeBatch, doc } from "firebase/firestore";
 import type { NewCourse } from '@/lib/types';
 import { CourseSchema } from '@/lib/types';
+import { z } from 'zod';
 
 const apiDevelopmentCourse: NewCourse = {
     title: "API Development (Advanced)",
@@ -109,23 +110,25 @@ const apiDevelopmentCourse: NewCourse = {
             ]
         }
     ],
-    finalAssessment: [
-        { questionText: "What’s the difference between REST and GraphQL?" },
-        { questionText: "Describe a standard OAuth2 flow." },
-        { questionText: "What’s the purpose of the API Gateway?" },
-        { questionText: "Write a basic rate-limiter snippet in Node.js." },
-        { questionText: "How do you use Swagger to document an endpoint?" },
-        { questionText: "What is JWT, and how is it used in APIs?" },
-        { questionText: "Compare URI versioning and Header versioning." },
-        { questionText: "List two tools for monitoring live APIs." },
-        { questionText: "What’s the use of Postman environments?" },
-        { questionText: "Explain the difference between unit and integration tests." },
-        { questionText: "What does Redis help with in API design?" },
-        { questionText: "Give an example of caching headers." },
-        { questionText: "List 3 benefits of microservices architecture." },
-        { questionText: "What’s the use of service discovery in APIs?" },
-        { questionText: "Write a GET endpoint in Express that returns a paginated list of users." },
-    ]
+    finalAssessment: {
+        questions: [
+            { questionText: "What’s the difference between REST and GraphQL?" },
+            { questionText: "Describe a standard OAuth2 flow." },
+            { questionText: "What’s the purpose of the API Gateway?" },
+            { questionText: "Write a basic rate-limiter snippet in Node.js." },
+            { questionText: "How do you use Swagger to document an endpoint?" },
+            { questionText: "What is JWT, and how is it used in APIs?" },
+            { questionText: "Compare URI versioning and Header versioning." },
+            { questionText: "List two tools for monitoring live APIs." },
+            { questionText: "What’s the use of Postman environments?" },
+            { questionText: "Explain the difference between unit and integration tests." },
+            { questionText: "What does Redis help with in API design?" },
+            { questionText: "Give an example of caching headers." },
+            { questionText: "List 3 benefits of microservices architecture." },
+            { questionText: "What’s the use of service discovery in APIs?" },
+            { questionText: "Write a GET endpoint in Express that returns a paginated list of users." },
+        ]
+    }
 };
 
 const aiCourse: NewCourse = {
@@ -230,23 +233,25 @@ const aiCourse: NewCourse = {
             ]
         }
     ],
-    finalAssessment: [
-        { questionText: "Define Artificial Intelligence and its main goal." },
-        { questionText: "Name 3 branches of AI." },
-        { questionText: "What is supervised vs unsupervised learning?" },
-        { questionText: "In scikit-learn, what method is used to train a model?" },
-        { questionText: "Explain what a neural network does." },
-        { questionText: "What does CNN stand for, and what’s it used for?" },
-        { questionText: "Compare RNN and CNN." },
-        { questionText: "Define NLP and give two examples of its use." },
-        { questionText: "What is tokenization?" },
-        { questionText: "In SpaCy, `doc.ents` is used for what?" },
-        { questionText: "What does OpenCV do?" },
-        { questionText: "Explain the risks of biased AI." },
-        { questionText: "What is AGI?" },
-        { questionText: "How can we ensure ethical use of AI?" },
-        { questionText: "List 2 real-world applications of AI today." },
-    ]
+    finalAssessment: {
+        questions: [
+            { questionText: "Define Artificial Intelligence and its main goal." },
+            { questionText: "Name 3 branches of AI." },
+            { questionText: "What is supervised vs unsupervised learning?" },
+            { questionText: "In scikit-learn, what method is used to train a model?" },
+            { questionText: "Explain what a neural network does." },
+            { questionText: "What does CNN stand for, and what’s it used for?" },
+            { questionText: "Compare RNN and CNN." },
+            { questionText: "Define NLP and give two examples of its use." },
+            { questionText: "What is tokenization?" },
+            { questionText: "In SpaCy, `doc.ents` is used for what?" },
+            { questionText: "What does OpenCV do?" },
+            { questionText: "Explain the risks of biased AI." },
+            { questionText: "What is AGI?" },
+            { questionText: "How can we ensure ethical use of AI?" },
+            { questionText: "List 2 real-world applications of AI today." },
+        ]
+    }
 };
 
 const advancedTechSkillsCourse: NewCourse = {
@@ -384,56 +389,182 @@ const advancedTechSkillsCourse: NewCourse = {
             ]
         }
     ],
-    finalAssessment: [
-        {
-            questionText: "In the context of the CIA triad in cybersecurity, what does 'Availability' ensure?",
-        },
-        {
-            questionText: "A SQL Injection attack is primarily aimed at which part of an application?",
-        },
-        {
-            questionText: "What is a key difference between supervised and unsupervised machine learning?",
-        },
-        {
-            questionText: "In data science, what is 'overfitting'?",
-        },
-        {
-            questionText: "What is the purpose of a `git commit` command in DevOps?",
-        },
-        {
-            questionText: "Which of the following is a core principle of DevOps?",
-        },
-        {
-            questionText: "What is a 'zero-day' vulnerability?",
-        },
-        {
-            questionText: "What type of machine learning model is a 'neural network'?",
-        },
-        {
-            questionText: "In Kubernetes, what is a 'Pod'?",
-        },
-        {
-            questionText: "What is the primary function of an Intrusion Detection System (IDS)?",
-        },
-        {
-            questionText: "The process of cleaning and transforming raw data into a usable format is called:",
-        },
-        {
-            questionText: "What is 'immutable infrastructure' in the context of DevOps?",
-        },
-        {
-            questionText: "Phishing is a type of attack that relies on:",
-        },
-        {
-            questionText: "Which metric is commonly used to evaluate the performance of a classification model?",
-        },
-        {
-            questionText: "What is the purpose of a CI (Continuous Integration) server like Jenkins?",
-        },
-    ]
+    finalAssessment: {
+        questions: [
+            {
+                questionText: "In the context of the CIA triad in cybersecurity, what does 'Availability' ensure?",
+            },
+            {
+                questionText: "A SQL Injection attack is primarily aimed at which part of an application?",
+            },
+            {
+                questionText: "What is a key difference between supervised and unsupervised machine learning?",
+            },
+            {
+                questionText: "In data science, what is 'overfitting'?",
+            },
+            {
+                questionText: "What is the purpose of a `git commit` command in DevOps?",
+            },
+            {
+                questionText: "Which of the following is a core principle of DevOps?",
+            },
+            {
+                questionText: "What is a 'zero-day' vulnerability?",
+            },
+            {
+                questionText: "What type of machine learning model is a 'neural network'?",
+            },
+            {
+                questionText: "In Kubernetes, what is a 'Pod'?",
+            },
+            {
+                questionText: "What is the primary function of an Intrusion Detection System (IDS)?",
+            },
+            {
+                questionText: "The process of cleaning and transforming raw data into a usable format is called:",
+            },
+            {
+                questionText: "What is 'immutable infrastructure' in the context of DevOps?",
+            },
+            {
+                questionText: "Phishing is a type of attack that relies on:",
+            },
+            {
+                questionText: "Which metric is commonly used to evaluate the performance of a classification model?",
+            },
+            {
+                questionText: "What is the purpose of a CI (Continuous Integration) server like Jenkins?",
+            },
+        ]
+    }
 };
 
-const allCourses: NewCourse[] = [aiCourse, advancedTechSkillsCourse, apiDevelopmentCourse];
+const apisAndBackendCourse: NewCourse = {
+    title: "APIs and Backend Development",
+    description: "Real-world API development and backend system building.",
+    longDescription: "By the end of this course, you’ll be able to: Understand what APIs are and how they work, Build RESTful APIs using Node.js and Express, Understand and use GraphQL APIs, Secure your APIs with tokens and rate limiting, Connect APIs to databases, Test, deploy, and monitor backend systems.",
+    category: "Tech Skills",
+    level: "Intermediate",
+    imageUrl: "https://placehold.co/600x400.png",
+    duration: "12h",
+    instructor: "The Backend Brigade",
+    price: 5000,
+    modules: [
+        {
+            title: "Module 1: Understanding APIs",
+            lessons: [
+                { title: "What is an API?", duration: "1h", completed: false },
+                { title: "Types of APIs (REST, GraphQL)", duration: "1h", completed: false }
+            ],
+            quiz: [
+                { questionText: "API stands for:", options: ["Application Programming Interface", "Advanced Program Info", "Applied Python Integration"], correctAnswerIndex: 0 },
+                { questionText: "REST uses which format?", options: ["JSON", "MP3", "ZIP"], correctAnswerIndex: 0 },
+                { questionText: "POST is used to:", options: ["Create data", "Delete data", "Format buttons"], correctAnswerIndex: 0 },
+                { questionText: "WebSockets are good for:", options: ["Real-time communication", "Animation", "Static websites"], correctAnswerIndex: 0 },
+                { questionText: "A waiter analogy is used for:", options: ["APIs", "Routers", "Modems"], correctAnswerIndex: 0 },
+                { questionText: "GraphQL lets you:", options: ["Query exactly what you need", "Style HTML", "Format PDFs"], correctAnswerIndex: 0 }
+            ]
+        },
+        {
+            title: "Module 2: Building REST APIs with Node.js & Express",
+            lessons: [
+                { title: "Setting Up a Simple API", duration: "1h 30m", completed: false },
+                { title: "HTTP Methods in Action", duration: "1h 30m", completed: false }
+            ],
+            quiz: [
+                { questionText: "express.json() is used to:", options: ["Parse JSON in requests", "Animate headers", "Compress responses"], correctAnswerIndex: 0 },
+                { questionText: "The method for updating a record is:", options: ["PUT", "FETCH", "EXEC"], correctAnswerIndex: 0 },
+                { questionText: "POST is used to:", options: ["Create new data", "Log requests", "Format routes"], correctAnswerIndex: 0 },
+                { questionText: "Express is built on:", options: ["Node.js", "PHP", "Python"], correctAnswerIndex: 0 },
+                { questionText: "Port 3000 is:", options: ["Common dev port", "Airport gate", "SQL query"], correctAnswerIndex: 0 },
+                { questionText: "Route parameters are written as:", options: ["/users/:id", "/users.id", "<users=id>"], correctAnswerIndex: 0 }
+            ]
+        },
+        {
+            title: "Module 3: API Authentication & Security",
+            lessons: [
+                { title: "Securing APIs with JWT", duration: "1h", completed: false },
+                { title: "Rate Limiting and Basic Security", duration: "1h", completed: false }
+            ],
+            quiz: [
+                { questionText: "JWT stands for:", options: ["JSON Web Token", "Java Web Tool", "Just Want Tokens"], correctAnswerIndex: 0 },
+                { questionText: "An API key is:", options: ["Basic auth method", "CSS class", "Database name"], correctAnswerIndex: 0 },
+                { questionText: "Bearer <token> is used in:", options: ["Authorization header", "Image tag", "DNS lookup"], correctAnswerIndex: 0 },
+                { questionText: "OAuth2 allows:", options: ["Third-party login", "Styling pages", "UI testing"], correctAnswerIndex: 0 },
+                { questionText: "Rate limiting prevents:", options: ["API abuse", "JSON compression", "Route duplication"], correctAnswerIndex: 0 },
+                { questionText: "jsonwebtoken is used to:", options: ["Generate/verify tokens", "Run tests", "Connect databases"], correctAnswerIndex: 0 }
+            ]
+        },
+        {
+            title: "Module 4: Connecting APIs to Databases",
+            lessons: [
+                { title: "Integrating MongoDB with Mongoose", duration: "1h 30m", completed: false },
+                { title: "Creating API CRUD Endpoints", duration: "1h 30m", completed: false }
+            ],
+            quiz: [
+                { questionText: "Mongoose is used for:", options: ["MongoDB in Node.js", "Security testing", "UI animation"], correctAnswerIndex: 0 },
+                { questionText: "User.find() is used to:", options: ["Fetch users", "Generate tokens", "Render HTML"], correctAnswerIndex: 0 },
+                { questionText: "mongoose.connect() connects:", options: ["Node to DB", "API to frontend", "Two routers"], correctAnswerIndex: 0 },
+                { questionText: "POST + DB insert means:", options: ["Add data via API", "Delete everything", "Encrypt app"], correctAnswerIndex: 0 },
+                { questionText: "req.body contains:", options: ["Sent JSON data", "Environment config", "HTML tags"], correctAnswerIndex: 0 },
+                { questionText: "MongoDB stores documents in:", options: ["Collections", "Tables", "Spreadsheets"], correctAnswerIndex: 0 }
+            ]
+        },
+        {
+            title: "Module 5: GraphQL APIs",
+            lessons: [
+                { title: "Introduction to GraphQL", duration: "1h", completed: false },
+                { title: "Building a GraphQL Server with Apollo", duration: "1h", completed: false }
+            ],
+            quiz: [
+                { questionText: "GraphQL is a:", options: ["Query language", "Style guide", "Route config"], correctAnswerIndex: 0 },
+                { questionText: "GraphQL queries return:", options: ["Only requested fields", "All HTML", "SQL joins"], correctAnswerIndex: 0 },
+                { questionText: "Apollo Server helps:", options: ["Build GraphQL APIs", "Style buttons", "Upload files"], correctAnswerIndex: 0 },
+                { questionText: "typeDefs define:", options: ["Schema types", "SQL tables", "API routes"], correctAnswerIndex: 0 },
+                { questionText: "REST vs GraphQL key difference:", options: ["Number of endpoints", "Color of JSON", "Token format"], correctAnswerIndex: 0 },
+                { questionText: "GraphQL avoids:", options: ["Overfetching", "Encryption", "Styling"], correctAnswerIndex: 0 }
+            ]
+        },
+        {
+            title: "Module 6: Testing & Deploying Your Backend",
+            lessons: [
+                { title: "Automated API Testing with Jest", duration: "1h", completed: false },
+                { title: "Deploying to the Cloud (Render/Vercel)", duration: "1h", completed: false }
+            ],
+            quiz: [
+                { questionText: "Postman is used to:", options: ["Test APIs", "Draw UIs", "Generate CSS"], correctAnswerIndex: 0 },
+                { questionText: "Render is a:", options: ["Deployment platform", "Design tool", "SQL generator"], correctAnswerIndex: 0 },
+                { questionText: "Jest is for:", options: ["Unit testing", "Authorization", "Routing"], correctAnswerIndex: 0 },
+                { questionText: "MongoDB Atlas is:", options: ["Cloud DB", "PDF viewer", "API builder"], correctAnswerIndex: 0 },
+                { questionText: ".env files store:", options: ["Secrets and variables", "CSS", "Font styles"], correctAnswerIndex: 0 },
+                { questionText: "supertest is used for:", options: ["API testing", "GraphQL hosting", "HTML debugging"], correctAnswerIndex: 0 }
+            ]
+        }
+    ],
+    finalAssessment: {
+        questions: [
+            { questionText: "Define API and give an analogy." },
+            { questionText: "What are the 4 core HTTP methods in REST?" },
+            { questionText: "Write a simple GET route in Express.js." },
+            { questionText: "What is JWT used for?" },
+            { questionText: "Show an example of a POST request with JSON." },
+            { questionText: "What’s the difference between REST and GraphQL?" },
+            { questionText: "How does rate limiting help protect APIs?" },
+            { questionText: "What is `mongoose.connect()` used for?" },
+            { questionText: "Name two authentication strategies." },
+            { questionText: "What are resolvers in GraphQL?" },
+            { questionText: "Describe the role of Postman." },
+            { questionText: "How do you deploy an API to Render?" },
+            { questionText: "Explain the purpose of environment variables." },
+            { questionText: "What is the use of `express.json()`?" },
+            { questionText: "Write an example of a database-connected API endpoint." },
+        ]
+    }
+};
+
+
+const allCourses: NewCourse[] = [aiCourse, advancedTechSkillsCourse, apiDevelopmentCourse, apisAndBackendCourse];
 
 export async function seedInitialCourses() {
     const coursesCollection = collection(db, 'courses');
@@ -446,27 +577,20 @@ export async function seedInitialCourses() {
         console.log(`Found ${coursesToAdd.length} new courses to seed...`);
         const batch = writeBatch(db);
         coursesToAdd.forEach(courseData => {
-            const newCourseDoc = doc(coursesCollection); 
+            const newCourseDoc = doc(coursesCollection);
              // Validate data against the schema before setting
             try {
-                const validatedData = CourseSchema.omit({ id: true, progress: true, modules: true }).extend({
-                    modules: z.array(z.object({
-                        title: z.string(),
-                        lessons: z.array(z.object({
-                            title: z.string(),
-                            duration: z.string(),
-                            completed: z.boolean(),
-                        })),
-                        quiz: z.array(z.object({
-                            questionText: z.string(),
-                            options: z.array(z.string()),
-                            correctAnswerIndex: z.number(),
-                        })).optional()
-                    }))
+                const validatedData = CourseSchema.omit({ 
+                    id: true, 
+                    progress: true,
                 }).passthrough().parse(courseData);
                 batch.set(newCourseDoc, validatedData);
             } catch(e) {
-                console.error("Course data validation failed for:", courseData.title, e);
+                if (e instanceof z.ZodError) {
+                    console.error("Course data validation failed for:", courseData.title, e.errors);
+                } else {
+                    console.error("An unexpected error occurred during validation for:", courseData.title, e);
+                }
             }
         });
         await batch.commit();
