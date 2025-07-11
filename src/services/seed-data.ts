@@ -109,25 +109,23 @@ const apiDevelopmentCourse: NewCourse = {
             ]
         }
     ],
-    finalAssessment: {
-        questions: [
-            { questionText: "What’s the difference between REST and GraphQL?" },
-            { questionText: "Describe a standard OAuth2 flow." },
-            { questionText: "What’s the purpose of the API Gateway?" },
-            { questionText: "Write a basic rate-limiter snippet in Node.js." },
-            { questionText: "How do you use Swagger to document an endpoint?" },
-            { questionText: "What is JWT, and how is it used in APIs?" },
-            { questionText: "Compare URI versioning and Header versioning." },
-            { questionText: "List two tools for monitoring live APIs." },
-            { questionText: "What’s the use of Postman environments?" },
-            { questionText: "Explain the difference between unit and integration tests." },
-            { questionText: "What does Redis help with in API design?" },
-            { questionText: "Give an example of caching headers." },
-            { questionText: "List 3 benefits of microservices architecture." },
-            { questionText: "What’s the use of service discovery in APIs?" },
-            { questionText: "Write a GET endpoint in Express that returns a paginated list of users." },
-        ]
-    }
+    finalAssessment: [
+        { questionText: "What’s the difference between REST and GraphQL?" },
+        { questionText: "Describe a standard OAuth2 flow." },
+        { questionText: "What’s the purpose of the API Gateway?" },
+        { questionText: "Write a basic rate-limiter snippet in Node.js." },
+        { questionText: "How do you use Swagger to document an endpoint?" },
+        { questionText: "What is JWT, and how is it used in APIs?" },
+        { questionText: "Compare URI versioning and Header versioning." },
+        { questionText: "List two tools for monitoring live APIs." },
+        { questionText: "What’s the use of Postman environments?" },
+        { questionText: "Explain the difference between unit and integration tests." },
+        { questionText: "What does Redis help with in API design?" },
+        { questionText: "Give an example of caching headers." },
+        { questionText: "List 3 benefits of microservices architecture." },
+        { questionText: "What’s the use of service discovery in APIs?" },
+        { questionText: "Write a GET endpoint in Express that returns a paginated list of users." },
+    ]
 };
 
 const aiCourse: NewCourse = {
@@ -232,25 +230,23 @@ const aiCourse: NewCourse = {
             ]
         }
     ],
-    finalAssessment: {
-        questions: [
-            { questionText: "Define Artificial Intelligence and its main goal." },
-            { questionText: "Name 3 branches of AI." },
-            { questionText: "What is supervised vs unsupervised learning?" },
-            { questionText: "In scikit-learn, what method is used to train a model?" },
-            { questionText: "Explain what a neural network does." },
-            { questionText: "What does CNN stand for, and what’s it used for?" },
-            { questionText: "Compare RNN and CNN." },
-            { questionText: "Define NLP and give two examples of its use." },
-            { questionText: "What is tokenization?" },
-            { questionText: "In SpaCy, `doc.ents` is used for what?" },
-            { questionText: "What does OpenCV do?" },
-            { questionText: "Explain the risks of biased AI." },
-            { questionText: "What is AGI?" },
-            { questionText: "How can we ensure ethical use of AI?" },
-            { questionText: "List 2 real-world applications of AI today." },
-        ]
-    }
+    finalAssessment: [
+        { questionText: "Define Artificial Intelligence and its main goal." },
+        { questionText: "Name 3 branches of AI." },
+        { questionText: "What is supervised vs unsupervised learning?" },
+        { questionText: "In scikit-learn, what method is used to train a model?" },
+        { questionText: "Explain what a neural network does." },
+        { questionText: "What does CNN stand for, and what’s it used for?" },
+        { questionText: "Compare RNN and CNN." },
+        { questionText: "Define NLP and give two examples of its use." },
+        { questionText: "What is tokenization?" },
+        { questionText: "In SpaCy, `doc.ents` is used for what?" },
+        { questionText: "What does OpenCV do?" },
+        { questionText: "Explain the risks of biased AI." },
+        { questionText: "What is AGI?" },
+        { questionText: "How can we ensure ethical use of AI?" },
+        { questionText: "List 2 real-world applications of AI today." },
+    ]
 };
 
 const advancedTechSkillsCourse: NewCourse = {
@@ -388,55 +384,53 @@ const advancedTechSkillsCourse: NewCourse = {
             ]
         }
     ],
-    finalAssessment: {
-        questions: [
-            {
-                questionText: "In the context of the CIA triad in cybersecurity, what does 'Availability' ensure?",
-            },
-            {
-                questionText: "A SQL Injection attack is primarily aimed at which part of an application?",
-            },
-            {
-                questionText: "What is a key difference between supervised and unsupervised machine learning?",
-            },
-            {
-                questionText: "In data science, what is 'overfitting'?",
-            },
-            {
-                questionText: "What is the purpose of a `git commit` command in DevOps?",
-            },
-            {
-                questionText: "Which of the following is a core principle of DevOps?",
-            },
-            {
-                questionText: "What is a 'zero-day' vulnerability?",
-            },
-            {
-                questionText: "What type of machine learning model is a 'neural network'?",
-            },
-            {
-                questionText: "In Kubernetes, what is a 'Pod'?",
-            },
-            {
-                questionText: "What is the primary function of an Intrusion Detection System (IDS)?",
-            },
-            {
-                questionText: "The process of cleaning and transforming raw data into a usable format is called:",
-            },
-            {
-                questionText: "What is 'immutable infrastructure' in the context of DevOps?",
-            },
-            {
-                questionText: "Phishing is a type of attack that relies on:",
-            },
-            {
-                questionText: "Which metric is commonly used to evaluate the performance of a classification model?",
-            },
-            {
-                questionText: "What is the purpose of a CI (Continuous Integration) server like Jenkins?",
-            },
-        ]
-    }
+    finalAssessment: [
+        {
+            questionText: "In the context of the CIA triad in cybersecurity, what does 'Availability' ensure?",
+        },
+        {
+            questionText: "A SQL Injection attack is primarily aimed at which part of an application?",
+        },
+        {
+            questionText: "What is a key difference between supervised and unsupervised machine learning?",
+        },
+        {
+            questionText: "In data science, what is 'overfitting'?",
+        },
+        {
+            questionText: "What is the purpose of a `git commit` command in DevOps?",
+        },
+        {
+            questionText: "Which of the following is a core principle of DevOps?",
+        },
+        {
+            questionText: "What is a 'zero-day' vulnerability?",
+        },
+        {
+            questionText: "What type of machine learning model is a 'neural network'?",
+        },
+        {
+            questionText: "In Kubernetes, what is a 'Pod'?",
+        },
+        {
+            questionText: "What is the primary function of an Intrusion Detection System (IDS)?",
+        },
+        {
+            questionText: "The process of cleaning and transforming raw data into a usable format is called:",
+        },
+        {
+            questionText: "What is 'immutable infrastructure' in the context of DevOps?",
+        },
+        {
+            questionText: "Phishing is a type of attack that relies on:",
+        },
+        {
+            questionText: "Which metric is commonly used to evaluate the performance of a classification model?",
+        },
+        {
+            questionText: "What is the purpose of a CI (Continuous Integration) server like Jenkins?",
+        },
+    ]
 };
 
 const allCourses: NewCourse[] = [aiCourse, advancedTechSkillsCourse, apiDevelopmentCourse];
