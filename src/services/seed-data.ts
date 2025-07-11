@@ -7,6 +7,129 @@ import type { NewCourse } from '@/lib/types';
 import { CourseSchema } from '@/lib/types';
 import { z } from 'zod';
 
+const aiCourse: NewCourse = {
+    title: "Artificial Intelligence",
+    description: "An intensive course covering the foundations, applications, and ethical considerations of AI.",
+    longDescription: "This advanced course provides a comprehensive overview of Artificial Intelligence, from its theoretical and mathematical foundations to its real-world applications in computer vision, NLP, and decision-making. Students will learn to build AI systems using Python, understand the nuances of AI ethics and bias, and become capable of leading AI projects and research.",
+    category: "AI & Machine Learning",
+    level: "Advanced",
+    imageUrl: "https://placehold.co/600x400.png",
+    duration: "18h",
+    instructor: "The AI Faculty",
+    price: 7000,
+    modules: [
+        {
+            title: "Module 1: The Foundations of Artificial Intelligence",
+            lessons: [
+                { title: "What Is AI and Key Concepts", duration: "1h 30m", completed: false },
+                { title: "Branches of AI and History", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "The Turing Test evaluates:", options: ["Machine intelligence", "Internet speed", "CPU temperature"], correctAnswerIndex: 0 },
+                { questionText: "AI agents interact with:", options: ["Environments", "Data cables", "HTML pages"], correctAnswerIndex: 0 },
+                { questionText: "NLP stands for:", options: ["Natural Language Processing", "Network Layer Protocol", "New Logic Path"], correctAnswerIndex: 0 },
+                { questionText: "An expert system is based on:", options: ["Rules and logic", "Sound and graphics", "CSS and HTML"], correctAnswerIndex: 0 },
+                { questionText: "Machine Learning enables:", options: ["Learning from data", "Reading JavaScript", "Spinning hard drives"], correctAnswerIndex: 0 },
+                { questionText: "A robot is an AI that:", options: ["Interacts with the physical world", "Edits photos", "Plays MP3s"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 2: Machine Learning in Depth",
+            lessons: [
+                { title: "Types of Machine Learning", duration: "1h 30m", completed: false },
+                { title: "Core ML Concepts and Code", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "Supervised learning uses:", options: ["Labeled data", "Random loops", "Audio signals"], correctAnswerIndex: 0 },
+                { questionText: "The purpose of a model is to:", options: ["Map inputs to outputs", "Beautify data", "Format pages"], correctAnswerIndex: 0 },
+                { questionText: "Reinforcement learning learns by:", options: ["Trial and error", "HTML parsing", "Screenshotting"], correctAnswerIndex: 0 },
+                { questionText: "fit() function is used to:", options: ["Train a model", "Plot a graph", "Import JSON"], correctAnswerIndex: 0 },
+                { questionText: "A loss function measures:", options: ["Prediction errors", "File sizes", "Speed"], correctAnswerIndex: 0 },
+                { questionText: "Backpropagation is used in:", options: ["Neural networks", "CSS", "Data scraping"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 3: Deep Learning and Neural Networks",
+            lessons: [
+                { title: "Introduction to Neural Networks", duration: "1h 30m", completed: false },
+                { title: "Types of Networks and TensorFlow Example", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "CNNs are used for:", options: ["Images", "Text docs", "Audio only"], correctAnswerIndex: 0 },
+                { questionText: "An epoch is:", options: ["One full training pass", "A plot style", "An API method"], correctAnswerIndex: 0 },
+                { questionText: "RNNs work well with:", options: ["Sequences", "Buttons", "Tables"], correctAnswerIndex: 0 },
+                { questionText: "GANs are used to:", options: ["Generate new data", "Encrypt passwords", "Write SQL"], correctAnswerIndex: 0 },
+                { questionText: "TensorFlow is a:", options: ["Deep learning library", "Browser", "CMS"], correctAnswerIndex: 0 },
+                { questionText: "Activation functions decide:", options: ["Node output", "URL path", "Font weight"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 4: Natural Language Processing (NLP)",
+            lessons: [
+                { title: "Understanding NLP Tasks", duration: "1h 30m", completed: false },
+                { title: "Practical NLP with SpaCy", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "NLP helps with:", options: ["Language tasks", "Drawing shapes", "Graphing"], correctAnswerIndex: 0 },
+                { questionText: "Tokenization breaks text into:", options: ["Words/tokens", "Folders", "Emails"], correctAnswerIndex: 0 },
+                { questionText: "NER finds:", options: ["Entities in text", "Passwords", "Ping speeds"], correctAnswerIndex: 0 },
+                { questionText: "Sentiment analysis detects:", options: ["Emotion", "Spam", "Graph colors"], correctAnswerIndex: 0 },
+                { questionText: "spacy.load() loads:", options: ["NLP model", "GraphQL query", "CSS theme"], correctAnswerIndex: 0 },
+                { questionText: "Text generation is done by:", options: ["Language models", "React components", "Loops"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 5: Computer Vision and Real-World AI",
+            lessons: [
+                { title: "Intro to Computer Vision", duration: "1h 30m", completed: false },
+                { title: "Computer Vision with OpenCV", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "OpenCV is used for:", options: ["Image processing", "APIs", "Game engines"], correctAnswerIndex: 0 },
+                { questionText: "OCR means:", options: ["Optical Character Recognition", "Online CSS Resource", "Object Circular Rendering"], correctAnswerIndex: 0 },
+                { questionText: "cv2.imread() loads:", options: ["Images", "APIs", "Fonts"], correctAnswerIndex: 0 },
+                { questionText: "Object tracking is used in:", options: ["Surveillance", "HTML parsing", "SQL Joins"], correctAnswerIndex: 0 },
+                { questionText: "Medical imaging is part of:", options: ["AI in healthcare", "Databases", "Frontend dev"], correctAnswerIndex: 0 },
+                { questionText: "cv2.imshow() displays:", options: ["Image windows", "JSON", "Web pages"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 6: Ethics, AI Safety, and the Future",
+            lessons: [
+                { title: "AI Ethics and Bias", duration: "1h 30m", completed: false },
+                { title: "AI Safety and the Future", duration: "1h 30m", completed: false },
+            ],
+            quiz: [
+                { questionText: "AI bias is caused by:", options: ["Biased training data", "CPU errors", "Loud speakers"], correctAnswerIndex: 0 },
+                { questionText: "AI ethics involves:", options: ["Fairness, privacy, transparency", "Styling rules", "Loops and breaks"], correctAnswerIndex: 0 },
+                { questionText: "AGI means:", options: ["Artificial General Intelligence", "Advanced Graphical Interface", "API Governance Index"], correctAnswerIndex: 0 },
+                { questionText: "Explainable AI is:", options: ["Transparent decision-making", "Graph styling", "Audio filters"], correctAnswerIndex: 0 },
+                { questionText: "Job displacement by AI is:", options: ["Real concern", "Science fiction", "Browser setting"], correctAnswerIndex: 0 },
+                { questionText: "AI safety ensures:", options: ["Human-friendly outcomes", "Keyboard security", "JavaScript efficiency"], correctAnswerIndex: 0 },
+            ]
+        }
+    ],
+    finalAssessment: {
+        questions: [
+            { questionText: "Define Artificial Intelligence and its main goal." },
+            { questionText: "Name 3 branches of AI." },
+            { questionText: "What is supervised vs unsupervised learning?" },
+            { questionText: "In scikit-learn, what method is used to train a model?" },
+            { questionText: "Explain what a neural network does." },
+            { questionText: "What does CNN stand for, and what’s it used for?" },
+            { questionText: "Compare RNN and CNN." },
+            { questionText: "Define NLP and give two examples of its use." },
+            { questionText: "What is tokenization?" },
+            { questionText: "In SpaCy, `doc.ents` is used for what?" },
+            { questionText: "What does OpenCV do?" },
+            { questionText: "Explain the risks of biased AI." },
+            { questionText: "What is AGI?" },
+            { questionText: "How can we ensure ethical use of AI?" },
+            { questionText: "List 2 real-world applications of AI today." },
+        ]
+    }
+};
+
 const apiDevelopmentCourse: NewCourse = {
     title: "API Development (Advanced)",
     description: "Designing, scaling, securing, and managing modern APIs.",
@@ -127,129 +250,6 @@ const apiDevelopmentCourse: NewCourse = {
             { questionText: "List 3 benefits of microservices architecture." },
             { questionText: "What’s the use of service discovery in APIs?" },
             { questionText: "Write a GET endpoint in Express that returns a paginated list of users." },
-        ]
-    }
-};
-
-const aiCourse: NewCourse = {
-    title: "Artificial Intelligence",
-    description: "An intensive course covering the foundations, applications, and ethical considerations of AI.",
-    longDescription: "This advanced course provides a comprehensive overview of Artificial Intelligence, from its theoretical and mathematical foundations to its real-world applications in computer vision, NLP, and decision-making. Students will learn to build AI systems using Python, understand the nuances of AI ethics and bias, and become capable of leading AI projects and research.",
-    category: "AI & Machine Learning",
-    level: "Advanced",
-    imageUrl: "https://placehold.co/600x400.png",
-    duration: "18h",
-    instructor: "The AI Faculty",
-    price: 7000,
-    modules: [
-        {
-            title: "Module 1: The Foundations of Artificial Intelligence",
-            lessons: [
-                { title: "What Is AI and Key Concepts", duration: "1h 30m", completed: false },
-                { title: "Branches of AI and History", duration: "1h 30m", completed: false },
-            ],
-            quiz: [
-                { questionText: "The Turing Test evaluates:", options: ["Machine intelligence", "Internet speed", "CPU temperature"], correctAnswerIndex: 0 },
-                { questionText: "AI agents interact with:", options: ["Environments", "Data cables", "HTML pages"], correctAnswerIndex: 0 },
-                { questionText: "NLP stands for:", options: ["Natural Language Processing", "Network Layer Protocol", "New Logic Path"], correctAnswerIndex: 0 },
-                { questionText: "An expert system is based on:", options: ["Rules and logic", "Sound and graphics", "CSS and HTML"], correctAnswerIndex: 0 },
-                { questionText: "Machine Learning enables:", options: ["Learning from data", "Reading JavaScript", "Spinning hard drives"], correctAnswerIndex: 0 },
-                { questionText: "A robot is an AI that:", options: ["Interacts with the physical world", "Edits photos", "Plays MP3s"], correctAnswerIndex: 0 },
-            ]
-        },
-        {
-            title: "Module 2: Machine Learning in Depth",
-            lessons: [
-                { title: "Types of Machine Learning", duration: "1h 30m", completed: false },
-                { title: "Core ML Concepts and Code", duration: "1h 30m", completed: false },
-            ],
-            quiz: [
-                { questionText: "Supervised learning uses:", options: ["Labeled data", "Random loops", "Audio signals"], correctAnswerIndex: 0 },
-                { questionText: "The purpose of a model is to:", options: ["Map inputs to outputs", "Beautify data", "Format pages"], correctAnswerIndex: 0 },
-                { questionText: "Reinforcement learning learns by:", options: ["Trial and error", "HTML parsing", "Screenshotting"], correctAnswerIndex: 0 },
-                { questionText: "fit() function is used to:", options: ["Train a model", "Plot a graph", "Import JSON"], correctAnswerIndex: 0 },
-                { questionText: "A loss function measures:", options: ["Prediction errors", "File sizes", "Speed"], correctAnswerIndex: 0 },
-                { questionText: "Backpropagation is used in:", options: ["Neural networks", "CSS", "Data scraping"], correctAnswerIndex: 0 },
-            ]
-        },
-        {
-            title: "Module 3: Deep Learning and Neural Networks",
-            lessons: [
-                { title: "Introduction to Neural Networks", duration: "1h 30m", completed: false },
-                { title: "Types of Networks and TensorFlow Example", duration: "1h 30m", completed: false },
-            ],
-            quiz: [
-                { questionText: "CNNs are used for:", options: ["Images", "Text docs", "Audio only"], correctAnswerIndex: 0 },
-                { questionText: "An epoch is:", options: ["One full training pass", "A plot style", "An API method"], correctAnswerIndex: 0 },
-                { questionText: "RNNs work well with:", options: ["Sequences", "Buttons", "Tables"], correctAnswerIndex: 0 },
-                { questionText: "GANs are used to:", options: ["Generate new data", "Encrypt passwords", "Write SQL"], correctAnswerIndex: 0 },
-                { questionText: "TensorFlow is a:", options: ["Deep learning library", "Browser", "CMS"], correctAnswerIndex: 0 },
-                { questionText: "Activation functions decide:", options: ["Node output", "URL path", "Font weight"], correctAnswerIndex: 0 },
-            ]
-        },
-        {
-            title: "Module 4: Natural Language Processing (NLP)",
-            lessons: [
-                { title: "Understanding NLP Tasks", duration: "1h 30m", completed: false },
-                { title: "Practical NLP with SpaCy", duration: "1h 30m", completed: false },
-            ],
-            quiz: [
-                { questionText: "NLP helps with:", options: ["Language tasks", "Drawing shapes", "Graphing"], correctAnswerIndex: 0 },
-                { questionText: "Tokenization breaks text into:", options: ["Words/tokens", "Folders", "Emails"], correctAnswerIndex: 0 },
-                { questionText: "NER finds:", options: ["Entities in text", "Passwords", "Ping speeds"], correctAnswerIndex: 0 },
-                { questionText: "Sentiment analysis detects:", options: ["Emotion", "Spam", "Graph colors"], correctAnswerIndex: 0 },
-                { questionText: "spacy.load() loads:", options: ["NLP model", "GraphQL query", "CSS theme"], correctAnswerIndex: 0 },
-                { questionText: "Text generation is done by:", options: ["Language models", "React components", "Loops"], correctAnswerIndex: 0 },
-            ]
-        },
-        {
-            title: "Module 5: Computer Vision and Real-World AI",
-            lessons: [
-                { title: "Intro to Computer Vision", duration: "1h 30m", completed: false },
-                { title: "Computer Vision with OpenCV", duration: "1h 30m", completed: false },
-            ],
-            quiz: [
-                { questionText: "OpenCV is used for:", options: ["Image processing", "APIs", "Game engines"], correctAnswerIndex: 0 },
-                { questionText: "OCR means:", options: ["Optical Character Recognition", "Online CSS Resource", "Object Circular Rendering"], correctAnswerIndex: 0 },
-                { questionText: "cv2.imread() loads:", options: ["Images", "APIs", "Fonts"], correctAnswerIndex: 0 },
-                { questionText: "Object tracking is used in:", options: ["Surveillance", "HTML parsing", "SQL Joins"], correctAnswerIndex: 0 },
-                { questionText: "Medical imaging is part of:", options: ["AI in healthcare", "Databases", "Frontend dev"], correctAnswerIndex: 0 },
-                { questionText: "cv2.imshow() displays:", options: ["Image windows", "JSON", "Web pages"], correctAnswerIndex: 0 },
-            ]
-        },
-        {
-            title: "Module 6: Ethics, AI Safety, and the Future",
-            lessons: [
-                { title: "AI Ethics and Bias", duration: "1h 30m", completed: false },
-                { title: "AI Safety and the Future", duration: "1h 30m", completed: false },
-            ],
-            quiz: [
-                { questionText: "AI bias is caused by:", options: ["Biased training data", "CPU errors", "Loud speakers"], correctAnswerIndex: 0 },
-                { questionText: "AI ethics involves:", options: ["Fairness, privacy, transparency", "Styling rules", "Loops and breaks"], correctAnswerIndex: 0 },
-                { questionText: "AGI means:", options: ["Artificial General Intelligence", "Advanced Graphical Interface", "API Governance Index"], correctAnswerIndex: 0 },
-                { questionText: "Explainable AI is:", options: ["Transparent decision-making", "Graph styling", "Audio filters"], correctAnswerIndex: 0 },
-                { questionText: "Job displacement by AI is:", options: ["Real concern", "Science fiction", "Browser setting"], correctAnswerIndex: 0 },
-                { questionText: "AI safety ensures:", options: ["Human-friendly outcomes", "Keyboard security", "JavaScript efficiency"], correctAnswerIndex: 0 },
-            ]
-        }
-    ],
-    finalAssessment: {
-        questions: [
-            { questionText: "Define Artificial Intelligence and its main goal." },
-            { questionText: "Name 3 branches of AI." },
-            { questionText: "What is supervised vs unsupervised learning?" },
-            { questionText: "In scikit-learn, what method is used to train a model?" },
-            { questionText: "Explain what a neural network does." },
-            { questionText: "What does CNN stand for, and what’s it used for?" },
-            { questionText: "Compare RNN and CNN." },
-            { questionText: "Define NLP and give two examples of its use." },
-            { questionText: "What is tokenization?" },
-            { questionText: "In SpaCy, `doc.ents` is used for what?" },
-            { questionText: "What does OpenCV do?" },
-            { questionText: "Explain the risks of biased AI." },
-            { questionText: "What is AGI?" },
-            { questionText: "How can we ensure ethical use of AI?" },
-            { questionText: "List 2 real-world applications of AI today." },
         ]
     }
 };
@@ -500,8 +500,130 @@ const apisAndBackendCourse: NewCourse = {
     }
 };
 
+const techLeadershipCourse: NewCourse = {
+    title: "Tech Leadership",
+    description: "Transforming skilled developers into strategic, visionary, and effective tech leaders.",
+    longDescription: "This course covers the essential skills for tech leadership, including managing development teams, aligning goals, resolving conflicts, making strategic technical decisions, scaling teams and processes, and communicating effectively with all stakeholders.",
+    category: "Tech Skills",
+    level: "Advanced",
+    imageUrl: "https://placehold.co/600x400.png",
+    duration: "24h",
+    instructor: "The Visionaries",
+    price: 7000,
+    modules: [
+        {
+            title: "Module 1: The Mindset of a Tech Leader",
+            lessons: [
+                { title: "From Coder to Leader", duration: "2h", completed: false },
+                { title: "Leadership vs Management", duration: "2h", completed: false },
+            ],
+            quiz: [
+                { questionText: "A tech leader focuses on:", options: ["Empowering teams", "Writing solo code only", "Designing marketing flyers"], correctAnswerIndex: 0 },
+                { questionText: "Leadership vs Management difference?", options: ["Vision vs Process", "Code vs UI", "Design vs Branding"], correctAnswerIndex: 0 },
+                { questionText: "Tech leadership requires:", options: ["Strategy + empathy", "Photoshop", "Faster typing"], correctAnswerIndex: 0 },
+                { questionText: "Engineering Manager role includes:", options: ["Removing blockers", "Drawing UML", "Formatting emails"], correctAnswerIndex: 0 },
+                { questionText: "A CTO sets:", options: ["Tech vision", "CSS themes", "Firewall names"], correctAnswerIndex: 0 },
+                { questionText: "One key trait of a leader:", options: ["Accountability", "Popularity", "Short emails"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 2: Building and Leading Teams",
+            lessons: [
+                { title: "Team Composition and Goals", duration: "2h", completed: false },
+                { title: "Feedback & Performance", duration: "2h", completed: false },
+            ],
+            quiz: [
+                { questionText: "SMART goal means:", options: ["Specific, Measurable, etc.", "Speedy, Marketable, etc.", "Snappy, Modular, etc."], correctAnswerIndex: 0 },
+                { questionText: "Team mix should include:", options: ["Diverse experience levels", "Same skill levels", "Only seniors"], correctAnswerIndex: 0 },
+                { questionText: "Good standups last:", options: ["15 minutes", "1 hour", "Until lunch"], correctAnswerIndex: 0 },
+                { questionText: "Feedback should be:", options: ["Timely and private when negative", "Shouted", "Avoided completely"], correctAnswerIndex: 0 },
+                { questionText: "Role clarity helps:", options: ["Reduce burnout", "Increase marketing", "Resize code"], correctAnswerIndex: 0 },
+                { questionText: "Hiring should prioritize:", options: ["Adaptability", "Font size knowledge", "Beard length"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 3: Technical Decision-Making",
+            lessons: [
+                { title: "Frameworks for Decision-Making", duration: "2h", completed: false },
+                { title: "Communicating Decisions", duration: "2h", completed: false },
+            ],
+            quiz: [
+                { questionText: "Leaders decide between:", options: ["Build vs buy", "Code vs design", "HTML vs CSS"], correctAnswerIndex: 0 },
+                { questionText: "Trade-off matrix is used for:", options: ["Comparing choices", "UI themes", "Button spacing"], correctAnswerIndex: 0 },
+                { questionText: "Event-driven architecture benefits:", options: ["Loose coupling", "Monolithic builds", "Drag and drop"], correctAnswerIndex: 0 },
+                { questionText: "Technical debt means:", options: ["Delayed costs from shortcuts", "Data loss", "Slow fonts"], correctAnswerIndex: 0 },
+                { questionText: "TAM stands for:", options: ["Total Addressable Market", "Technical API Method", "Tool Audit Metrics"], correctAnswerIndex: 0 },
+                { questionText: "Transparency builds:", options: ["Trust", "UI bounce", "Static routing"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 4: Scaling Teams, Systems, and Culture",
+            lessons: [
+                { title: "Scaling Teams and Culture", duration: "2h", completed: false },
+                { title: "Scaling Systems", duration: "2h", completed: false },
+            ],
+            quiz: [
+                { questionText: "Pods are:", options: ["Cross-functional teams", "Serverless APIs", "Bug tickets"], correctAnswerIndex: 0 },
+                { questionText: "Retros help:", options: ["Improve processes", "Boost UI speed", "Resize SVGs"], correctAnswerIndex: 0 },
+                { questionText: "Ansible is used for:", options: ["Config automation", "OAuth", "CSS resets"], correctAnswerIndex: 0 },
+                { questionText: "Scaling culture requires:", options: ["Repetition + recognition", "Hype + logos", "Fonts + themes"], correctAnswerIndex: 0 },
+                { questionText: "Horizontal scaling means:", options: ["Adding more servers", "Changing layouts", "Rotating code"], correctAnswerIndex: 0 },
+                { questionText: "Prometheus is a:", options: ["Monitoring tool", "AI platform", "CI/CD plugin"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 5: Communication, Influence & Conflict Resolution",
+            lessons: [
+                { title: "Leadership Communication", duration: "2h", completed: false },
+                { title: "Conflict Resolution and EQ", duration: "2h", completed: false },
+            ],
+            quiz: [
+                { questionText: "Communication should be:", options: ["Clear & empathetic", "Constant & loud", "Hidden in code"], correctAnswerIndex: 0 },
+                { questionText: "Influencing others needs:", options: ["Logic + emotion", "Emojis + memes", "Admin powers"], correctAnswerIndex: 0 },
+                { questionText: "Conflict resolution is easier when:", options: ["Handled early", "Ignored", "Blamed"], correctAnswerIndex: 0 },
+                { questionText: "Leaders need to share:", options: ["The why", "CSS paths", "API logs"], correctAnswerIndex: 0 },
+                { questionText: "Tailoring messages means:", options: ["Adjusting per audience", "Speaking faster", "Adding memes"], correctAnswerIndex: 0 },
+                { questionText: "EQ is important for:", options: ["Empathy and awareness", "Parsing HTML", "Copying tokens"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 6: Strategic Vision and Stakeholder Alignment",
+            lessons: [
+                { title: "Vision and Strategy Tools", duration: "2h", completed: false },
+                { title: "Stakeholder Alignment and Reporting", duration: "2h", completed: false },
+            ],
+            quiz: [
+                { questionText: "Strategy starts with:", options: ["Vision", "Uptime", "Margins"], correctAnswerIndex: 0 },
+                { questionText: "OKRs stand for:", options: ["Objectives & Key Results", "Outcomes & KPIs", "Open Kernel Requests"], correctAnswerIndex: 0 },
+                { questionText: "V2MOM helps with:", options: ["Strategic clarity", "Server scaling", "Token mapping"], correctAnswerIndex: 0 },
+                { questionText: "Stakeholders include:", options: ["All invested departments", "Just developers", "UX only"], correctAnswerIndex: 0 },
+                { questionText: "Roadmaps show:", options: ["Future plans", "API specs", "CSS paths"], correctAnswerIndex: 0 },
+                { questionText: "Metrics that matter include:", options: ["ROI, uptime", "Font weights", "Container margins"], correctAnswerIndex: 0 },
+            ]
+        }
+    ],
+    finalAssessment: {
+        questions: [
+            { questionText: "What distinguishes leadership from management?" },
+            { questionText: "How do you build and scale a high-performing tech team?" },
+            { questionText: "Explain SMART goals with examples." },
+            { questionText: "What is a trade-off matrix, and how would you use it?" },
+            { questionText: "List and explain 3 architectural decision-making tools." },
+            { questionText: "What are the signs of strong technical culture?" },
+            { questionText: "How does DevSecOps contribute to tech leadership?" },
+            { questionText: "Give 3 examples of scaling patterns in infrastructure." },
+            { questionText: "How can you resolve conflict within an engineering team?" },
+            { questionText: "Define OKRs and give a tech-related example." },
+            { questionText: "What is emotional intelligence and how does it help in leadership?" },
+            { questionText: "Describe the ideal structure of a sprint retrospective." },
+            { questionText: "How do you align technical goals with executive expectations?" },
+            { questionText: "Explain the difference between Red, Blue, and Purple teams." },
+            { questionText: "Write a brief memo convincing stakeholders to switch to microservices." },
+        ]
+    }
+};
 
-const allCourses: NewCourse[] = [aiCourse, apiDevelopmentCourse, apisAndBackendCourse, cybersecurityCourse];
+const allCourses: NewCourse[] = [aiCourse, apiDevelopmentCourse, apisAndBackendCourse, cybersecurityCourse, techLeadershipCourse];
 
 export async function seedInitialCourses() {
     const coursesCollection = collection(db, 'courses');
@@ -520,6 +642,7 @@ export async function seedInitialCourses() {
                 const validatedData = CourseSchema.omit({ 
                     id: true, 
                     progress: true,
+                    assessmentSubmissions: true,
                 }).passthrough().parse(courseData);
                 batch.set(newCourseDoc, validatedData);
             } catch(e) {
