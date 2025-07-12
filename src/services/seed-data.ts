@@ -387,7 +387,7 @@ const apisAndBackend: NewCourse = {
             title: "Module 1: Understanding APIs",
             lessons: [{
                 title: "What is an API?",
-                content: "### What Is an API?\n\n**API = Application Programming Interface**\nIt's like a **waiter in a restaurant** 🍽️ — takes your request to the kitchen (server), and brings the response (data) back.\n\nAPIs let software **talk to each other** — your mobile app talks to your backend via API.\n\n### Types of APIs\n\n| Type      | Description                     | Example             |\n| --------- | ------------------------------- | ------------------- |\n| REST      | Web-standard, uses HTTP methods | JSONPlaceholder     |\n| SOAP      | XML-based, strict rules         | Legacy banking APIs |\n| GraphQL   | Flexible querying               | GitHub API          |\n| WebSocket | Real-time, 2-way                | Chat apps, games    |",
+                content: "### What Is an API?\n\n**API = Application Programming Interface**\nIt's like a **waiter in a restaurant** 🍽️ — takes your request to the kitchen (server), and brings the response (data) back.\n\nAPIs let software **talk to each other** — your mobile app talks to your backend via API.\n\n### Types of APIs\n\n| Type      | Description                     | Example             |\n| --------- | ------------------------------- | ------------------- |\n| REST      | Web-standard, uses HTTP methods | JSONPlaceholder     |\n| SOAP      | XML-based, strict rules         | Legacy banking APIs |\n| GraphQL   | Flexible querying               | GitHub API          |\n| WebSocket | Real-time, 2-way                | Chat apps, games    |\n\n### REST API Basics\n\n* Uses standard HTTP methods:\n\n  * `GET` – Retrieve data\n  * `POST` – Create new data\n  * `PUT` – Update data\n  * `DELETE` – Remove data\n\n* Communicates using **JSON**",
                 duration: "1h"
             }],
             quiz: [
@@ -407,7 +407,7 @@ const apisAndBackend: NewCourse = {
                 duration: "1h"
             }],
             quiz: [
-                { questionText: "`express.json()` is used to:", options: ["Parse JSON in requests", "Animate headers", "Compress responses"], correctAnswerIndex: 0 },
+                { questionText: "express.json() is used to:", options: ["Parse JSON in requests", "Animate headers", "Compress responses"], correctAnswerIndex: 0 },
                 { questionText: "The method for updating a record is:", options: ["PUT", "FETCH", "EXEC"], correctAnswerIndex: 0 },
                 { questionText: "POST is used to:", options: ["Create new data", "Log requests", "Format routes"], correctAnswerIndex: 0 },
                 { questionText: "Express is built on:", options: ["Node.js", "PHP", "Python"], correctAnswerIndex: 0 },
@@ -867,7 +867,7 @@ const researchInTechnology: NewCourse = {
         { questionText: "What is a hypothesis, and how is it tested?" },
         { questionText: "Describe the Gartner Hype Cycle and its phases." },
         { questionText: "List and explain at least three data collection methods in tech research." },
-        { questionText: "What tools are used in technical data analysis?" },
+        { questionText: "What are the tools used in technical data analysis?" },
         { questionText: "How does exploratory research work?" },
         { questionText: "What are the ethical concerns in AI research?" },
         { questionText: "Define and give examples of qualitative vs quantitative research." },
@@ -981,7 +981,7 @@ const innovationProductEngineering: NewCourse = {
             quiz: [
                 { questionText: "Visionary leaders:", options: ["Inspire bold direction", "Just manage servers", "Rename buttons"], correctAnswerIndex: 0 },
                 { questionText: "Innovation culture means:", options: ["Rewarding risk", "Limiting ideas", "Buying logos"], correctAnswerIndex: 0 },
-                { questionText: "Balance means:", options: ["Speed + stability", "Rush + crash", "Wait + see"], correctAnswerIndex: 0 },
+                { questionText: "Balance means:", options: ["Speed + stability", "Rush + crash", "Wait + see"], correctAnswerIndex: _0 },
                 { questionText: "Fast failure allows:", options: ["Quick lessons", "Debugging delays", "UI downtime"], correctAnswerIndex: 0 },
                 { questionText: "Influence is earned by:", options: ["Story + logic", "Pressure", "Titles"], correctAnswerIndex: 0 },
                 { questionText: "Guardrails offer:", options: ["Controlled innovation", "Border colors", "DevOps limits"], correctAnswerIndex: 0 },
@@ -1388,6 +1388,132 @@ const mobileAppDevelopment: NewCourse = {
     ]
 };
 
+const databaseDesignCourse: NewCourse = {
+    title: "Database Design & Management",
+    description: "Learn practical database skills for app, web, and backend integration.",
+    longDescription: "This course covers everything from relational (SQL) and non-relational (NoSQL) databases to designing efficient schemas with ER diagrams. You will learn to write SQL queries, use MongoDB, connect databases to applications, and optimize for performance.",
+    category: "Tech Skills",
+    level: "Intermediate",
+    imageUrl: "https://placehold.co/600x400.png",
+    duration: "12h",
+    instructor: "The Data Architects",
+    price: 5000,
+    modules: [
+        {
+            title: "Module 1: Introduction to Databases",
+            lessons: [{
+                title: "What Is a Database?",
+                content: "A **database** is a structured collection of data. Think of it like a giant digital filing cabinet that apps can talk to.\n\n> “You don’t need to remember everything — your database does it for you!”\n\n### Key Database Concepts\n\n* **DBMS** – Software for managing databases (e.g., MySQL, MongoDB)\n* **Relational DB** – Uses tables (SQL)\n* **NoSQL DB** – Uses documents, key-values, graphs (MongoDB, Firebase)\n* **Tables/Collections** – Store records\n* **Records/Documents** – Rows of data\n* **Fields** – Individual columns\n\n### SQL vs NoSQL\n\n| Feature   | SQL               | NoSQL                |\n| --------- | ----------------- | -------------------- |\n| Structure | Tables            | Documents, Key-Value |\n| Schema    | Fixed             | Flexible             |\n| Best for  | Structured data   | Dynamic/Big Data     |\n| Examples  | MySQL, PostgreSQL | MongoDB, Firebase    |",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "A database is:", options: ["Structured data storage", "A game engine", "An image editor"], correctAnswerIndex: 0 },
+                { questionText: "SQL databases store data in:", options: ["Tables", "XML files", "JSON only"], correctAnswerIndex: 0 },
+                { questionText: "MongoDB is:", options: ["NoSQL", "SQL", "Spreadsheet"], correctAnswerIndex: 0 },
+                { questionText: "DBMS stands for:", options: ["Database Management System", "Disk Boot Machine Set", "Developer Bug Manual Set"], correctAnswerIndex: 0 },
+                { questionText: "A field in a table is like a:", options: ["Column", "Folder", "Dropdown"], correctAnswerIndex: 0 },
+                { questionText: "NoSQL allows:", options: ["Flexible structure", "Only text", "Fixed HTML pages"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 2: Relational Database Design & ER Modeling",
+            lessons: [{
+                title: "What Is ER Modeling?",
+                content: "**ER (Entity-Relationship)** modeling is a visual way to design your database.\n\n* **Entity** – Anything you want to store (e.g., User, Product)\n* **Attribute** – Field/data (e.g., name, email)\n* **Relationship** – How entities relate (e.g., one-to-many)\n\n### Primary Keys & Foreign Keys\n\n* **Primary Key**: Unique identifier for a record\n* **Foreign Key**: Connects one table to another\n\n### Normalization\n\nThe process of organizing data to reduce **redundancy** and improve **integrity**.\n\nForms of normalization:\n\n1. 1NF – Atomic columns\n2. 2NF – Remove partial dependencies\n3. 3NF – Remove transitive dependencies\n\n### Example ER Diagram\n\n```plaintext\nUser (user_id PK, name, email)  \nOrder (order_id PK, user_id FK, total)  \n```",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "Entity is:", options: ["A table", "A button", "A code editor"], correctAnswerIndex: 0 },
+                { questionText: "Primary key is:", options: ["Unique identifier", "Image link", "Line color"], correctAnswerIndex: 0 },
+                { questionText: "Foreign key is used for:", options: ["Relationships", "Imports", "Loops"], correctAnswerIndex: 0 },
+                { questionText: "Normalization removes:", options: ["Redundancy", "Rows", "Buttons"], correctAnswerIndex: 0 },
+                { questionText: "3NF stands for:", options: ["Third Normal Form", "Third Network Function", "Triangular Number Format"], correctAnswerIndex: 0 },
+                { questionText: "ER diagrams are for:", options: ["Database design", "Layout design", "App deployment"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 3: Writing SQL Queries",
+            lessons: [{
+                title: "SQL Basics",
+                content: "SQL (Structured Query Language) is the language for interacting with relational databases.\n\n### Core Commands\n\n| Task         | SQL                                      |\n| ------------ | ---------------------------------------- |\n| Create table | `CREATE TABLE users (...)`               |\n| Insert data  | `INSERT INTO users VALUES (...)`         |\n| Read data    | `SELECT * FROM users`                    |\n| Update data  | `UPDATE users SET name='Sam' WHERE id=1` |\n| Delete data  | `DELETE FROM users WHERE id=1`           |\n\n### JOINs\n\nJoin data from multiple tables:\n\n```sql\nSELECT u.name, o.total\nFROM users u\nJOIN orders o ON u.id = o.user_id;\n```",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "`SELECT * FROM` is used to:", options: ["Read data", "Remove table", "Save as PDF"], correctAnswerIndex: 0 },
+                { questionText: "`INSERT INTO` is for:", options: ["Adding data", "Sorting files", "Compiling code"], correctAnswerIndex: 0 },
+                { questionText: "`UPDATE` lets you:", options: ["Modify data", "Encrypt", "Animate"], correctAnswerIndex: 0 },
+                { questionText: "JOIN combines:", options: ["Tables", "Stylesheets", "Scripts"], correctAnswerIndex: 0 },
+                { questionText: "A WHERE clause is used to:", options: ["Filter results", "Start loop", "Define function"], correctAnswerIndex: 0 },
+                { questionText: "Which of these is a valid SQL command?", options: ["DELETE", "REMOVE", "TAKEOUT"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 4: NoSQL & MongoDB",
+            lessons: [{
+                title: "What Is NoSQL?",
+                content: "NoSQL = \"Not Only SQL\" — a family of databases that use **documents, key-value, or graphs** to store data flexibly.\n\n### MongoDB Structure\n\n* **Database** → Like a folder\n* **Collection** → Like a table\n* **Document** → Like a row (but JSON)\n\n```json\n{\n  \"_id\": \"123\",\n  \"name\": \"Alice\",\n  \"email\": \"alice@example.com\"\n}\n```\n\n### Commands (with Mongo Shell)\n\n```javascript\ndb.users.insertOne({ name: \"John\", age: 30 })\ndb.users.find()\ndb.users.updateOne({ name: \"John\" }, { $set: { age: 31 } })\n```",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "MongoDB is:", options: ["NoSQL database", "CSS tool", "Excel clone"], correctAnswerIndex: 0 },
+                { questionText: "A collection is like a:", options: ["Table", "Style", "Route"], correctAnswerIndex: 0 },
+                { questionText: "Documents in MongoDB are written in:", options: ["JSON", "XML", "Markdown"], correctAnswerIndex: 0 },
+                { questionText: "`insertOne()` is used to:", options: ["Add document", "Drop DB", "Animate UI"], correctAnswerIndex: 0 },
+                { questionText: "NoSQL is good for:", options: ["Flexible data", "Static pages", "Code compilers"], correctAnswerIndex: 0 },
+                { questionText: "MongoDB stores data as:", options: ["Documents", "Lines", "Tables"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 5: Performance Optimization & Indexing",
+            lessons: [{
+                title: "Why Optimize?",
+                content: "Without optimization, your queries will run like a snail on a sugar crash. 🐌\n\n### Optimization Tips\n\n* **Use Indexes**: Speed up searches\n* **Avoid SELECT ***: Only request needed fields\n* **Normalize properly**\n* **Archive old data**\n* **Use LIMIT** to avoid huge result sets\n\n### Indexing\n\n```sql\nCREATE INDEX idx_name ON users(name);\n```\n\nIndexes make lookups faster — especially on large datasets.",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "Indexes are used to:", options: ["Speed up queries", "Make designs", "Encode images"], correctAnswerIndex: 0 },
+                { questionText: "`SELECT *` is:", options: ["Slower than choosing fields", "Always best", "Used for loops"], correctAnswerIndex: 0 },
+                { questionText: "LIMIT is used to:", options: ["Restrict results", "Change layout", "Apply CSS"], correctAnswerIndex: 0 },
+                { questionText: "Archiving is:", options: ["Moving old data", "Logging in", "Coloring tables"], correctAnswerIndex: 0 },
+                { questionText: "Which improves speed?", options: ["Indexes", "Adding HTML", "Removing Wi-Fi"], correctAnswerIndex: 0 },
+                { questionText: "A slow query might be due to:", options: ["No index", "Lack of semicolons", "Invisible divs"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 6: Connecting Databases to Apps",
+            lessons: [{
+                title: "Backend + Database",
+                content: "Apps need to talk to databases using backends.\n\n### Common Languages + Drivers\n\n| Language | SQL Driver       | NoSQL Driver |\n| -------- | ---------------- | ------------ |\n| Node.js  | Sequelize, MySQL | Mongoose     |\n| Python   | SQLAlchemy       | PyMongo      |\n| PHP      | PDO, MySQLi      | Firebase SDK |\n\n### Example: Node.js + MongoDB\n\n```javascript\nconst mongoose = require('mongoose');\nmongoose.connect('mongodb://localhost/mydb');\n```",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "Mongoose is for:", options: ["MongoDB in Node.js", "Flying", "Design systems"], correctAnswerIndex: 0 },
+                { questionText: "SQLAlchemy is used in:", options: ["Python", "Ruby", "Java"], correctAnswerIndex: 0 },
+                { questionText: "`connect()` is used to:", options: ["Establish database link", "Create user", "Show error"], correctAnswerIndex: 0 },
+                { questionText: "Sequelize helps with:", options: ["SQL in Node", "Styling in CSS", "Animation"], correctAnswerIndex: 0 },
+                { questionText: "Apps talk to databases using:", options: ["Backend code", "Frontend buttons", "Wi-Fi"], correctAnswerIndex: 0 },
+                { questionText: "Drivers are like:", options: ["Translators", "Fonts", "PDFs"], correctAnswerIndex: 0 },
+            ]
+        }
+    ],
+    finalAssessment: [
+        { questionText: "Define a database." },
+        { questionText: "What is the difference between SQL and NoSQL?" },
+        { questionText: "Name one relational and one non-relational DBMS." },
+        { questionText: "What is ER modeling?" },
+        { questionText: "What is a primary key?" },
+        { questionText: "Why do we normalize a database?" },
+        { questionText: "Write a basic `SELECT` query." },
+        { questionText: "What is a JOIN?" },
+        { questionText: "Show an example of a MongoDB document." },
+        { questionText: "How does indexing improve performance?" },
+        { questionText: "What does `LIMIT` do in SQL?" },
+        { questionText: "How do you connect Node.js to MongoDB?" },
+        { questionText: "What is the purpose of Mongoose?" },
+        { questionText: "Give two ways to optimize database speed." },
+        { questionText: "Explain how a frontend app accesses data from a database." },
+    ]
+};
 
 const allCourses: NewCourse[] = [
     artificialIntelligenceCourse,
@@ -1401,6 +1527,7 @@ const allCourses: NewCourse[] = [
     devOpsPracticesCourse,
     machineLearningBasics,
     mobileAppDevelopment,
+    databaseDesignCourse,
 ];
 
 export async function seedInitialCourses() {
@@ -1433,7 +1560,6 @@ export async function seedInitialCourses() {
                 const validatedData = CourseSchema.omit({ 
                     id: true, 
                     progress: true,
-                    finalAssessmentSubmission: true,
                 }).passthrough().parse(dataWithDefaults);
                 
                 batch.set(newCourseDoc, validatedData);
@@ -1451,3 +1577,5 @@ export async function seedInitialCourses() {
         console.log('All defined courses already exist in the database. Skipping seed.');
     }
 }
+
+    
