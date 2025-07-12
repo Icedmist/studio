@@ -4,53 +4,53 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Helper function to check if the requesting user is an admin.
-    // UIDs should be hardcoded here as rules cannot access app source code.
+    // Helper function to check if a user is an administrator.
+    // UIDs are hardcoded here as rules cannot access application source code.
     function isAdmin() {
-      return request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
+      return request.auth != null && request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
     }
 
-    // Public collections (Courses, Instructors, Blog Posts, Events)
-    // Anyone can read (get, list).
-    // Only admins can write (create, update, delete).
+    // Public Collections: Anyone can read, only admins can write.
     match /courses/{courseId} {
-      allow read: if true;
+      allow get, list: true;
       allow write: if isAdmin();
     }
+
     match /instructors/{instructorId} {
-      allow read: if true;
+      allow get, list: true;
       allow write: if isAdmin();
     }
+    
     match /blogPosts/{postId} {
-      allow read: if true;
+      allow get, list: true;
       allow write: if isAdmin();
     }
+
     match /events/{eventId} {
-      allow read: if true;
+      allow get, list: true;
       allow write: if isAdmin();
-
-      // Attendees subcollection
-      // Allow authenticated users to register (create their own doc).
-      // Allow admins to read/write all attendees.
-      match /attendees/{attendeeId} {
-        allow read: if isAdmin();
-        allow create: if request.auth.uid == attendeeId;
-        allow update, delete: if isAdmin();
-      }
     }
 
-    // User-specific data collections (Student Progress, Feedback)
-    // Users can read/write their own documents.
-    // Admins can read all documents for management purposes.
+    // Attendees are a subcollection of events.
+    // Authenticated users can register (create their own doc).
+    // Admins can manage all attendees.
+    match /events/{eventId}/attendees/{userId} {
+      allow get, list: if request.auth != null;
+      allow create: if request.auth.uid == userId;
+      allow update, delete: if isAdmin();
+    }
+    
+    // User-Specific Collections: Users can manage their own data.
     match /studentProgress/{userId} {
-      allow read, update, create: if request.auth.uid == userId || isAdmin();
-      allow delete: if isAdmin();
+      allow read, update: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null;
     }
+    
     match /feedback/{feedbackId} {
-        // Allow any authenticated user to create feedback.
-      allow create: if request.auth.uid != null;
-      // Only admins can read, update or delete feedback.
-      allow read, update, delete: if isAdmin();
+      // Anyone can submit feedback.
+      allow create: true;
+      // Only admins can read/delete feedback submissions.
+      allow read, list, delete: if isAdmin();
     }
   }
 }
