@@ -49,7 +49,7 @@ const coursesToSeed: NewCourse[] = [
         modules: [
             {
                 title: "Mastering Flexbox & Grid",
-                lessons: [{ title: "Deep Dive into Modern Layouts", content: "Detailed content on Flexbox and Grid.", duration: "2h", completed: false }],
+                lessons: [{ title: "Deep Dive into Modern Layouts", content: "Flexbox is designed for one-dimensional layouts, and Grid is for two-dimensional layouts. Understanding when to use each is key to efficient and clean CSS. We'll cover properties like `justify-content`, `align-items`, `grid-template-columns`, and more.", duration: "2h", completed: false }],
                 quiz: [{ questionText: "Which CSS property is used for 1D layouts?", options: ["Grid", "Flexbox", "Float"], correctAnswerIndex: 1 }]
             }
         ],
@@ -68,7 +68,7 @@ const coursesToSeed: NewCourse[] = [
         modules: [
             {
                 title: "Next.js Fundamentals",
-                lessons: [{ title: "App Router and Server Components", content: "Content about Next.js App Router.", duration: "3h", completed: false }],
+                lessons: [{ title: "App Router and Server Components", content: "The Next.js App Router paradigm shifts focus to Server Components by default, which reduces the amount of JavaScript sent to the client and improves performance. We will explore how to fetch data directly in components and create a seamless user experience.", duration: "3h", completed: false }],
                 quiz: [{ questionText: "The App Router uses which React feature heavily?", options: ["Class Components", "Server Components", "Mixins"], correctAnswerIndex: 1 }]
             }
         ],
@@ -88,7 +88,7 @@ const coursesToSeed: NewCourse[] = [
         modules: [
             {
                 title: "Introduction to Futures",
-                lessons: [{ title: "What Are Futures Contracts?", content: "Detailed content on futures contracts.", duration: "45m", completed: false }],
+                lessons: [{ title: "What Are Futures Contracts?", content: "A futures contract is a legal agreement to buy or sell a particular commodity or financial instrument at a predetermined price at a specified time in the future. These contracts are standardized for quality and quantity to facilitate trading on a futures exchange.", duration: "45m", completed: false }],
                 quiz: [{ questionText: "What is a futures contract?", options: ["An agreement to buy/sell at a future date", "A stock option", "A type of bond"], correctAnswerIndex: 0 }]
             }
         ],
@@ -107,7 +107,7 @@ const coursesToSeed: NewCourse[] = [
         modules: [
             {
                 title: "Complex Chart Patterns",
-                lessons: [{ title: "Head and Shoulders, Flags, and Triangles", content: "Content on advanced patterns.", duration: "2h", completed: false }],
+                lessons: [{ title: "Head and Shoulders, Flags, and Triangles", content: "The Head and Shoulders pattern is a reliable trend reversal indicator. It consists of three peaks, with the central peak (the head) being the highest. This pattern signals that an upward trend is nearing its end.", duration: "2h", completed: false }],
                 quiz: [{ questionText: "A 'Head and Shoulders' pattern is typically a:", options: ["Continuation pattern", "Reversal pattern", "Sideways pattern"], correctAnswerIndex: 1 }]
             }
         ],
@@ -127,7 +127,7 @@ const coursesToSeed: NewCourse[] = [
         modules: [
             {
                 title: "Understanding Blockchain",
-                lessons: [{ title: "What is a Blockchain?", content: "Content about blockchain technology.", duration: "1h", completed: false }],
+                lessons: [{ title: "What is a Blockchain?", content: "A blockchain is a decentralized, distributed, and oftentimes public, digital ledger consisting of records called blocks that is used to record transactions across many computers so that any involved block cannot be altered retroactively, without the alteration of all subsequent blocks.", duration: "1h", completed: false }],
                 quiz: [{ questionText: "A blockchain is a...", options: ["Distributed ledger", "Centralized database", "Type of server"], correctAnswerIndex: 0 }]
             }
         ],
@@ -146,7 +146,7 @@ const coursesToSeed: NewCourse[] = [
         modules: [
             {
                 title: "Solidity Basics",
-                lessons: [{ title: "Variables, Functions, and Modifiers", content: "Content on Solidity basics.", duration: "2h", completed: false }],
+                lessons: [{ title: "Variables, Functions, and Modifiers", content: "Solidity is a statically-typed language designed for implementing smart contracts. Key concepts include state variables that are permanently stored in contract storage, functions that can modify these variables, and modifiers that can change the behavior of functions.", duration: "2h", completed: false }],
                 quiz: [{ questionText: "What is the primary language for Ethereum smart contracts?", options: ["JavaScript", "Python", "Solidity"], correctAnswerIndex: 2 }]
             }
         ],
@@ -166,7 +166,7 @@ const coursesToSeed: NewCourse[] = [
         modules: [
             {
                 title: "Bitcoin Fundamentals",
-                lessons: [{ title: "How Bitcoin Works", content: "Content about Bitcoin.", duration: "1h", completed: false }],
+                lessons: [{ title: "How Bitcoin Works", content: "Bitcoin is a decentralized digital currency that can be sent from user to user on the peer-to-peer bitcoin network without the need for intermediaries. Transactions are verified by network nodes through cryptography and recorded in a public distributed ledger called a blockchain.", duration: "1h", completed: false }],
                 quiz: [{ questionText: "Who is the pseudonymous creator of Bitcoin?", options: ["Vitalik Buterin", "Satoshi Nakamoto", "Charles Hoskinson"], correctAnswerIndex: 1 }]
             }
         ],
@@ -186,7 +186,7 @@ const coursesToSeed: NewCourse[] = [
         modules: [
             {
                 title: "What is Machine Learning?",
-                lessons: [{ title: "Core Concepts of ML", content: "Content about machine learning concepts.", duration: "1h", completed: false }],
+                lessons: [{ title: "Core Concepts of ML", content: "Machine learning is a branch of artificial intelligence (AI) and computer science which focuses on the use of data and algorithms to imitate the way that humans learn, gradually improving its accuracy. Supervised learning uses labeled datasets, while unsupervised learning finds patterns in unlabeled data.", duration: "1h", completed: false }],
                 quiz: [{ questionText: "Supervised learning uses...", options: ["Labeled data", "Unlabeled data", "No data"], correctAnswerIndex: 0 }]
             }
         ],
@@ -205,7 +205,7 @@ const coursesToSeed: NewCourse[] = [
         modules: [
             {
                 title: "Convolutional Neural Networks (CNNs)",
-                lessons: [{ title: "Image Recognition with CNNs", content: "Content on CNNs.", duration: "3h", completed: false }],
+                lessons: [{ title: "Image Recognition with CNNs", content: "CNNs are a class of artificial neural networks, most commonly applied to analyze visual imagery. They are particularly good at identifying patterns in images, which makes them powerful for tasks like object detection and image classification.", duration: "3h", completed: false }],
                 quiz: [{ questionText: "CNNs are particularly effective for which type of data?", options: ["Tabular data", "Text data", "Image data"], correctAnswerIndex: 2 }]
             }
         ],
@@ -226,8 +226,12 @@ export async function seedInitialCourses() {
     const batch = writeBatch(db);
     coursesToSeed.forEach(courseData => {
         const newCourseDoc = doc(coursesCollection);
-        const validatedData = NewCourseSchema.parse(courseData);
-        batch.set(newCourseDoc, validatedData);
+        try {
+            const validatedData = NewCourseSchema.parse(courseData);
+            batch.set(newCourseDoc, validatedData);
+        } catch (error) {
+            console.error("Course validation failed for:", courseData.title, error);
+        }
     });
     await batch.commit();
     console.log(`Successfully seeded ${coursesToSeed.length} courses.`);
