@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import type { Course } from '@/lib/types';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -35,26 +35,22 @@ export function CourseManager() {
   const fetchCourses = async () => {
     setIsLoading(true);
     try {
-      const coursesCollection = collection(db, 'courses');
-      const snapshot = await getDocs(coursesCollection);
-      if (snapshot.empty) {
+      let courseData = await getCourses();
+      if (courseData.length === 0) {
         toast({
             title: "No courses found",
-            description: "Seeding initial courses into the database. Please wait a moment...",
+            description: "Seeding initial courses into the database. This may take a moment...",
             variant: "default"
         });
         await seedInitialCourses();
-        const seededData = await getCourses();
-        setCourses(seededData);
-      } else {
-        const data = await getCourses();
-        setCourses(data);
+        courseData = await getCourses();
       }
+      setCourses(courseData);
     } catch (error) {
         console.error("Error fetching courses: ", error);
         toast({
             title: "Error",
-            description: "Could not fetch courses.",
+            description: `Could not fetch courses: ${(error as Error).message}`,
             variant: "destructive",
         });
     } finally {
