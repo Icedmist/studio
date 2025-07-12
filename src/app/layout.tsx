@@ -3,6 +3,10 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { AuthProvider } from '@/hooks/use-auth';
 import { Poppins, Montserrat, Playfair_Display } from 'next/font/google';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
+import { Toaster } from '@/components/ui/toaster';
+import { ChatbotWrapper } from '@/components/chatbot/ChatbotWrapper';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -42,7 +46,13 @@ export default function RootLayout({
           playfairDisplay.variable
         )}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+          <ChatbotWrapper />
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   );
