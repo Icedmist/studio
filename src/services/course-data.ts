@@ -17,10 +17,12 @@ const toCourse = (doc: DocumentData): Course => {
 };
 
 export async function getCourses(): Promise<Course[]> {
+    console.log("Fetching courses from Firestore...");
     if (!db) throw new Error("Firestore not initialized.");
     const coursesCol = collection(db, 'courses');
     const courseSnapshot = await getDocs(coursesCol);
     const courseList = courseSnapshot.docs.map(doc => toCourse(doc));
+    console.log(`Found ${courseList.length} courses.`);
     return courseList;
 }
 

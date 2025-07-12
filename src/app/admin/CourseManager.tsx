@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { Course } from '@/lib/types';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Pencil, Trash2, Library, RefreshCw } from 'lucide-react';
+import { Pencil, Trash2, Library, RefreshCw, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { CourseForm } from '@/components/admin/CourseForm';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -26,24 +26,27 @@ type CourseFormData = z.infer<typeof NewCourseSchema>;
 export function CourseManager() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSeeding, setIsSeeding] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const { toast } = useToast();
   const router = useRouter();
 
-  const fetchCourses = async () => {
+  const fetchCourses = useCallback(async () => {
     setIsLoading(true);
     try {
       let courseData = await getCourses();
       if (courseData.length === 0) {
+        setIsSeeding(true);
         toast({
             title: "No courses found",
             description: "Seeding initial courses into the database. This may take a moment...",
             variant: "default"
         });
         await seedInitialCourses();
-        courseData = await getCourses();
+        courseData = await getCourses(); // Re-fetch after seeding
+        setIsSeeding(false);
       }
       setCourses(courseData);
     } catch (error) {
@@ -56,11 +59,11 @@ export function CourseManager() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [toast]);
 
   useEffect(() => {
     fetchCourses();
-  }, []);
+  }, [fetchCourses]);
 
   const handleFormSubmit = async (data: CourseFormData) => {
     setIsSubmitting(true);
@@ -131,6 +134,12 @@ export function CourseManager() {
     return (
       <div className="space-y-2">
         {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}
+        {isSeeding && (
+            <div className='flex items-center justify-center gap-2 text-muted-foreground p-4'>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                <span>Seeding initial course data...</span>
+            </div>
+        )}
       </div>
     );
   }
