@@ -1,3 +1,4 @@
+
 'use server';
 
 import { db } from '@/lib/firebase';
@@ -13,7 +14,7 @@ const introToProgrammingCourse: NewCourse = {
     category: "Tech Skills",
     level: "Beginner",
     duration: "6h",
-    instructor: "Yusuf O. Habeeb",
+    instructor: "Nasir Ibrahim Imam",
     price: 2500,
     modules: [
         {
@@ -107,7 +108,7 @@ const machineLearningBasics: NewCourse = {
     category: "AI & Machine Learning",
     level: "Intermediate",
     duration: "12h",
-    instructor: "Yusuf O. Habeeb",
+    instructor: "Nasir Ibrahim Imam",
     price: 5000,
     modules: [
         {
@@ -233,7 +234,7 @@ const devOpsPracticesCourse: NewCourse = {
     category: "Tech Skills",
     level: "Intermediate",
     duration: "12h",
-    instructor: "Yusuf O. Habeeb",
+    instructor: "Nasir Ibrahim Imam",
     price: 5000,
     modules: [
         {
@@ -359,7 +360,7 @@ const advancedProgrammingCourse: NewCourse = {
     category: "Tech Skills",
     level: "Intermediate",
     duration: "12h",
-    instructor: "Yusuf O. Habeeb",
+    instructor: "Nasir Ibrahim Imam",
     price: 5000,
     modules: [
         {
@@ -469,7 +470,7 @@ const apisAndBackend: NewCourse = {
     category: "Tech Skills",
     level: "Intermediate",
     duration: "12h",
-    instructor: "Yusuf O. Habeeb",
+    instructor: "Nasir Ibrahim Imam",
     price: 5000,
     modules: [
         {
@@ -595,7 +596,7 @@ const cybersecurityAdvanced: NewCourse = {
     category: "Tech Skills",
     level: "Advanced",
     duration: "24h",
-    instructor: "Yusuf O. Habeeb",
+    instructor: "Nasir Ibrahim Imam",
     price: 7000,
     modules: [
         {
@@ -721,7 +722,7 @@ const techLeadership: NewCourse = {
     category: "Tech Skills",
     level: "Advanced",
     duration: "24h",
-    instructor: "Yusuf O. Habeeb",
+    instructor: "Nasir Ibrahim Imam",
     price: 7000,
     modules: [
         {
@@ -847,7 +848,7 @@ const researchInTechnology: NewCourse = {
     category: "Tech Skills",
     level: "Advanced",
     duration: "24h",
-    instructor: "Yusuf O. Habeeb",
+    instructor: "Nasir Ibrahim Imam",
     price: 7000,
     modules: [
         {
@@ -973,7 +974,7 @@ const innovationProductEngineering: NewCourse = {
     category: "Tech Skills",
     level: "Advanced",
     duration: "24h",
-    instructor: "Yusuf O. Habeeb",
+    instructor: "Nasir Ibrahim Imam",
     price: 7000,
     modules: [
         {
@@ -1099,7 +1100,7 @@ const apiDevelopmentAdvanced: NewCourse = {
     category: "Tech Skills",
     level: "Advanced",
     duration: "18h",
-    instructor: "Yusuf O. Habeeb",
+    instructor: "Nasir Ibrahim Imam",
     price: 7000,
     modules: [
         {
@@ -1225,7 +1226,7 @@ const mobileAppDevelopment: NewCourse = {
     category: "Tech Skills",
     level: "Intermediate",
     duration: "12h",
-    instructor: "Yusuf O. Habeeb",
+    instructor: "Nasir Ibrahim Imam",
     price: 5000,
     modules: [
         {
@@ -1351,7 +1352,7 @@ const databaseDesignCourse: NewCourse = {
     category: "Tech Skills",
     level: "Intermediate",
     duration: "12h",
-    instructor: "Yusuf O. Habeeb",
+    instructor: "Nasir Ibrahim Imam",
     price: 5000,
     modules: [
         {
@@ -1477,7 +1478,7 @@ const artificialIntelligenceCourse: NewCourse = {
     category: "AI & Machine Learning",
     level: "Advanced",
     duration: "18h",
-    instructor: "Yusuf O. Habeeb",
+    instructor: "Nasir Ibrahim Imam",
     price: 7000,
     modules: [
         {
@@ -1624,29 +1625,25 @@ export async function seedInitialCourses() {
         coursesToAdd.forEach(courseData => {
             const newCourseDoc = doc(coursesCollection);
             try {
-                // Remove imageUrl to keep cards plain
-                const { imageUrl, ...dataWithoutImage } = courseData;
+                // Ensure imageUrl is not included in the data being saved
+                const { imageUrl, ...dataToSave } = courseData;
 
-                const modulesWithDuration = dataWithoutImage.modules.map(module => ({
+                const modulesWithDuration = dataToSave.modules.map(module => ({
                     ...module,
                     lessons: module.lessons.map(lesson => ({
                         ...lesson,
-                        duration: lesson.duration || '1h'
+                        duration: lesson.duration || '1h',
+                        content: lesson.content || 'Placeholder content to be added.'
                     }))
                 }));
-
-                const dataWithDefaults = {
-                    ...dataWithoutImage,
-                    modules: modulesWithDuration
-                }
+                
+                const finalData = { ...dataToSave, modules: modulesWithDuration };
 
                 const validatedData = CourseSchema.omit({ 
                     id: true, 
                     progress: true,
                     imageUrl: true,
-                }).extend({
-                    imageUrl: z.string().url().optional(),
-                }).passthrough().parse(dataWithDefaults);
+                }).passthrough().parse(finalData);
                 
                 batch.set(newCourseDoc, validatedData);
             } catch(e) {
@@ -1663,3 +1660,5 @@ export async function seedInitialCourses() {
         console.log('All defined courses already exist in the database. Skipping seed.');
     }
 }
+
+    
