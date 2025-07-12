@@ -7,6 +7,7 @@ import type { NewCourse } from '@/lib/types';
 import { NewCourseSchema } from '@/lib/types';
 
 const coursesToSeed: NewCourse[] = [
+    // Tech Skills
     {
         title: "Introduction to Programming",
         description: "Learn core concepts and write your first lines of code. Perfect for absolute beginners.",
@@ -30,23 +31,50 @@ const coursesToSeed: NewCourse[] = [
                     { questionText: "Programming is the process of:", options: ["Cooking", "Giving instructions to a computer", "Writing stories"], correctAnswerIndex: 1 },
                 ]
             },
-            {
-                title: "Module 2: Basic Programming Concepts",
-                lessons: [{
-                    title: "Variables, Data Types, and Control Structures",
-                    content: "Variables are like boxes where you store information (e.g., name = \"Tobi\"). Data comes in different types: Strings (text), Integers (whole numbers), Floats (decimals), and Booleans (True/False). Control structures like 'if statements' make decisions, while 'loops' repeat actions. Functions are reusable chunks of code.",
-                    duration: "1h",
-                    completed: false
-                }],
-                quiz: [
-                    { questionText: "A variable stores:", options: ["A joke", "Data", "A mouse"], correctAnswerIndex: 1 },
-                ]
-            }
         ],
         finalAssessment: [
             { questionText: "What is programming?", options: ["The process of giving instructions to a computer.", "The process of designing websites.", "The process of creating hardware."], correctAnswerIndex: 0 },
         ]
     },
+    {
+        title: "Advanced CSS and UI/UX Design",
+        description: "Master modern CSS techniques like Flexbox, Grid, and animations to create beautiful, responsive interfaces.",
+        longDescription: "Go beyond the basics of CSS. This course covers advanced layout techniques, responsive design principles, CSS animations, and best practices for creating intuitive and visually appealing user interfaces. You'll learn how to think like a designer and build professional-grade frontends.",
+        category: "Tech Skills",
+        level: "Intermediate",
+        duration: "10h",
+        instructor: "Emily Carter",
+        price: 5000,
+        imageUrl: 'https://placehold.co/600x400.png',
+        modules: [
+            {
+                title: "Mastering Flexbox & Grid",
+                lessons: [{ title: "Deep Dive into Modern Layouts", content: "Detailed content on Flexbox and Grid.", duration: "2h", completed: false }],
+                quiz: [{ questionText: "Which CSS property is used for 1D layouts?", options: ["Grid", "Flexbox", "Float"], correctAnswerIndex: 1 }]
+            }
+        ],
+        finalAssessment: [{ questionText: "What is the primary purpose of media queries?", options: ["To query APIs", "For responsive design", "To animate elements"], correctAnswerIndex: 1 }]
+    },
+    {
+        title: "Full-Stack Web Development with Next.js",
+        description: "Build and deploy production-ready, full-stack web applications using the power of Next.js and React.",
+        longDescription: "Become a full-stack developer with this comprehensive course on Next.js. You'll learn about server-side rendering, static site generation, API routes, data fetching strategies, and connecting to a database. We'll build a complete project from scratch and deploy it to the web.",
+        category: "Tech Skills",
+        level: "Advanced",
+        duration: "25h",
+        instructor: "David Lee",
+        price: 7000,
+        imageUrl: 'https://placehold.co/600x400.png',
+        modules: [
+            {
+                title: "Next.js Fundamentals",
+                lessons: [{ title: "App Router and Server Components", content: "Content about Next.js App Router.", duration: "3h", completed: false }],
+                quiz: [{ questionText: "The App Router uses which React feature heavily?", options: ["Class Components", "Server Components", "Mixins"], correctAnswerIndex: 1 }]
+            }
+        ],
+        finalAssessment: [{ questionText: "What is a key benefit of Server-Side Rendering (SSR)?", options: ["Faster database queries", "Improved SEO and initial load time", "Easier CSS styling"], correctAnswerIndex: 1 }]
+    },
+    // Futures Trading
     {
         title: "Futures Trading: Beginner's Guide",
         description: "Understand the fundamentals of futures trading, from market analysis to risk management.",
@@ -54,21 +82,38 @@ const coursesToSeed: NewCourse[] = [
         category: "Futures Trading",
         level: "Beginner",
         duration: "8h",
-        instructor: "Jane Doe",
+        instructor: "Michael Adebayo",
         price: 2500,
         imageUrl: "https://placehold.co/600x400.png",
         modules: [
             {
-                title: "Module 1: Introduction to Futures",
-                lessons: [
-                    { title: "What Are Futures Contracts?", content: "Detailed content on futures contracts.", duration: "45m", completed: false },
-                    { title: "Market Participants", content: "Detailed content on who trades futures.", duration: "30m", completed: false },
-                ],
+                title: "Introduction to Futures",
+                lessons: [{ title: "What Are Futures Contracts?", content: "Detailed content on futures contracts.", duration: "45m", completed: false }],
                 quiz: [{ questionText: "What is a futures contract?", options: ["An agreement to buy/sell at a future date", "A stock option", "A type of bond"], correctAnswerIndex: 0 }]
             }
         ],
         finalAssessment: [{ questionText: "What is the primary risk in futures trading?", options: ["Leverage", "Market closure", "Broker fees"], correctAnswerIndex: 0 }]
     },
+    {
+        title: "Advanced Chart Patterns & Strategies",
+        description: "Identify high-probability trade setups by mastering advanced technical analysis and chart patterns.",
+        longDescription: "Take your technical analysis to the next level. This course dives deep into complex chart patterns like Head and Shoulders, Flags, and Pennants. You'll learn to combine these patterns with indicators like MACD and RSI to develop robust trading strategies.",
+        category: "Futures Trading",
+        level: "Intermediate",
+        duration: "15h",
+        instructor: "Michael Adebayo",
+        price: 5000,
+        imageUrl: "https://placehold.co/600x400.png",
+        modules: [
+            {
+                title: "Complex Chart Patterns",
+                lessons: [{ title: "Head and Shoulders, Flags, and Triangles", content: "Content on advanced patterns.", duration: "2h", completed: false }],
+                quiz: [{ questionText: "A 'Head and Shoulders' pattern is typically a:", options: ["Continuation pattern", "Reversal pattern", "Sideways pattern"], correctAnswerIndex: 1 }]
+            }
+        ],
+        finalAssessment: [{ questionText: "What does the RSI indicator measure?", options: ["Market volume", "Overbought/oversold conditions", "Market volatility"], correctAnswerIndex: 1 }]
+    },
+    // Web3
     {
         title: "Web3 & Blockchain Fundamentals",
         description: "Explore the decentralized web, understand blockchain technology, and discover the world of dApps.",
@@ -76,21 +121,58 @@ const coursesToSeed: NewCourse[] = [
         category: "Web3",
         level: "Beginner",
         duration: "7h",
-        instructor: "John Smith",
+        instructor: "Fatima Aliyu",
         price: 2500,
         imageUrl: "https://placehold.co/600x400.png",
         modules: [
             {
-                title: "Module 1: Understanding Blockchain",
-                lessons: [
-                    { title: "What is a Blockchain?", content: "Content about blockchain technology.", duration: "1h", completed: false },
-                    { title: "How Smart Contracts Work", content: "Content about smart contracts.", duration: "45m", completed: false }
-                ],
+                title: "Understanding Blockchain",
+                lessons: [{ title: "What is a Blockchain?", content: "Content about blockchain technology.", duration: "1h", completed: false }],
                 quiz: [{ questionText: "A blockchain is a...", options: ["Distributed ledger", "Centralized database", "Type of server"], correctAnswerIndex: 0 }]
             }
         ],
         finalAssessment: [{ questionText: "What is a dApp?", options: ["A decentralized application", "A database application", "A design application"], correctAnswerIndex: 0 }]
     },
+    {
+        title: "Building Smart Contracts with Solidity",
+        description: "Learn the Solidity programming language from scratch and start building your own smart contracts on Ethereum.",
+        longDescription: "This course is a practical guide to Solidity, the most popular language for Ethereum smart contracts. You'll learn about data types, functions, contract inheritance, and security best practices. We'll write, test, and deploy several smart contracts together.",
+        category: "Web3",
+        level: "Intermediate",
+        duration: "18h",
+        instructor: "Fatima Aliyu",
+        price: 5000,
+        imageUrl: "https://placehold.co/600x400.png",
+        modules: [
+            {
+                title: "Solidity Basics",
+                lessons: [{ title: "Variables, Functions, and Modifiers", content: "Content on Solidity basics.", duration: "2h", completed: false }],
+                quiz: [{ questionText: "What is the primary language for Ethereum smart contracts?", options: ["JavaScript", "Python", "Solidity"], correctAnswerIndex: 2 }]
+            }
+        ],
+        finalAssessment: [{ questionText: "What does 'gas' refer to on the Ethereum network?", options: ["The fuel for the network", "A type of token", "The cost of executing a transaction"], correctAnswerIndex: 2 }]
+    },
+    // Crypto
+    {
+        title: "Cryptocurrency Essentials: Bitcoin & Beyond",
+        description: "A complete introduction to cryptocurrencies, from understanding Bitcoin to exploring different altcoins.",
+        longDescription: "New to crypto? This course is for you. We'll cover the history of Bitcoin, how transactions work, what wallets are, and how to securely buy and store cryptocurrencies. We'll also explore the landscape of altcoins and different crypto categories.",
+        category: "Crypto",
+        level: "Beginner",
+        duration: "5h",
+        instructor: "Chinedu Okafor",
+        price: 2500,
+        imageUrl: "https://placehold.co/600x400.png",
+        modules: [
+            {
+                title: "Bitcoin Fundamentals",
+                lessons: [{ title: "How Bitcoin Works", content: "Content about Bitcoin.", duration: "1h", completed: false }],
+                quiz: [{ questionText: "Who is the pseudonymous creator of Bitcoin?", options: ["Vitalik Buterin", "Satoshi Nakamoto", "Charles Hoskinson"], correctAnswerIndex: 1 }]
+            }
+        ],
+        finalAssessment: [{ questionText: "What is a 'private key' used for in crypto?", options: ["To receive funds", "To sign transactions and access your funds", "To view your public address"], correctAnswerIndex: 1 }]
+    },
+     // AI & Machine Learning
     {
         title: "AI & Machine Learning Basics",
         description: "Get a foundational understanding of AI and how to build practical machine learning models.",
@@ -98,19 +180,36 @@ const coursesToSeed: NewCourse[] = [
         category: "AI & Machine Learning",
         level: "Intermediate",
         duration: "12h",
-        instructor: "Alex Ray",
+        instructor: "Dr. Anya Sharma",
         price: 5000,
         imageUrl: "https://placehold.co/600x400.png",
         modules: [
             {
-                title: "Module 1: What is Machine Learning?",
-                lessons: [
-                    { title: "Core Concepts of ML", content: "Content about machine learning concepts.", duration: "1h", completed: false },
-                ],
+                title: "What is Machine Learning?",
+                lessons: [{ title: "Core Concepts of ML", content: "Content about machine learning concepts.", duration: "1h", completed: false }],
                 quiz: [{ questionText: "Supervised learning uses...", options: ["Labeled data", "Unlabeled data", "No data"], correctAnswerIndex: 0 }]
             }
         ],
         finalAssessment: [{ questionText: "What is a neural network?", options: ["A model inspired by the brain", "A type of database", "A security protocol"], correctAnswerIndex: 0 }]
+    },
+    {
+        title: "Deep Learning and Neural Networks",
+        description: "An advanced course on deep learning architectures, including CNNs for images and RNNs for sequences.",
+        longDescription: "Master the art of deep learning. This course covers the theory and practice behind neural networks, including Convolutional Neural Networks (CNNs) for image recognition and Recurrent Neural Networks (RNNs) for text and time-series data. You'll build and train complex models using TensorFlow or PyTorch.",
+        category: "AI & Machine Learning",
+        level: "Advanced",
+        duration: "30h",
+        instructor: "Dr. Anya Sharma",
+        price: 7000,
+        imageUrl: "https://placehold.co/600x400.png",
+        modules: [
+            {
+                title: "Convolutional Neural Networks (CNNs)",
+                lessons: [{ title: "Image Recognition with CNNs", content: "Content on CNNs.", duration: "3h", completed: false }],
+                quiz: [{ questionText: "CNNs are particularly effective for which type of data?", options: ["Tabular data", "Text data", "Image data"], correctAnswerIndex: 2 }]
+            }
+        ],
+        finalAssessment: [{ questionText: "What is 'backpropagation'?", options: ["A data preprocessing technique", "The algorithm for training neural networks", "A type of network layer"], correctAnswerIndex: 1 }]
     }
 ];
 
