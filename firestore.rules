@@ -4,10 +4,10 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Helper function to check for admin role by UID
+    // Helper function to check for admin role
     function isAdmin() {
+      // List of admin UIDs.
       // IMPORTANT: Replace with your actual Firebase Admin UID(s).
-      // You can find your UID in the Firebase Console under Authentication > Users.
       let adminUids = ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
       return request.auth != null && request.auth.uid in adminUids;
     }
@@ -16,58 +16,38 @@ service cloud.firestore {
     function isOwner(userId) {
       return request.auth != null && request.auth.uid == userId;
     }
-
-    // --- Public Collections: Allow public read, admin write ---
-
-    // Courses: Public can read, Admins can write
-    match /courses/{courseId} {
-      allow get, list: if true;
-      allow create, update, delete: if isAdmin();
+    
+    // Default deny all access to prevent unintentional open collections.
+    match /{path=**}/documents/{document} {
+      allow read, write: if false;
     }
 
-    // Instructors: Public can read, Admins can write
-    match /instructors/{instructorId} {
+    // --- PUBLIC READ-ONLY COLLECTIONS ---
+    // Courses, Instructors, Events, Blog Posts are public.
+    match /(courses|instructors|events|blogPosts)/{docId} {
       allow get, list: if true;
-      allow create, update, delete: if isAdmin();
+      allow write: if isAdmin();
     }
 
-    // Blog Posts: Public can read published posts, Admins can write all
-    match /blogPosts/{postId} {
-      allow get, list: if true; // Public list is okay, client will filter for 'published'
-      allow create, update, delete: if isAdmin();
+    // --- USER-SPECIFIC COLLECTIONS ---
+
+    // Student Progress: Users can only access their own progress records. Admins can view all.
+    match /studentProgress/{userId} {
+      allow read, create, update: if isOwner(userId) || isAdmin();
+      allow list, delete: if isAdmin();
     }
     
-    // Events: Public can read, Admins can write
-    match /events/{eventId} {
-      allow get, list: if true;
-      allow create, update, delete: if isAdmin();
-      
-      // Attendees sub-collection
-      match /attendees/{userId} {
-        allow get: if isOwner(userId) || isAdmin();
-        allow create: if isOwner(userId);
-        allow list, update, delete: if isAdmin();
-      }
-    }
-
-    // --- User-Specific Collections: Secure access ---
-
-    // Student Progress: Users can only access their own progress records.
-    match /studentProgress/{userId} {
-      allow get, create, update: if isOwner(userId);
-      // Admins can list all users and perform any action.
-      allow read, write: if isAdmin();
-    }
-
-    // Feedback: Authenticated users can create feedback. Admins can read/delete it.
+    // Feedback: Authenticated users can create feedback. Admins can read it.
     match /feedback/{feedbackId} {
       allow create: if request.auth != null;
       allow read, list, delete: if isAdmin();
     }
-
-    // --- Default deny all other access ---
-    match /{document=**} {
-      allow read, write: if false;
+    
+    // Event Attendees Subcollection
+    match /events/{eventId}/attendees/{userId} {
+       allow get: if isOwner(userId) || isAdmin();
+       allow create: if isOwner(userId);
+       allow list, delete, update: if isAdmin();
     }
   }
 }
