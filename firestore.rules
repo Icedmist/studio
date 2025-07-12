@@ -1,58 +1,10 @@
-
 rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    // Helper function to check if the user is an admin.
-    // NOTE: This assumes you have an "admins" collection where each document ID is an admin's UID.
-    // For simplicity with this project's structure, we will check a list of UIDs.
-    // The ADMIN_UIDS list from `src/lib/admin.ts` must be manually kept in sync here if changed.
-    function isAdmin() {
-      return request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
-    }
-
-    // Courses can be read by anyone, but only created, updated, or deleted by an admin.
-    match /courses/{courseId} {
-      allow read: if true;
-      allow write: if isAdmin();
-    }
-
-    // Instructors can be read by anyone, but only managed by an admin.
-    match /instructors/{instructorId} {
-      allow read: if true;
-      allow write: if isAdmin();
-    }
-
-    // Blog posts can be read by anyone if they are 'published'.
-    // Only admins can create, update, or delete any post.
-    match /blogPosts/{postId} {
-      allow get: if resource.data.status == 'published' || isAdmin();
-      allow list: if isAdmin(); // Only admins can list all posts regardless of status
-      allow write: if isAdmin();
-    }
-
-    // Events can be read by anyone, but only managed by an admin.
-    match /events/{eventId} {
-      allow read: if true;
-      allow write: if isAdmin();
-    }
-
-    // Event attendees can only be managed by authenticated users for themselves or by admins.
-    match /events/{eventId}/attendees/{userId} {
-      allow read, write: if request.auth.uid == userId || isAdmin();
-    }
-
-    // Student progress can only be accessed by the student themselves or an admin.
-    match /studentProgress/{userId} {
-      allow get, update: if request.auth.uid == userId;
-      allow list, create, delete: if isAdmin();
-    }
-    
-    // Anyone can submit feedback, but only admins can read or delete it.
-    match /feedback/{feedbackId} {
-        allow create: if true;
-        allow read, list, delete: if isAdmin();
+    // By default, deny all reads and writes
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }
