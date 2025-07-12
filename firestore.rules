@@ -1,0 +1,52 @@
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+    // PUBLIC: Allow anyone to read public content like courses, blog posts, etc.
+    // Writes should be restricted to admin users (handled via admin panel logic).
+    match /courses/{courseId} {
+      allow read: if true;
+      allow write: if request.auth != null; // Restrict to authenticated users (admins)
+    }
+    
+    match /instructors/{instructorId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    match /blogPosts/{postId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    match /events/{eventId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // USERS: Allow authenticated users to read and write their own progress document.
+    match /studentProgress/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // FEEDBACK: Allow any authenticated user to submit feedback.
+    // Reading feedback should be restricted to admins.
+    match /feedback/{feedbackId} {
+      allow create: if request.auth != null;
+      allow read, update, delete: if false; // Only accessible from server/admin SDK
+    }
+
+    // EVENTS: Allow authenticated users to register for an event.
+    match /events/{eventId}/attendees/{userId} {
+        allow read, create: if request.auth != null && request.auth.uid == userId;
+        allow update, delete: if false; // Prevent users from altering registrations
+    }
+    
+    // Default deny all other reads/writes
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

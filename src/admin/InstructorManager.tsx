@@ -30,25 +30,26 @@ export function InstructorManager() {
   const [editingInstructor, setEditingInstructor] = useState<Instructor | null>(null);
   const { toast } = useToast();
 
+  const fetchInstructors = async () => {
+    setIsLoading(true);
+    try {
+      const instructorList = await getInstructors();
+      setInstructors(instructorList);
+    } catch (error) {
+      console.error("Failed to fetch instructors", error);
+      toast({
+        title: "Error",
+        description: "Could not fetch instructors. This might be a permissions issue.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchInstructors = async () => {
-      setIsLoading(true);
-      try {
-        const instructorList = await getInstructors();
-        setInstructors(instructorList);
-      } catch (error) {
-        console.error("Failed to fetch instructors", error);
-        toast({
-          title: "Error",
-          description: "Could not fetch instructors.",
-          variant: "destructive",
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchInstructors();
-  }, [toast]);
+  }, []);
 
   const handleFormSubmit = async (data: InstructorFormData) => {
     setIsSubmitting(true);
@@ -79,8 +80,7 @@ export function InstructorManager() {
             await addDoc(collection(db, 'instructors'), validatedData);
         }
 
-        const updatedInstructors = await getInstructors();
-        setInstructors(updatedInstructors);
+        await fetchInstructors();
 
         toast({
             title: `Instructor ${editingInstructor ? 'updated' : 'added'}`,
