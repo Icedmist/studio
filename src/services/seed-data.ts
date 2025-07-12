@@ -702,7 +702,7 @@ const coursesToSeed: NewCourse[] = [
             {
                 title: "Understanding Blockchain",
                 lessons: [{ title: "What is a Blockchain?", content: "A blockchain is a decentralized, distributed, and oftentimes public, digital ledger consisting of records called blocks that is used to record transactions across many computers so that any involved block cannot be altered retroactively, without the alteration of all subsequent blocks.", duration: "1h", completed: false }],
-                quiz: [{ questionText: "A blockchain is a...", options: ["Distributed ledger", "Centralized database", "Type of server"], correctAnswerIndex: 0 }]
+                quiz: [{ questionText: "What is a blockchain?", options: ["A distributed ledger", "A centralized database", "A type of server"], correctAnswerIndex: 0 }]
             }
         ],
         finalAssessment: [{ questionText: "What is a dApp?", options: ["A decentralized application", "A database application", "A design application"], correctAnswerIndex: 0 }]
