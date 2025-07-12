@@ -1,3 +1,4 @@
+
 rules_version = '2';
 
 service cloud.firestore {
@@ -6,7 +7,7 @@ service cloud.firestore {
     // Helper function to check for admin role
     function isAdmin() {
       // List of admin UIDs.
-      // IMPORTANT: This should be your actual Firebase Admin UID.
+      // IMPORTANT: Replace with your actual Firebase Admin UID(s).
       let adminUids = ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
       return request.auth != null && request.auth.uid in adminUids;
     }
@@ -16,31 +17,29 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == userId;
     }
 
-    // --- Public Collections ---
-
     // Courses: Public can read, Admins can write
     match /courses/{courseId} {
       allow get, list: if true;
-      allow write: if isAdmin();
+      allow create, update, delete: if isAdmin();
     }
 
     // Instructors: Public can read, Admins can write
     match /instructors/{instructorId} {
       allow get, list: if true;
-      allow write: if isAdmin();
+      allow create, update, delete: if isAdmin();
     }
 
     // Blog Posts: Public can read published posts, Admins can write all
     match /blogPosts/{postId} {
       allow get: if resource.data.status == 'published' || isAdmin();
-      allow list: if true;
-      allow write: if isAdmin();
+      allow list: if true; // Public list is okay, client will filter for 'published'
+      allow create, update, delete: if isAdmin();
     }
     
     // Events: Public can read, Admins can write
     match /events/{eventId} {
       allow get, list: if true;
-      allow write: if isAdmin();
+      allow create, update, delete: if isAdmin();
       
       // Attendees: Only registered user or admin can read their ticket,
       // and only authenticated users can register themselves.
@@ -51,12 +50,10 @@ service cloud.firestore {
       }
     }
 
-    // --- User-Specific Collections ---
-
     // Student Progress: Users can only access their own progress records.
-    // Admins can list all users for the admin panel.
+    // Admins can list and get any user's progress.
     match /studentProgress/{userId} {
-      allow get, update, create: if isOwner(userId);
+      allow get, create, update: if isOwner(userId) || isAdmin();
       allow list: if isAdmin();
       allow delete: if isAdmin();
     }

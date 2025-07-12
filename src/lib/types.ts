@@ -16,7 +16,7 @@ export type Question = z.infer<typeof QuestionSchema>;
 // Zod schema for a Lesson
 const LessonSchema = z.object({
   title: z.string().min(1, 'Lesson title cannot be empty'),
-  content: z.string().min(1, 'Lesson content cannot be empty'),
+  content: z.string().min(1, 'Lesson content cannot be empty').default('Placeholder content.'),
   duration: z.string().min(1, 'Lesson duration cannot be empty'),
   completed: z.boolean().default(false),
 });
