@@ -6,8 +6,8 @@ service cloud.firestore {
 
     // Helper function to check for admin role
     function isAdmin() {
-      // List of admin UIDs.
       // IMPORTANT: Replace with your actual Firebase Admin UID(s).
+      // You can find your UID in the Firebase Console under Authentication > Users.
       let adminUids = ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
       return request.auth != null && request.auth.uid in adminUids;
     }
@@ -17,11 +17,6 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == userId;
     }
     
-    // Default deny all access to prevent unintentional open collections.
-    match /{document=**} {
-      allow read, write: if false;
-    }
-
     // Courses: Public can read, Admins can write
     match /courses/{courseId} {
       allow get, list: if true;
@@ -37,7 +32,7 @@ service cloud.firestore {
     // Blog Posts: Public can read published posts, Admins can write all
     match /blogPosts/{postId} {
       allow get: if resource.data.status == 'published' || isAdmin();
-      allow list: if true;
+      allow list: if true; // Client will filter for 'published' status
       allow write: if isAdmin();
     }
     
