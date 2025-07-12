@@ -53,7 +53,7 @@ export function CourseManager() {
         console.error("Error fetching courses: ", error);
         toast({
             title: "Error",
-            description: `Could not fetch courses: ${(error as Error).message}`,
+            description: `Could not fetch courses: ${(error as Error).message}. This is likely a Firestore security rule issue.`,
             variant: "destructive",
         });
     } finally {
@@ -233,7 +233,7 @@ export function CourseManager() {
           )) : (
             <TableRow>
               <TableCell colSpan={5} className="text-center text-muted-foreground">
-                No courses found. Click "Add Course" to get started.
+                No courses found. This might be a Firestore permissions issue.
               </TableCell>
             </TableRow>
           )}

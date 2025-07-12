@@ -1,4 +1,3 @@
-
 rules_version = '2';
 
 service cloud.firestore {
@@ -6,7 +5,6 @@ service cloud.firestore {
 
     // Helper function to check for admin role
     function isAdmin() {
-      // List of admin UIDs.
       // IMPORTANT: Replace with your actual Firebase Admin UID(s).
       let adminUids = ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
       return request.auth != null && request.auth.uid in adminUids;
@@ -16,16 +14,23 @@ service cloud.firestore {
     function isOwner(userId) {
       return request.auth != null && request.auth.uid == userId;
     }
+    
+    // Default deny all access to prevent unintentional open collections.
+    match /{document=**} {
+      allow read, write: if false;
+    }
 
     // Courses: Public can read, Admins can write
     match /courses/{courseId} {
-      allow get, list: if true;
+      allow get: if true;
+      allow list: if true;
       allow create, update, delete: if isAdmin();
     }
 
     // Instructors: Public can read, Admins can write
     match /instructors/{instructorId} {
-      allow get, list: if true;
+      allow get: if true;
+      allow list: if true;
       allow create, update, delete: if isAdmin();
     }
 
@@ -38,7 +43,8 @@ service cloud.firestore {
     
     // Events: Public can read, Admins can write
     match /events/{eventId} {
-      allow get, list: if true;
+      allow get: if true;
+      allow list: if true;
       allow create, update, delete: if isAdmin();
       
       // Attendees: Only registered user or admin can read their ticket,
@@ -51,11 +57,12 @@ service cloud.firestore {
     }
 
     // Student Progress: Users can only access their own progress records.
-    // Admins can list and get any user's progress.
+    // Admins have read/list access.
     match /studentProgress/{userId} {
-      allow get, create, update: if isOwner(userId) || isAdmin();
-      allow list: if isAdmin();
-      allow delete: if isAdmin();
+      allow get, update, create: if isOwner(userId);
+      allow list: if isAdmin(); // Admins can list all users for the panel
+      // Admins cannot delete user progress for safety
+      allow delete: if false; 
     }
 
     // Feedback: Authenticated users can create feedback. Admins can read it.

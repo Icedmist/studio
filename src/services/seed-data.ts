@@ -15,6 +15,7 @@ const introToProgrammingCourse: NewCourse = {
     duration: "6h",
     instructor: "Nasir Ibrahim Imam",
     price: 2500,
+    imageUrl: 'https://placehold.co/600x400.png',
     modules: [
         {
             title: "Module 1: What is Programming?",
@@ -109,6 +110,7 @@ const machineLearningBasics: NewCourse = {
     duration: "12h",
     instructor: "Nasir Ibrahim Imam",
     price: 5000,
+    imageUrl: 'https://placehold.co/600x400.png',
     modules: [
         {
             title: "Module 1: What is Machine Learning?",
@@ -235,6 +237,7 @@ const devOpsPracticesCourse: NewCourse = {
     duration: "12h",
     instructor: "Nasir Ibrahim Imam",
     price: 5000,
+    imageUrl: 'https://placehold.co/600x400.png',
     modules: [
         {
             title: "Module 1: Introduction to DevOps",
@@ -361,6 +364,7 @@ const advancedProgrammingCourse: NewCourse = {
     duration: "12h",
     instructor: "Nasir Ibrahim Imam",
     price: 5000,
+    imageUrl: 'https://placehold.co/600x400.png',
     modules: [
         {
             title: "Module 1: Object-Oriented Programming (OOP)",
@@ -471,6 +475,7 @@ const apisAndBackend: NewCourse = {
     duration: "12h",
     instructor: "Nasir Ibrahim Imam",
     price: 5000,
+    imageUrl: 'https://placehold.co/600x400.png',
     modules: [
         {
             title: "Module 1: Understanding APIs",
@@ -597,6 +602,7 @@ const cybersecurityAdvanced: NewCourse = {
     duration: "24h",
     instructor: "Nasir Ibrahim Imam",
     price: 7000,
+    imageUrl: 'https://placehold.co/600x400.png',
     modules: [
         {
             title: "Module 1: Advanced Threat Modeling & Attack Surface Analysis",
@@ -723,6 +729,7 @@ const techLeadership: NewCourse = {
     duration: "24h",
     instructor: "Nasir Ibrahim Imam",
     price: 7000,
+    imageUrl: 'https://placehold.co/600x400.png',
     modules: [
         {
             title: "Module 1: The Mindset of a Tech Leader",
@@ -849,6 +856,7 @@ const researchInTechnology: NewCourse = {
     duration: "24h",
     instructor: "Nasir Ibrahim Imam",
     price: 7000,
+    imageUrl: 'https://placehold.co/600x400.png',
     modules: [
         {
             title: "Module 1: Introduction to Research in Technology",
@@ -975,6 +983,7 @@ const innovationProductEngineering: NewCourse = {
     duration: "24h",
     instructor: "Nasir Ibrahim Imam",
     price: 7000,
+    imageUrl: 'https://placehold.co/600x400.png',
     modules: [
         {
             title: "Module 1: Innovation Principles & Practice",
@@ -1101,6 +1110,7 @@ const apiDevelopmentAdvanced: NewCourse = {
     duration: "18h",
     instructor: "Nasir Ibrahim Imam",
     price: 7000,
+    imageUrl: 'https://placehold.co/600x400.png',
     modules: [
         {
             title: "Module 1: Designing Scalable REST APIs",
@@ -1227,6 +1237,7 @@ const mobileAppDevelopment: NewCourse = {
     duration: "12h",
     instructor: "Nasir Ibrahim Imam",
     price: 5000,
+    imageUrl: 'https://placehold.co/600x400.png',
     modules: [
         {
             title: "Module 1: Introduction to Mobile App Development",
@@ -1353,6 +1364,7 @@ const databaseDesignCourse: NewCourse = {
     duration: "12h",
     instructor: "Nasir Ibrahim Imam",
     price: 5000,
+    imageUrl: 'https://placehold.co/600x400.png',
     modules: [
         {
             title: "Module 1: Introduction to Databases",
@@ -1479,6 +1491,7 @@ const artificialIntelligenceCourse: NewCourse = {
     duration: "18h",
     instructor: "Nasir Ibrahim Imam",
     price: 7000,
+    imageUrl: 'https://placehold.co/600x400.png',
     modules: [
         {
             title: "Module 1: The Foundations of Artificial Intelligence",
