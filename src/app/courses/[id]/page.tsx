@@ -8,7 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { CheckCircle, Clock, User, Loader2 } from 'lucide-react';
 import Link from 'next/link';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/hooks/use-auth';
@@ -209,16 +209,18 @@ export default function CoursePage() {
               {renderEnrollmentButton()}
 
             </div>
-            <div>
-              <Image
-                src={course.imageUrl}
-                alt={course.title}
-                width={600}
-                height={400}
-                className="rounded-lg w-full object-cover"
-                data-ai-hint={course.title.toLowerCase().split(' ').slice(0, 2).join(' ')}
-              />
-            </div>
+            {course.imageUrl && (
+              <div>
+                <Image
+                  src={course.imageUrl}
+                  alt={course.title}
+                  width={600}
+                  height={400}
+                  className="rounded-lg w-full object-cover"
+                  data-ai-hint={course.title.toLowerCase().split(' ').slice(0, 2).join(' ')}
+                />
+              </div>
+            )}
           </motion.div>
         </div>
       </section>

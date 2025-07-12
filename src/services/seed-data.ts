@@ -1,4 +1,3 @@
-
 'use server';
 
 import { db } from '@/lib/firebase';
@@ -7,22 +6,115 @@ import type { NewCourse } from '@/lib/types';
 import { CourseSchema } from '@/lib/types';
 import { z } from 'zod';
 
+const introToProgrammingCourse: NewCourse = {
+    title: "Introduction to Programming",
+    description: "Learn what programming is, understand core concepts, and write your first lines of code. Perfect for absolute beginners.",
+    longDescription: "This course is designed for total beginners. It breaks down the core concepts of programming like variables, data types, and control structures, using simple analogies and hands-on practice. By the end, you'll be able to write simple code in Python or JavaScript and build small but powerful projects.",
+    category: "Tech Skills",
+    level: "Beginner",
+    duration: "6h",
+    instructor: "Yusuf O. Habeeb",
+    price: 2500,
+    modules: [
+        {
+            title: "Module 1: What is Programming?",
+            lessons: [{
+                title: "Definitions, Analogies, and Why It Matters",
+                content: "Programming is how humans tell computers what to do. Computers follow instructions—and programming is how we write those instructions in a way they understand. We use it to build websites, automate tasks, and solve real-world problems. The first programmer was Ada Lovelace in the 1800s, and today, code written by just one or two people can power apps used by millions.",
+                duration: "30m"
+            }],
+            quiz: [
+                { questionText: "Programming is the process of:", options: ["Cooking", "Giving instructions to a computer", "Writing stories"], correctAnswerIndex: 1 },
+                { questionText: "Computers understand:", options: ["Body language", "Programming languages", "Random thoughts"], correctAnswerIndex: 1 },
+                { questionText: "Programming can be used for:", options: ["Driving a car manually", "Automating tasks", "Making lemonade"], correctAnswerIndex: 1 },
+                { questionText: "Who was the first programmer?", options: ["Elon Musk", "Ada Lovelace", "Mark Zuckerberg"], correctAnswerIndex: 1 },
+                { questionText: "Which of these is NOT a reason to learn programming?", options: ["To confuse computers", "To solve real-world problems", "To build software"], correctAnswerIndex: 0 },
+                { questionText: "Programming is:", options: ["Guesswork", "Magic", "Logic and instructions"], correctAnswerIndex: 2 },
+            ]
+        },
+        {
+            title: "Module 2: Basic Programming Concepts",
+            lessons: [{
+                title: "Variables, Data Types, and Control Structures",
+                content: "Variables are like boxes where you store information (e.g., name = \"Tobi\"). Data comes in different types: Strings (text), Integers (whole numbers), Floats (decimals), and Booleans (True/False). Control structures like 'if statements' make decisions, while 'loops' repeat actions. Functions are reusable chunks of code.",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "A variable stores:", options: ["A joke", "Data", "A mouse"], correctAnswerIndex: 1 },
+                { questionText: "What is a Boolean?", options: ["A string", "A decimal", "True or False"], correctAnswerIndex: 2 },
+                { questionText: "Which of these is a control structure?", options: ["Table", "Loop", "Variable"], correctAnswerIndex: 1 },
+                { questionText: "What will 'if 5 > 3: print(\"Yes\")' print?", options: ["Yes", "No", "Error"], correctAnswerIndex: 0 },
+                { questionText: "Which is the correct way to define a function in Python?", options: ["create function {}", "def greet():", "make greet()"], correctAnswerIndex: 1 },
+                { questionText: "What is a float in programming?", options: ["A balloon", "A decimal number", "An error"], correctAnswerIndex: 1 },
+            ]
+        },
+        {
+            title: "Module 3: Introduction to Programming Languages",
+            lessons: [{
+                title: "Python vs. JavaScript and Others",
+                content: "You don't need to learn all languages. Python is readable and great for beginners, used in AI and web. JavaScript runs in browsers and makes websites interactive. Other languages like Java, C++, and Swift are used for Android apps, games, and iOS apps respectively. Choose Python to start simple, or JavaScript for web development.",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "Which language is beginner-friendly?", options: ["Python", "Binary", "Rust"], correctAnswerIndex: 0 },
+                { questionText: "JavaScript is used mainly in:", options: ["Microwave ovens", "Web browsers", "Traffic lights"], correctAnswerIndex: 1 },
+                { questionText: "Python is known for being:", options: ["Complicated", "Hard to read", "Easy and clean"], correctAnswerIndex: 2 },
+                { questionText: "Which language is used in Android apps?", options: ["Java", "Python", "HTML"], correctAnswerIndex: 0 },
+                { questionText: "What does 'print(\"Welcome!\")' print?", options: ["Welcome!", "Error", "Nothing"], correctAnswerIndex: 0 },
+                { questionText: "What is the best way to learn a programming language?", options: ["Watch only videos", "Practice writing code", "Memorize syntax"], correctAnswerIndex: 1 },
+            ]
+        },
+        {
+            title: "Module 4: Exercises and Projects",
+            lessons: [{
+                title: "Putting Knowledge into Practice",
+                content: "Time to get hands-on. Try mini-exercises like printing your name, adding two numbers, or using a loop. Then, build beginner projects like an Age Calculator, a To-Do App, a Number Guessing Game, or a simple login system to solidify your understanding.",
+                duration: "1h 30m"
+            }],
+            quiz: [
+                { questionText: "What function prints text in Python?", options: ["show()", "print()", "echo()"], correctAnswerIndex: 1 },
+                { questionText: "How do you get user input?", options: ["listen()", "input()", "ask()"], correctAnswerIndex: 1 },
+                { questionText: "Which project uses random guessing?", options: ["Age calculator", "Number guessing game", "Login system"], correctAnswerIndex: 1 },
+                { questionText: "What does a to-do app need?", options: ["Task list", "Calculator", "Timer"], correctAnswerIndex: 0 },
+                { questionText: "Does 'if num % 2 == 0:' check if a number is even?", options: ["Yes", "No"], correctAnswerIndex: 0 },
+                { questionText: "What kind of loop prints numbers repeatedly?", options: ["if loop", "for loop", "variable loop"], correctAnswerIndex: 1 },
+            ]
+        }
+    ],
+    finalAssessment: [
+        { questionText: "What is programming?", options: [], correctAnswerIndex: 0 },
+        { questionText: "Name two reasons we use programming.", options: [], correctAnswerIndex: 0 },
+        { questionText: "Write a variable that stores your name.", options: [], correctAnswerIndex: 0 },
+        { questionText: "What is a string?", options: [], correctAnswerIndex: 0 },
+        { questionText: "Name two data types.", options: [], correctAnswerIndex: 0 },
+        { questionText: "What is a Boolean value?", options: [], correctAnswerIndex: 0 },
+        { questionText: "How does a for loop work?", options: [], correctAnswerIndex: 0 },
+        { questionText: "What is the syntax to define a function in Python?", options: [], correctAnswerIndex: 0 },
+        { questionText: "What language is best for beginners?", options: [], correctAnswerIndex: 0 },
+        { questionText: "Name two uses of JavaScript.", options: [], correctAnswerIndex: 0 },
+        { questionText: "Write a Python if-statement that checks if a number is greater than 10.", options: [], correctAnswerIndex: 0 },
+        { questionText: "Create a simple program that adds two numbers.", options: [], correctAnswerIndex: 0 },
+        { questionText: "What does this line do? `input(\"Enter your name: \")`", options: [], correctAnswerIndex: 0 },
+        { questionText: "Why are control structures important?", options: [], correctAnswerIndex: 0 },
+        { questionText: "List two simple projects you can build after this course.", options: [], correctAnswerIndex: 0 },
+    ]
+};
+
 const machineLearningBasics: NewCourse = {
     title: "Machine Learning Basics",
     description: "Foundational understanding of machine learning and how to build practical models.",
     longDescription: "This course will help you understand the core concepts of machine learning (ML), differentiate between supervised, unsupervised, and reinforcement learning, know common ML algorithms like linear regression, decision trees, etc., work with data cleaning, feature engineering, and model evaluation, and get hands-on with Python + scikit-learn workflows.",
-    category: "Tech Skills",
+    category: "AI & Machine Learning",
     level: "Intermediate",
-    imageUrl: "https://placehold.co/600x400.png",
     duration: "12h",
-    instructor: "The Data Mavens",
+    instructor: "Yusuf O. Habeeb",
     price: 5000,
     modules: [
         {
             title: "Module 1: What is Machine Learning?",
             lessons: [{
                 title: "Definitions and Core Concepts",
-                content: "### Definition\n\nMachine Learning (ML) is a field of **Artificial Intelligence** that allows computers to **learn from data** and make decisions without being explicitly programmed.\n\nInstead of writing rules like:\n`if this happens, do that`\nYou feed the machine data and let it **figure out patterns**.\n\n### How It Works\n\nML = Data + Algorithms = Predictions/Insights\n\nYou give:\n\n* Input (features like age, income)\n* Output (label like \"will buy\" or \"won’t buy\")\n\nAnd the machine builds a model that can predict outcomes for **new data**.\n\n### Real-World Examples\n\n* Netflix: recommends shows\n* Gmail: spam detection\n* Banks: fraud detection\n* Self-driving cars: learn how to drive without rage-quitting\n\n### Types of Machine Learning\n\n1. **Supervised Learning** – You provide labeled data\n2. **Unsupervised Learning** – Only input, no labels\n3. **Reinforcement Learning** – Agent learns by doing and receiving rewards/penalties",
+                content: "Machine Learning (ML) is a field of **Artificial Intelligence** that allows computers to **learn from data** and make decisions without being explicitly programmed. Instead of writing rules, you feed the machine data and let it **figure out patterns**. The types of machine learning are Supervised, Unsupervised, and Reinforcement Learning.",
                 duration: "1h"
             }],
             quiz: [
@@ -38,7 +130,7 @@ const machineLearningBasics: NewCourse = {
             title: "Module 2: Data and Features",
             lessons: [{
                 title: "Data Cleaning and Preprocessing",
-                content: "### Data Is King (and kinda messy)\n\nYou can't have ML without data. But raw data is usually messy, inconsistent, or full of missing values. That's why **cleaning** and **preprocessing** is key.\n\n### Key Concepts\n\n* **Features**: Input variables (e.g., height, weight, age)\n* **Labels**: Output variable (e.g., diabetic or not)\n* **Feature Engineering**: Creating new, more useful inputs from existing ones\n* **Normalization**: Scaling values to a similar range (0–1 or -1–1)\n* **One-hot encoding**: Converting categories to binary columns\n\n### Tools\n\n* **Pandas** – Data handling\n* **NumPy** – Math and arrays\n* **Matplotlib / Seaborn** – Visualizing data\n\n### Sample Code\n\n```python\nimport pandas as pd\ndf = pd.read_csv(\"data.csv\")\ndf.fillna(0, inplace=True)\ndf = pd.get_dummies(df)\n```",
+                content: "You can't have ML without data. But raw data is usually messy, inconsistent, or full of missing values. That's why **cleaning** and **preprocessing** is key. This involves Feature Engineering, Normalization, and One-hot encoding using tools like Pandas and NumPy.",
                 duration: "1h"
             }],
             quiz: [
@@ -54,7 +146,7 @@ const machineLearningBasics: NewCourse = {
             title: "Module 3: Supervised Learning (Regression + Classification)",
             lessons: [{
                 title: "Predicting Numbers and Categories",
-                content: "### What Is Supervised Learning?\n\nYou give it input AND output — it learns how to map input → output.\n\n### Two Types\n\n1. **Regression** – Predicts a number (e.g., house price)\n2. **Classification** – Predicts a category (e.g., spam vs not spam)\n\n### Algorithms You’ll See\n\n* Linear Regression\n* Logistic Regression\n* K-Nearest Neighbors (KNN)\n* Decision Trees\n* Random Forests\n* Support Vector Machines (SVM)\n\n### Code Example: Linear Regression\n\n```python\nfrom sklearn.linear_model import LinearRegression\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\npredictions = model.predict(X_test)\n```",
+                content: "In Supervised Learning, you give the model input AND output so it learns how to map inputs to outputs. There are two main types: Regression (predicts a number like a house price) and Classification (predicts a category like 'spam' vs 'not spam'). Common algorithms include Linear Regression, Decision Trees, and Random Forests.",
                 duration: "1h"
             }],
             quiz: [
@@ -70,7 +162,7 @@ const machineLearningBasics: NewCourse = {
             title: "Module 4: Unsupervised Learning",
             lessons: [{
                 title: "Finding Hidden Patterns",
-                content: "### What Is It?\n\nYou only give the input — the model **finds patterns** on its own.\n\n### Use Cases\n\n* Market segmentation\n* Clustering users\n* Anomaly detection\n* Data compression\n\n### Common Algorithms\n\n* K-Means Clustering\n* Hierarchical Clustering\n* Principal Component Analysis (PCA)\n\n### Example: K-Means\n\n```python\nfrom sklearn.cluster import KMeans\nmodel = KMeans(n_clusters=3)\nmodel.fit(X)\n```",
+                content: "In Unsupervised Learning, you only give the model input—it **finds patterns** on its own. This is useful for market segmentation, user clustering, and anomaly detection. Common algorithms include K-Means Clustering and Principal Component Analysis (PCA).",
                 duration: "1h"
             }],
             quiz: [
@@ -86,7 +178,7 @@ const machineLearningBasics: NewCourse = {
             title: "Module 5: Model Evaluation & Metrics",
             lessons: [{
                 title: "How Good Is Your Model?",
-                content: "### Why Evaluate?\n\nTraining a model is only step 1. You need to check **how good it is**.\n\n### Key Metrics\n\n| Problem        | Metrics                                                 |\n| -------------- | ------------------------------------------------------- |\n| Classification | Accuracy, Precision, Recall, F1 Score, Confusion Matrix |\n| Regression     | MAE, MSE, RMSE, R²                                      |\n\n### Confusion Matrix\n\n| &nbsp;          | Predicted Yes | Predicted No |\n| ---------- | ------------- | ------------ |\n| Actual Yes | TP            | FN           |\n| Actual No  | FP            | TN           |\n\n### Scikit-learn Example\n\n```python\nfrom sklearn.metrics import accuracy_score\nacc = accuracy_score(y_test, y_pred)\n```",
+                content: "Training a model is only step one. You need to check **how good it is**. For classification problems, you use metrics like Accuracy, Precision, Recall, and the F1 Score. For regression problems, you use metrics like Mean Absolute Error (MAE), Mean Squared Error (MSE), and R-squared.",
                 duration: "1h"
             }],
             quiz: [
@@ -102,7 +194,7 @@ const machineLearningBasics: NewCourse = {
             title: "Module 6: Tools, Libraries & ML Workflow",
             lessons: [{
                 title: "Putting It All Together",
-                content: "### Common Tools\n\n* **Jupyter Notebooks** – for code + notes\n* **scikit-learn** – core ML library\n* **TensorFlow/Keras** – for deep learning\n* **Colab** – free cloud notebooks\n\n### Workflow\n\n1. Collect & explore data\n2. Clean and preprocess\n3. Train-test split\n4. Train model\n5. Evaluate model\n6. Improve and retrain\n7. Deploy (next course 😉)\n\n### Sample Flow\n\n```python\n# Step-by-step ML model\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.ensemble import RandomForestClassifier\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)\nmodel = RandomForestClassifier()\nmodel.fit(X_train, y_train)\ny_pred = model.predict(X_test)\n```",
+                content: "The typical ML workflow involves collecting data, cleaning it, splitting it for training and testing, training a model, evaluating it, and then improving it. Common tools for this are Jupyter Notebooks, scikit-learn for classical ML, and TensorFlow/Keras for deep learning.",
                 duration: "1h"
             }],
             quiz: [
@@ -140,16 +232,15 @@ const devOpsPracticesCourse: NewCourse = {
     longDescription: "This course will help you understand what DevOps is and why it matters, automate software development pipelines, use tools like GitHub Actions, Docker, Jenkins, and Kubernetes, deploy software faster, safer, and smarter, and monitor and maintain live systems like a pro.",
     category: "Tech Skills",
     level: "Intermediate",
-    imageUrl: "https://placehold.co/600x400.png",
     duration: "12h",
-    instructor: "The DevOps Brigade",
+    instructor: "Yusuf O. Habeeb",
     price: 5000,
     modules: [
         {
             title: "Module 1: Introduction to DevOps",
             lessons: [{
                 title: "What is DevOps?",
-                content: "DevOps = Development + Operations\nIt’s a **culture**, **process**, and **toolset** that bridges developers and system administrators to:\n\n* Deliver software faster\n* Maintain high reliability\n* Automate repetitive tasks\n\n> Think of DevOps like this: Developers build the car. Ops fuels it, maintains it, and ensures it never crashes… even while driving 200mph.\n\n### Core Principles of DevOps\n\n1. **Automation**: Build, test, and deploy without manual effort\n2. **Continuous Integration/Continuous Deployment (CI/CD)**\n3. **Monitoring**: Real-time app performance and uptime\n4. **Collaboration**: Dev and Ops aren’t rivals. They’re teammates now.\n\n### Key Tools in DevOps\n\n| Area          | Tools                              |\n| ------------- | ---------------------------------- |\n| CI/CD         | GitHub Actions, Jenkins, GitLab CI |\n| Containers    | Docker                             |\n| Orchestration | Kubernetes                         |\n| Monitoring    | Prometheus, Grafana                |\n| Infra         | Terraform, AWS, Azure              |",
+                content: "DevOps = Development + Operations. It’s a culture, process, and toolset that bridges developers and system administrators to deliver software faster, maintain high reliability, and automate repetitive tasks. Core principles are Automation, CI/CD, Monitoring, and Collaboration.",
                 duration: "1h"
             }],
             quiz: [
@@ -165,7 +256,7 @@ const devOpsPracticesCourse: NewCourse = {
             title: "Module 2: CI/CD Pipelines (Continuous Integration & Delivery)",
             lessons: [{
                 title: "CI/CD Pipelines",
-                content: "### What is CI?\n\n**Continuous Integration** = automatically testing and merging code when changes are pushed to version control (e.g., GitHub).\n\n### What is CD?\n\n**Continuous Deployment/Delivery** = automatically deploying your tested app to production or staging environments.\n\n### Sample CI/CD Workflow (GitHub Actions)\n\n```yaml\nname: Node CI\n\non:\n  push:\n    branches: [ main ]\n\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v3\n      - name: Install dependencies\n        run: npm install\n      - name: Run tests\n        run: npm test\n```\n\n### Benefits of CI/CD\n\n* Faster shipping\n* Catch bugs early\n* Standardized deployment\n* Happy devs and users 🥳",
+                content: "Continuous Integration (CI) automatically tests and merges code when changes are pushed to version control. Continuous Deployment/Delivery (CD) automatically deploys your tested app to production or staging environments. This leads to faster shipping and earlier bug detection.",
                 duration: "1h"
             }],
             quiz: [
@@ -181,7 +272,7 @@ const devOpsPracticesCourse: NewCourse = {
             title: "Module 3: Containers and Docker",
             lessons: [{
                 title: "Containers and Docker",
-                content: "### What Is Docker?\n\nDocker packages your app with everything it needs (code, dependencies, environment) into **containers**.\n\n> Think of Docker as a shipping container for software — identical, portable, and consistent.\n\n### Docker vs Traditional Deployment\n\n| Traditional          | Docker             |\n| -------------------- | ------------------ |\n| Works on one machine | Works anywhere     |\n| Needs manual setup   | Prebuilt images    |\n| Inconsistent results | Predictable builds |\n\n### Basic Dockerfile Example\n\n```Dockerfile\nFROM node:16  \nWORKDIR /app  \nCOPY . .  \nRUN npm install  \nCMD [\"npm\", \"start\"]\n```\n\n### Docker Commands\n\n* `docker build . -t myapp`\n* `docker run -p 3000:3000 myapp`\n* `docker ps`\n* `docker stop <container>`",
+                content: "Docker packages your app with everything it needs (code, dependencies, environment) into portable and consistent 'containers'. This ensures your application works the same way everywhere, from your local machine to production servers. A Dockerfile defines the steps to build your container image.",
                 duration: "1h"
             }],
             quiz: [
@@ -197,7 +288,7 @@ const devOpsPracticesCourse: NewCourse = {
             title: "Module 4: Infrastructure as Code (IaC)",
             lessons: [{
                 title: "Infrastructure as Code",
-                content: "### What is IaC?\n\nInfrastructure as Code means **automating infrastructure setup** using code, not manual clicks.\n\n> With tools like Terraform, you can spin up servers, databases, and load balancers in seconds — with one file.\n\n### Why It Rocks\n\n* Reproducible environments\n* Version-controlled infrastructure\n* Scalable and consistent\n\n### Terraform Basics\n\nTerraform syntax:\n\n```hcl\nprovider \"aws\" {\n  region = \"us-east-1\"\n}\n\nresource \"aws_instance\" \"web\" {\n  ami           = \"ami-123456\"\n  instance_type = \"t2.micro\"\n}\n```\n\n### Tools\n\n* **Terraform** – Multi-cloud IaC\n* **Ansible** – Configuration management\n* **Pulumi** – IaC with JavaScript",
+                content: "Infrastructure as Code (IaC) means automating infrastructure setup using code, not manual clicks. With tools like Terraform, you can define servers, databases, and load balancers in a file, making your infrastructure reproducible, version-controlled, and scalable.",
                 duration: "1h"
             }],
             quiz: [
@@ -213,7 +304,7 @@ const devOpsPracticesCourse: NewCourse = {
             title: "Module 5: Monitoring & Logging",
             lessons: [{
                 title: "Monitoring & Logging",
-                content: "### Why Monitor?\n\nMonitoring shows how your app behaves in production:\n\n* Is it up?\n* Is it fast?\n* Are there errors?\n\n### Tools for Monitoring\n\n| Category | Tools                                       |\n| -------- | ------------------------------------------- |\n| Logs     | ELK Stack (Elasticsearch, Logstash, Kibana) |\n| Metrics  | Prometheus, Grafana                         |\n| Alerts   | PagerDuty, New Relic                        |\n\n### Dashboards\n\nVisualize metrics in **real-time** — CPU, memory, traffic, errors.",
+                content: "Monitoring shows how your app behaves in production: Is it up? Is it fast? Are there errors? Tools like Prometheus and Grafana help visualize metrics (CPU, memory, traffic), while logging stacks like ELK help debug issues by analyzing log data.",
                 duration: "1h"
             }],
             quiz: [
@@ -229,7 +320,7 @@ const devOpsPracticesCourse: NewCourse = {
             title: "Module 6: DevOps Culture & Collaboration",
             lessons: [{
                 title: "DevOps Culture & Collaboration",
-                content: "### DevOps is More Than Tools\n\nDevOps is also about:\n\n* Shared responsibility\n* Breaking silos\n* Transparency\n* Continuous improvement\n\n### Collaboration Practices\n\n* Pair programming between Dev and Ops\n* Shared dashboards\n* Blameless postmortems\n* Clear documentation\n\n### KPIs in DevOps\n\n* Deployment frequency\n* Mean time to recovery (MTTR)\n* Change failure rate\n* Lead time for changes",
+                content: "DevOps is more than tools; it's about shared responsibility, breaking down silos between teams, and continuous improvement. Practices like pair programming, shared dashboards, and blameless postmortems foster a collaborative environment where teams can ship software effectively.",
                 duration: "1h"
             }],
             quiz: [
@@ -267,16 +358,15 @@ const advancedProgrammingCourse: NewCourse = {
     longDescription: "This course will help you understand advanced programming concepts beyond syntax, improve your problem-solving skills with real-world examples, dive into Object-Oriented Programming, recursion, data structures, and algorithms, learn modular design, file handling, and error management, and think like a software engineer, not just a coder.",
     category: "Tech Skills",
     level: "Intermediate",
-    imageUrl: "https://placehold.co/600x400.png",
     duration: "12h",
-    instructor: "The Code Crafters",
+    instructor: "Yusuf O. Habeeb",
     price: 5000,
     modules: [
         {
             title: "Module 1: Object-Oriented Programming (OOP)",
             lessons: [{
                 title: "What is OOP?",
-                content: "OOP is a programming paradigm based on the concept of **“objects”**—data bundled with methods that operate on that data.\n\n> Imagine you’re designing a video game.\n> Each character (e.g., Dragon, Wizard) can move, attack, and defend. They all have health, armor, and weapons.\n\nOOP lets you model this logically and efficiently.\n\n### Key OOP Concepts\n\n1. **Class**: A blueprint (e.g., `class Car:`)\n2. **Object**: A real instance of a class (e.g., `myCar = Car()`)\n3. **Encapsulation**: Keeping data safe inside a class\n4. **Inheritance**: One class can inherit another’s traits\n5. **Polymorphism**: Same method, different behavior\n6. **Abstraction**: Hiding unnecessary details\n\n### Python OOP Example:\n\n```python\nclass Animal:\n    def speak(self):\n        return \"Generic sound\"\n\nclass Dog(Animal):\n    def speak(self):\n        return \"Woof!\"\n\nbuddy = Dog()\nprint(buddy.speak())  # Output: Woof!\n```\n\n### Why It Matters\n\n* Makes your code **reusable**\n* Helps with **team collaboration**\n* Reflects **real-world** structures\n* Used heavily in frameworks (e.g., Django, React Components)",
+                content: "OOP is a programming paradigm based on the concept of **“objects”**—data bundled with methods that operate on that data. Key concepts include Classes, Objects, Encapsulation, Inheritance, Polymorphism, and Abstraction. It makes code reusable and reflects real-world structures.",
                 duration: "1h"
             }],
             quiz: [
@@ -292,7 +382,7 @@ const advancedProgrammingCourse: NewCourse = {
             title: "Module 2: Data Structures and Algorithms",
             lessons: [{
                 title: "What Are Data Structures?",
-                content: "Data structures organize and store data efficiently.\nExamples:\n\n* **Lists/Arrays**\n* **Stacks** (LIFO)\n* **Queues** (FIFO)\n* **Linked Lists**\n* **Trees**\n* **Hash Maps**\n* **Graphs**\n\n### Why Use Them?\n\nBecause:\n\n* Searching is faster\n* Memory is used wisely\n* Operations like sorting, insertion, and deletion are optimized\n\n### Algorithms\n\nAlgorithms are step-by-step instructions to solve problems.\n\n🔑 Famous ones:\n\n* **Binary Search**\n* **Sorting (Merge, Quick, Bubble)**\n* **Graph Traversal (DFS, BFS)**\n* **Dijkstra’s Algorithm (Shortest Path)**\n\n### Example Challenge: Sorting a List\n\n```python\ndef bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(0, n-i-1):\n            if arr[j] > arr[j+1]:\n                arr[j], arr[j+1] = arr[j+1], arr[j]\n    return arr\n```",
+                content: "Data structures organize and store data efficiently. Examples include Lists, Stacks (LIFO), Queues (FIFO), Linked Lists, Trees, and Hash Maps. Algorithms are step-by-step instructions to solve problems, such as Binary Search or various sorting algorithms like Bubble Sort.",
                 duration: "1h"
             }],
             quiz: [
@@ -308,7 +398,7 @@ const advancedProgrammingCourse: NewCourse = {
             title: "Module 3: File Handling and Modular Design",
             lessons: [{
                 title: "File Handling",
-                content: "File handling allows your program to **read/write from external files** like `.txt`, `.json`, `.csv`, etc.\n\n```python\n# Reading a file\nwith open(\"data.txt\", \"r\") as file:\n    print(file.read())\n```\n\n### Modular Design\n\nModular design = break large programs into smaller, independent modules.\n\nExample:\n\n```python\n# main.py\nfrom utils.math_tools import add\n\nprint(add(3, 4))\n```\n\nBenefits:\n\n* Easier maintenance\n* Clean code structure\n* Reusability across projects",
+                content: "File handling allows your program to **read/write from external files** like `.txt`, `.json`, or `.csv`. Modular design involves breaking large programs into smaller, independent modules, which makes code easier to maintain, cleaner, and more reusable.",
                 duration: "1h"
             }],
             quiz: [
@@ -324,7 +414,7 @@ const advancedProgrammingCourse: NewCourse = {
             title: "Module 4: Error Handling and Debugging",
             lessons: [{
                 title: "Why Handle Errors?",
-                content: "Because no matter how smart you are, your code will break.\n**Error handling** prevents your program from crashing like a toddler after sugar.\n\n### Python Example:\n\n```python\ntry:\n    num = int(input(\"Enter a number: \"))\nexcept ValueError:\n    print(\"That wasn't a number.\")\n```\n\n### Debugging Tools\n\n* `print()` debugging (old but gold)\n* Python’s built-in `pdb`\n* IDE debuggers (VSCode, PyCharm)\n\n### Best Practices\n\n* Anticipate common errors (input, division, missing files)\n* Use `try`, `except`, `finally`\n* Log errors using `logging` module\n* Never leave a bare `except:` — always specify the exception",
+                content: "Error handling prevents your program from crashing. Using `try-except` blocks allows you to catch potential errors, like a `ValueError` when a user inputs text instead of a number. It's best practice to log errors, specify the exceptions you're catching, and use debugging tools like `pdb` or IDE debuggers.",
                 duration: "1h"
             }],
             quiz: [
@@ -340,7 +430,7 @@ const advancedProgrammingCourse: NewCourse = {
             title: "Module 5: Writing Clean, Maintainable Code",
             lessons: [{
                 title: "Clean Code Rules",
-                content: "* Name variables clearly\n* Avoid long functions\n* Follow DRY (Don’t Repeat Yourself)\n* Add docstrings\n* Use meaningful comments (not “# do stuff”)\n\n### PEP 8: Python’s Style Guide\n\nEnforces:\n\n* Indentation\n* Line length (max 79 chars)\n* Naming conventions\n* Whitespace formatting\n\n### Real Practice\n\nBad:\n\n```python\nx = 123\ndef a(x): return x*3\n```\n\nGood:\n\n```python\ndef triple_number(number):\n    \"\"\"Returns the input number multiplied by 3.\"\"\"\n    return number * 3\n```",
+                content: "Clean code involves naming variables clearly, avoiding long functions, and following the DRY (Don’t Repeat Yourself) principle. Following a style guide like Python's PEP 8—which enforces rules for indentation, line length, and naming conventions—makes your code more readable and maintainable.",
                 duration: "1h"
             }],
             quiz: [
@@ -378,16 +468,15 @@ const apisAndBackend: NewCourse = {
     longDescription: "By the end of this course, you’ll be able to: Understand what APIs are and how they work, Build RESTful APIs using Node.js and Express, Understand and use GraphQL APIs, Secure your APIs with tokens and rate limiting, Connect APIs to databases, Test, deploy, and monitor backend systems.",
     category: "Tech Skills",
     level: "Intermediate",
-    imageUrl: "https://placehold.co/600x400.png",
     duration: "12h",
-    instructor: "The Backend Brigade",
+    instructor: "Yusuf O. Habeeb",
     price: 5000,
     modules: [
         {
             title: "Module 1: Understanding APIs",
             lessons: [{
                 title: "What is an API?",
-                content: "### What Is an API?\n\n**API = Application Programming Interface**\nIt's like a **waiter in a restaurant** 🍽️ — takes your request to the kitchen (server), and brings the response (data) back.\n\nAPIs let software **talk to each other** — your mobile app talks to your backend via API.\n\n### Types of APIs\n\n| Type      | Description                     | Example             |\n| --------- | ------------------------------- | ------------------- |\n| REST      | Web-standard, uses HTTP methods | JSONPlaceholder     |\n| SOAP      | XML-based, strict rules         | Legacy banking APIs |\n| GraphQL   | Flexible querying               | GitHub API          |\n| WebSocket | Real-time, 2-way                | Chat apps, games    |\n\n### REST API Basics\n\n* Uses standard HTTP methods:\n\n  * `GET` – Retrieve data\n  * `POST` – Create new data\n  * `PUT` – Update data\n  * `DELETE` – Remove data\n\n* Communicates using **JSON**",
+                content: "API stands for Application Programming Interface. It's like a waiter in a restaurant that takes your request to the kitchen (server) and brings the response (data) back. APIs let different software applications talk to each other. Common types include REST, GraphQL, and WebSockets.",
                 duration: "1h"
             }],
             quiz: [
@@ -403,7 +492,7 @@ const apisAndBackend: NewCourse = {
             title: "Module 2: Building REST APIs with Node.js & Express",
             lessons: [{
                 title: "Setting Up a Simple API",
-                content: "### Tools You'll Use\n\n* **Node.js** – JavaScript runtime\n* **Express.js** – Web framework\n* **Postman** – API testing\n* **npm** – Dependency manager\n\n### Setting Up a Simple API\n\n```bash\nnpm init -y\nnpm install express\n```\n\n```javascript\nconst express = require('express');\nconst app = express();\n\napp.use(express.json());\n\napp.get('/api/hello', (req, res) => {\n  res.json({ message: 'Hello API World!' });\n});\n\napp.listen(3000, () => console.log('Server running on port 3000'));\n```\n\n### HTTP Methods in Action\n\n| Route        | Method | Purpose     |\n| ------------ | ------ | ----------- |\n| `/users`     | GET    | Get users   |\n| `/users`     | POST   | Add user    |\n| `/users/:id` | PUT    | Update user |\n| `/users/:id` | DELETE | Delete user |",
+                content: "To build a REST API, you can use Node.js with the Express.js framework. After setting up a project with `npm`, you define routes for different HTTP methods like GET, POST, PUT, and DELETE to handle creating, reading, updating, and deleting resources.",
                 duration: "1h"
             }],
             quiz: [
@@ -419,7 +508,7 @@ const apisAndBackend: NewCourse = {
             title: "Module 3: API Authentication & Security",
             lessons: [{
                 title: "Securing APIs with JWT",
-                content: "### Why Secure APIs?\n\nUnsecured APIs are like **open bank vaults** — anyone can steal your data. Protect your endpoints!\n\n### Methods of API Security\n\n* **API Keys** – Basic security (limited)\n* **Bearer Tokens (JWT)** – Most common\n* **OAuth2** – Third-party login (Google, Facebook)\n* **Rate Limiting** – Prevent abuse\n\n### JWT Authentication Example\n\n```javascript\nconst jwt = require('jsonwebtoken');\nconst token = jwt.sign({ userId: 1 }, 'secret', { expiresIn: '1h' });\n```\n\n```javascript\n// Middleware to verify\nfunction authMiddleware(req, res, next) {\n  const token = req.headers.authorization?.split(' ')[1];\n  if (!token) return res.status(401).json({ message: 'Unauthorized' });\n  try {\n    req.user = jwt.verify(token, 'secret');\n    next();\n  } catch {\n    res.status(403).json({ message: 'Forbidden' });\n  }\n}\n```",
+                content: "Unsecured APIs are vulnerable. Common security methods include API Keys, Bearer Tokens (like JWT - JSON Web Tokens), and OAuth2 for third-party logins. JWTs are often sent in the `Authorization` header and can be verified by the server to protect endpoints.",
                 duration: "1h"
             }],
             quiz: [
@@ -435,7 +524,7 @@ const apisAndBackend: NewCourse = {
             title: "Module 4: Connecting APIs to Databases",
             lessons: [{
                 title: "Integrating MongoDB with Mongoose",
-                content: "### Why Connect to a Database?\n\nAPIs often serve as the **middleman** between your frontend and your **database** — storing user data, posts, or products.\n\n### Example: MongoDB + Express\n\n```javascript\nconst mongoose = require('mongoose');\nmongoose.connect('mongodb://localhost/mydb');\n```\n\nDefine a model:\n\n```javascript\nconst User = mongoose.model('User', {\n  name: String,\n  email: String\n});\n```\n\nCreate a user:\n\n```javascript\napp.post('/api/users', async (req, res) => {\n  const user = new User(req.body);\n  await user.save();\n  res.status(201).json(user);\n});\n```",
+                content: "APIs often act as a middleman between the frontend and a database. For a Node.js application, you can use a library like Mongoose to connect to a MongoDB database, define data models (schemas), and perform operations like creating, reading, updating, and deleting documents.",
                 duration: "1h"
             }],
             quiz: [
@@ -451,7 +540,7 @@ const apisAndBackend: NewCourse = {
             title: "Module 5: GraphQL APIs",
             lessons: [{
                 title: "Introduction to GraphQL",
-                content: "### What is GraphQL?\n\nGraphQL is a **query language** that allows clients to ask **only for the data they need** — nothing more, nothing less.\n\n> “It’s like ordering à la carte instead of a whole combo meal.” 🍱\n\n### REST vs GraphQL\n\n| Feature | REST | GraphQL |\n| --- | --- | --- |\n| Data Retrieval | Multiple endpoints | One endpoint |\n| Data Format | Fixed | Flexible |\n| Overfetch/Underfetch | Yes | No |\n\n### Basic GraphQL Example\n\n```graphql\nquery {\n  user(id: \"1\") {\n    name\n    email\n  }\n}\n```\n\n### Server Setup with Apollo Server\n\n```javascript\nconst { ApolloServer, gql } = require('apollo-server');\n\nconst typeDefs = gql`\n  type User { id: ID, name: String }\n  type Query { user(id: ID): User }\n`;\n\nconst resolvers = {\n  Query: {\n    user: () => ({ id: \"1\", name: \"John\" })\n  }\n};\n\nconst server = new ApolloServer({ typeDefs, resolvers });\nserver.listen().then(() => console.log(\"GraphQL server ready\"));\n```",
+                content: "GraphQL is a query language for APIs that allows clients to request exactly the data they need, preventing over-fetching. Unlike REST which uses multiple endpoints, GraphQL typically uses a single endpoint. You define your data schema with `typeDefs` and handle data fetching with `resolvers`.",
                 duration: "1h"
             }],
             quiz: [
@@ -467,7 +556,7 @@ const apisAndBackend: NewCourse = {
             title: "Module 6: Testing & Deploying Your Backend",
             lessons: [{
                 title: "Automated API Testing with Jest",
-                content: "### API Testing Tools\n\n* **Postman** – Manual testing\n* **Jest + Supertest** – Automated testing\n* **Insomnia** – Great UI for API tests\n\n### Deployment Steps\n\n1. Push code to GitHub\n2. Set up **Render, Railway, or Vercel**\n3. Connect MongoDB (MongoDB Atlas)\n4. Add environment variables\n5. Deploy and monitor",
+                content: "APIs should be tested before deployment. Manual testing can be done with tools like Postman, while automated testing can be set up with frameworks like Jest and Supertest. For deployment, you can use platforms like Render or Vercel, connect to a cloud database like MongoDB Atlas, and add your secret keys as environment variables.",
                 duration: "1h"
             }],
             quiz: [
@@ -505,16 +594,15 @@ const cybersecurityAdvanced: NewCourse = {
     longDescription: "Learn to perform ethical hacking and penetration testing, design and implement Zero Trust Architectures, write secure code, set up enterprise-level incident response plans, and secure infrastructure across networks, servers, and the cloud.",
     category: "Tech Skills",
     level: "Advanced",
-    imageUrl: "https://placehold.co/600x400.png",
     duration: "24h",
-    instructor: "The Security Division",
+    instructor: "Yusuf O. Habeeb",
     price: 7000,
     modules: [
         {
             title: "Module 1: Advanced Threat Modeling & Attack Surface Analysis",
             lessons: [{
                 title: "Threat Modeling & Analysis",
-                content: "### What Is Threat Modeling?\n\nIt’s the process of identifying **potential threats**, **vulnerabilities**, and **mitigation strategies** before your app even goes live.\n\n> Like imagining all the ways your house could be broken into—then setting up lasers, moats, and maybe a dragon 🐉.\n\n### Core Concepts\n\n* **Assets**: What needs protection (e.g., data, credentials)\n* **Attackers**: Who might try to harm the system\n* **Entry Points**: How attackers might get in\n* **STRIDE Model**:\n\n  * **S**poofing\n  * **T**ampering\n  * **R**epudiation\n  * **I**nformation Disclosure\n  * **D**enial of Service\n  * **E**levation of Privilege\n\n### Attack Surface\n\n* Every **publicly accessible endpoint**\n* All **third-party integrations**\n* Mobile APIs, cloud services, login pages, etc.\n\n### Tools & Practices\n\n* Microsoft Threat Modeling Tool\n* OWASP Threat Dragon\n* Visual threat maps",
+                content: "Threat Modeling is the process of identifying potential threats, vulnerabilities, and mitigation strategies before your app even goes live. A common framework is STRIDE (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege). The goal is to understand and shrink your attack surface.",
                 duration: "1h"
             }],
             quiz: [
@@ -530,7 +618,7 @@ const cybersecurityAdvanced: NewCourse = {
             title: "Module 2: Penetration Testing & Ethical Hacking",
             lessons: [{
                 title: "Pen Testing & Hacking",
-                content: "### What Is Pen Testing?\n\nSimulated attacks on your system to find vulnerabilities **before real attackers do**.\n\n### Pen Testing Lifecycle\n\n1. Reconnaissance (passive & active scanning)\n2. Scanning (Nmap, Nessus)\n3. Gaining Access (exploitation)\n4. Maintaining Access (backdoors, reverse shells)\n5. Covering Tracks\n\n### Red Team vs Blue Team\n\n| Team | Role |\n| --- | --- |\n| Red | Simulates attackers (ethical hackers) |\n| Blue | Defenders (security ops team) |\n\nPurple teams coordinate both for training.\n\n### Tools of the Trade\n\n* **Kali Linux**\n* **Burp Suite**\n* **Metasploit**\n* **Wireshark**\n* **OWASP ZAP**",
+                content: "Penetration Testing (Pen Testing) involves simulated attacks on your system to find vulnerabilities before real attackers do. The process includes reconnaissance, scanning, gaining access, maintaining access, and covering tracks. Teams are often split into Red (attackers) and Blue (defenders).",
                 duration: "1h"
             }],
             quiz: [
@@ -546,7 +634,7 @@ const cybersecurityAdvanced: NewCourse = {
             title: "Module 3: Zero Trust Architecture (ZTA)",
             lessons: [{
                 title: "Understanding Zero Trust",
-                content: "### What Is Zero Trust?\n\n“**Never trust, always verify**.”\nAssume **every user**, **device**, and **connection** is hostile by default.\n\n### Core Principles\n\n* Continuous **authentication**\n* Granular **access control**\n* Least privilege enforcement\n* Microsegmentation\n* Device posture validation\n\n### Implementing ZTA\n\n* Identity Provider (Okta, Azure AD)\n* Multi-factor Authentication (MFA)\n* Per-request validation (tokens, device checks)\n* Monitoring & logging",
+                content: "The principle of Zero Trust Architecture is “Never trust, always verify.” It assumes every user, device, and connection is hostile by default. Core principles include continuous authentication, granular access control, least privilege enforcement, and microsegmentation.",
                 duration: "1h"
             }],
             quiz: [
@@ -562,7 +650,7 @@ const cybersecurityAdvanced: NewCourse = {
             title: "Module 4: Secure Coding & DevSecOps",
             lessons: [{
                 title: "Secure Coding Practices",
-                content: "### Secure Code Matters\n\nBad code = vulnerable app\nYou are your first line of defense.\n\n### Common Code Vulnerabilities\n\n* SQL Injection\n* Cross-Site Scripting (XSS)\n* Insecure Deserialization\n* Broken Authentication\n* Cross-Site Request Forgery (CSRF)\n\n### Example: XSS in JavaScript\n\n```html\n<script>alert('Hacked');</script>\n```\n\nSolution:\n\n* Sanitize inputs\n* Escape outputs\n* Use CSP headers\n\n### DevSecOps Integration\n\n* Static code analysis (SonarQube, Snyk)\n* Dependency scanning\n* Secure CI/CD pipelines\n* Secrets management (Vault, AWS Secrets Manager)",
+                content: "Secure coding is the first line of defense against vulnerabilities like SQL Injection and Cross-Site Scripting (XSS). DevSecOps integrates security into the development pipeline through practices like static code analysis (with tools like SonarQube) and dependency scanning.",
                 duration: "1h"
             }],
             quiz: [
@@ -578,7 +666,7 @@ const cybersecurityAdvanced: NewCourse = {
             title: "Module 5: Network & Cloud Security",
             lessons: [{
                 title: "Network and Cloud Security",
-                content: "### Network Security Concepts\n\n* Firewalls (stateful/NGFW)\n* IDS/IPS systems (Snort, Suricata)\n* VPN and tunneling\n* Packet sniffing and encryption\n\n### Cloud Security Musts\n\n* Cloud-native firewalls (AWS WAF, Azure Firewall)\n* IAM roles & policies\n* Encryption at rest/in-transit\n* Bucket policies (S3), audit trails\n\n### Defense Layers\n\n* DMZ setup\n* Bastion hosts\n* Zero-trust cloud perimeters\n* DDoS protection (Cloudflare, AWS Shield)",
+                content: "Network security involves concepts like firewalls, IDS/IPS systems, and VPNs. In the cloud, this extends to cloud-native firewalls (like AWS WAF), strict IAM roles and policies, and encryption for data both at rest and in transit. Defense-in-depth strategies like using a DMZ or bastion hosts are crucial.",
                 duration: "1h"
             }],
             quiz: [
@@ -594,7 +682,7 @@ const cybersecurityAdvanced: NewCourse = {
             title: "Module 6: Incident Response and Recovery",
             lessons: [{
                 title: "Incident Response and Recovery",
-                content: "### What Is Incident Response?\n\nThe structured approach to detecting, analyzing, and mitigating cyber threats.\n\n### IR Plan Stages\n\n1. Preparation\n2. Detection & Analysis\n3. Containment\n4. Eradication\n5. Recovery\n6. Lessons Learned\n\n### IR Roles\n\n* IR Manager\n* Forensics Analyst\n* Communication Officer\n* SOC Team (Security Operations Center)\n\n### Digital Forensics Tasks\n\n* Log analysis\n* Malware reverse engineering\n* Evidence preservation\n* Chain of custody documentation",
+                content: "Incident Response (IR) is the structured approach to handling cyber threats. The plan typically involves stages: Preparation, Detection & Analysis, Containment, Eradication, Recovery, and Lessons Learned. Roles like Forensics Analyst and the Security Operations Center (SOC) team are vital.",
                 duration: "1h"
             }],
             quiz: [
@@ -632,16 +720,15 @@ const techLeadership: NewCourse = {
     longDescription: "This course covers the essential skills for tech leadership, including managing development teams, aligning goals, resolving conflicts, making strategic technical decisions, scaling teams and processes, and communicating effectively with all stakeholders.",
     category: "Tech Skills",
     level: "Advanced",
-    imageUrl: "https://placehold.co/600x400.png",
     duration: "24h",
-    instructor: "The Visionaries",
+    instructor: "Yusuf O. Habeeb",
     price: 7000,
     modules: [
         {
             title: "Module 1: The Mindset of a Tech Leader",
             lessons: [{
                 title: "From Coder to Leader",
-                content: "### From Coder to Leader\n\n> “A good developer solves problems. A great tech leader helps *others* solve problems.”\n\nThis is the evolution:\n\n* **Individual Contributor (IC)**: Write code, fix bugs, ship features\n* **Tech Lead**: Guide team technically, mentor junior devs\n* **Engineering Manager**: Drive execution, remove blockers\n* **CTO / VP Eng**: Set vision, manage teams/orgs, report to execs\n\n### Key Qualities of a Tech Leader\n\n* Vision-driven\n* Accountable\n* Empathetic\n* Strategic\n* Communicative\n* Calm under pressure (yes, even when the entire API breaks at 2 AM)\n\n### Leadership vs Management\n\n| Leadership | Management |\n| --- | --- |\n| Inspires and aligns | Plans and organizes |\n| Focuses on people | Focuses on process |\n| Vision-oriented | Execution-oriented |\n\n> A great tech leader balances **both**!",
+                content: "A good developer solves problems; a great tech leader helps others solve problems. This module covers the transition from an individual contributor to roles like Tech Lead, Engineering Manager, or CTO. It contrasts leadership (inspiring people) with management (organizing processes).",
                 duration: "1h"
             }],
             quiz: [
@@ -657,7 +744,7 @@ const techLeadership: NewCourse = {
             title: "Module 2: Building and Leading Teams",
             lessons: [{
                 title: "Team Composition and Goals",
-                content: "### Team Composition\n\n* Balance of skills: senior, mid, junior\n* Mix of frontend/backend/QA/devops\n* Hire for **attitude and adaptability**, not just skillset\n\n### Defining Roles and Goals\n\n* Role clarity prevents burnout & overlap\n* Set **SMART goals**\n\n  * Specific\n  * Measurable\n  * Achievable\n  * Relevant\n  * Time-bound\n\n### Leading Effective Standups\n\n* Focus on blockers, not micromanaging\n* 15 minutes max\n* Foster psychological safety so all voices are heard\n\n### Feedback & Performance\n\n* Regular 1:1s\n* Constructive, timely, and specific feedback\n* Praise in public, correct in private",
+                content: "Effective teams have a balance of skills and experience levels. Setting SMART (Specific, Measurable, Achievable, Relevant, Time-bound) goals and clarifying roles prevents burnout. Leaders must also facilitate effective standups and provide regular, constructive feedback.",
                 duration: "1h"
             }],
             quiz: [
@@ -673,7 +760,7 @@ const techLeadership: NewCourse = {
             title: "Module 3: Technical Decision-Making",
             lessons: [{
                 title: "Frameworks for Decision-Making",
-                content: "### Making Smart Tech Choices\n\nTech leaders often decide:\n\n* **Which framework?**\n* **Which architecture?**\n* **When to scale?**\n* **Buy vs build?**\n\n### Frameworks for Decision-Making\n\n* **Trade-off matrix**\n* **Risk/reward mapping**\n* **Technical debt forecasting**\n* **TAM/SAM/SOM for product scaling**\n\n### Common Architectural Patterns\n\n* Monolith vs Microservices\n* Serverless vs container-based\n* Event-driven vs REST\n\n### Communicating Decisions\n\n* Back your choices with **data and empathy**\n* Involve stakeholders\n* Be **transparent** about risks and tradeoffs",
+                content: "Tech leaders make critical decisions about frameworks, architecture (monolith vs. microservices), and whether to build or buy solutions. Using frameworks like a trade-off matrix or risk/reward mapping helps make these choices strategically and transparently.",
                 duration: "1h"
             }],
             quiz: [
@@ -689,7 +776,7 @@ const techLeadership: NewCourse = {
             title: "Module 4: Scaling Teams, Systems, and Culture",
             lessons: [{
                 title: "Scaling Teams and Culture",
-                content: "### Scaling Teams\n\n* Add structure with **pods** (small cross-functional groups)\n* Layer leadership (tech leads, team leads, EMs)\n* Maintain team rituals: retros, show & tell, standups\n\n### Scaling Systems\n\n* Infrastructure automation (Terraform, Ansible)\n* Monitoring (Datadog, New Relic, Prometheus)\n* Scaling patterns (horizontal, vertical, stateless)\n\n### Scaling Culture\n\n* Culture scales through **behavioral reinforcement**\n* Celebrate wins\n* Document what matters\n* Onboard with clarity",
+                content: "As a company grows, leaders must scale their teams, systems, and culture. This involves structuring teams into pods, automating infrastructure with tools like Terraform, implementing monitoring, and reinforcing a positive culture through documentation and celebrating wins.",
                 duration: "1h"
             }],
             quiz: [
@@ -705,7 +792,7 @@ const techLeadership: NewCourse = {
             title: "Module 5: Communication, Influence & Conflict Resolution",
             lessons: [{
                 title: "Leadership Communication",
-                content: "### Leadership = Communication\n\n* Share the **why**, not just the **what**\n* Tailor message for audience (execs vs devs vs users)\n* Keep communication **frequent**, **clear**, and **empathetic**\n\n### Influencing Without Authority\n\n* Use **logic + emotion** to persuade\n* Align with goals\n* Gain buy-in through **storytelling**\n\n### Conflict Resolution\n\n* Address issues early\n* Focus on **problems**, not **personalities**\n* Use mediation and feedback tools\n\n### Emotional Intelligence (EQ)\n\n* Recognize your team’s stress, burnout, excitement\n* Leaders who “read the room” lead better rooms",
+                content: "Effective leadership is rooted in communication. This means sharing the 'why' behind decisions, tailoring messages for different audiences, and using emotional intelligence (EQ) to guide your team. Influencing without authority is achieved through logic, emotion, and storytelling.",
                 duration: "1h"
             }],
             quiz: [
@@ -721,7 +808,7 @@ const techLeadership: NewCourse = {
             title: "Module 6: Strategic Vision and Stakeholder Alignment",
             lessons: [{
                 title: "Vision and Strategy Tools",
-                content: "### Vision = Direction\n\n* Where are we going?\n* Why does it matter?\n\nA leader paints the **future**—in terms your team can believe in.\n\n### Strategy Tools\n\n* OKRs (Objectives & Key Results)\n* V2MOM (Vision, Values, Methods, Obstacles, Measures)\n* 3 Horizons Framework (Innovation vs Sustaining projects)\n\n### Stakeholder Alignment\n\n* Identify stakeholders (product, design, execs, marketing, etc.)\n* Communicate impact + progress\n* Be proactive with risks\n\n### Leadership Reporting\n\n* Roadmaps\n* Budget & timelines\n* Metrics that matter (velocity, uptime, ROI, etc.)",
+                content: "A leader paints a clear vision of the future. Strategy tools like OKRs (Objectives & Key Results) and roadmaps help align the team's work with that vision. It's crucial to identify all stakeholders, communicate progress, and report on metrics that matter, like ROI and uptime.",
                 duration: "1h"
             }],
             quiz: [
@@ -759,16 +846,15 @@ const researchInTechnology: NewCourse = {
     longDescription: "This course will equip learners with the skills to design, execute, and apply high-quality research in the field of technology and innovation. You will understand the principles and methodology of technical research, conduct research-driven innovation in areas like AI, Web3, IoT, and more, analyze emerging tech trends with evidence-based frameworks, create hypotheses and validate them through data and testing, follow ethical guidelines for responsible innovation, and produce publishable research documentation and reports.",
     category: "Tech Skills",
     level: "Advanced",
-    imageUrl: "https://placehold.co/600x400.png",
     duration: "24h",
-    instructor: "The Research Team",
+    instructor: "Yusuf O. Habeeb",
     price: 7000,
     modules: [
         {
             title: "Module 1: Introduction to Research in Technology",
             lessons: [{
                 title: "What Is Research in Tech?",
-                content: "Research in technology involves **systematic investigation** to discover, analyze, and improve systems, software, hardware, or methods. It fuels innovation, powers patents, drives decisions, and influences global trends.\n\n### Types of Research\n\n* **Basic Research**: Increases general knowledge (e.g., quantum computing models)\n* **Applied Research**: Solves practical problems (e.g., reducing server latency)\n* **Experimental Research**: Controlled studies with variables\n* **Exploratory Research**: Scouting emerging areas with limited information\n\n### Examples\n\n* Google’s Transformer model → Led to GPT\n* Amazon’s delivery drone research\n* MIT’s work on solar-powered microgrids\n\n> If you're doing research and no one understands you — congrats, you might be on to something.",
+                content: "Research in technology involves **systematic investigation** to discover, analyze, and improve systems, software, hardware, or methods. It fuels innovation, powers patents, and drives decisions. Types include Basic, Applied, Experimental, and Exploratory research.",
                 duration: "1h"
             }],
             quiz: [
@@ -784,7 +870,7 @@ const researchInTechnology: NewCourse = {
             title: "Module 2: The Research Process in Tech",
             lessons: [{
                 title: "The Research Process",
-                content: "### Key Phases\n\n1. **Problem Identification**\n2. **Literature Review**\n3. **Hypothesis Formulation**\n4. **Research Design & Methodology**\n5. **Data Collection & Analysis**\n6. **Conclusion & Recommendations**\n7. **Publishing or Application**\n\n### Literature Review\n\n* Survey past research\n* Identify what’s missing\n* Build your case for *why this matters*\n\nUse:\n\n* Google Scholar\n* IEEE Xplore\n* ACM Digital Library\n\n### Hypothesis Example\n\n> “Implementing federated learning will reduce training time for mobile AI by 30%.”\n\n### Research Design Methods\n\n* Quantitative (stats, measurement, benchmarks)\n* Qualitative (interviews, observations, open feedback)\n* Mixed Methods (both)",
+                content: "The research process follows key phases: Problem Identification, Literature Review, Hypothesis Formulation, Research Design, Data Collection & Analysis, and Conclusion. A literature review is crucial for understanding existing work using resources like Google Scholar and IEEE Xplore.",
                 duration: "1h"
             }],
             quiz: [
@@ -800,7 +886,7 @@ const researchInTechnology: NewCourse = {
             title: "Module 3: Emerging Technologies & Trend Analysis",
             lessons: [{
                 title: "Analyzing Tech Trends",
-                content: "### Why Trends Matter\n\nTrends help you:\n\n* Predict industry shifts\n* Guide innovation\n* Identify future opportunities\n* Stay ahead of competitors\n\n### Trend Spotting Tools\n\n* Gartner Hype Cycle\n* Google Trends\n* Stack Overflow Surveys\n* MIT Tech Review\n* Hacker News, Arxiv, GitHub repos\n\n### Areas of Growth\n\n* AI Ethics & Regulation\n* Web3 and Decentralized Identity\n* Sustainable Tech & Green Computing\n* Neurotechnology\n* Edge Computing\n* Quantum Security\n\n### Analysis Frameworks\n\n* SWOT (Strengths, Weaknesses, Opportunities, Threats)\n* PEST (Political, Economic, Social, Technological)\n* Hype Cycle Phases:\n\n  * Innovation Trigger\n  * Peak of Inflated Expectations\n  * Trough of Disillusionment\n  * Slope of Enlightenment\n  * Plateau of Productivity",
+                content: "Analyzing trends helps predict industry shifts and identify opportunities. Tools like the Gartner Hype Cycle, Google Trends, and MIT Tech Review are useful. Frameworks like SWOT and PEST help structure the analysis of trends like AI Ethics, Web3, and Quantum Security.",
                 duration: "1h"
             }],
             quiz: [
@@ -816,7 +902,7 @@ const researchInTechnology: NewCourse = {
             title: "Module 4: Data Collection & Hypothesis Testing",
             lessons: [{
                 title: "Data Collection and Testing",
-                content: "### Collecting Data in Tech Research\n\nMethods:\n\n* Instrumentation & telemetry\n* Logs and usage metrics\n* APIs & sensors\n* Surveys and interviews\n* GitHub analytics\n\n### Hypothesis Testing\n\n* Null Hypothesis (H0): No effect\n* Alternative Hypothesis (H1): Effect exists\n* Use p-values, confidence intervals, and statistical tests\n\n### Testing Examples\n\n* AB Testing\n* Regression analysis\n* Chi-square tests\n* T-tests for performance improvement\n\n### Tools\n\n* Jupyter Notebooks\n* Python: Pandas, NumPy, SciPy\n* R language\n* Tableau, Power BI",
+                content: "Data in tech research can be collected from system logs, APIs, surveys, and GitHub analytics. Hypothesis testing involves a null hypothesis (H0, no effect) and an alternative (H1, effect exists). Methods like A/B testing, regression analysis, and t-tests are used to validate hypotheses.",
                 duration: "1h"
             }],
             quiz: [
@@ -832,7 +918,7 @@ const researchInTechnology: NewCourse = {
             title: "Module 5: Publishing, Presenting & Applying Research",
             lessons: [{
                 title: "Publishing and Presenting",
-                content: "### Where to Publish\n\n* IEEE\n* ACM\n* arXiv\n* Google Research\n* Peer-reviewed journals\n* Medium/Dev.to (non-peer informal)\n\n### Presenting Research\n\n* Use storytelling: setup, struggle, solution\n* Keep it visual\n* Know your audience (tech, non-tech, execs)\n* Summarize results, then explain the details\n\n### Tools for Publication\n\n* LaTeX\n* Overleaf\n* Google Docs (for collaboration)\n* Mendeley / Zotero for citations\n\n### Applying Research\n\n* Product prototypes\n* Technical whitepapers\n* Patent applications\n* Startup ideation\n* Innovation sprints",
+                content: "Research can be published in peer-reviewed journals like IEEE/ACM or on platforms like arXiv. When presenting, use storytelling and visuals tailored to your audience. Tools like LaTeX and Zotero are standard for creating professional research papers.",
                 duration: "1h"
             }],
             quiz: [
@@ -848,7 +934,7 @@ const researchInTechnology: NewCourse = {
             title: "Module 6: Ethics & Responsible Innovation",
             lessons: [{
                 title: "Ethics in Research",
-                content: "### Why Ethics Matter\n\n* Innovation without boundaries → Danger\n* Trust and responsibility are non-negotiable in tech\n\n### Ethical Topics in Tech\n\n* AI bias and fairness\n* Surveillance vs privacy\n* Responsible data usage\n* Deepfake and misinformation risks\n* Automation vs job displacement\n\n### Frameworks\n\n* IEEE’s Ethically Aligned Design\n* Google AI Principles\n* EU’s GDPR & AI Act\n\n### Best Practices\n\n* Anonymous data collection\n* Consent & transparency\n* Bias audits in AI models\n* Open communication about risks",
+                content: "Ethics in tech research is non-negotiable. Key topics include AI bias, data privacy, surveillance, and responsible data usage. Frameworks like IEEE’s Ethically Aligned Design and regulations like GDPR guide researchers to innovate responsibly.",
                 duration: "1h"
             }],
             quiz: [
@@ -886,16 +972,15 @@ const innovationProductEngineering: NewCourse = {
     longDescription: "This course will equip you to lead innovation from idea to impact, build lovable and scalable products, create and execute bold tech strategies, and balance vision, users, code, and business goals.",
     category: "Tech Skills",
     level: "Advanced",
-    imageUrl: "https://placehold.co/600x400.png",
     duration: "24h",
-    instructor: "The Strategists",
+    instructor: "Yusuf O. Habeeb",
     price: 7000,
     modules: [
         {
             title: "Module 1: Innovation Principles & Practice",
             lessons: [{
                 title: "What Is Innovation (for Real)?",
-                content: "> Innovation ≠ invention.\n> Innovation = creating *value* from *new ideas*.\n\n* Not just something new — something *usefully* new\n* Must be adopted, applied, or bought by someone\n\n### Types of Innovation\n\n* **Disruptive** (Uber, GPTs)\n* **Sustaining** (iPhone 13 → 14)\n* **Process Innovation** (Agile, CI/CD)\n* **Business Model Innovation** (Netflix, SaaS)\n\n### Innovation Frameworks\n\n* **Design Thinking** (Empathize → Define → Ideate → Prototype → Test)\n* **Blue Ocean Strategy** (Create uncontested market space)\n* **TRIZ** (Inventive principles from engineering problems)\n\n### Examples\n\n* Amazon → Prime, Cloud, 1-click ordering\n* Tesla → OTA updates, battery innovation\n* OpenAI → ChatGPT API access to public",
+                content: "Innovation isn't just invention; it's about creating *value* from new ideas. We explore disruptive innovation (like GPTs), sustaining innovation (like new iPhone models), and frameworks like Design Thinking and Blue Ocean Strategy.",
                 duration: "1h"
             }],
             quiz: [
@@ -911,7 +996,7 @@ const innovationProductEngineering: NewCourse = {
             title: "Module 2: Building MVPs & Product Foundations",
             lessons: [{
                 title: "What is an MVP?",
-                content: "> **Minimum Viable Product** — the simplest version of your idea that delivers value and learns from users.\n\n* MVP ≠ junk\n* MVP = testable, usable, measurable\n* Think: \"Would people *miss* this if it disappeared?\"\n\n### The Product Lifecycle\n\n1. Idea → Prototype\n2. MVP → User feedback\n3. Product-Market Fit\n4. Scaling\n5. Maturity / Decline / Rebirth\n\n### Lean Product Cycles\n\n* Build → Measure → Learn\n* Focus: Minimize waste, maximize value\n* Uses metrics like:\n\n  * Activation\n  * Retention\n  * NPS (Net Promoter Score)\n  * Conversion Rate\n\n### Prioritization Frameworks\n\n* RICE (Reach × Impact × Confidence ÷ Effort)\n* MoSCoW (Must, Should, Could, Won’t)\n* Kano Model (Delighters vs Basics)",
+                content: "An MVP (Minimum Viable Product) is the simplest version of your idea that delivers value and allows you to learn from users. We cover the product lifecycle, lean cycles (Build-Measure-Learn), and prioritization frameworks like RICE and MoSCoW.",
                 duration: "1h"
             }],
             quiz: [
@@ -927,7 +1012,7 @@ const innovationProductEngineering: NewCourse = {
             title: "Module 3: Product Engineering at Scale",
             lessons: [{
                 title: "Engineering for Growth",
-                content: "> Products scale. Code must too.\n> You’re not just shipping — you’re **engineering ecosystems**.\n\n* Decouple systems\n* API-first design\n* Backward compatibility\n* Feature flags, not feature fatigue\n\n### Key Tech for Product Builders\n\n* Feature toggles (LaunchDarkly, ConfigCat)\n* CI/CD (GitHub Actions, Jenkins)\n* Observability (Grafana, Datadog, Sentry)\n* Containerization (Docker, Kubernetes)\n\n### Performance & Resilience\n\n* Load testing\n* Failover systems\n* Canary deployments\n* Auto-scaling infra (e.g., GCP, AWS)\n\n### Developer Experience (DX)\n\n* Docs as first-class citizens\n* Internal tooling\n* Feedback loops with design + product",
+                content: "Products scale, and so must the code. This module covers engineering ecosystems, not just features. We'll explore API-first design, feature toggles (LaunchDarkly), CI/CD, observability (Datadog), and containerization (Docker, Kubernetes) to build resilient, scalable systems.",
                 duration: "1h"
             }],
             quiz: [
@@ -943,7 +1028,7 @@ const innovationProductEngineering: NewCourse = {
             title: "Module 4: Aligning Tech with Business Strategy",
             lessons: [{
                 title: "Tech Drives Business",
-                content: "> Tech is no longer *support* — it’s *strategy*.\n> A tech leader’s job is to map architecture to business goals.\n\n### Strategic Alignment Tools\n\n* OKRs (Objectives & Key Results)\n* Roadmapping (Now → Next → Later)\n* KPIs that matter:\n\n  * Time to Market\n  * Churn\n  * CAC\\:LTV\n  * Uptime / Latency\n  * Engineering Velocity\n\n### Speaking the Exec Language\n\n* Translate tech debt into ROI loss\n* Map uptime to customer satisfaction\n* Show how features move revenue or retention\n\n### Tools for Strategic Planning\n\n* Productboard\n* Aha!\n* Notion (for lean teams)\n* Jira Advanced Roadmaps",
+                content: "Technology is strategy. This module teaches how to map architecture to business goals using OKRs and roadmaps. Learn to speak the executive language by translating tech debt into ROI loss and showing how features drive revenue.",
                 duration: "1h"
             }],
             quiz: [
@@ -959,7 +1044,7 @@ const innovationProductEngineering: NewCourse = {
             title: "Module 5: Strategic Innovation & Market Timing",
             lessons: [{
                 title: "When to Build, Buy, or Wait",
-                content: "* Build if it’s core to your edge\n* Buy if it's utility\n* Wait if the market’s not ready\n\n### Innovation Timing Frameworks\n\n* Technology Adoption Curve\n* Moore’s Chasm\n* Jobs To Be Done (JTBD)\n* 10x Innovation Rule\n\n### Validating Innovation\n\n* Pilot programs\n* Customer interviews\n* Landing page tests\n* Internal hackathons\n\n### Competitive Advantage in Tech\n\n* Speed (Time to ship)\n* IP (patents, models)\n* Talent (A-teams)\n* Brand (reputation, community)",
+                content: "Strategic decisions involve timing. Learn when to build a solution (if it's core to your advantage), buy it (if it's a utility), or wait (if the market isn't ready). We cover frameworks like the Technology Adoption Curve and Jobs To Be Done (JTBD).",
                 duration: "1h"
             }],
             quiz: [
@@ -975,7 +1060,7 @@ const innovationProductEngineering: NewCourse = {
             title: "Module 6: Leading with Vision, Speed & Impact",
             lessons: [{
                 title: "What Makes Visionary Tech Leaders?",
-                content: "* Bold, clear vision\n* Willingness to bet on future\n* Obsession with users\n* Relentless execution\n\n### Building Innovation Culture\n\n* Reward experimentation\n* Tolerate fast failure\n* Flatten the idea pipeline\n* Remove fear of “stupid questions”\n\n### Balancing Speed and Stability\n\n* Use guardrails, not roadblocks\n* Don’t sacrifice security or ethics\n* Ship fast, but **learn faster**\n\n### Influence Without Authority\n\n* Use narrative storytelling\n* Data + emotion = buy-in\n* Empower, don’t command",
+                content: "Visionary leaders share a bold, clear vision and have an obsession with users and relentless execution. This module covers how to build an innovation culture by rewarding experimentation, tolerating fast failure, and balancing speed with stability.",
                 duration: "1h"
             }],
             quiz: [
@@ -1007,149 +1092,21 @@ const innovationProductEngineering: NewCourse = {
     ]
 };
 
-const artificialIntelligenceCourse: NewCourse = {
-    title: "Artificial Intelligence",
-    description: "An intensive course covering the foundations, applications, and ethical considerations of AI.",
-    longDescription: "This advanced course provides a comprehensive overview of Artificial Intelligence, from its theoretical and mathematical foundations to its real-world applications in computer vision, NLP, and decision-making. Students will learn to build AI systems using Python, understand the nuances of AI ethics and bias, and become capable of leading AI projects and research.",
-    category: "AI & Machine Learning",
-    level: "Advanced",
-    imageUrl: "https://placehold.co/600x400.png",
-    duration: "18h",
-    instructor: "The AI Faculty",
-    price: 7000,
-    modules: [
-        {
-            title: "Module 1: The Foundations of Artificial Intelligence",
-            lessons: [{
-                title: "What Is AI?",
-                content: "Artificial Intelligence is the science of building **intelligent machines** that simulate human thinking.\n\n> In plain English: teaching computers to *think*, *reason*, and *act smart*. Sometimes smarter than us. 😅\n\n### Key AI Concepts\n\n* **Agents**: An entity that perceives and acts\n* **Environment**: Where the agent operates\n* **Rationality**: Choosing the best action for the goal\n* **Turing Test**: Can a machine think like a human?\n\n### Branches of AI\n\n| Branch | Description |\n| --- | --- |\n| Machine Learning | Learning patterns from data |\n| Natural Language Processing (NLP) | Understanding human language |\n| Computer Vision | Interpreting visual input |\n| Robotics | Acting in the physical world |\n| Expert Systems | Rule-based reasoning |\n\n### Fun Fact:\n\nThe first AI program was written in **1956**, and it could play checkers.\nToday, we have AI writing poetry, driving cars, and diagnosing cancer.",
-                duration: "1h 30m"
-            }],
-            quiz: [
-                { questionText: "The Turing Test evaluates:", options: ["Machine intelligence", "Internet speed", "CPU temperature"], correctAnswerIndex: 0 },
-                { questionText: "AI agents interact with:", options: ["Environments", "Data cables", "HTML pages"], correctAnswerIndex: 0 },
-                { questionText: "NLP stands for:", options: ["Natural Language Processing", "Network Layer Protocol", "New Logic Path"], correctAnswerIndex: 0 },
-                { questionText: "An expert system is based on:", options: ["Rules and logic", "Sound and graphics", "CSS and HTML"], correctAnswerIndex: 0 },
-                { questionText: "Machine Learning enables:", options: ["Learning from data", "Reading JavaScript", "Spinning hard drives"], correctAnswerIndex: 0 },
-                { questionText: "A robot is an AI that:", options: ["Interacts with the physical world", "Edits photos", "Plays MP3s"], correctAnswerIndex: 0 },
-            ]
-        },
-        {
-            title: "Module 2: Machine Learning in Depth",
-            lessons: [{
-                title: "What Is Machine Learning?",
-                content: "A method where computers **learn from data** without being explicitly programmed.\n\n> Think of it like feeding your machine examples until it gets smart enough to handle new situations.\n\n### Types of Machine Learning\n\n| Type | Description | Example |\n| --- | --- | --- |\n| Supervised | Learn from labeled data | Spam detection |\n| Unsupervised | Discover patterns | Customer segmentation |\n| Reinforcement | Learn by trial & error | Game-playing AI |\n\n### Core Concepts\n\n* **Features**: Input variables\n* **Labels**: Output results (for supervised learning)\n* **Model**: Mathematical function\n* **Training**: Adjusting model to data\n* **Loss function**: Measures errors\n* **Backpropagation**: Algorithm to optimize model\n\n### Sample ML Code (Scikit-Learn)\n\n```python\nfrom sklearn.linear_model import LogisticRegression\nmodel = LogisticRegression()\nmodel.fit(X_train, y_train)\npredictions = model.predict(X_test)\n```",
-                duration: "1h 30m"
-            }],
-            quiz: [
-                { questionText: "Supervised learning uses:", options: ["Labeled data", "Random loops", "Audio signals"], correctAnswerIndex: 0 },
-                { questionText: "The purpose of a model is to:", options: ["Map inputs to outputs", "Beautify data", "Format pages"], correctAnswerIndex: 0 },
-                { questionText: "Reinforcement learning learns by:", options: ["Trial and error", "HTML parsing", "Screenshotting"], correctAnswerIndex: 0 },
-                { questionText: "`fit()` function is used to:", options: ["Train a model", "Plot a graph", "Import JSON"], correctAnswerIndex: 0 },
-                { questionText: "A loss function measures:", options: ["Prediction errors", "File sizes", "Speed"], correctAnswerIndex: 0 },
-                { questionText: "Backpropagation is used in:", options: ["Neural networks", "CSS", "Data scraping"], correctAnswerIndex: 0 },
-            ]
-        },
-        {
-            title: "Module 3: Deep Learning and Neural Networks",
-            lessons: [{
-                title: "Understanding Neural Networks",
-                content: "Neural networks are modeled after the human brain — made of **neurons** (nodes), layers, and weights.\n\n### Layers of a Neural Network\n\n1. Input Layer\n2. Hidden Layer(s)\n3. Output Layer\n\n### Types of Neural Networks\n\n| Type | Use Case |\n| --- | --- |\n| Feedforward (DNN) | General tasks |\n| CNN (Convolutional) | Image recognition |\n| RNN (Recurrent) | Time-series, language |\n| GAN (Generative Adversarial Network) | Deepfake, image generation |\n\n### Deep Learning Example (TensorFlow)\n\n```python\nimport tensorflow as tf\nmodel = tf.keras.Sequential([\n  tf.keras.layers.Dense(128, activation='relu'),\n  tf.keras.layers.Dense(1)\n])\nmodel.compile(optimizer='adam', loss='mse')\nmodel.fit(X, y, epochs=10)\n```",
-                duration: "1h 30m"
-            }],
-            quiz: [
-                { questionText: "CNNs are used for:", options: ["Images", "Text docs", "Audio only"], correctAnswerIndex: 0 },
-                { questionText: "An epoch is:", options: ["One full training pass", "A plot style", "An API method"], correctAnswerIndex: 0 },
-                { questionText: "RNNs work well with:", options: ["Sequences", "Buttons", "Tables"], correctAnswerIndex: 0 },
-                { questionText: "GANs are used to:", options: ["Generate new data", "Encrypt passwords", "Write SQL"], correctAnswerIndex: 0 },
-                { questionText: "TensorFlow is a:", options: ["Deep learning library", "Browser", "CMS"], correctAnswerIndex: 0 },
-                { questionText: "Activation functions decide:", options: ["Node output", "URL path", "Font weight"], correctAnswerIndex: 0 },
-            ]
-        },
-        {
-            title: "Module 4: Natural Language Processing (NLP)",
-            lessons: [{
-                title: "Understanding NLP",
-                content: "Natural Language Processing enables machines to understand, interpret, and generate **human language**.\n\n### NLP Tasks\n\n* **Tokenization**\n* **Stemming/Lemmatization**\n* **Named Entity Recognition (NER)**\n* **Sentiment Analysis**\n* **Text Generation** (like me! 😉)\n\n### NLP Example with SpaCy\n\n```python\nimport spacy\nnlp = spacy.load(\"en_core_web_sm\")\ndoc = nlp(\"Apple is looking at buying U.K. startup for $1 billion.\")\nfor ent in doc.ents:\n    print(ent.text, ent.label_)\n```",
-                duration: "1h 30m"
-            }],
-            quiz: [
-                { questionText: "NLP helps with:", options: ["Language tasks", "Drawing shapes", "Graphing"], correctAnswerIndex: 0 },
-                { questionText: "Tokenization breaks text into:", options: ["Words/tokens", "Folders", "Emails"], correctAnswerIndex: 0 },
-                { questionText: "NER finds:", options: ["Entities in text", "Passwords", "Ping speeds"], correctAnswerIndex: 0 },
-                { questionText: "Sentiment analysis detects:", options: ["Emotion", "Spam", "Graph colors"], correctAnswerIndex: 0 },
-                { questionText: "`spacy.load()` loads:", options: ["NLP model", "GraphQL query", "CSS theme"], correctAnswerIndex: 0 },
-                { questionText: "Text generation is done by:", options: ["Language models", "React components", "Loops"], correctAnswerIndex: 0 },
-            ]
-        },
-        {
-            title: "Module 5: Computer Vision and Real-World AI",
-            lessons: [{
-                title: "Intro to Computer Vision",
-                content: "It enables machines to **see, analyze, and act** on visual data.\n\n### Use Cases\n\n* Face detection\n* Object tracking\n* OCR (Text recognition)\n* Medical image analysis\n\n### OpenCV Example\n\n```python\nimport cv2\nimg = cv2.imread('image.jpg')\ngray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)\ncv2.imshow('Gray Image', gray)\n```",
-                duration: "1h 30m"
-            }],
-            quiz: [
-                { questionText: "OpenCV is used for:", options: ["Image processing", "APIs", "Game engines"], correctAnswerIndex: 0 },
-                { questionText: "OCR means:", options: ["Optical Character Recognition", "Online CSS Resource", "Object Circular Rendering"], correctAnswerIndex: 0 },
-                { questionText: "`cv2.imread()` loads:", options: ["Images", "APIs", "Fonts"], correctAnswerIndex: 0 },
-                { questionText: "Object tracking is used in:", options: ["Surveillance", "HTML parsing", "SQL Joins"], correctAnswerIndex: 0 },
-                { questionText: "Medical imaging is part of:", options: ["AI in healthcare", "Databases", "Frontend dev"], correctAnswerIndex: 0 },
-                { questionText: "`cv2.imshow()` displays:", options: ["Image windows", "JSON", "Web pages"], correctAnswerIndex: 0 },
-            ]
-        },
-        {
-            title: "Module 6: Ethics, AI Safety, and the Future",
-            lessons: [{
-                title: "AI Ethics and the Future",
-                content: "### AI Ethics\n\nImportant topics:\n\n* **Bias in AI**\n* **Transparency**\n* **Data privacy**\n* **AI and Jobs**\n* **Autonomous decision-making**\n\n### AI Safety\n\n* Preventing **unintended behavior**\n* Ensuring **human control**\n* Building **explainable AI**\n\n### The Future of AI\n\n* AI as co-creators\n* General AI (AGI)\n* Regulation and governance\n* *“Should AI have rights?”* 😱",
-                duration: "1h 30m"
-            }],
-            quiz: [
-                { questionText: "AI bias is caused by:", options: ["Biased training data", "CPU errors", "Loud speakers"], correctAnswerIndex: 0 },
-                { questionText: "AI ethics involves:", options: ["Fairness, privacy, transparency", "Styling rules", "Loops and breaks"], correctAnswerIndex: 0 },
-                { questionText: "AGI means:", options: ["Artificial General Intelligence", "Advanced Graphical Interface", "API Governance Index"], correctAnswerIndex: 0 },
-                { questionText: "Explainable AI is:", options: ["Transparent decision-making", "Graph styling", "Audio filters"], correctAnswerIndex: 0 },
-                { questionText: "Job displacement by AI is:", options: ["Real concern", "Science fiction", "Browser setting"], correctAnswerIndex: 0 },
-                { questionText: "AI safety ensures:", options: ["Human-friendly outcomes", "Keyboard security", "JavaScript efficiency"], correctAnswerIndex: 0 },
-            ]
-        }
-    ],
-    finalAssessment: [
-        { questionText: "Define Artificial Intelligence and its main goal.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Name 3 branches of AI.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is supervised vs unsupervised learning?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write sample ML code in Python using scikit-learn.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain what a neural network does.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What does CNN stand for, and what’s it used for?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Compare RNN and CNN.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Define NLP and give two examples of its use.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is tokenization?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write a sample SpaCy NER snippet.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What does OpenCV do?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain the risks of biased AI.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is AGI?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How can we ensure ethical use of AI?", options: [], correctAnswerIndex: 0 },
-        { questionText: "List 2 real-world applications of AI today.", options: [], correctAnswerIndex: 0 },
-    ]
-};
-
 const apiDevelopmentAdvanced: NewCourse = {
     title: "API Development (Advanced)",
     description: "Designing, scaling, securing, and managing modern APIs.",
     longDescription: "Build scalable REST and GraphQL APIs with proper design patterns, implement authentication with OAuth2, OpenID Connect, and JWT, use Swagger (OpenAPI) for documentation, apply API versioning, caching, rate limiting, and monitoring, design for multi-client consumption, and deploy using microservices and CI/CD pipelines.",
     category: "Tech Skills",
     level: "Advanced",
-    imageUrl: "https://placehold.co/600x400.png",
     duration: "18h",
-    instructor: "The API Architects",
+    instructor: "Yusuf O. Habeeb",
     price: 7000,
     modules: [
         {
             title: "Module 1: Designing Scalable REST APIs",
             lessons: [{
                 title: "REST Principles and Best Practices",
-                content: "### REST Recap\n\n* REST stands for **Representational State Transfer**\n* Built on HTTP methods: `GET`, `POST`, `PUT`, `DELETE`, etc.\n* Resource-based: Each entity (user, post, product) is a resource\n\n### Best Practices\n\n* **Use nouns, not verbs** in URLs:\n  ✅ `/users` instead of `/getUsers`\n\n* **Proper HTTP status codes:**\n\n  * 200 OK\n  * 201 Created\n  * 204 No Content\n  * 400 Bad Request\n  * 401 Unauthorized\n  * 404 Not Found\n  * 500 Server Error\n\n* **Pagination:** For large data\n  Example: `GET /users?page=2&limit=10`\n\n* **Filtering & Sorting:**\n  `GET /products?category=phones&sort=price_desc`\n\n### Example (Node.js + Express)\n\n```javascript\napp.get('/users/:id', async (req, res) => {\n  try {\n    const user = await User.findById(req.params.id);\n    if (!user) return res.status(404).send(\"User not found\");\n    res.json(user);\n  } catch (err) {\n    res.status(500).send(\"Server error\");\n  }\n});\n```",
+                content: "REST (Representational State Transfer) is built on HTTP methods. Best practices include using nouns in URLs (e.g., `/users`), proper HTTP status codes (200, 404, 500), pagination for large datasets, and providing filtering/sorting options.",
                 duration: "1h"
             }],
             quiz: [
@@ -1165,7 +1122,7 @@ const apiDevelopmentAdvanced: NewCourse = {
             title: "Module 2: API Authentication (OAuth2, OpenID, JWT)",
             lessons: [{
                 title: "Authentication vs. Authorization",
-                content: "* **Authentication:** Who are you?\n* **Authorization:** What can you access?\n\n### OAuth 2.0 Flow (Simplified)\n\n1. Client asks for permission\n2. User authenticates with provider (Google, Facebook)\n3. Provider sends back `access_token`\n4. Client uses token to access API\n\n### OpenID Connect\n\nAdds an identity layer on top of OAuth2 (for authentication).\nTokens:\n\n* **ID Token** – Who the user is\n* **Access Token** – What the user can do\n\n### JWT Tokens\n\n```js\n// Sign\nconst token = jwt.sign({ userId: 123 }, 'secret', { expiresIn: '1h' });\n\n// Verify\njwt.verify(token, 'secret');\n```",
+                content: "Authentication confirms 'who you are,' while Authorization determines 'what you can access.' This module covers OAuth 2.0 for delegated access, OpenID Connect for identity verification, and JSON Web Tokens (JWT) for secure, stateless authentication.",
                 duration: "1h"
             }],
             quiz: [
@@ -1181,7 +1138,7 @@ const apiDevelopmentAdvanced: NewCourse = {
             title: "Module 3: Documenting APIs with Swagger and Postman",
             lessons: [{
                 title: "The OpenAPI Specification (Swagger)",
-                content: "### Why Document?\n\nUnclear APIs = Confused developers = Bad adoption\nGood docs = More usage = Fewer support tickets\n\n### Tools\n\n* **Swagger (OpenAPI)**:\n  Define API structure in `openapi.yaml` or JSON\n\n* **Postman Collections**:\n  Shareable testable APIs with environment variables\n\n### Swagger Example\n\n```yaml\npaths:\n  /users:\n    get:\n      summary: Get all users\n      responses:\n        200:\n          description: A list of users\n```\n\n### Postman Tips\n\n* Use `environments` for tokens and URLs\n* Add tests and pre-request scripts\n* Export collections to share with frontend devs",
+                content: "Good documentation drives API adoption. Swagger (OpenAPI) allows you to define your API's structure in YAML or JSON, creating interactive documentation. Postman Collections provide a shareable, testable format for your API, complete with environments for managing variables like tokens.",
                 duration: "1h"
             }],
             quiz: [
@@ -1197,7 +1154,7 @@ const apiDevelopmentAdvanced: NewCourse = {
             title: "Module 4: Versioning, Rate Limiting, and Caching",
             lessons: [{
                 title: "API Versioning Strategies",
-                content: "### API Versioning\n\n* URI versioning: `/v1/users`\n* Header versioning: `Accept: application/vnd.api+json;version=2`\n\nWhy? Backward compatibility.\n\n### Rate Limiting\n\nLimit requests per IP/token\n**Node.js (express-rate-limit)**:\n\n```js\nconst rateLimit = require(\"express-rate-limit\");\napp.use(rateLimit({ windowMs: 15*60*1000, max: 100 }));\n```\n\n### Caching APIs\n\n* **Client-side caching**: `Cache-Control` headers\n* **Server-side caching**: Redis\n* **Reverse proxy caching**: Varnish, NGINX",
+                content: "To ensure backward compatibility, APIs must be versioned, either through the URI (`/v1/users`) or headers. Rate limiting prevents abuse, and caching (client-side with headers, server-side with Redis) improves performance.",
                 duration: "1h"
             }],
             quiz: [
@@ -1213,7 +1170,7 @@ const apiDevelopmentAdvanced: NewCourse = {
             title: "Module 5: API Testing and Monitoring",
             lessons: [{
                 title: "Automated API Testing Strategies",
-                content: "### Automated Testing\n\n* **Unit tests**: Test individual functions\n* **Integration tests**: Test endpoints with dependencies\n* **Tools**: Jest, Mocha, Supertest\n\n### Example\n\n```js\nconst request = require('supertest');\nrequest(app)\n  .get('/api/users')\n  .expect(200)\n  .end((err, res) => { /* assertions */ });\n```\n\n### API Monitoring\n\n* Tools: **New Relic**, **Datadog**, **Postman Monitors**\n* Track latency, error rates, uptime, memory usage",
+                content: "Automated testing is crucial for API reliability. Unit tests check individual functions, while integration tests validate endpoints. Tools like Jest and Supertest facilitate this. Monitoring with tools like New Relic and Datadog tracks production API health, including latency and error rates.",
                 duration: "1h"
             }],
             quiz: [
@@ -1229,7 +1186,7 @@ const apiDevelopmentAdvanced: NewCourse = {
             title: "Module 6: Building APIs for Scale (Microservices)",
             lessons: [{
                 title: "Monolith vs. Microservices Architecture",
-                content: "### Monolith vs Microservices\n\n| Monolith | Microservices |\n| --- | --- |\n| One large codebase | Split by services |\n| Shared memory | Communicate via APIs |\n| Easier to build | Easier to scale |\n\n### Microservice Best Practices\n\n* Each service owns its **own DB**\n* Use **service discovery**\n* Communicate via **REST or message brokers** (e.g. RabbitMQ, Kafka)\n* Use **API Gateway** for authentication, routing, and rate limiting\n\n### Example Architecture\n\n```text\nClient -> API Gateway -> Auth Service\n                        -> User Service\n                        -> Product Service\n```",
+                content: "While monoliths are easier to build initially, microservices are easier to scale. In a microservices architecture, an application is split into small, independent services that communicate via APIs. Best practices include each service owning its own database and using an API Gateway for routing and authentication.",
                 duration: "1h"
             }],
             quiz: [
@@ -1267,16 +1224,15 @@ const mobileAppDevelopment: NewCourse = {
     longDescription: "This course covers the essentials of mobile app development, from understanding architecture and UI/UX best practices to building and publishing apps. You will learn the differences between native and cross-platform development and get hands-on experience with both Flutter and React Native, preparing you to bring your app ideas to life on both Android and iOS.",
     category: "Tech Skills",
     level: "Intermediate",
-    imageUrl: "https://placehold.co/600x400.png",
     duration: "12h",
-    instructor: "The App Builders",
+    instructor: "Yusuf O. Habeeb",
     price: 5000,
     modules: [
         {
             title: "Module 1: Introduction to Mobile App Development",
             lessons: [{
                 title: "What is Mobile App Development?",
-                content: "It’s the process of building **software applications** that run on mobile devices (phones, tablets, smartwatches).\n\n> You’re basically building magic in your pocket. 🔮📱\n\n### Types of Mobile Apps\n\n| Type               | Description                                                            | Example              |\n| ------------------ | ---------------------------------------------------------------------- | -------------------- |\n| **Native**         | Built for a specific platform (Java/Kotlin for Android, Swift for iOS) | WhatsApp, Instagram  |\n| **Cross-platform** | One codebase, multiple platforms (Flutter, React Native)               | Google Ads, Facebook |\n| **Web Apps**       | Responsive websites acting like apps                                   | Twitter Mobile       |\n| **Hybrid**         | Combines native + web                                                  | Ionic                |\n\n### Native vs Cross-Platform\n\n| Feature        | Native                | Cross-Platform        |\n| -------------- | --------------------- | --------------------- |\n| Performance    | High                  | Moderate              |\n| Code Reuse     | Low                   | High                  |\n| Learning Curve | Steep                 | Easier                |\n| Tools          | Xcode, Android Studio | Flutter, React Native |",
+                content: "Mobile app development is the process of building software applications for mobile devices. Apps can be 'native' (built for one platform like iOS or Android) or 'cross-platform' (one codebase for both). Native offers the best performance, while cross-platform allows for faster development.",
                 duration: "1h"
             }],
             quiz: [
@@ -1292,7 +1248,7 @@ const mobileAppDevelopment: NewCourse = {
             title: "Module 2: Setting Up Your Development Environment",
             lessons: [{
                 title: "Setting Up Your Development Environment",
-                content: "### Tools You’ll Use\n\n* **Flutter SDK** – For cross-platform apps using Dart\n* **React Native CLI** – JS-based cross-platform dev\n* **Android Studio** – Powerful IDE for Android\n* **Xcode (macOS only)** – Required for iOS dev\n* **VS Code** – Lightweight, powerful editor\n\n### Installing Flutter\n\n* Download from [flutter.dev](https://flutter.dev)\n* Add to system PATH\n* Use `flutter doctor` to check for issues\n\n### Sample CLI Commands\n\n```bash\nflutter create my_app\ncd my_app\nflutter run\n```\n\n```bash\nnpx react-native init MyApp\ncd MyApp\nnpx react-native run-android\n```",
+                content: "To get started, you'll need tools like the Flutter SDK (which uses the Dart language) or the React Native CLI. You will also need Android Studio for Android development and Xcode (on macOS) for iOS development. The `flutter doctor` command helps verify your setup is correct.",
                 duration: "1h"
             }],
             quiz: [
@@ -1308,7 +1264,7 @@ const mobileAppDevelopment: NewCourse = {
             title: "Module 3: Building UI with Flutter and React Native",
             lessons: [{
                 title: "Building UI with Flutter and React Native",
-                content: "### UI Building in Flutter\n\nFlutter uses **widgets** for everything. UI is code. Example:\n\n```dart\nreturn Scaffold(\n  appBar: AppBar(title: Text('Hello')),\n  body: Center(child: Text('Welcome')),\n);\n```\n\n### UI in React Native\n\nUses familiar HTML-like tags in JSX:\n\n```jsx\n<View style={styles.container}>\n  <Text>Hello World</Text>\n</View>\n```\n\n### Key Widgets / Components\n\n| Flutter   | React Native     |\n| --------- | ---------------- |\n| Scaffold  | View             |\n| TextField | TextInput        |\n| ListView  | FlatList         |\n| Container | View with styles |",
+                content: "Flutter builds UI using a tree of 'widgets' for everything from layout to text. React Native uses JSX, a syntax similar to HTML, with components like `<View>` and `<Text>`. Both provide a rich set of pre-built components to create beautiful user interfaces.",
                 duration: "1h"
             }],
             quiz: [
@@ -1324,7 +1280,7 @@ const mobileAppDevelopment: NewCourse = {
             title: "Module 4: Navigation, State, and Interactivity",
             lessons: [{
                 title: "Navigation, State, and Interactivity",
-                content: "### Navigation\n\n* **React Native**: `react-navigation`\n* **Flutter**: `Navigator` + routes\n\n### State Management\n\n| Flutter                      | React Native                 |\n| ---------------------------- | ---------------------------- |\n| setState, Provider, Riverpod | useState, Context API, Redux |\n\n### Example: Flutter Button\n\n```dart\nElevatedButton(\n  onPressed: () => setState(() => counter++),\n  child: Text('Click'),\n)\n```\n\n### Example: React Native Button\n\n```jsx\n<Button\n  onPress={() => setCounter(counter + 1)}\n  title=\"Click\"\n/>\n```",
+                content: "To navigate between screens, Flutter uses a `Navigator` widget, while React Native often uses the `react-navigation` library. To manage data that changes over time (state), Flutter uses `setState` or state management libraries like Provider, and React Native uses `useState` or libraries like Redux.",
                 duration: "1h"
             }],
             quiz: [
@@ -1340,7 +1296,7 @@ const mobileAppDevelopment: NewCourse = {
             title: "Module 5: Testing, Debugging, and Optimization",
             lessons: [{
                 title: "Testing, Debugging, and Optimization",
-                content: "### Testing\n\n* Unit tests\n* Widget tests\n* Integration tests\n* Expo for React Native testing\n* `flutter test`, `jest` for React Native\n\n### Debugging Tools\n\n* Flutter DevTools\n* React Native Debugger\n* Android Logcat\n* Chrome/VSCode Inspector\n\n### Optimization Tips\n\n* Use image compression\n* Remove unused packages\n* Lazy loading screens\n* Avoid setState() loops",
+                content: "Testing your app is crucial. This includes unit tests for logic, widget tests for UI, and integration tests for entire flows. Flutter has built-in testing and DevTools, while React Native uses tools like Jest. Optimization involves compressing images, lazy loading screens, and removing unused packages.",
                 duration: "1h"
             }],
             quiz: [
@@ -1356,7 +1312,7 @@ const mobileAppDevelopment: NewCourse = {
             title: "Module 6: Publishing to Play Store and App Store",
             lessons: [{
                 title: "Publishing to Play Store and App Store",
-                content: "### Preparing for Release\n\n* Remove debug flags\n* Optimize assets\n* Increase app version\n* Test on real device\n\n### Android (Play Store)\n\n* Build APK or AAB\n* Sign the app\n* Upload to Google Play Console\n* Fill in store listing\n* Wait for review\n\n### iOS (App Store)\n\n* macOS required\n* Use Xcode to archive and upload\n* Fill in App Store Connect info\n* Wait for Apple review (they’re picky 😉)\n\n### Tips for Approval\n\n* Use real screenshots\n* Don’t copy existing names\n* Check permissions\n* Test all flows!",
+                content: "Before release, you must optimize assets and sign your app. For Android, you build an APK or AAB file and upload it to the Google Play Console. For iOS, you need a macOS machine and Xcode to upload to App Store Connect. Both stores have a review process that checks for quality and policy compliance.",
                 duration: "1h"
             }],
             quiz: [
@@ -1394,16 +1350,15 @@ const databaseDesignCourse: NewCourse = {
     longDescription: "This course covers everything from relational (SQL) and non-relational (NoSQL) databases to designing efficient schemas with ER diagrams. You will learn to write SQL queries, use MongoDB, connect databases to applications, and optimize for performance.",
     category: "Tech Skills",
     level: "Intermediate",
-    imageUrl: "https://placehold.co/600x400.png",
     duration: "12h",
-    instructor: "The Data Architects",
+    instructor: "Yusuf O. Habeeb",
     price: 5000,
     modules: [
         {
             title: "Module 1: Introduction to Databases",
             lessons: [{
                 title: "What Is a Database?",
-                content: "A **database** is a structured collection of data. Think of it like a giant digital filing cabinet that apps can talk to.\n\n> “You don’t need to remember everything — your database does it for you!”\n\n### Key Database Concepts\n\n* **DBMS** – Software for managing databases (e.g., MySQL, MongoDB)\n* **Relational DB** – Uses tables (SQL)\n* **NoSQL DB** – Uses documents, key-values, graphs (MongoDB, Firebase)\n* **Tables/Collections** – Store records\n* **Records/Documents** – Rows of data\n* **Fields** – Individual columns\n\n### SQL vs NoSQL\n\n| Feature   | SQL               | NoSQL                |\n| --------- | ----------------- | -------------------- |\n| Structure | Tables            | Documents, Key-Value |\n| Schema    | Fixed             | Flexible             |\n| Best for  | Structured data   | Dynamic/Big Data     |\n| Examples  | MySQL, PostgreSQL | MongoDB, Firebase    |",
+                content: "A database is a structured collection of data, like a digital filing cabinet. We explore the differences between Relational (SQL) databases that use tables, and NoSQL databases that use flexible documents.",
                 duration: "1h"
             }],
             quiz: [
@@ -1419,7 +1374,7 @@ const databaseDesignCourse: NewCourse = {
             title: "Module 2: Relational Database Design & ER Modeling",
             lessons: [{
                 title: "What Is ER Modeling?",
-                content: "**ER (Entity-Relationship)** modeling is a visual way to design your database.\n\n* **Entity** – Anything you want to store (e.g., User, Product)\n* **Attribute** – Field/data (e.g., name, email)\n* **Relationship** – How entities relate (e.g., one-to-many)\n\n### Primary Keys & Foreign Keys\n\n* **Primary Key**: Unique identifier for a record\n* **Foreign Key**: Connects one table to another\n\n### Normalization\n\nThe process of organizing data to reduce **redundancy** and improve **integrity**.\n\nForms of normalization:\n\n1. 1NF – Atomic columns\n2. 2NF – Remove partial dependencies\n3. 3NF – Remove transitive dependencies\n\n### Example ER Diagram\n\n```plaintext\nUser (user_id PK, name, email)  \nOrder (order_id PK, user_id FK, total)  \n```",
+                content: "Entity-Relationship (ER) modeling is a visual way to design your database. We cover entities, attributes, and relationships. You'll learn about Primary Keys (unique IDs) and Foreign Keys (for connecting tables), and the process of Normalization to reduce data redundancy.",
                 duration: "1h"
             }],
             quiz: [
@@ -1435,7 +1390,7 @@ const databaseDesignCourse: NewCourse = {
             title: "Module 3: Writing SQL Queries",
             lessons: [{
                 title: "SQL Basics",
-                content: "SQL (Structured Query Language) is the language for interacting with relational databases.\n\n### Core Commands\n\n| Task         | SQL                                      |\n| ------------ | ---------------------------------------- |\n| Create table | `CREATE TABLE users (...)`               |\n| Insert data  | `INSERT INTO users VALUES (...)`         |\n| Read data    | `SELECT * FROM users`                    |\n| Update data  | `UPDATE users SET name='Sam' WHERE id=1` |\n| Delete data  | `DELETE FROM users WHERE id=1`           |\n\n### JOINs\n\nJoin data from multiple tables:\n\n```sql\nSELECT u.name, o.total\nFROM users u\nJOIN orders o ON u.id = o.user_id;\n```",
+                content: "SQL (Structured Query Language) is the language for interacting with relational databases. This module covers the core commands: `CREATE TABLE`, `INSERT`, `SELECT`, `UPDATE`, and `DELETE`. We also explore how to use `JOIN` to combine data from multiple tables.",
                 duration: "1h"
             }],
             quiz: [
@@ -1451,7 +1406,7 @@ const databaseDesignCourse: NewCourse = {
             title: "Module 4: NoSQL & MongoDB",
             lessons: [{
                 title: "What Is NoSQL?",
-                content: "NoSQL = \"Not Only SQL\" — a family of databases that use **documents, key-value, or graphs** to store data flexibly.\n\n### MongoDB Structure\n\n* **Database** → Like a folder\n* **Collection** → Like a table\n* **Document** → Like a row (but JSON)\n\n```json\n{\n  \"_id\": \"123\",\n  \"name\": \"Alice\",\n  \"email\": \"alice@example.com\"\n}\n```\n\n### Commands (with Mongo Shell)\n\n```javascript\ndb.users.insertOne({ name: \"John\", age: 30 })\ndb.users.find()\ndb.users.updateOne({ name: \"John\" }, { $set: { age: 31 } })\n```",
+                content: "NoSQL means 'Not Only SQL'. These databases, like MongoDB, use flexible JSON-like documents instead of rigid tables. We'll cover the structure of a MongoDB database (Database > Collection > Document) and learn basic commands like `insertOne`, `find`, and `updateOne`.",
                 duration: "1h"
             }],
             quiz: [
@@ -1467,7 +1422,7 @@ const databaseDesignCourse: NewCourse = {
             title: "Module 5: Performance Optimization & Indexing",
             lessons: [{
                 title: "Why Optimize?",
-                content: "Without optimization, your queries will run like a snail on a sugar crash. 🐌\n\n### Optimization Tips\n\n* **Use Indexes**: Speed up searches\n* **Avoid SELECT ***: Only request needed fields\n* **Normalize properly**\n* **Archive old data**\n* **Use LIMIT** to avoid huge result sets\n\n### Indexing\n\n```sql\nCREATE INDEX idx_name ON users(name);\n```\n\nIndexes make lookups faster — especially on large datasets.",
+                content: "Slow queries can cripple an application. This module teaches optimization techniques, with a focus on **Indexing** to speed up searches. We also cover why you should avoid `SELECT *`, the importance of normalization, and using `LIMIT` to handle large result sets.",
                 duration: "1h"
             }],
             quiz: [
@@ -1483,7 +1438,7 @@ const databaseDesignCourse: NewCourse = {
             title: "Module 6: Connecting Databases to Apps",
             lessons: [{
                 title: "Backend + Database",
-                content: "Apps need to talk to databases using backends.\n\n### Common Languages + Drivers\n\n| Language | SQL Driver       | NoSQL Driver |\n| -------- | ---------------- | ------------ |\n| Node.js  | Sequelize, MySQL | Mongoose     |\n| Python   | SQLAlchemy       | PyMongo      |\n| PHP      | PDO, MySQLi      | Firebase SDK |\n\n### Example: Node.js + MongoDB\n\n```javascript\nconst mongoose = require('mongoose');\nmongoose.connect('mongodb://localhost/mydb');\n```",
+                content: "Applications connect to databases through backend code using drivers. We'll look at common drivers for different languages, like Sequelize (SQL) and Mongoose (NoSQL) for Node.js, and SQLAlchemy for Python, to bridge the gap between your app and its data.",
                 duration: "1h"
             }],
             quiz: [
@@ -1515,17 +1470,143 @@ const databaseDesignCourse: NewCourse = {
     ]
 };
 
+const artificialIntelligenceCourse: NewCourse = {
+    title: "Artificial Intelligence",
+    description: "An intensive course covering the foundations, applications, and ethical considerations of AI.",
+    longDescription: "This advanced course provides a comprehensive overview of Artificial Intelligence, from its theoretical and mathematical foundations to its real-world applications in computer vision, NLP, and decision-making. Students will learn to build AI systems using Python, understand the nuances of AI ethics and bias, and become capable of leading AI projects and research.",
+    category: "AI & Machine Learning",
+    level: "Advanced",
+    duration: "18h",
+    instructor: "Yusuf O. Habeeb",
+    price: 7000,
+    modules: [
+        {
+            title: "Module 1: The Foundations of Artificial Intelligence",
+            lessons: [{
+                title: "What Is AI?",
+                content: "Artificial Intelligence is the science of building **intelligent machines** that simulate human thinking. It includes branches like Machine Learning (learning from data), Natural Language Processing (understanding language), and Computer Vision (interpreting images).",
+                duration: "1h 30m"
+            }],
+            quiz: [
+                { questionText: "The Turing Test evaluates:", options: ["Machine intelligence", "Internet speed", "CPU temperature"], correctAnswerIndex: 0 },
+                { questionText: "AI agents interact with:", options: ["Environments", "Data cables", "HTML pages"], correctAnswerIndex: 0 },
+                { questionText: "NLP stands for:", options: ["Natural Language Processing", "Network Layer Protocol", "New Logic Path"], correctAnswerIndex: 0 },
+                { questionText: "An expert system is based on:", options: ["Rules and logic", "Sound and graphics", "CSS and HTML"], correctAnswerIndex: 0 },
+                { questionText: "Machine Learning enables:", options: ["Learning from data", "Reading JavaScript", "Spinning hard drives"], correctAnswerIndex: 0 },
+                { questionText: "A robot is an AI that:", options: ["Interacts with the physical world", "Edits photos", "Plays MP3s"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 2: Machine Learning in Depth",
+            lessons: [{
+                title: "What Is Machine Learning?",
+                content: "A method where computers **learn from data** without being explicitly programmed. We'll explore Supervised Learning (with labeled data), Unsupervised Learning (to discover patterns), and Reinforcement Learning (trial and error). Core concepts include features, labels, models, and loss functions.",
+                duration: "1h 30m"
+            }],
+            quiz: [
+                { questionText: "Supervised learning uses:", options: ["Labeled data", "Random loops", "Audio signals"], correctAnswerIndex: 0 },
+                { questionText: "The purpose of a model is to:", options: ["Map inputs to outputs", "Beautify data", "Format pages"], correctAnswerIndex: 0 },
+                { questionText: "Reinforcement learning learns by:", options: ["Trial and error", "HTML parsing", "Screenshotting"], correctAnswerIndex: 0 },
+                { questionText: "`fit()` function is used to:", options: ["Train a model", "Plot a graph", "Import JSON"], correctAnswerIndex: 0 },
+                { questionText: "A loss function measures:", options: ["Prediction errors", "File sizes", "Speed"], correctAnswerIndex: 0 },
+                { questionText: "Backpropagation is used in:", options: ["Neural networks", "CSS", "Data scraping"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 3: Deep Learning and Neural Networks",
+            lessons: [{
+                title: "Understanding Neural Networks",
+                content: "Neural networks are modeled after the human brain, consisting of layers of nodes. We will cover different types, including Feedforward Networks (DNNs), Convolutional Neural Networks (CNNs) for images, and Recurrent Neural Networks (RNNs) for sequential data like text.",
+                duration: "1h 30m"
+            }],
+            quiz: [
+                { questionText: "CNNs are used for:", options: ["Images", "Text docs", "Audio only"], correctAnswerIndex: 0 },
+                { questionText: "An epoch is:", options: ["One full training pass", "A plot style", "An API method"], correctAnswerIndex: 0 },
+                { questionText: "RNNs work well with:", options: ["Sequences", "Buttons", "Tables"], correctAnswerIndex: 0 },
+                { questionText: "GANs are used to:", options: ["Generate new data", "Encrypt passwords", "Write SQL"], correctAnswerIndex: 0 },
+                { questionText: "TensorFlow is a:", options: ["Deep learning library", "Browser", "CMS"], correctAnswerIndex: 0 },
+                { questionText: "Activation functions decide:", options: ["Node output", "URL path", "Font weight"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 4: Natural Language Processing (NLP)",
+            lessons: [{
+                title: "Understanding NLP",
+                content: "Natural Language Processing enables machines to understand, interpret, and generate human language. Key tasks include tokenization, sentiment analysis, and Named Entity Recognition (NER). We'll get hands-on with libraries like SpaCy.",
+                duration: "1h 30m"
+            }],
+            quiz: [
+                { questionText: "NLP helps with:", options: ["Language tasks", "Drawing shapes", "Graphing"], correctAnswerIndex: 0 },
+                { questionText: "Tokenization breaks text into:", options: ["Words/tokens", "Folders", "Emails"], correctAnswerIndex: 0 },
+                { questionText: "NER finds:", options: ["Entities in text", "Passwords", "Ping speeds"], correctAnswerIndex: 0 },
+                { questionText: "Sentiment analysis detects:", options: ["Emotion", "Spam", "Graph colors"], correctAnswerIndex: 0 },
+                { questionText: "`spacy.load()` loads:", options: ["NLP model", "GraphQL query", "CSS theme"], correctAnswerIndex: 0 },
+                { questionText: "Text generation is done by:", options: ["Language models", "React components", "Loops"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 5: Computer Vision and Real-World AI",
+            lessons: [{
+                title: "Intro to Computer Vision",
+                content: "Computer Vision enables machines to see, analyze, and act on visual data. Use cases range from face detection and object tracking to medical image analysis. We will explore practical examples using the OpenCV library.",
+                duration: "1h 30m"
+            }],
+            quiz: [
+                { questionText: "OpenCV is used for:", options: ["Image processing", "APIs", "Game engines"], correctAnswerIndex: 0 },
+                { questionText: "OCR means:", options: ["Optical Character Recognition", "Online CSS Resource", "Object Circular Rendering"], correctAnswerIndex: 0 },
+                { questionText: "`cv2.imread()` loads:", options: ["Images", "APIs", "Fonts"], correctAnswerIndex: 0 },
+                { questionText: "Object tracking is used in:", options: ["Surveillance", "HTML parsing", "SQL Joins"], correctAnswerIndex: 0 },
+                { questionText: "Medical imaging is part of:", options: ["AI in healthcare", "Databases", "Frontend dev"], correctAnswerIndex: 0 },
+                { questionText: "`cv2.imshow()` displays:", options: ["Image windows", "JSON", "Web pages"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 6: Ethics, AI Safety, and the Future",
+            lessons: [{
+                title: "AI Ethics and the Future",
+                content: "With great power comes great responsibility. This module addresses critical topics like bias in AI, data privacy, transparency, and the societal impact of automation. We'll discuss AI safety and the ongoing quest for explainable AI.",
+                duration: "1h 30m"
+            }],
+            quiz: [
+                { questionText: "AI bias is caused by:", options: ["Biased training data", "CPU errors", "Loud speakers"], correctAnswerIndex: 0 },
+                { questionText: "AI ethics involves:", options: ["Fairness, privacy, transparency", "Styling rules", "Loops and breaks"], correctAnswerIndex: 0 },
+                { questionText: "AGI means:", options: ["Artificial General Intelligence", "Advanced Graphical Interface", "API Governance Index"], correctAnswerIndex: 0 },
+                { questionText: "Explainable AI is:", options: ["Transparent decision-making", "Graph styling", "Audio filters"], correctAnswerIndex: 0 },
+                { questionText: "Job displacement by AI is:", options: ["Real concern", "Science fiction", "Browser setting"], correctAnswerIndex: 0 },
+                { questionText: "AI safety ensures:", options: ["Human-friendly outcomes", "Keyboard security", "JavaScript efficiency"], correctAnswerIndex: 0 },
+            ]
+        }
+    ],
+    finalAssessment: [
+        { questionText: "Define Artificial Intelligence and its main goal.", options: [], correctAnswerIndex: 0 },
+        { questionText: "Name 3 branches of AI.", options: [], correctAnswerIndex: 0 },
+        { questionText: "What is supervised vs unsupervised learning?", options: [], correctAnswerIndex: 0 },
+        { questionText: "Write sample ML code in Python using scikit-learn.", options: [], correctAnswerIndex: 0 },
+        { questionText: "Explain what a neural network does.", options: [], correctAnswerIndex: 0 },
+        { questionText: "What does CNN stand for, and what’s it used for?", options: [], correctAnswerIndex: 0 },
+        { questionText: "Compare RNN and CNN.", options: [], correctAnswerIndex: 0 },
+        { questionText: "Define NLP and give two examples of its use.", options: [], correctAnswerIndex: 0 },
+        { questionText: "What is tokenization?", options: [], correctAnswerIndex: 0 },
+        { questionText: "Write a sample SpaCy NER snippet.", options: [], correctAnswerIndex: 0 },
+        { questionText: "What does OpenCV do?", options: [], correctAnswerIndex: 0 },
+        { questionText: "Explain the risks of biased AI.", options: [], correctAnswerIndex: 0 },
+        { questionText: "What is AGI?", options: [], correctAnswerIndex: 0 },
+        { questionText: "How can we ensure ethical use of AI?", options: [], correctAnswerIndex: 0 },
+        { questionText: "List 2 real-world applications of AI today.", options: [], correctAnswerIndex: 0 },
+    ]
+};
+
 const allCourses: NewCourse[] = [
-    artificialIntelligenceCourse,
-    apiDevelopmentAdvanced,
+    introToProgrammingCourse,
+    machineLearningBasics,
+    devOpsPracticesCourse,
+    advancedProgrammingCourse,
+    apisAndBackend,
     cybersecurityAdvanced,
     techLeadership,
     researchInTechnology,
     innovationProductEngineering,
-    advancedProgrammingCourse,
-    apisAndBackend,
-    devOpsPracticesCourse,
-    machineLearningBasics,
+    apiDevelopmentAdvanced,
     mobileAppDevelopment,
     databaseDesignCourse,
 ];
@@ -1543,8 +1624,10 @@ export async function seedInitialCourses() {
         coursesToAdd.forEach(courseData => {
             const newCourseDoc = doc(coursesCollection);
             try {
-                // Ensure every lesson has a duration. Default to 1h if not specified.
-                const modulesWithDuration = courseData.modules.map(module => ({
+                // Remove imageUrl to keep cards plain
+                const { imageUrl, ...dataWithoutImage } = courseData;
+
+                const modulesWithDuration = dataWithoutImage.modules.map(module => ({
                     ...module,
                     lessons: module.lessons.map(lesson => ({
                         ...lesson,
@@ -1553,13 +1636,16 @@ export async function seedInitialCourses() {
                 }));
 
                 const dataWithDefaults = {
-                    ...courseData,
+                    ...dataWithoutImage,
                     modules: modulesWithDuration
                 }
 
                 const validatedData = CourseSchema.omit({ 
                     id: true, 
                     progress: true,
+                    imageUrl: true,
+                }).extend({
+                    imageUrl: z.string().url().optional(),
                 }).passthrough().parse(dataWithDefaults);
                 
                 batch.set(newCourseDoc, validatedData);
