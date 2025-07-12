@@ -115,25 +115,23 @@ const machineLearningBasics: NewCourse = {
             ]
         }
     ],
-    finalAssessment: {
-        questions: [
-            { questionText: "What is machine learning?" },
-            { questionText: "Describe the difference between supervised and unsupervised learning." },
-            { questionText: "Give two real-life examples of ML in action." },
-            { questionText: "What is feature engineering?" },
-            { questionText: "Why is normalization important?" },
-            { questionText: "Explain regression vs classification." },
-            { questionText: "What does `fit()` do in a model?" },
-            { questionText: "How does KNN work?" },
-            { questionText: "What is K-means clustering used for?" },
-            { questionText: "Explain the purpose of a confusion matrix." },
-            { questionText: "What does a high F1 Score mean?" },
-            { questionText: "What metric is best for regression models?" },
-            { questionText: "How does scikit-learn help with ML?" },
-            { questionText: "What are the steps in an ML workflow?" },
-            { questionText: "Name one library for deep learning and one for classical ML." },
-        ]
-    }
+    finalAssessment: [
+        { questionText: "What is machine learning?" },
+        { questionText: "Describe the difference between supervised and unsupervised learning." },
+        { questionText: "Give two real-life examples of ML in action." },
+        { questionText: "What is feature engineering?" },
+        { questionText: "Why is normalization important?" },
+        { questionText: "Explain regression vs classification." },
+        { questionText: "What does `fit()` do in a model?" },
+        { questionText: "How does KNN work?" },
+        { questionText: "What is K-means clustering used for?" },
+        { questionText: "Explain the purpose of a confusion matrix." },
+        { questionText: "What does a high F1 Score mean?" },
+        { questionText: "What metric is best for regression models?" },
+        { questionText: "How does scikit-learn help with ML?" },
+        { questionText: "What are the steps in an ML workflow?" },
+        { questionText: "Name one library for deep learning and one for classical ML." },
+    ]
 };
 
 const devOpsPracticesCourse: NewCourse = {
@@ -244,25 +242,23 @@ const devOpsPracticesCourse: NewCourse = {
             ]
         }
     ],
-    finalAssessment: {
-        questions: [
-            { questionText: "What does DevOps aim to solve?" },
-            { questionText: "List 3 popular DevOps tools and their functions." },
-            { questionText: "What is CI/CD and why is it important?" },
-            { questionText: "Write a simple GitHub Actions CI workflow." },
-            { questionText: "What is a Docker container?" },
-            { questionText: "How does Docker differ from traditional deployment?" },
-            { questionText: "List 3 Docker commands and their purposes." },
-            { questionText: "What is IaC?" },
-            { questionText: "What are the benefits of using Terraform?" },
-            { questionText: "Name 2 monitoring tools and their roles." },
-            { questionText: "How does logging help in debugging?" },
-            { questionText: "What is a blameless postmortem and why is it useful?" },
-            { questionText: "Explain MTTR and its significance." },
-            { questionText: "How does DevOps culture differ from traditional IT?" },
-            { questionText: "Create a deployment plan for a Node.js app using Docker and GitHub Actions." },
-        ]
-    }
+    finalAssessment: [
+        { questionText: "What does DevOps aim to solve?" },
+        { questionText: "List 3 popular DevOps tools and their functions." },
+        { questionText: "What is CI/CD and why is it important?" },
+        { questionText: "Write a simple GitHub Actions CI workflow." },
+        { questionText: "What is a Docker container?" },
+        { questionText: "How does Docker differ from traditional deployment?" },
+        { questionText: "List 3 Docker commands and their purposes." },
+        { questionText: "What is IaC?" },
+        { questionText: "What are the benefits of using Terraform?" },
+        { questionText: "Name 2 monitoring tools and their roles." },
+        { questionText: "How does logging help in debugging?" },
+        { questionText: "What is a blameless postmortem and why is it useful?" },
+        { questionText: "Explain MTTR and its significance." },
+        { questionText: "How does DevOps culture differ from traditional IT?" },
+        { questionText: "Create a deployment plan for a Node.js app using Docker and GitHub Actions." },
+    ]
 };
 
 const advancedProgrammingCourse: NewCourse = {
@@ -357,25 +353,23 @@ const advancedProgrammingCourse: NewCourse = {
             ]
         }
     ],
-    finalAssessment: {
-        questions: [
-            { questionText: "Explain the 4 pillars of OOP." },
-            { questionText: "What is the difference between a class and an object?" },
-            { questionText: "What is polymorphism in real-world programming?" },
-            { questionText: "Compare stacks and queues." },
-            { questionText: "What is a hash map and when would you use one?" },
-            { questionText: "Write Python code to open and read a file named “log.txt”." },
-            { questionText: "What is modular design and why is it important?" },
-            { questionText: "Explain the difference between `try`, `except`, and `finally`." },
-            { questionText: "List 3 common exceptions in Python." },
-            { questionText: "Why should you avoid empty `except:` blocks?" },
-            { questionText: "What’s the use of the `logging` module?" },
-            { questionText: "List 3 best practices from PEP 8." },
-            { questionText: "Explain the DRY principle with an example." },
-            { questionText: "How do clean code practices help in teamwork?" },
-            { questionText: "Write a Python function that returns the factorial of a number using recursion." },
-        ]
-    }
+    finalAssessment: [
+        { questionText: "Explain the 4 pillars of OOP." },
+        { questionText: "What is the difference between a class and an object?" },
+        { questionText: "What is polymorphism in real-world programming?" },
+        { questionText: "Compare stacks and queues." },
+        { questionText: "What is a hash map and when would you use one?" },
+        { questionText: "Write Python code to open and read a file named “log.txt”." },
+        { questionText: "What is modular design and why is it important?" },
+        { questionText: "Explain the difference between `try`, `except`, and `finally`." },
+        { questionText: "List 3 common exceptions in Python." },
+        { questionText: "Why should you avoid empty `except:` blocks?" },
+        { questionText: "What’s the use of the `logging` module?" },
+        { questionText: "List 3 best practices from PEP 8." },
+        { questionText: "Explain the DRY principle with an example." },
+        { questionText: "How do clean code practices help in teamwork?" },
+        { questionText: "Write a Python function that returns the factorial of a number using recursion." },
+    ]
 };
 
 const apisAndBackend: NewCourse = {
@@ -486,25 +480,23 @@ const apisAndBackend: NewCourse = {
             ]
         }
     ],
-    finalAssessment: {
-        questions: [
-            { questionText: "Define API and give an analogy." },
-            { questionText: "What are the 4 core HTTP methods in REST?" },
-            { questionText: "Write a simple GET route in Express.js." },
-            { questionText: "What is JWT used for?" },
-            { questionText: "Show an example of a POST request with JSON." },
-            { questionText: "What’s the difference between REST and GraphQL?" },
-            { questionText: "How does rate limiting help protect APIs?" },
-            { questionText: "What is `mongoose.connect()` used for?" },
-            { questionText: "Name two authentication strategies." },
-            { questionText: "What are resolvers in GraphQL?" },
-            { questionText: "Describe the role of Postman." },
-            { questionText: "How do you deploy an API to Render?" },
-            { questionText: "Explain the purpose of environment variables." },
-            { questionText: "What is the use of `express.json()`?" },
-            { questionText: "Write an example of a database-connected API endpoint." },
-        ]
-    }
+    finalAssessment: [
+        { questionText: "Define API and give an analogy." },
+        { questionText: "What are the 4 core HTTP methods in REST?" },
+        { questionText: "Write a simple GET route in Express.js." },
+        { questionText: "What is JWT used for?" },
+        { questionText: "Show an example of a POST request with JSON." },
+        { questionText: "What’s the difference between REST and GraphQL?" },
+        { questionText: "How does rate limiting help protect APIs?" },
+        { questionText: "What is `mongoose.connect()` used for?" },
+        { questionText: "Name two authentication strategies." },
+        { questionText: "What are resolvers in GraphQL?" },
+        { questionText: "Describe the role of Postman." },
+        { questionText: "How do you deploy an API to Render?" },
+        { questionText: "Explain the purpose of environment variables." },
+        { questionText: "What is the use of `express.json()`?" },
+        { questionText: "Write an example of a database-connected API endpoint." },
+    ]
 };
 
 const cybersecurityAdvanced: NewCourse = {
@@ -615,25 +607,23 @@ const cybersecurityAdvanced: NewCourse = {
             ]
         }
     ],
-    finalAssessment: {
-        questions: [
-            { questionText: "Explain STRIDE threat modeling." },
-            { questionText: "What’s the difference between pen testing and vulnerability scanning?" },
-            { questionText: "Name 3 tools used in penetration testing." },
-            { questionText: "Describe the principles of Zero Trust Architecture." },
-            { questionText: "How would you prevent XSS and SQL injection?" },
-            { questionText: "What is DevSecOps, and how is it implemented?" },
-            { questionText: "Explain the difference between IDS and IPS." },
-            { questionText: "What role does IAM play in cloud security?" },
-            { questionText: "What is the purpose of a bastion host?" },
-            { questionText: "List the 6 steps of the IR lifecycle." },
-            { questionText: "What are some tools used in log analysis during IR?" },
-            { questionText: "Give an example of microsegmentation in Zero Trust." },
-            { questionText: "Why is secure CI/CD important?" },
-            { questionText: "How would you isolate and respond to a ransomware attack?" },
-            { questionText: "Describe the difference between Red, Blue, and Purple teams." },
-        ]
-    }
+    finalAssessment: [
+        { questionText: "Explain STRIDE threat modeling." },
+        { questionText: "What’s the difference between pen testing and vulnerability scanning?" },
+        { questionText: "Name 3 tools used in penetration testing." },
+        { questionText: "Describe the principles of Zero Trust Architecture." },
+        { questionText: "How would you prevent XSS and SQL injection?" },
+        { questionText: "What is DevSecOps, and how is it implemented?" },
+        { questionText: "Explain the difference between IDS and IPS." },
+        { questionText: "What role does IAM play in cloud security?" },
+        { questionText: "What is the purpose of a bastion host?" },
+        { questionText: "List the 6 steps of the IR lifecycle." },
+        { questionText: "What are some tools used in log analysis during IR?" },
+        { questionText: "Give an example of microsegmentation in Zero Trust." },
+        { questionText: "Why is secure CI/CD important?" },
+        { questionText: "How would you isolate and respond to a ransomware attack?" },
+        { questionText: "Describe the difference between Red, Blue, and Purple teams." },
+    ]
 };
 
 const techLeadership: NewCourse = {
@@ -744,25 +734,23 @@ const techLeadership: NewCourse = {
             ]
         }
     ],
-    finalAssessment: {
-        questions: [
-            { questionText: "What distinguishes leadership from management?" },
-            { questionText: "How do you build and scale a high-performing tech team?" },
-            { questionText: "Explain SMART goals with examples." },
-            { questionText: "What is a trade-off matrix, and how would you use it?" },
-            { questionText: "List and explain 3 architectural decision-making tools." },
-            { questionText: "What are the signs of strong technical culture?" },
-            { questionText: "How does DevSecOps contribute to tech leadership?" },
-            { questionText: "Give 3 examples of scaling patterns in infrastructure." },
-            { questionText: "How can you resolve conflict within an engineering team?" },
-            { questionText: "Define OKRs and give a tech-related example." },
-            { questionText: "What is emotional intelligence and how does it help in leadership?" },
-            { questionText: "Describe the ideal structure of a sprint retrospective." },
-            { questionText: "How do you align technical goals with executive expectations?" },
-            { questionText: "Explain the difference between Red, Blue, and Purple teams." },
-            { questionText: "Write a brief memo convincing stakeholders to switch to microservices." },
-        ]
-    }
+    finalAssessment: [
+        { questionText: "What distinguishes leadership from management?" },
+        { questionText: "How do you build and scale a high-performing tech team?" },
+        { questionText: "Explain SMART goals with examples." },
+        { questionText: "What is a trade-off matrix, and how would you use it?" },
+        { questionText: "List and explain 3 architectural decision-making tools." },
+        { questionText: "What are the signs of strong technical culture?" },
+        { questionText: "How does DevSecOps contribute to tech leadership?" },
+        { questionText: "Give 3 examples of scaling patterns in infrastructure." },
+        { questionText: "How can you resolve conflict within an engineering team?" },
+        { questionText: "Define OKRs and give a tech-related example." },
+        { questionText: "What is emotional intelligence and how does it help in leadership?" },
+        { questionText: "Describe the ideal structure of a sprint retrospective." },
+        { questionText: "How do you align technical goals with executive expectations?" },
+        { questionText: "Explain the difference between Red, Blue, and Purple teams." },
+        { questionText: "Write a brief memo convincing stakeholders to switch to microservices." },
+    ]
 };
 
 const researchInTechnology: NewCourse = {
@@ -873,25 +861,23 @@ const researchInTechnology: NewCourse = {
             ]
         }
     ],
-    finalAssessment: {
-        questions: [
-            { questionText: "List the main phases of a research process." },
-            { questionText: "Explain the difference between applied and basic research." },
-            { questionText: "What is a hypothesis, and how is it tested?" },
-            { questionText: "Describe the Gartner Hype Cycle and its phases." },
-            { questionText: "List and explain at least three data collection methods in tech research." },
-            { questionText: "What are the tools are used in technical data analysis?" },
-            { questionText: "How does exploratory research work?" },
-            { questionText: "What are the ethical concerns in AI research?" },
-            { questionText: "Define and give examples of qualitative vs quantitative research." },
-            { questionText: "What is arXiv, and how is it useful?" },
-            { questionText: "Describe how to structure a research presentation." },
-            { questionText: "What’s the role of the null hypothesis in testing?" },
-            { questionText: "Name two tech trend spotting frameworks." },
-            { questionText: "What is GDPR and how does it apply to researchers?" },
-            { questionText: "How can research lead to product innovation?" },
-        ]
-    }
+    finalAssessment: [
+        { questionText: "List the main phases of a research process." },
+        { questionText: "Explain the difference between applied and basic research." },
+        { questionText: "What is a hypothesis, and how is it tested?" },
+        { questionText: "Describe the Gartner Hype Cycle and its phases." },
+        { questionText: "List and explain at least three data collection methods in tech research." },
+        { questionText: "What tools are used in technical data analysis?" },
+        { questionText: "How does exploratory research work?" },
+        { questionText: "What are the ethical concerns in AI research?" },
+        { questionText: "Define and give examples of qualitative vs quantitative research." },
+        { questionText: "What is arXiv, and how is it useful?" },
+        { questionText: "Describe how to structure a research presentation." },
+        { questionText: "What’s the role of the null hypothesis in testing?" },
+        { questionText: "Name two tech trend spotting frameworks." },
+        { questionText: "What is GDPR and how does it apply to researchers?" },
+        { questionText: "How can research lead to product innovation?" },
+    ]
 };
 
 const innovationProductEngineering: NewCourse = {
@@ -1002,25 +988,23 @@ const innovationProductEngineering: NewCourse = {
             ]
         }
     ],
-    finalAssessment: {
-        questions: [
-            { questionText: "Explain the difference between disruptive and sustaining innovation." },
-            { questionText: "What is the Design Thinking process?" },
-            { questionText: "Describe the MVP approach and how it prevents overbuilding." },
-            { questionText: "What frameworks help prioritize product features?" },
-            { questionText: "What’s the relationship between tech architecture and business goals?" },
-            { questionText: "Give three real-world examples of scalable product engineering practices." },
-            { questionText: "How do tech teams validate innovation before launching?" },
-            { questionText: "Explain RICE and MoSCoW prioritization." },
-            { questionText: "How can CI/CD pipelines improve shipping velocity?" },
-            { questionText: "Why is developer experience (DX) crucial for innovation?" },
-            { questionText: "Define OKRs and how they align engineering with business." },
-            { questionText: "What is the Technology Adoption Curve?" },
-            { questionText: "How do strategic leaders balance risk and experimentation?" },
-            { questionText: "What metrics matter most for product-led growth?" },
-            { questionText: "Summarize how you’d build a tech product with strategic impact and user-first innovation." },
-        ]
-    }
+    finalAssessment: [
+        { questionText: "Explain the difference between disruptive and sustaining innovation." },
+        { questionText: "What is the Design Thinking process?" },
+        { questionText: "Describe the MVP approach and how it prevents overbuilding." },
+        { questionText: "What frameworks help prioritize product features?" },
+        { questionText: "What’s the relationship between tech architecture and business goals?" },
+        { questionText: "Give three real-world examples of scalable product engineering practices." },
+        { questionText: "How do tech teams validate innovation before launching?" },
+        { questionText: "Explain RICE and MoSCoW prioritization." },
+        { questionText: "How can CI/CD pipelines improve shipping velocity?" },
+        { questionText: "Why is developer experience (DX) crucial for innovation?" },
+        { questionText: "Define OKRs and how they align engineering with business." },
+        { questionText: "What is the Technology Adoption Curve?" },
+        { questionText: "How do strategic leaders balance risk and experimentation?" },
+        { questionText: "What metrics matter most for product-led growth?" },
+        { questionText: "Summarize how you’d build a tech product with strategic impact and user-first innovation." },
+    ]
 };
 
 const artificialIntelligenceCourse: NewCourse = {
@@ -1131,25 +1115,23 @@ const artificialIntelligenceCourse: NewCourse = {
             ]
         }
     ],
-    finalAssessment: {
-        questions: [
-            { questionText: "Define Artificial Intelligence and its main goal." },
-            { questionText: "Name 3 branches of AI." },
-            { questionText: "What is supervised vs unsupervised learning?" },
-            { questionText: "Write sample ML code in Python using scikit-learn." },
-            { questionText: "Explain what a neural network does." },
-            { questionText: "What does CNN stand for, and what’s it used for?" },
-            { questionText: "Compare RNN and CNN." },
-            { questionText: "Define NLP and give two examples of its use." },
-            { questionText: "What is tokenization?" },
-            { questionText: "Write a sample SpaCy NER snippet." },
-            { questionText: "What does OpenCV do?" },
-            { questionText: "Explain the risks of biased AI." },
-            { questionText: "What is AGI?" },
-            { questionText: "How can we ensure ethical use of AI?" },
-            { questionText: "List 2 real-world applications of AI today." },
-        ]
-    }
+    finalAssessment: [
+        { questionText: "Define Artificial Intelligence and its main goal." },
+        { questionText: "Name 3 branches of AI." },
+        { questionText: "What is supervised vs unsupervised learning?" },
+        { questionText: "Write sample ML code in Python using scikit-learn." },
+        { questionText: "Explain what a neural network does." },
+        { questionText: "What does CNN stand for, and what’s it used for?" },
+        { questionText: "Compare RNN and CNN." },
+        { questionText: "Define NLP and give two examples of its use." },
+        { questionText: "What is tokenization?" },
+        { questionText: "Write a sample SpaCy NER snippet." },
+        { questionText: "What does OpenCV do?" },
+        { questionText: "Explain the risks of biased AI." },
+        { questionText: "What is AGI?" },
+        { questionText: "How can we ensure ethical use of AI?" },
+        { questionText: "List 2 real-world applications of AI today." },
+    ]
 };
 
 const apiDevelopmentAdvanced: NewCourse = {
@@ -1260,26 +1242,152 @@ const apiDevelopmentAdvanced: NewCourse = {
             ]
         }
     ],
-    finalAssessment: {
-        questions: [
-            { questionText: "What’s the difference between REST and GraphQL?" },
-            { questionText: "Describe a standard OAuth2 flow." },
-            { questionText: "What’s the purpose of the API Gateway?" },
-            { questionText: "Write a basic rate-limiter snippet in Node.js." },
-            { questionText: "How do you use Swagger to document an endpoint?" },
-            { questionText: "What is JWT, and how is it used in APIs?" },
-            { questionText: "Compare URI versioning and Header versioning." },
-            { questionText: "List two tools for monitoring live APIs." },
-            { questionText: "What’s the use of Postman environments?" },
-            { questionText: "Explain the difference between unit and integration tests." },
-            { questionText: "What does Redis help with in API design?" },
-            { questionText: "Give an example of caching headers." },
-            { questionText: "List 3 benefits of microservices architecture." },
-            { questionText: "What’s the use of service discovery in APIs?" },
-            { questionText: "Write a `GET` endpoint in Express that returns a paginated list of users." },
-        ]
-    }
+    finalAssessment: [
+        { questionText: "What’s the difference between REST and GraphQL?" },
+        { questionText: "Describe a standard OAuth2 flow." },
+        { questionText: "What’s the purpose of the API Gateway?" },
+        { questionText: "Write a basic rate-limiter snippet in Node.js." },
+        { questionText: "How do you use Swagger to document an endpoint?" },
+        { questionText: "What is JWT, and how is it used in APIs?" },
+        { questionText: "Compare URI versioning and Header versioning." },
+        { questionText: "List two tools for monitoring live APIs." },
+        { questionText: "What’s the use of Postman environments?" },
+        { questionText: "Explain the difference between unit and integration tests." },
+        { questionText: "What does Redis help with in API design?" },
+        { questionText: "Give an example of caching headers." },
+        { questionText: "List 3 benefits of microservices architecture." },
+        { questionText: "What’s the use of service discovery in APIs?" },
+        { questionText: "Write a `GET` endpoint in Express that returns a paginated list of users." },
+    ]
 };
+
+const mobileAppDevelopment: NewCourse = {
+    title: "Mobile App Development",
+    description: "Learn to build real, cross-platform mobile apps using Flutter and React Native.",
+    longDescription: "This course covers the essentials of mobile app development, from understanding architecture and UI/UX best practices to building and publishing apps. You will learn the differences between native and cross-platform development and get hands-on experience with both Flutter and React Native, preparing you to bring your app ideas to life on both Android and iOS.",
+    category: "Tech Skills",
+    level: "Intermediate",
+    imageUrl: "https://placehold.co/600x400.png",
+    duration: "12h",
+    instructor: "The App Builders",
+    price: 5000,
+    modules: [
+        {
+            title: "Module 1: Introduction to Mobile App Development",
+            lessons: [{
+                title: "What is Mobile App Development?",
+                content: "It’s the process of building **software applications** that run on mobile devices (phones, tablets, smartwatches).\n\n> You’re basically building magic in your pocket. 🔮📱\n\n### Types of Mobile Apps\n\n| Type               | Description                                                            | Example              |\n| ------------------ | ---------------------------------------------------------------------- | -------------------- |\n| **Native**         | Built for a specific platform (Java/Kotlin for Android, Swift for iOS) | WhatsApp, Instagram  |\n| **Cross-platform** | One codebase, multiple platforms (Flutter, React Native)               | Google Ads, Facebook |\n| **Web Apps**       | Responsive websites acting like apps                                   | Twitter Mobile       |\n| **Hybrid**         | Combines native + web                                                  | Ionic                |\n\n### Native vs Cross-Platform\n\n| Feature        | Native                | Cross-Platform        |\n| -------------- | --------------------- | --------------------- |\n| Performance    | High                  | Moderate              |\n| Code Reuse     | Low                   | High                  |\n| Learning Curve | Steep                 | Easier                |\n| Tools          | Xcode, Android Studio | Flutter, React Native |",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "Mobile apps run on:", options: ["Phones & tablets", "Fridges", "Game consoles"], correctAnswerIndex: 0 },
+                { questionText: "Native apps are built for:", options: ["A specific platform", "Any browser", "Cars"], correctAnswerIndex: 0 },
+                { questionText: "Cross-platform tools include:", options: ["Flutter, React Native", "Blender, Maya", "Bootstrap"], correctAnswerIndex: 0 },
+                { questionText: "Web apps are accessed via:", options: ["Browsers", "USB", "SMS"], correctAnswerIndex: 0 },
+                { questionText: "Native offers better:", options: ["Performance", "Ping", "Spinning logos"], correctAnswerIndex: 0 },
+                { questionText: "React Native uses:", options: ["JavaScript", "C++", "HTML only"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 2: Setting Up Your Development Environment",
+            lessons: [{
+                title: "Setting Up Your Development Environment",
+                content: "### Tools You’ll Use\n\n* **Flutter SDK** – For cross-platform apps using Dart\n* **React Native CLI** – JS-based cross-platform dev\n* **Android Studio** – Powerful IDE for Android\n* **Xcode (macOS only)** – Required for iOS dev\n* **VS Code** – Lightweight, powerful editor\n\n### Installing Flutter\n\n* Download from [flutter.dev](https://flutter.dev)\n* Add to system PATH\n* Use `flutter doctor` to check for issues\n\n### Sample CLI Commands\n\n```bash\nflutter create my_app\ncd my_app\nflutter run\n```\n\n```bash\nnpx react-native init MyApp\ncd MyApp\nnpx react-native run-android\n```",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "Flutter uses:", options: ["Dart", "Go", "Bash"], correctAnswerIndex: 0 },
+                { questionText: "Android Studio is used to:", options: ["Build Android apps", "Write music", "Edit PDFs"], correctAnswerIndex: 0 },
+                { questionText: "React Native CLI is based on:", options: ["Node.js", "Java", "Ruby"], correctAnswerIndex: 0 },
+                { questionText: "Flutter doctor checks:", options: ["System readiness", "Wi-Fi speed", "Grammar"], correctAnswerIndex: 0 },
+                { questionText: "To start a Flutter project, use:", options: ["`flutter create`", "`npm install`", "`new Flutter()`"], correctAnswerIndex: 0 },
+                { questionText: "Xcode is required for:", options: ["iOS dev", "Android APKs", "Website hosting"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 3: Building UI with Flutter and React Native",
+            lessons: [{
+                title: "Building UI with Flutter and React Native",
+                content: "### UI Building in Flutter\n\nFlutter uses **widgets** for everything. UI is code. Example:\n\n```dart\nreturn Scaffold(\n  appBar: AppBar(title: Text('Hello')),\n  body: Center(child: Text('Welcome')),\n);\n```\n\n### UI in React Native\n\nUses familiar HTML-like tags in JSX:\n\n```jsx\n<View style={styles.container}>\n  <Text>Hello World</Text>\n</View>\n```\n\n### Key Widgets / Components\n\n| Flutter   | React Native     |\n| --------- | ---------------- |\n| Scaffold  | View             |\n| TextField | TextInput        |\n| ListView  | FlatList         |\n| Container | View with styles |",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "Flutter builds UI using:", options: ["Widgets", "Spreadsheets", "Charts"], correctAnswerIndex: 0 },
+                { questionText: "React Native uses:", options: ["JSX", "PHP", "JSP"], correctAnswerIndex: 0 },
+                { questionText: "Scaffold is a:", options: ["Flutter layout", "React router", "Android emulator"], correctAnswerIndex: 0 },
+                { questionText: "FlatList is used for:", options: ["Lists in React Native", "Excel files", "Maps"], correctAnswerIndex: 0 },
+                { questionText: "In React Native, `View` is similar to:", options: ["`<div>`", "`<iframe>`", "`<script>`"], correctAnswerIndex: 0 },
+                { questionText: "Flutter uses what for layouts?", options: ["Rows, Columns", "Tables", "Paddings"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 4: Navigation, State, and Interactivity",
+            lessons: [{
+                title: "Navigation, State, and Interactivity",
+                content: "### Navigation\n\n* **React Native**: `react-navigation`\n* **Flutter**: `Navigator` + routes\n\n### State Management\n\n| Flutter                      | React Native                 |\n| ---------------------------- | ---------------------------- |\n| setState, Provider, Riverpod | useState, Context API, Redux |\n\n### Example: Flutter Button\n\n```dart\nElevatedButton(\n  onPressed: () => setState(() => counter++),\n  child: Text('Click'),\n)\n```\n\n### Example: React Native Button\n\n```jsx\n<Button\n  onPress={() => setCounter(counter + 1)}\n  title=\"Click\"\n/>\n```",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "Navigator is used for:", options: ["Routing in Flutter", "Browsing web", "Data fetching"], correctAnswerIndex: 0 },
+                { questionText: "`useState` is used in:", options: ["React Native", "Flutter", "Vue"], correctAnswerIndex: 0 },
+                { questionText: "`setState()` does what?", options: ["Updates UI", "Loads DB", "Uploads files"], correctAnswerIndex: 0 },
+                { questionText: "Buttons handle:", options: ["User interaction", "Footers", "Fonts"], correctAnswerIndex: 0 },
+                { questionText: "Redux is for:", options: ["State management", "Graphics", "Image hosting"], correctAnswerIndex: 0 },
+                { questionText: "Flutter’s `Provider` is used to:", options: ["Share app-wide state", "Host websites", "Style buttons"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 5: Testing, Debugging, and Optimization",
+            lessons: [{
+                title: "Testing, Debugging, and Optimization",
+                content: "### Testing\n\n* Unit tests\n* Widget tests\n* Integration tests\n* Expo for React Native testing\n* `flutter test`, `jest` for React Native\n\n### Debugging Tools\n\n* Flutter DevTools\n* React Native Debugger\n* Android Logcat\n* Chrome/VSCode Inspector\n\n### Optimization Tips\n\n* Use image compression\n* Remove unused packages\n* Lazy loading screens\n* Avoid setState() loops",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "`jest` is used in:", options: ["React Native", "Flutter", "PHP"], correctAnswerIndex: 0 },
+                { questionText: "Widget tests are:", options: ["UI-specific", "APIs", "Animations"], correctAnswerIndex: 0 },
+                { questionText: "Logcat is for:", options: ["Android debugging", "Maps", "Buttons"], correctAnswerIndex: 0 },
+                { questionText: "Flutter DevTools helps:", options: ["Debug apps", "Paint UI", "Host files"], correctAnswerIndex: 0 },
+                { questionText: "Lazy loading improves:", options: ["Performance", "Delay", "Font size"], correctAnswerIndex: 0 },
+                { questionText: "Expo is used to:", options: ["Preview React Native apps", "Animate cards", "Test passwords"], correctAnswerIndex: 0 },
+            ]
+        },
+        {
+            title: "Module 6: Publishing to Play Store and App Store",
+            lessons: [{
+                title: "Publishing to Play Store and App Store",
+                content: "### Preparing for Release\n\n* Remove debug flags\n* Optimize assets\n* Increase app version\n* Test on real device\n\n### Android (Play Store)\n\n* Build APK or AAB\n* Sign the app\n* Upload to Google Play Console\n* Fill in store listing\n* Wait for review\n\n### iOS (App Store)\n\n* macOS required\n* Use Xcode to archive and upload\n* Fill in App Store Connect info\n* Wait for Apple review (they’re picky 😉)\n\n### Tips for Approval\n\n* Use real screenshots\n* Don’t copy existing names\n* Check permissions\n* Test all flows!",
+                duration: "1h"
+            }],
+            quiz: [
+                { questionText: "APK stands for:", options: ["Android Package", "App Packing Kit", "App Preview Key"], correctAnswerIndex: 0 },
+                { questionText: "You upload Android apps to:", options: ["Google Play Console", "iCloud", "Drive"], correctAnswerIndex: 0 },
+                { questionText: "To publish to iOS, you need:", options: ["Xcode", "React", "Safari"], correctAnswerIndex: 0 },
+                { questionText: "Before publishing, you should:", options: ["Test app", "Panic", "Rename files"], correctAnswerIndex: 0 },
+                { questionText: "Apple reviews take:", options: ["Days", "Seconds", "2 hours"], correctAnswerIndex: 0 },
+                { questionText: "Screenshots in listings must be:", options: ["Real", "Stock photos", "Memes"], correctAnswerIndex: 0 },
+            ]
+        }
+    ],
+    finalAssessment: [
+        { questionText: "Difference between native and cross-platform?" },
+        { questionText: "Two tools for mobile app development?" },
+        { questionText: "How do you install Flutter and start a project?" },
+        { questionText: "What are widgets in Flutter?" },
+        { questionText: "What’s JSX in React Native?" },
+        { questionText: "Write a button example in React Native." },
+        { questionText: "What is `setState()` used for?" },
+        { questionText: "How do you handle routing in Flutter?" },
+        { questionText: "What’s the purpose of lazy loading?" },
+        { questionText: "What are three debugging tools?" },
+        { questionText: "Steps to prepare Android app for release?" },
+        { questionText: "How do you test a widget in Flutter?" },
+        { questionText: "Why does Apple reject apps?" },
+        { questionText: "What is the difference between APK and AAB?" },
+        { questionText: "How would you optimize performance for large apps?" },
+    ]
+};
+
 
 const allCourses: NewCourse[] = [
     artificialIntelligenceCourse,
@@ -1292,6 +1400,7 @@ const allCourses: NewCourse[] = [
     apisAndBackend,
     devOpsPracticesCourse,
     machineLearningBasics,
+    mobileAppDevelopment,
 ];
 
 export async function seedInitialCourses() {
@@ -1342,5 +1451,3 @@ export async function seedInitialCourses() {
         console.log('All defined courses already exist in the database. Skipping seed.');
     }
 }
-
-    
