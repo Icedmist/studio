@@ -1,3 +1,4 @@
+
 import { Suspense } from 'react';
 import { Library } from "lucide-react";
 import { Skeleton } from '@/components/ui/skeleton';
@@ -19,7 +20,8 @@ function CoursesPageSkeleton() {
              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
                 {[...Array(6)].map((_, i) => (
                     <div key={i} className="flex flex-col h-full rounded-lg border bg-card p-6 space-y-4">
-                        <Skeleton className="h-6 w-2/3 mx-auto" />
+                        <Skeleton className="h-8 w-2/3 mx-auto" />
+                        <Skeleton className="h-6 w-full mx-auto" />
                     </div>
                 ))}
             </div>

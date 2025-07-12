@@ -1,4 +1,3 @@
-
 rules_version = '2';
 
 service cloud.firestore {
@@ -6,7 +5,7 @@ service cloud.firestore {
 
     // Helper function to check for admin role
     function isAdmin() {
-      // This UID should be replaced with the actual Firebase UID of the admin user.
+      // IMPORTANT: Replace with your actual Firebase Admin UID(s).
       let adminUids = ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
       return request.auth != null && request.auth.uid in adminUids;
     }
@@ -31,7 +30,7 @@ service cloud.firestore {
     // Blog Posts: Public can read published posts, Admins can write all
     match /blogPosts/{postId} {
       allow get: if resource.data.status == 'published' || isAdmin();
-      allow list: if true;
+      allow list: if true; // Allow listing for blog page
       allow create, update, delete: if isAdmin();
     }
     
@@ -50,11 +49,11 @@ service cloud.firestore {
     }
 
     // Student Progress: Users can only access their own records.
-    // Admins have read-only access to all user progress for viewing purposes.
+    // Admins have read-only access to all user progress.
     match /studentProgress/{userId} {
-      allow get: if isOwner(userId) || isAdmin();
-      allow list: if isAdmin();
-      allow create, update: if isOwner(userId);
+      allow get, update: if isOwner(userId);
+      allow create: if isOwner(userId); // Allow creation on signup
+      allow list: if isAdmin(); // Admin can list all users
       allow delete: if isAdmin();
     }
 

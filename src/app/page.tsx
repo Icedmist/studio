@@ -1,3 +1,4 @@
+
 import { getCourses } from '@/services/course-data';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Suspense } from 'react';
