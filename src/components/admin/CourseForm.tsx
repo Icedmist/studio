@@ -127,7 +127,7 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
         category: 'Tech Skills',
         level: 'Beginner',
         imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{ title: '', lessons: [{ title: '', duration: '' }], quiz: [] }],
+        modules: [{ title: '', lessons: [{ title: '', duration: '', content: '' }], quiz: [] }],
         finalAssessment: [],
         price: 0,
         duration: '',
@@ -320,7 +320,7 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
                                     <>
                                         {lessonFields.map((lessonItem, lessonIndex) => (
                                             <div key={lessonItem.id} className="flex gap-2 items-end">
-                                                <div className="flex-1 grid grid-cols-2 gap-2">
+                                                <div className="flex-1 grid grid-cols-1 gap-2">
                                                     <FormField
                                                     control={form.control}
                                                     name={`modules.${moduleIndex}.lessons.${lessonIndex}.title`}
@@ -329,6 +329,19 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
                                                         <FormLabel>Lesson {lessonIndex + 1}</FormLabel>
                                                         <FormControl>
                                                             <Input placeholder="e.g., What is React?" {...field} />
+                                                        </FormControl>
+                                                         <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                    />
+                                                     <FormField
+                                                    control={form.control}
+                                                    name={`modules.${moduleIndex}.lessons.${lessonIndex}.content`}
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                        <FormLabel>Content</FormLabel>
+                                                        <FormControl>
+                                                            <Textarea placeholder="Lesson content..." {...field} />
                                                         </FormControl>
                                                          <FormMessage />
                                                         </FormItem>
@@ -353,7 +366,7 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
                                                 </Button>
                                             </div>
                                         ))}
-                                        <Button type="button" variant="outline" size="sm" onClick={() => appendLesson({ title: '', duration: '' })}>
+                                        <Button type="button" variant="outline" size="sm" onClick={() => appendLesson({ title: '', duration: '', content: '' })}>
                                             <PlusCircle className="mr-2 h-4 w-4" /> Add Lesson
                                         </Button>
                                     </>
@@ -368,7 +381,7 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
                     </div>
                 </div>
             ))}
-            <Button type="button" variant="secondary" onClick={() => appendModule({ title: '', lessons: [{ title: '', duration: '' }], quiz: [] })}>
+            <Button type="button" variant="secondary" onClick={() => appendModule({ title: '', lessons: [{ title: '', duration: '', content: '' }], quiz: [] })}>
                  <PlusCircle className="mr-2 h-4 w-4" /> Add Module
             </Button>
         </div>

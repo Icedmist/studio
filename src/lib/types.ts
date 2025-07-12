@@ -1,4 +1,3 @@
-
 import { z } from 'zod';
 import { COURSE_CATEGORIES, COURSE_LEVELS } from './constants';
 
