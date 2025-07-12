@@ -49,7 +49,6 @@ export function CourseFilterGrid({ courses }: CourseFilterGridProps) {
     });
     
     if (category) {
-        // View 2: Show courses and level filters
         return (
             <div>
                 <Button variant="ghost" onClick={clearCategoryFilter} className="mb-4">
@@ -89,7 +88,6 @@ export function CourseFilterGrid({ courses }: CourseFilterGridProps) {
         );
     }
 
-    // View 1: Show categories
     return (
         <div>
             <h2 className="text-2xl font-headline font-bold text-center mb-2">Select a Category</h2>

@@ -1638,12 +1638,11 @@ export async function seedInitialCourses() {
                 }));
                 
                 const finalData = { ...dataToSave, modules: modulesWithDuration };
+                
+                // Use a schema that omits imageUrl if it's optional in NewCourseSchema
+                const schemaToUse = NewCourseSchema.omit({ imageUrl: true });
 
-                const validatedData = CourseSchema.omit({ 
-                    id: true, 
-                    progress: true,
-                    imageUrl: true,
-                }).passthrough().parse(finalData);
+                const validatedData = schemaToUse.passthrough().parse(finalData);
                 
                 batch.set(newCourseDoc, validatedData);
             } catch(e) {
@@ -1660,5 +1659,3 @@ export async function seedInitialCourses() {
         console.log('All defined courses already exist in the database. Skipping seed.');
     }
 }
-
-    
