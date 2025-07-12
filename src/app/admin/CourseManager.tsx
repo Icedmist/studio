@@ -4,30 +4,24 @@
 import { useState, useEffect } from 'react';
 import type { Course } from '@/lib/types';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, updateDoc, deleteDoc, doc, getDoc, getDocs, type DocumentData } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Pencil, Trash2, Library } from 'lucide-react';
+import { Pencil, Trash2, Library, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { CourseForm } from '@/components/admin/CourseForm';
 import { Skeleton } from '@/components/ui/skeleton';
 import { z } from 'zod';
-import { NewCourseSchema, CourseSchema } from '@/lib/types';
+import { NewCourseSchema } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
+import { useRouter } from 'next/navigation';
+import { seedInitialCourses } from '@/services/seed-data';
+import { getCourses } from '@/services/course-data';
 
 type CourseFormData = z.infer<typeof NewCourseSchema>;
-
-const toCourse = (doc: DocumentData): Course => {
-    const data = doc.data();
-    return CourseSchema.parse({
-        ...data,
-        id: doc.id,
-        progress: 0, 
-    });
-};
 
 export function CourseManager() {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -36,43 +30,51 @@ export function CourseManager() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const { toast } = useToast();
+  const router = useRouter();
+
+  const fetchCourses = async () => {
+    setIsLoading(true);
+    try {
+      const coursesCollection = collection(db, 'courses');
+      const snapshot = await getDocs(coursesCollection);
+      if (snapshot.empty) {
+        toast({
+            title: "No courses found",
+            description: "Seeding initial courses into the database. Please wait a moment...",
+            variant: "default"
+        });
+        await seedInitialCourses();
+        const seededData = await getCourses();
+        setCourses(seededData);
+      } else {
+        const data = await getCourses();
+        setCourses(data);
+      }
+    } catch (error) {
+        console.error("Error fetching courses: ", error);
+        toast({
+            title: "Error",
+            description: "Could not fetch courses.",
+            variant: "destructive",
+        });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchCourses = async () => {
-      setIsLoading(true);
-      try {
-        const coursesCol = collection(db, 'courses');
-        const courseSnapshot = await getDocs(coursesCol);
-        const courseList = courseSnapshot.docs.map(doc => toCourse(doc));
-        setCourses(courseList);
-      } catch (error) {
-        toast({
-          title: "Error",
-          description: "Could not fetch courses.",
-          variant: "destructive",
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchCourses();
-  }, [toast]);
+  }, []);
 
   const handleFormSubmit = async (data: CourseFormData) => {
     setIsSubmitting(true);
     try {
       const validatedData = NewCourseSchema.parse(data);
       if (editingCourse) {
-        const courseDocRef = doc(db, 'courses', editingCourse.id);
-        await updateDoc(courseDocRef, validatedData);
-        const updatedSnap = await getDoc(courseDocRef);
-        const updatedCourse = toCourse(updatedSnap);
-        setCourses(courses.map(c => c.id === updatedCourse.id ? updatedCourse : c));
+        const courseDoc = doc(db, 'courses', editingCourse.id);
+        await updateDoc(courseDoc, validatedData);
       } else {
-        const docRef = await addDoc(collection(db, 'courses'), validatedData);
-        const newSnap = await getDoc(docRef);
-        const newCourse = toCourse(newSnap);
-        setCourses(prev => [newCourse, ...prev]);
+        await addDoc(collection(db, 'courses'), validatedData);
       }
 
       toast({
@@ -82,6 +84,7 @@ export function CourseManager() {
       });
       setDialogOpen(false);
       setEditingCourse(null);
+      await fetchCourses(); // Refresh list
     } catch (error: any) {
       toast({
         title: "Error",
@@ -113,12 +116,12 @@ export function CourseManager() {
   const confirmDelete = async (id: string) => {
     try {
       await deleteDoc(doc(db, 'courses', id));
-      setCourses(courses.filter(c => c.id !== id));
       toast({
         title: "Course Deleted",
         description: "The course has been removed successfully.",
         variant: "success",
       });
+      await fetchCourses(); // Refresh list
     } catch (error: any) {
       toast({
         title: "Error",
@@ -138,7 +141,11 @@ export function CourseManager() {
 
   return (
     <TooltipProvider>
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-end mb-4 gap-2">
+        <Button variant="outline" onClick={fetchCourses} disabled={isLoading}>
+          <RefreshCw className="mr-2 h-4 w-4" />
+          Refresh
+        </Button>
         <Button onClick={openAddDialog}>
           <Library className="mr-2 h-4 w-4" />
           Add Course

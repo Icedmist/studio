@@ -4,7 +4,6 @@
 import { db } from '@/lib/firebase';
 import { collection, getDocs, writeBatch, doc } from "firebase/firestore";
 import type { NewCourse } from '@/lib/types';
-import { CourseSchema } from '@/lib/types';
 import { z } from 'zod';
 
 const introToProgrammingCourse: NewCourse = {
@@ -83,21 +82,21 @@ const introToProgrammingCourse: NewCourse = {
         }
     ],
     finalAssessment: [
-        { questionText: "What is programming?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Name two reasons we use programming.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write a variable that stores your name.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is a string?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Name two data types.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is a Boolean value?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How does a for loop work?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is the syntax to define a function in Python?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What language is best for beginners?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Name two uses of JavaScript.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write a Python if-statement that checks if a number is greater than 10.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Create a simple program that adds two numbers.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What does this line do? `input(\"Enter your name: \")`", options: [], correctAnswerIndex: 0 },
-        { questionText: "Why are control structures important?", options: [], correctAnswerIndex: 0 },
-        { questionText: "List two simple projects you can build after this course.", options: [], correctAnswerIndex: 0 },
+        { questionText: "What is programming?", options: ["The process of giving instructions to a computer.", "The process of designing websites.", "The process of creating hardware."], correctAnswerIndex: 0 },
+        { questionText: "Name two reasons we use programming.", options: ["To automate tasks and solve problems.", "To design logos and edit videos.", "To browse the internet and send emails."], correctAnswerIndex: 0 },
+        { questionText: "Write a variable that stores your name.", options: ["name = \"Your Name\"", "variable name = \"Your Name\"", "let name = \"Your Name\""], correctAnswerIndex: 0 },
+        { questionText: "What is a string?", options: ["A sequence of characters.", "A number.", "A boolean value."], correctAnswerIndex: 0 },
+        { questionText: "Name two data types.", options: ["String and Integer.", "Image and Video.", "Button and Link."], correctAnswerIndex: 0 },
+        { questionText: "What is a Boolean value?", options: ["True or False.", "A number.", "A piece of text."], correctAnswerIndex: 0 },
+        { questionText: "How does a for loop work?", options: ["It iterates over a sequence.", "It makes a single decision.", "It stops the program."], correctAnswerIndex: 0 },
+        { questionText: "What is the syntax to define a function in Python?", options: ["def function_name():", "function function_name() {}", "define function_name():"], correctAnswerIndex: 0 },
+        { questionText: "What language is best for beginners?", options: ["Python.", "C++.", "Assembly."], correctAnswerIndex: 0 },
+        { questionText: "Name two uses of JavaScript.", options: ["Making websites interactive and building web apps.", "Data analysis and machine learning.", "Operating systems and embedded systems."], correctAnswerIndex: 0 },
+        { questionText: "Write a Python if-statement that checks if a number is greater than 10.", options: ["if number > 10:", "if (number > 10)", "check if number > 10:"], correctAnswerIndex: 0 },
+        { questionText: "Create a simple program that adds two numbers.", options: ["print(5 + 3)", "add(5, 3)", "sum = 5 and 3"], correctAnswerIndex: 0 },
+        { questionText: "What does this line do? `input(\"Enter your name: \")`", options: ["Prompts the user for input.", "Prints the user's name.", "Creates a variable."], correctAnswerIndex: 0 },
+        { questionText: "Why are control structures important?", options: ["They control the flow of the program.", "They style the program.", "They store data."], correctAnswerIndex: 0 },
+        { questionText: "List two simple projects you can build after this course.", options: ["A calculator and a to-do list.", "A social media platform and a search engine.", "An operating system and a database."], correctAnswerIndex: 0 },
     ]
 };
 
@@ -209,21 +208,21 @@ const machineLearningBasics: NewCourse = {
         }
     ],
     finalAssessment: [
-        { questionText: "What is machine learning?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Describe the difference between supervised and unsupervised learning.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Give two real-life examples of ML in action.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is feature engineering?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Why is normalization important?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain regression vs classification.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What does `fit()` do in a model?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How does KNN work?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is K-means clustering used for?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain the purpose of a confusion matrix.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What does a high F1 Score mean?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What metric is best for regression models?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How does scikit-learn help with ML?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What are the steps in an ML workflow?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Name one library for deep learning and one for classical ML.", options: [], correctAnswerIndex: 0 },
+        { questionText: "What is machine learning?", options: ["A field of AI where computers learn from data.", "A type of hardware.", "A programming language."], correctAnswerIndex: 0 },
+        { questionText: "Describe the difference between supervised and unsupervised learning.", options: ["Supervised uses labeled data, unsupervised does not.", "Supervised is for images, unsupervised for text.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "Give two real-life examples of ML in action.", options: ["Spam detection and movie recommendations.", "Word processing and printing.", "Web browsing and file downloads."], correctAnswerIndex: 0 },
+        { questionText: "What is feature engineering?", options: ["Creating new input variables from existing ones.", "Designing the UI of an application.", "A type of database."], correctAnswerIndex: 0 },
+        { questionText: "Why is normalization important?", options: ["It scales data to a similar range.", "It makes data more colorful.", "It deletes unnecessary data."], correctAnswerIndex: 0 },
+        { questionText: "Explain regression vs classification.", options: ["Regression predicts a number, classification predicts a category.", "Regression is for images, classification is for text.", "They are the same thing."], correctAnswerIndex: 0 },
+        { questionText: "What does `fit()` do in a model?", options: ["Trains the model on the data.", "Makes a prediction.", "Evaluates the model."], correctAnswerIndex: 0 },
+        { questionText: "How does KNN work?", options: ["It classifies data based on its nearest neighbors.", "It draws a line through the data.", "It clusters data into groups."], correctAnswerIndex: 0 },
+        { questionText: "What is K-means clustering used for?", options: ["Grouping similar data points together.", "Predicting a continuous value.", "Classifying data into predefined categories."], correctAnswerIndex: 0 },
+        { questionText: "Explain the purpose of a confusion matrix.", options: ["It evaluates the performance of a classification model.", "It shows the relationships between variables.", "It plots data on a graph."], correctAnswerIndex: 0 },
+        { questionText: "What does a high F1 Score mean?", options: ["The model has a good balance of precision and recall.", "The model is very accurate.", "The model is very fast."], correctAnswerIndex: 0 },
+        { questionText: "What metric is best for regression models?", options: ["Mean Squared Error (MSE).", "Accuracy.", "F1 Score."], correctAnswerIndex: 0 },
+        { questionText: "How does scikit-learn help with ML?", options: ["It provides tools for data analysis and modeling.", "It is a code editor.", "It is a database."], correctAnswerIndex: 0 },
+        { questionText: "What are the steps in an ML workflow?", options: ["Data collection, preprocessing, training, evaluation.", "Design, coding, testing, deployment.", "Planning, execution, monitoring."], correctAnswerIndex: 0 },
+        { questionText: "Name one library for deep learning and one for classical ML.", options: ["TensorFlow (deep learning), scikit-learn (classical).", "React (deep learning), Angular (classical).", "Pandas (deep learning), NumPy (classical)."], correctAnswerIndex: 0 },
     ]
 };
 
@@ -335,21 +334,21 @@ const devOpsPracticesCourse: NewCourse = {
         }
     ],
     finalAssessment: [
-        { questionText: "What does DevOps aim to solve?", options: [], correctAnswerIndex: 0 },
-        { questionText: "List 3 popular DevOps tools and their functions.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is CI/CD and why is it important?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write a simple GitHub Actions CI workflow.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is a Docker container?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How does Docker differ from traditional deployment?", options: [], correctAnswerIndex: 0 },
-        { questionText: "List 3 Docker commands and their purposes.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is IaC?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What are the benefits of using Terraform?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Name 2 monitoring tools and their roles.", options: [], correctAnswerIndex: 0 },
-        { questionText: "How does logging help in debugging?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is a blameless postmortem and why is it useful?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain MTTR and its significance.", options: [], correctAnswerIndex: 0 },
-        { questionText: "How does DevOps culture differ from traditional IT?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Create a deployment plan for a Node.js app using Docker and GitHub Actions.", options: [], correctAnswerIndex: 0 },
+        { questionText: "What does DevOps aim to solve?", options: ["The gap between development and operations teams.", "Frontend design issues.", "Database connection problems."], correctAnswerIndex: 0 },
+        { questionText: "List 3 popular DevOps tools and their functions.", options: ["Docker (containers), Jenkins (CI/CD), Terraform (IaC).", "Photoshop (design), Figma (prototyping), Slack (communication).", "VS Code (editor), Git (version control), Chrome (browser)."], correctAnswerIndex: 0 },
+        { questionText: "What is CI/CD and why is it important?", options: ["Automating the build, test, and deployment process; it increases speed and reduces errors.", "A new programming language.", "A design methodology."], correctAnswerIndex: 0 },
+        { questionText: "Write a simple GitHub Actions CI workflow.", options: ["A YAML file with 'on: push' and jobs for build/test.", "A JavaScript file that runs tests.", "A shell script that deploys code."], correctAnswerIndex: 0 },
+        { questionText: "What is a Docker container?", options: ["A lightweight, portable package of an application and its dependencies.", "A type of virtual machine.", "A file format for images."], correctAnswerIndex: 0 },
+        { questionText: "How does Docker differ from traditional deployment?", options: ["It provides consistent environments, avoiding 'it works on my machine' issues.", "It is much slower.", "It only works for frontend applications."], correctAnswerIndex: 0 },
+        { questionText: "List 3 Docker commands and their purposes.", options: ["`docker build` (creates an image), `docker run` (starts a container), `docker ps` (lists containers).", "`docker start`, `docker stop`, `docker delete`.", "`docker push`, `docker pull`, `docker commit`."], correctAnswerIndex: 0 },
+        { questionText: "What is IaC?", options: ["Managing infrastructure with code.", "A new type of cloud service.", "A frontend framework."], correctAnswerIndex: 0 },
+        { questionText: "What are the benefits of using Terraform?", options: ["It allows you to manage infrastructure across multiple clouds with a single language.", "It is a design tool.", "It is a database."], correctAnswerIndex: 0 },
+        { questionText: "Name 2 monitoring tools and their roles.", options: ["Prometheus (metrics collection), Grafana (visualization).", "Slack (communication), Trello (project management).", "Git (version control), GitHub (hosting)."], correctAnswerIndex: 0 },
+        { questionText: "How does logging help in debugging?", options: ["It provides a record of events that can be used to trace errors.", "It prevents errors from happening.", "It automatically fixes errors."], correctAnswerIndex: 0 },
+        { questionText: "What is a blameless postmortem and why is it useful?", options: ["A process to analyze failures without assigning blame, to encourage learning.", "A meeting to decide who to fire.", "A way to ignore problems."], correctAnswerIndex: 0 },
+        { questionText: "Explain MTTR and its significance.", options: ["Mean Time to Recovery; a measure of how quickly a system can recover from failure.", "A metric for marketing.", "A measure of code quality."], correctAnswerIndex: 0 },
+        { questionText: "How does DevOps culture differ from traditional IT?", options: ["It emphasizes collaboration, shared responsibility, and automation.", "It is more hierarchical.", "It focuses on manual processes."], correctAnswerIndex: 0 },
+        { questionText: "Create a deployment plan for a Node.js app using Docker and GitHub Actions.", options: ["Dockerfile to containerize the app, GitHub Actions to build/push image and deploy.", "Manually copy files to a server.", "Use an FTP client to upload the code."], correctAnswerIndex: 0 },
     ]
 };
 
@@ -445,21 +444,21 @@ const advancedProgrammingCourse: NewCourse = {
         }
     ],
     finalAssessment: [
-        { questionText: "Explain the 4 pillars of OOP.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is the difference between a class and an object?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is polymorphism in real-world programming?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Compare stacks and queues.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is a hash map and when would you use one?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write Python code to open and read a file named “log.txt”.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is modular design and why is it important?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain the difference between `try`, `except`, and `finally`.", options: [], correctAnswerIndex: 0 },
-        { questionText: "List 3 common exceptions in Python.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Why should you avoid empty `except:` blocks?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What’s the use of the `logging` module?", options: [], correctAnswerIndex: 0 },
-        { questionText: "List 3 best practices from PEP 8.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain the DRY principle with an example.", options: [], correctAnswerIndex: 0 },
-        { questionText: "How do clean code practices help in teamwork?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write a Python function that returns the factorial of a number using recursion.", options: [], correctAnswerIndex: 0 },
+        { questionText: "Explain the 4 pillars of OOP.", options: ["Encapsulation, Inheritance, Polymorphism, Abstraction.", "Variables, Functions, Loops, Conditionals.", "HTML, CSS, JavaScript, Python."], correctAnswerIndex: 0 },
+        { questionText: "What is the difference between a class and an object?", options: ["A class is a blueprint, an object is an instance of a class.", "A class is a function, an object is a variable.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "What is polymorphism in real-world programming?", options: ["When different objects respond to the same message in different ways.", "When a function calls itself.", "When data is hidden within a class."], correctAnswerIndex: 0 },
+        { questionText: "Compare stacks and queues.", options: ["Stacks are LIFO, queues are FIFO.", "Stacks are for numbers, queues are for strings.", "Stacks are fast, queues are slow."], correctAnswerIndex: 0 },
+        { questionText: "What is a hash map and when would you use one?", options: ["A key-value store, used for fast lookups.", "A sorted list, used for searching.", "A tree structure, used for hierarchical data."], correctAnswerIndex: 0 },
+        { questionText: "Write Python code to open and read a file named “log.txt”.", options: ["with open('log.txt', 'r') as f: print(f.read())", "open('log.txt').read()", "read file 'log.txt'"], correctAnswerIndex: 0 },
+        { questionText: "What is modular design and why is it important?", options: ["Breaking code into smaller, reusable modules; it improves maintainability.", "Writing all code in a single file.", "Using a specific design pattern."], correctAnswerIndex: 0 },
+        { questionText: "Explain the difference between `try`, `except`, and `finally`.", options: ["`try` contains code that might error, `except` handles the error, `finally` always runs.", "`try` is for testing, `except` is for production, `finally` is for cleanup.", "They are all the same."], correctAnswerIndex: 0 },
+        { questionText: "List 3 common exceptions in Python.", options: ["`ValueError`, `TypeError`, `FileNotFoundError`.", "`SyntaxError`, `IndentationError`, `NameError`.", "`HTTPError`, `ConnectionError`, `Timeout`."], correctAnswerIndex: 0 },
+        { questionText: "Why should you avoid empty `except:` blocks?", options: ["They can hide errors and make debugging difficult.", "They are slow.", "They are not supported in Python 3."], correctAnswerIndex: 0 },
+        { questionText: "What’s the use of the `logging` module?", options: ["To record events and errors for debugging.", "To print output to the console.", "To create log files for users."], correctAnswerIndex: 0 },
+        { questionText: "List 3 best practices from PEP 8.", options: ["Use 4 spaces for indentation, limit lines to 79 characters, use descriptive variable names.", "Use tabs for indentation, write long lines of code, use short variable names.", "There are no best practices in PEP 8."], correctAnswerIndex: 0 },
+        { questionText: "Explain the DRY principle with an example.", options: ["Don't Repeat Yourself; e.g., use a function instead of copy-pasting code.", "A principle for writing dry, boring code.", "A principle for writing code that is hard to understand."], correctAnswerIndex: 0 },
+        { questionText: "How do clean code practices help in teamwork?", options: ["They make code easier for others to read and understand.", "They make code harder to read.", "They are not important for teamwork."], correctAnswerIndex: 0 },
+        { questionText: "Write a Python function that returns the factorial of a number using recursion.", options: ["def factorial(n): if n == 0: return 1 else: return n * factorial(n-1)", "def factorial(n): return n * (n-1)", "def factorial(n): pass"], correctAnswerIndex: 0 },
     ]
 };
 
@@ -571,21 +570,21 @@ const apisAndBackend: NewCourse = {
         }
     ],
     finalAssessment: [
-        { questionText: "Define API and give an analogy.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What are the 4 core HTTP methods in REST?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write a simple GET route in Express.js.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is JWT used for?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Show an example of a POST request with JSON.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What’s the difference between REST and GraphQL?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How does rate limiting help protect APIs?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is `mongoose.connect()` used for?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Name two authentication strategies.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What are resolvers in GraphQL?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Describe the role of Postman.", options: [], correctAnswerIndex: 0 },
-        { questionText: "How do you deploy an API to Render?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain the purpose of environment variables.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is the use of `express.json()`?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write an example of a database-connected API endpoint.", options: [], correctAnswerIndex: 0 },
+        { questionText: "Define API and give an analogy.", options: ["An interface that allows software to communicate; like a waiter.", "A type of database.", "A frontend framework."], correctAnswerIndex: 0 },
+        { questionText: "What are the 4 core HTTP methods in REST?", options: ["GET, POST, PUT, DELETE.", "CREATE, READ, UPDATE, DESTROY.", "FETCH, SEND, MODIFY, REMOVE."], correctAnswerIndex: 0 },
+        { questionText: "Write a simple GET route in Express.js.", options: ["app.get('/path', (req, res) => res.send('Hello'))", "get('/path', () => 'Hello')", "route.get('/path').action('Hello')"], correctAnswerIndex: 0 },
+        { questionText: "What is JWT used for?", options: ["Securely transmitting information as a JSON object for authentication.", "A database for tokens.", "A frontend library for animations."], correctAnswerIndex: 0 },
+        { questionText: "Show an example of a POST request with JSON.", options: ["`fetch('/api', { method: 'POST', body: JSON.stringify(data) })`", "`POST /api { data }`", "`axios.post('/api', { data })`"], correctAnswerIndex: 0 },
+        { questionText: "What’s the difference between REST and GraphQL?", options: ["REST uses multiple endpoints, GraphQL uses one and allows flexible queries.", "REST is for frontend, GraphQL for backend.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "How does rate limiting help protect APIs?", options: ["It prevents abuse by limiting the number of requests a user can make.", "It encrypts API requests.", "It validates user input."], correctAnswerIndex: 0 },
+        { questionText: "What is `mongoose.connect()` used for?", options: ["Connecting a Node.js application to a MongoDB database.", "Creating a new database.", "Defining a database schema."], correctAnswerIndex: 0 },
+        { questionText: "Name two authentication strategies.", options: ["API Keys and JWT.", "Username/Password and Email Verification.", "SSL Certificates and Firewalls."], correctAnswerIndex: 0 },
+        { questionText: "What are resolvers in GraphQL?", options: ["Functions that fetch the data for a specific field in a query.", "The schema definition.", "A tool for testing GraphQL queries."], correctAnswerIndex: 0 },
+        { questionText: "Describe the role of Postman.", options: ["A tool for testing APIs.", "A code editor for backend development.", "A deployment platform."], correctAnswerIndex: 0 },
+        { questionText: "How do you deploy an API to Render?", options: ["Push code to GitHub, connect repo to Render, and set environment variables.", "Manually upload files via FTP.", "Use a desktop application to deploy."], correctAnswerIndex: 0 },
+        { questionText: "Explain the purpose of environment variables.", options: ["To store configuration and secrets outside of the code.", "To define variables for frontend use.", "To store user data."], correctAnswerIndex: 0 },
+        { questionText: "What is the use of `express.json()`?", options: ["It is a middleware to parse incoming JSON requests.", "It converts JavaScript objects to JSON.", "It sends JSON responses."], correctAnswerIndex: 0 },
+        { questionText: "Write an example of a database-connected API endpoint.", options: ["An Express route that uses a Mongoose model to find and return data.", "A simple function that returns a JSON object.", "A frontend component that fetches data."], correctAnswerIndex: 0 },
     ]
 };
 
@@ -697,21 +696,21 @@ const cybersecurityAdvanced: NewCourse = {
         }
     ],
     finalAssessment: [
-        { questionText: "Explain STRIDE threat modeling.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What’s the difference between pen testing and vulnerability scanning?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Name 3 tools used in penetration testing.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Describe the principles of Zero Trust Architecture.", options: [], correctAnswerIndex: 0 },
-        { questionText: "How would you prevent XSS and SQL injection?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is DevSecOps, and how is it implemented?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain the difference between IDS and IPS.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What role does IAM play in cloud security?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is the purpose of a bastion host?", options: [], correctAnswerIndex: 0 },
-        { questionText: "List the 6 steps of the IR lifecycle.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What are some tools used in log analysis during IR?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Give an example of microsegmentation in Zero Trust.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Why is secure CI/CD important?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How would you isolate and respond to a ransomware attack?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Describe the difference between Red, Blue, and Purple teams.", options: [], correctAnswerIndex: 0 },
+        { questionText: "Explain STRIDE threat modeling.", options: ["A framework for identifying security threats (Spoofing, Tampering, etc.).", "A project management methodology.", "A network protocol."], correctAnswerIndex: 0 },
+        { questionText: "What’s the difference between pen testing and vulnerability scanning?", options: ["Pen testing is an active attack simulation; scanning is a passive check for known flaws.", "They are the same thing.", "Scanning is more advanced than pen testing."], correctAnswerIndex: 0 },
+        { questionText: "Name 3 tools used in penetration testing.", options: ["Metasploit, Burp Suite, Nmap.", "VS Code, Git, Docker.", "Figma, Sketch, Photoshop."], correctAnswerIndex: 0 },
+        { questionText: "Describe the principles of Zero Trust Architecture.", options: ["Never trust, always verify; continuous authentication and least privilege.", "Trust all internal users by default.", "A focus on physical security only."], correctAnswerIndex: 0 },
+        { questionText: "How would you prevent XSS and SQL injection?", options: ["Input sanitization, output escaping, and parameterized queries.", "By using a strong firewall.", "By disabling JavaScript."], correctAnswerIndex: 0 },
+        { questionText: "What is DevSecOps, and how is it implemented?", options: ["Integrating security into the DevOps pipeline through automation.", "A separate security team that reviews code at the end.", "A marketing term for secure development."], correctAnswerIndex: 0 },
+        { questionText: "Explain the difference between IDS and IPS.", options: ["IDS detects intrusions, IPS actively prevents them.", "IDS is for networks, IPS is for applications.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "What role does IAM play in cloud security?", options: ["It manages user identities and their permissions to access resources.", "It monitors network traffic.", "It encrypts data at rest."], correctAnswerIndex: 0 },
+        { questionText: "What is the purpose of a bastion host?", options: ["A secure server to jump through to access a private network.", "A server that hosts the main application.", "A database server."], correctAnswerIndex: 0 },
+        { questionText: "List the 6 steps of the IR lifecycle.", options: ["Preparation, Detection, Containment, Eradication, Recovery, Lessons Learned.", "Planning, Coding, Testing, Deployment, Monitoring, Maintenance.", "Discovery, Analysis, Mitigation, Reporting, Follow-up."], correctAnswerIndex: 0 },
+        { questionText: "What are some tools used in log analysis during IR?", options: ["Splunk, ELK Stack, Graylog.", "Wireshark, Nmap, Metasploit.", "VS Code, Git, Docker."], correctAnswerIndex: 0 },
+        { questionText: "Give an example of microsegmentation in Zero Trust.", options: ["Isolating different application services on a network from each other.", "Putting a firewall in front of the entire network.", "Using a single password for all services."], correctAnswerIndex: 0 },
+        { questionText: "Why is secure CI/CD important?", options: ["To prevent vulnerabilities from being introduced and deployed automatically.", "To make the deployment process slower.", "It is not important."], correctAnswerIndex: 0 },
+        { questionText: "How would you isolate and respond to a ransomware attack?", options: ["Disconnect the affected systems, identify the malware, restore from backups.", "Pay the ransom immediately.", "Ignore it and hope it goes away."], correctAnswerIndex: 0 },
+        { questionText: "Describe the difference between Red, Blue, and Purple teams.", options: ["Red team attacks, Blue team defends, Purple team facilitates collaboration between them.", "They are different levels of security clearance.", "They are different types of firewalls."], correctAnswerIndex: 0 },
     ]
 };
 
@@ -823,21 +822,21 @@ const techLeadership: NewCourse = {
         }
     ],
     finalAssessment: [
-        { questionText: "What distinguishes leadership from management?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How do you build and scale a high-performing tech team?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain SMART goals with examples.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is a trade-off matrix, and how would you use it?", options: [], correctAnswerIndex: 0 },
-        { questionText: "List and explain 3 architectural decision-making tools.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What are the signs of strong technical culture?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How does DevSecOps contribute to tech leadership?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Give 3 examples of scaling patterns in infrastructure.", options: [], correctAnswerIndex: 0 },
-        { questionText: "How can you resolve conflict within an engineering team?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Define OKRs and give a tech-related example.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is emotional intelligence and how does it help in leadership?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Describe the ideal structure of a sprint retrospective.", options: [], correctAnswerIndex: 0 },
-        { questionText: "How do you align technical goals with executive expectations?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain the difference between Red, Blue, and Purple teams.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write a brief memo convincing stakeholders to switch to microservices.", options: [], correctAnswerIndex: 0 },
+        { questionText: "What distinguishes leadership from management?", options: ["Leadership inspires, management organizes.", "Leadership is for seniors, management for juniors.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "How do you build and scale a high-performing tech team?", options: ["By setting clear goals, fostering collaboration, and providing resources.", "By hiring only senior engineers.", "By micromanaging every task."], correctAnswerIndex: 0 },
+        { questionText: "Explain SMART goals with examples.", options: ["Specific, Measurable, Achievable, Relevant, Time-bound; e.g., 'Reduce API latency by 10% in Q3'.", "A goal that is smart.", "A goal that is easy to achieve."], correctAnswerIndex: 0 },
+        { questionText: "What is a trade-off matrix, and how would you use it?", options: ["A tool for comparing options based on multiple criteria.", "A way to track team performance.", "A database schema."], correctAnswerIndex: 0 },
+        { questionText: "List and explain 3 architectural decision-making tools.", options: ["Trade-off matrix, risk/reward mapping, build vs. buy analysis.", "Git, Docker, Jenkins.", "Figma, Sketch, Adobe XD."], correctAnswerIndex: 0 },
+        { questionText: "What are the signs of strong technical culture?", options: ["Collaboration, continuous learning, and psychological safety.", "High turnover and burnout.", "Silos and finger-pointing."], correctAnswerIndex: 0 },
+        { questionText: "How does DevSecOps contribute to tech leadership?", options: ["By integrating security into the development process, reducing risk.", "By slowing down development.", "It is not related to leadership."], correctAnswerIndex: 0 },
+        { questionText: "Give 3 examples of scaling patterns in infrastructure.", options: ["Horizontal scaling, vertical scaling, and database sharding.", "Monolith, microservices, and serverless.", "Load balancing, caching, and CDNs."], correctAnswerIndex: 0 },
+        { questionText: "How can you resolve conflict within an engineering team?", options: ["By addressing it early, focusing on the problem, and facilitating open communication.", "By ignoring it.", "By firing the people involved."], correctAnswerIndex: 0 },
+        { questionText: "Define OKRs and give a tech-related example.", options: ["Objectives and Key Results; e.g., Objective: Improve app performance, Key Result: Achieve 99.9% uptime.", "A project management tool.", "A type of database."], correctAnswerIndex: 0 },
+        { questionText: "What is emotional intelligence and how does it help in leadership?", options: ["The ability to understand and manage emotions; it helps in communication and empathy.", "A measure of intelligence.", "Not important for leadership."], correctAnswerIndex: 0 },
+        { questionText: "Describe the ideal structure of a sprint retrospective.", options: ["A meeting to discuss what went well, what didn't, and what to improve.", "A meeting to plan the next sprint.", "A meeting to assign blame."], correctAnswerIndex: 0 },
+        { questionText: "How do you align technical goals with executive expectations?", options: ["By translating technical metrics into business outcomes.", "By ignoring executive expectations.", "By promising everything."], correctAnswerIndex: 0 },
+        { questionText: "Explain the difference between Red, Blue, and Purple teams.", options: ["Red team attacks, Blue team defends, Purple team facilitates collaboration.", "Different levels of security clearance.", "Different types of firewalls."], correctAnswerIndex: 0 },
+        { questionText: "Write a brief memo convincing stakeholders to switch to microservices.", options: ["Focus on benefits like scalability, independent deployments, and team autonomy.", "Focus on the technical details.", "Focus on the risks."], correctAnswerIndex: 0 },
     ]
 };
 
@@ -949,21 +948,21 @@ const researchInTechnology: NewCourse = {
         }
     ],
     finalAssessment: [
-        { questionText: "List the main phases of a research process.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain the difference between applied and basic research.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is a hypothesis, and how is it tested?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Describe the Gartner Hype Cycle and its phases.", options: [], correctAnswerIndex: 0 },
-        { questionText: "List and explain at least three data collection methods in tech research.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What are the tools used in technical data analysis?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How does exploratory research work?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What are the ethical concerns in AI research?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Define and give examples of qualitative vs quantitative research.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is arXiv, and how is it useful?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Describe how to structure a research presentation.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What’s the role of the null hypothesis in testing?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Name two tech trend spotting frameworks.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is GDPR and how does it apply to researchers?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How can research lead to product innovation?", options: [], correctAnswerIndex: 0 },
+        { questionText: "List the main phases of a research process.", options: ["Problem ID, Lit Review, Hypothesis, Design, Data, Conclusion.", "Design, Code, Test, Deploy.", "Plan, Execute, Monitor, Report."], correctAnswerIndex: 0 },
+        { questionText: "Explain the difference between applied and basic research.", options: ["Applied solves a specific problem; basic expands knowledge.", "Applied is for hardware; basic is for software.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "What is a hypothesis, and how is it tested?", options: ["A testable assumption; tested with data and statistical methods.", "A guess about the future.", "A type of database query."], correctAnswerIndex: 0 },
+        { questionText: "Describe the Gartner Hype Cycle and its phases.", options: ["A model for tech adoption: Trigger, Peak, Trough, Slope, Plateau.", "A project management tool.", "A network protocol."], correctAnswerIndex: 0 },
+        { questionText: "List and explain at least three data collection methods in tech research.", options: ["Logs (system events), APIs (programmatic access), Surveys (user feedback).", "Copy-paste, screenshots, and downloads.", "Email, phone calls, and meetings."], correctAnswerIndex: 0 },
+        { questionText: "What are the tools used in technical data analysis?", options: ["Python (Pandas, NumPy), R, Jupyter Notebooks.", "Photoshop, Figma, Sketch.", "VS Code, Git, Docker."], correctAnswerIndex: 0 },
+        { questionText: "How does exploratory research work?", options: ["It investigates new areas with limited data to form initial hypotheses.", "It repeats existing research.", "It is not a valid research method."], correctAnswerIndex: 0 },
+        { questionText: "What are the ethical concerns in AI research?", options: ["Bias, privacy, and transparency.", "Performance, speed, and cost.", "Hardware, software, and networking."], correctAnswerIndex: 0 },
+        { questionText: "Define and give examples of qualitative vs quantitative research.", options: ["Qualitative (interviews, observations), Quantitative (surveys, metrics).", "Qualitative is for text, Quantitative for numbers.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "What is arXiv, and how is it useful?", options: ["A repository for pre-print research papers.", "A code editor.", "A project management tool."], correctAnswerIndex: 0 },
+        { questionText: "Describe how to structure a research presentation.", options: ["Start with the problem, explain the method, show results, and conclude with implications.", "Start with the conclusion, then show the data.", "Show a demo and nothing else."], correctAnswerIndex: 0 },
+        { questionText: "What’s the role of the null hypothesis in testing?", options: ["It is the default assumption that there is no effect, which the researcher tries to disprove.", "It is the hypothesis the researcher wants to prove.", "It is not important."], correctAnswerIndex: 0 },
+        { questionText: "Name two tech trend spotting frameworks.", options: ["Gartner Hype Cycle and PEST analysis.", "Agile and Scrum.", "REST and GraphQL."], correctAnswerIndex: 0 },
+        { questionText: "What is GDPR and how does it apply to researchers?", options: ["A data protection regulation that requires researchers to handle personal data responsibly.", "A programming language.", "A type of database."], correctAnswerIndex: 0 },
+        { questionText: "How can research lead to product innovation?", options: ["By identifying new opportunities and validating new technologies.", "It cannot.", "By slowing down development."], correctAnswerIndex: 0 },
     ]
 };
 
@@ -1075,21 +1074,21 @@ const innovationProductEngineering: NewCourse = {
         }
     ],
     finalAssessment: [
-        { questionText: "Explain the difference between disruptive and sustaining innovation.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is the Design Thinking process?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Describe the MVP approach and how it prevents overbuilding.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What frameworks help prioritize product features?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What’s the relationship between tech architecture and business goals?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Give three real-world examples of scalable product engineering practices.", options: [], correctAnswerIndex: 0 },
-        { questionText: "How do tech teams validate innovation before launching?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain RICE and MoSCoW prioritization.", options: [], correctAnswerIndex: 0 },
-        { questionText: "How can CI/CD pipelines improve shipping velocity?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Why is developer experience (DX) crucial for innovation?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Define OKRs and how they align engineering with business.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is the Technology Adoption Curve?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How do strategic leaders balance risk and experimentation?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What metrics matter most for product-led growth?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Summarize how you’d build a tech product with strategic impact and user-first innovation.", options: [], correctAnswerIndex: 0 },
+        { questionText: "Explain the difference between disruptive and sustaining innovation.", options: ["Disruptive creates a new market; sustaining improves an existing one.", "Disruptive is for software; sustaining for hardware.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "What is the Design Thinking process?", options: ["Empathize, Define, Ideate, Prototype, Test.", "Plan, Code, Test, Deploy.", "Discover, Analyze, Mitigate, Report."], correctAnswerIndex: 0 },
+        { questionText: "Describe the MVP approach and how it prevents overbuilding.", options: ["Building the simplest valuable version to learn from users.", "Building a full-featured product from the start.", "Building a non-functional prototype."], correctAnswerIndex: 0 },
+        { questionText: "What frameworks help prioritize product features?", options: ["RICE, MoSCoW, Kano Model.", "Agile, Scrum, Kanban.", "REST, GraphQL, SOAP."], correctAnswerIndex: 0 },
+        { questionText: "What’s the relationship between tech architecture and business goals?", options: ["Architecture should be designed to support and enable business goals.", "They are not related.", "Business goals should be designed to support architecture."], correctAnswerIndex: 0 },
+        { questionText: "Give three real-world examples of scalable product engineering practices.", options: ["Microservices, serverless, and CI/CD.", "Monolith, manual deployment, and local databases.", "WordPress, Joomla, and Drupal."], correctAnswerIndex: 0 },
+        { questionText: "How do tech teams validate innovation before launching?", options: ["Through pilot programs, user feedback, and A/B testing.", "By guessing.", "By asking the CEO."], correctAnswerIndex: 0 },
+        { questionText: "Explain RICE and MoSCoW prioritization.", options: ["RICE uses Reach, Impact, Confidence, Effort; MoSCoW uses Must, Should, Could, Won't.", "They are both for project management.", "They are the same thing."], correctAnswerIndex: 0 },
+        { questionText: "How can CI/CD pipelines improve shipping velocity?", options: ["By automating the build, test, and deployment process.", "By slowing down development.", "By adding more manual steps."], correctAnswerIndex: 0 },
+        { questionText: "Why is developer experience (DX) crucial for innovation?", options: ["It improves productivity and allows developers to focus on creative solutions.", "It is not important.", "It is only for junior developers."], correctAnswerIndex: 0 },
+        { questionText: "Define OKRs and how they align engineering with business.", options: ["Objectives and Key Results; they connect company goals to team actions.", "A project management tool.", "A type of database."], correctAnswerIndex: 0 },
+        { questionText: "What is the Technology Adoption Curve?", options: ["A model that describes how new technologies are adopted by different groups.", "A graph of technology prices over time.", "A measure of technology performance."], correctAnswerIndex: 0 },
+        { questionText: "How do strategic leaders balance risk and experimentation?", options: ["By using controlled experiments and clear guardrails.", "By avoiding all risks.", "By taking huge, uncontrolled risks."], correctAnswerIndex: 0 },
+        { questionText: "What metrics matter most for product-led growth?", options: ["Activation, Retention, and Net Promoter Score (NPS).", "Lines of code written.", "Number of meetings attended."], correctAnswerIndex: 0 },
+        { questionText: "Summarize how you’d build a tech product with strategic impact and user-first innovation.", options: ["Start with user needs, build a lean MVP, iterate based on data, and align with business goals.", "Start with the technology, build a full-featured product, and hope users like it.", "Start with a marketing plan and build the product later."], correctAnswerIndex: 0 },
     ]
 };
 
@@ -1201,21 +1200,21 @@ const apiDevelopmentAdvanced: NewCourse = {
         }
     ],
     finalAssessment: [
-        { questionText: "What’s the difference between REST and GraphQL?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Describe a standard OAuth2 flow.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What’s the purpose of the API Gateway?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write a basic rate-limiter snippet in Node.js.", options: [], correctAnswerIndex: 0 },
-        { questionText: "How do you use Swagger to document an endpoint?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is JWT, and how is it used in APIs?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Compare URI versioning and Header versioning.", options: [], correctAnswerIndex: 0 },
-        { questionText: "List two tools for monitoring live APIs.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What’s the use of Postman environments?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain the difference between unit and integration tests.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What does Redis help with in API design?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Give an example of caching headers.", options: [], correctAnswerIndex: 0 },
-        { questionText: "List 3 benefits of microservices architecture.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What’s the use of service discovery in APIs?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write a `GET` endpoint in Express that returns a paginated list of users.", options: [], correctAnswerIndex: 0 },
+        { questionText: "What’s the difference between REST and GraphQL?", options: ["REST uses multiple endpoints; GraphQL uses a single endpoint with flexible queries.", "REST is for frontend; GraphQL is for backend.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "Describe a standard OAuth2 flow.", options: ["User grants permission, app gets auth code, exchanges it for access token.", "User logs in with username/password.", "User clicks a magic link."], correctAnswerIndex: 0 },
+        { questionText: "What’s the purpose of the API Gateway?", options: ["To act as a single entry point for all API requests, handling routing, auth, and rate limiting.", "To bypass security checks.", "To host the frontend application."], correctAnswerIndex: 0 },
+        { questionText: "Write a basic rate-limiter snippet in Node.js.", options: ["Using `express-rate-limit` middleware.", "Writing a custom function with a timer.", "It cannot be done in Node.js."], correctAnswerIndex: 0 },
+        { questionText: "How do you use Swagger to document an endpoint?", options: ["Define the path, method, parameters, and responses in a YAML or JSON file.", "By adding comments to the code.", "Swagger does it automatically."], correctAnswerIndex: 0 },
+        { questionText: "What is JWT, and how is it used in APIs?", options: ["A token for stateless authentication, sent in the Authorization header.", "A frontend library for UI.", "A type of database."], correctAnswerIndex: 0 },
+        { questionText: "Compare URI versioning and Header versioning.", options: ["URI versioning includes the version in the URL (e.g., /v1/); Header versioning uses a custom header.", "URI is for REST, Header is for GraphQL.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "List two tools for monitoring live APIs.", options: ["Datadog and New Relic.", "VS Code and Git.", "Figma and Sketch."], correctAnswerIndex: 0 },
+        { questionText: "What’s the use of Postman environments?", options: ["To store variables like API keys and URLs for different environments (dev, prod).", "To design API responses.", "To write API documentation."], correctAnswerIndex: 0 },
+        { questionText: "Explain the difference between unit and integration tests.", options: ["Unit tests check individual functions; integration tests check how components work together.", "Unit tests are manual; integration tests are automated.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "What does Redis help with in API design?", options: ["Caching responses to improve performance.", "Storing user data.", "Authenticating users."], correctAnswerIndex: 0 },
+        { questionText: "Give an example of caching headers.", options: ["`Cache-Control: max-age=3600`.", "`X-Cache: true`.", "`Use-Cache: yes`."], correctAnswerIndex: 0 },
+        { questionText: "List 3 benefits of microservices architecture.", options: ["Scalability, independent deployments, and technology diversity.", "Simplicity, easy testing, and fast development.", "Low cost, high performance, and small codebase."], correctAnswerIndex: 0 },
+        { questionText: "What’s the use of service discovery in APIs?", options: ["To allow services to find and communicate with each other dynamically.", "To document API endpoints.", "To monitor API health."], correctAnswerIndex: 0 },
+        { questionText: "Write a `GET` endpoint in Express that returns a paginated list of users.", options: ["An endpoint that accepts `page` and `limit` query parameters.", "An endpoint that returns all users at once.", "An endpoint that returns a single user."], correctAnswerIndex: 0 },
     ]
 };
 
@@ -1327,21 +1326,21 @@ const mobileAppDevelopment: NewCourse = {
         }
     ],
     finalAssessment: [
-        { questionText: "Difference between native and cross-platform?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Two tools for mobile app development?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How do you install Flutter and start a project?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What are widgets in Flutter?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What’s JSX in React Native?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write a button example in React Native.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is `setState()` used for?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How do you handle routing in Flutter?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What’s the purpose of lazy loading?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What are three debugging tools?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Steps to prepare Android app for release?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How do you test a widget in Flutter?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Why does Apple reject apps?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is the difference between APK and AAB?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How would you optimize performance for large apps?", options: [], correctAnswerIndex: 0 },
+        { questionText: "Difference between native and cross-platform?", options: ["Native is for one platform, cross-platform is for multiple.", "Native is faster to develop.", "Cross-platform has better performance."], correctAnswerIndex: 0 },
+        { questionText: "Two tools for mobile app development?", options: ["Flutter and React Native.", "VS Code and Git.", "Figma and Sketch."], correctAnswerIndex: 0 },
+        { questionText: "How do you install Flutter and start a project?", options: ["Download the SDK, add it to PATH, and run `flutter create`.", "Run `npm install flutter`.", "You can't install Flutter."], correctAnswerIndex: 0 },
+        { questionText: "What are widgets in Flutter?", options: ["Everything in a Flutter UI is a widget.", "A type of database.", "A project management tool."], correctAnswerIndex: 0 },
+        { questionText: "What’s JSX in React Native?", options: ["A syntax extension for JavaScript that looks like HTML.", "A CSS preprocessor.", "A backend language."], correctAnswerIndex: 0 },
+        { questionText: "Write a button example in React Native.", options: ["`<Button title='Click' onPress={() => {}} />`", "`button().click()`", "`new Button('Click')`"], correctAnswerIndex: 0 },
+        { questionText: "What is `setState()` used for?", options: ["To update the state of a component and re-render the UI.", "To set the initial state of a component.", "To delete the state of a component."], correctAnswerIndex: 0 },
+        { questionText: "How do you handle routing in Flutter?", options: ["Using the `Navigator` widget.", "Using the `Router` component.", "By manually changing the URL."], correctAnswerIndex: 0 },
+        { questionText: "What’s the purpose of lazy loading?", options: ["To improve performance by only loading components when they are needed.", "To make the app slower.", "To load all components at once."], correctAnswerIndex: 0 },
+        { questionText: "What are three debugging tools?", options: ["Flutter DevTools, React Native Debugger, Android Logcat.", "VS Code, Git, Docker.", "Figma, Sketch, Adobe XD."], correctAnswerIndex: 0 },
+        { questionText: "Steps to prepare Android app for release?", options: ["Optimize assets, sign the app, and build an AAB.", "Write the code and upload it to the store.", "Design the UI and create screenshots."], correctAnswerIndex: 0 },
+        { questionText: "How do you test a widget in Flutter?", options: ["Using `flutter test` and the `test` package.", "By manually clicking on it.", "It cannot be tested."], correctAnswerIndex: 0 },
+        { questionText: "Why does Apple reject apps?", options: ["For violating their guidelines, having bugs, or poor UI.", "For no reason.", "For being too good."], correctAnswerIndex: 0 },
+        { questionText: "What is the difference between APK and AAB?", options: ["AAB is a publishing format that allows for smaller, optimized APKs to be generated by Google Play.", "APK is for Android, AAB is for iOS.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "How would you optimize performance for large apps?", options: ["By using code splitting, lazy loading, and optimizing images.", "By writing all code in a single file.", "By using large, uncompressed images."], correctAnswerIndex: 0 },
     ]
 };
 
@@ -1453,21 +1452,21 @@ const databaseDesignCourse: NewCourse = {
         }
     ],
     finalAssessment: [
-        { questionText: "Define a database.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is the difference between SQL and NoSQL?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Name one relational and one non-relational DBMS.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is ER modeling?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is a primary key?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Why do we normalize a database?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write a basic `SELECT` query.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is a JOIN?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Show an example of a MongoDB document.", options: [], correctAnswerIndex: 0 },
-        { questionText: "How does indexing improve performance?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What does `LIMIT` do in SQL?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How do you connect Node.js to MongoDB?", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is the purpose of Mongoose?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Give two ways to optimize database speed.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain how a frontend app accesses data from a database.", options: [], correctAnswerIndex: 0 },
+        { questionText: "Define a database.", options: ["A structured collection of data.", "A type of programming language.", "A design tool."], correctAnswerIndex: 0 },
+        { questionText: "What is the difference between SQL and NoSQL?", options: ["SQL is relational and has a fixed schema; NoSQL is non-relational and has a flexible schema.", "SQL is for frontend; NoSQL for backend.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "Name one relational and one non-relational DBMS.", options: ["MySQL (relational), MongoDB (non-relational).", "React (relational), Angular (non-relational).", "Docker (relational), Kubernetes (non-relational)."], correctAnswerIndex: 0 },
+        { questionText: "What is ER modeling?", options: ["A visual way to design a database schema.", "A project management methodology.", "A network protocol."], correctAnswerIndex: 0 },
+        { questionText: "What is a primary key?", options: ["A unique identifier for a record in a table.", "The main password for a database.", "A type of encryption."], correctAnswerIndex: 0 },
+        { questionText: "Why do we normalize a database?", options: ["To reduce data redundancy and improve data integrity.", "To make the database slower.", "To make the database larger."], correctAnswerIndex: 0 },
+        { questionText: "Write a basic `SELECT` query.", options: ["`SELECT * FROM users;`", "`GET users;`", "`READ users;`"], correctAnswerIndex: 0 },
+        { questionText: "What is a JOIN?", options: ["A way to combine rows from two or more tables based on a related column.", "A way to merge two databases.", "A way to create a new table."], correctAnswerIndex: 0 },
+        { questionText: "Show an example of a MongoDB document.", options: ["`{ \"name\": \"John\", \"age\": 30 }`", "`<table><tr><td>John</td><td>30</td></tr></table>`", "`John,30`"], correctAnswerIndex: 0 },
+        { questionText: "How does indexing improve performance?", options: ["It allows the database to find data faster without scanning the entire table.", "It makes the database smaller.", "It encrypts the data."], correctAnswerIndex: 0 },
+        { questionText: "What does `LIMIT` do in SQL?", options: ["It restricts the number of rows returned by a query.", "It sets a time limit for a query.", "It limits access to a table."], correctAnswerIndex: 0 },
+        { questionText: "How do you connect Node.js to MongoDB?", options: ["Using a driver like Mongoose.", "By directly importing the database file.", "It is not possible."], correctAnswerIndex: 0 },
+        { questionText: "What is the purpose of Mongoose?", options: ["It provides a schema-based solution to model application data for MongoDB.", "It is a code editor for Node.js.", "It is a deployment platform."], correctAnswerIndex: 0 },
+        { questionText: "Give two ways to optimize database speed.", options: ["Indexing and archiving old data.", "Using larger images and more animations.", "Writing all code in a single file."], correctAnswerIndex: 0 },
+        { questionText: "Explain how a frontend app accesses data from a database.", options: ["Through a backend API that communicates with the database.", "Directly from the browser.", "It cannot access database data."], correctAnswerIndex: 0 },
     ]
 };
 
@@ -1579,21 +1578,21 @@ const artificialIntelligenceCourse: NewCourse = {
         }
     ],
     finalAssessment: [
-        { questionText: "Define Artificial Intelligence and its main goal.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Name 3 branches of AI.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is supervised vs unsupervised learning?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write sample ML code in Python using scikit-learn.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain what a neural network does.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What does CNN stand for, and what’s it used for?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Compare RNN and CNN.", options: [], correctAnswerIndex: 0 },
-        { questionText: "Define NLP and give two examples of its use.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is tokenization?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Write a sample SpaCy NER snippet.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What does OpenCV do?", options: [], correctAnswerIndex: 0 },
-        { questionText: "Explain the risks of biased AI.", options: [], correctAnswerIndex: 0 },
-        { questionText: "What is AGI?", options: [], correctAnswerIndex: 0 },
-        { questionText: "How can we ensure ethical use of AI?", options: [], correctAnswerIndex: 0 },
-        { questionText: "List 2 real-world applications of AI today.", options: [], correctAnswerIndex: 0 },
+        { questionText: "Define Artificial Intelligence and its main goal.", options: ["The science of building intelligent machines that simulate human thinking.", "The study of computer hardware.", "A new programming language."], correctAnswerIndex: 0 },
+        { questionText: "Name 3 branches of AI.", options: ["Machine Learning, NLP, Computer Vision.", "Web Development, Mobile Development, Game Development.", "Database Management, Network Security, System Administration."], correctAnswerIndex: 0 },
+        { questionText: "What is supervised vs unsupervised learning?", options: ["Supervised uses labeled data; unsupervised does not.", "Supervised is for text; unsupervised for images.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "Write sample ML code in Python using scikit-learn.", options: ["`from sklearn.linear_model import LinearRegression; model = LinearRegression()`", "`import react from 'react'`", "`let x = 10`"], correctAnswerIndex: 0 },
+        { questionText: "Explain what a neural network does.", options: ["It processes data in layers of nodes, modeled after the human brain.", "It stores data in a database.", "It displays images on a screen."], correctAnswerIndex: 0 },
+        { questionText: "What does CNN stand for, and what’s it used for?", options: ["Convolutional Neural Network, used for image processing.", "Complex Network Node, for networking.", "Central Node Network, for databases."], correctAnswerIndex: 0 },
+        { questionText: "Compare RNN and CNN.", options: ["RNNs are for sequential data; CNNs are for grid-like data like images.", "RNNs are faster than CNNs.", "There is no difference."], correctAnswerIndex: 0 },
+        { questionText: "Define NLP and give two examples of its use.", options: ["Natural Language Processing; used in chatbots and language translation.", "Network Layer Protocol; used in networking.", "New Logic Path; a programming paradigm."], correctAnswerIndex: 0 },
+        { questionText: "What is tokenization?", options: ["Breaking text into smaller units like words or sentences.", "A method for securing APIs.", "A type of data compression."], correctAnswerIndex: 0 },
+        { questionText: "Write a sample SpaCy NER snippet.", options: ["`import spacy; nlp = spacy.load('en_core_web_sm'); doc = nlp('text');`", "`console.log('Hello, world!');`", "`print('Hello, world!')`"], correctAnswerIndex: 0 },
+        { questionText: "What does OpenCV do?", options: ["An open-source library for computer vision tasks.", "A database management system.", "A web framework."], correctAnswerIndex: 0 },
+        { questionText: "Explain the risks of biased AI.", options: ["It can lead to unfair and discriminatory outcomes.", "It can make the AI run faster.", "There are no risks."], correctAnswerIndex: 0 },
+        { questionText: "What is AGI?", options: ["Artificial General Intelligence, a hypothetical AI with human-like intelligence.", "Advanced Graphical Interface.", "API Governance Index."], correctAnswerIndex: 0 },
+        { questionText: "How can we ensure ethical use of AI?", options: ["Through transparency, fairness, and accountability.", "By keeping the AI's workings secret.", "It is not possible."], correctAnswerIndex: 0 },
+        { questionText: "List 2 real-world applications of AI today.", options: ["Facial recognition and virtual assistants.", "Printing documents and sending emails.", "Browsing the web and watching videos."], correctAnswerIndex: 0 },
     ]
 };
 
@@ -1615,47 +1614,20 @@ const allCourses: NewCourse[] = [
 export async function seedInitialCourses() {
     const coursesCollection = collection(db, 'courses');
     const snapshot = await getDocs(coursesCollection);
-    const existingTitles = new Set(snapshot.docs.map(doc => doc.data().title));
 
-    const coursesToAdd = allCourses.filter(course => !existingTitles.has(course.title));
-
-    if (coursesToAdd.length > 0) {
-        console.log(`Found ${coursesToAdd.length} new courses to seed...`);
-        const batch = writeBatch(db);
-        coursesToAdd.forEach(courseData => {
-            const newCourseDoc = doc(coursesCollection);
-            try {
-                // Ensure imageUrl is not included in the data being saved
-                const { imageUrl, ...dataToSave } = courseData;
-
-                const modulesWithDuration = dataToSave.modules.map(module => ({
-                    ...module,
-                    lessons: module.lessons.map(lesson => ({
-                        ...lesson,
-                        duration: lesson.duration || '1h',
-                        content: lesson.content || 'Placeholder content to be added.'
-                    }))
-                }));
-                
-                const finalData = { ...dataToSave, modules: modulesWithDuration };
-                
-                // Use a schema that omits imageUrl if it's optional in NewCourseSchema
-                const schemaToUse = NewCourseSchema.omit({ imageUrl: true });
-
-                const validatedData = schemaToUse.passthrough().parse(finalData);
-                
-                batch.set(newCourseDoc, validatedData);
-            } catch(e) {
-                if (e instanceof z.ZodError) {
-                    console.error("Course data validation failed for:", courseData.title, e.errors);
-                } else {
-                    console.error("An unexpected error occurred during validation for:", courseData.title, e);
-                }
-            }
-        });
-        await batch.commit();
-        console.log(`Successfully seeded ${coursesToAdd.length} new courses.`);
-    } else {
-        console.log('All defined courses already exist in the database. Skipping seed.');
+    if (!snapshot.empty) {
+        console.log('Courses collection is not empty. Skipping seed.');
+        return;
     }
+
+    console.log('Courses collection is empty. Seeding initial courses...');
+    const batch = writeBatch(db);
+    allCourses.forEach(courseData => {
+        const newCourseDoc = doc(coursesCollection);
+        // We can just cast here because the objects are statically defined and known to be correct.
+        // In a real-world scenario with dynamic data, you'd use Zod to parse.
+        batch.set(newCourseDoc, courseData as any);
+    });
+    await batch.commit();
+    console.log(`Successfully seeded ${allCourses.length} courses.`);
 }

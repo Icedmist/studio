@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import type { Instructor } from '@/lib/types';
 import { db, storage } from '@/lib/firebase';
-import { collection, addDoc, updateDoc, deleteDoc, doc, getDoc, type DocumentData } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc, getDoc, getDocs, type DocumentData } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
@@ -18,17 +18,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
 import { z } from 'zod';
 import { InstructorSchema } from '@/lib/types';
+import { getInstructors } from '@/services/instructor-data';
 
-const NewInstructorSchema = InstructorSchema.omit({ id: true });
 type InstructorFormData = z.infer<ReturnType<typeof getInstructorFormSchema>>;
-
-const toInstructor = (doc: DocumentData): Instructor => {
-    const data = doc.data();
-    return InstructorSchema.parse({
-        id: doc.id,
-        ...data,
-    });
-};
 
 export function InstructorManager() {
   const [instructors, setInstructors] = useState<Instructor[]>([]);
@@ -42,11 +34,10 @@ export function InstructorManager() {
     const fetchInstructors = async () => {
       setIsLoading(true);
       try {
-        const instructorsCol = collection(db, 'instructors');
-        const instructorSnapshot = await getDocs(instructorsCol);
-        const instructorList = instructorSnapshot.docs.map(doc => toInstructor(doc));
+        const instructorList = await getInstructors();
         setInstructors(instructorList);
       } catch (error) {
+        console.error("Failed to fetch instructors", error);
         toast({
           title: "Error",
           description: "Could not fetch instructors.",
@@ -64,7 +55,6 @@ export function InstructorManager() {
     try {
         let avatarUrl = data.avatarUrl;
 
-        // If avatarUrl is a File, upload it to Firebase Storage
         if (avatarUrl instanceof File) {
             const file = avatarUrl;
             const storageRef = ref(storage, `instructors/${Date.now()}_${file.name}`);
@@ -78,20 +68,19 @@ export function InstructorManager() {
             avatarUrl: avatarUrl,
             socials: data.socials,
         };
-
+        
+        const NewInstructorSchema = InstructorSchema.omit({ id: true });
         const validatedData = NewInstructorSchema.parse(dataToSave);
+        
         if (editingInstructor) {
             const instructorDocRef = doc(db, 'instructors', editingInstructor.id);
             await updateDoc(instructorDocRef, validatedData);
-            const updatedSnap = await getDoc(instructorDocRef);
-            const updatedInstructor = toInstructor(updatedSnap);
-            setInstructors(instructors.map(i => i.id === updatedInstructor.id ? updatedInstructor : i));
         } else {
-            const docRef = await addDoc(collection(db, 'instructors'), validatedData);
-            const newSnap = await getDoc(docRef);
-            const newInstructor = toInstructor(newSnap);
-            setInstructors(prevInstructors => [newInstructor, ...prevInstructors]);
+            await addDoc(collection(db, 'instructors'), validatedData);
         }
+
+        const updatedInstructors = await getInstructors();
+        setInstructors(updatedInstructors);
 
         toast({
             title: `Instructor ${editingInstructor ? 'updated' : 'added'}`,

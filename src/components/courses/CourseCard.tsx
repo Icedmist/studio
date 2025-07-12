@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { Course } from "@/lib/types";
@@ -5,7 +6,6 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import Image from "next/image";
 import Link from "next/link";
 import { COURSE_CATEGORY_COLORS } from "@/lib/constants";
 import { motion } from "framer-motion";
@@ -88,7 +88,6 @@ export function CourseCard({ course }: CourseCardProps) {
                         ) : (
                             <p className="text-lg font-bold text-success">Free</p>
                         )}
-                        <p className="text-[10px] text-muted-foreground/80">Course ID: {course.id.slice(0, 6)}</p>
                     </div>
                     <Link href={getLink()}>
                         <Button size="sm">

@@ -1,14 +1,14 @@
+
 'use client';
 
 import { notFound, useParams, useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { CheckCircle, Clock, User, Loader2 } from 'lucide-react';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/hooks/use-auth';
@@ -37,7 +37,7 @@ function CoursePageSkeleton() {
               <Skeleton className="h-12 w-48" />
             </div>
             <div>
-              <Skeleton className="rounded-lg w-full h-[400px]" />
+              <Skeleton className="rounded-lg w-full h-96" />
             </div>
           </div>
         </div>
@@ -209,16 +209,9 @@ export default function CoursePage() {
               {renderEnrollmentButton()}
 
             </div>
-            {course.imageUrl && (
-              <div>
-                <Image
-                  src={course.imageUrl}
-                  alt={course.title}
-                  width={600}
-                  height={400}
-                  className="rounded-lg w-full object-cover"
-                  data-ai-hint={course.title.toLowerCase().split(' ').slice(0, 2).join(' ')}
-                />
+            {!course.imageUrl && (
+              <div className="w-full h-96 bg-muted rounded-lg flex items-center justify-center">
+                <p className="text-muted-foreground">Course</p>
               </div>
             )}
           </motion.div>
