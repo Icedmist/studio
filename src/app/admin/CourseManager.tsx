@@ -17,7 +17,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { z } from 'zod';
 import { NewCourseSchema } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
-import { useRouter } from 'next/navigation';
 import { seedInitialCourses } from '@/services/seed-data';
 import { getCourses } from '@/services/course-data';
 
@@ -31,7 +30,6 @@ export function CourseManager() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const { toast } = useToast();
-  const router = useRouter();
 
   const fetchCourses = useCallback(async () => {
     setIsLoading(true);
