@@ -41,13 +41,12 @@ export function CourseFilterGrid({ courses }: CourseFilterGridProps) {
     }, [router, pathname]);
 
 
-    const filteredCourses = courses.filter((course: Course) => {
-        if (!category) return false;
+    const filteredCourses = category ? courses.filter((course) => {
         const categoryMatch = course.category === category;
         const levelMatch = !level || level === 'All' || course.level === level;
         return categoryMatch && levelMatch;
-    });
-    
+    }) : [];
+
     if (category) {
         return (
             <div>
