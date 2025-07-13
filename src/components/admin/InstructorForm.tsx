@@ -48,7 +48,7 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
     defaultValues: {
       name: initialData?.name ?? '',
       bio: initialData?.bio ?? '',
-      avatarUrl: initialData?.avatarUrl ?? '',
+      avatarUrl: initialData?.avatarUrl ?? undefined,
       socials: {
         twitter: initialData?.socials?.twitter ?? '',
         linkedin: initialData?.socials?.linkedin ?? '',

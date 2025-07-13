@@ -3,8 +3,9 @@
 
 import { useState, useEffect } from 'react';
 import type { Instructor } from '@/lib/types';
-import { db } from '@/lib/firebase';
+import { db, storage } from '@/lib/firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc, getDoc, getDocs, type DocumentData } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -12,22 +13,14 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Pencil, Trash2, UserPlus, Twitter, Linkedin } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { InstructorForm } from '@/components/admin/InstructorForm';
+import { InstructorForm, getInstructorFormSchema } from '@/components/admin/InstructorForm';
 import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
 import { z } from 'zod';
 import { InstructorSchema } from '@/lib/types';
+import { getInstructors } from '@/services/instructor-data';
 
-const NewInstructorSchema = InstructorSchema.omit({ id: true });
-type InstructorFormData = z.infer<typeof NewInstructorSchema>;
-
-const toInstructor = (doc: DocumentData): Instructor => {
-    const data = doc.data();
-    return InstructorSchema.parse({
-        id: doc.id,
-        ...data,
-    });
-};
+type InstructorFormData = z.infer<ReturnType<typeof getInstructorFormSchema>>;
 
 export function InstructorManager() {
   const [instructors, setInstructors] = useState<Instructor[]>([]);
@@ -37,44 +30,57 @@ export function InstructorManager() {
   const [editingInstructor, setEditingInstructor] = useState<Instructor | null>(null);
   const { toast } = useToast();
 
+  const fetchInstructors = async () => {
+    setIsLoading(true);
+    try {
+      const instructorList = await getInstructors();
+      setInstructors(instructorList);
+    } catch (error) {
+      console.error("Failed to fetch instructors", error);
+      toast({
+        title: "Error",
+        description: "Could not fetch instructors. This might be a permissions issue.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchInstructors = async () => {
-      setIsLoading(true);
-      try {
-        const instructorsCol = collection(db, 'instructors');
-        const instructorSnapshot = await getDocs(instructorsCol);
-        const instructorList = instructorSnapshot.docs.map(doc => toInstructor(doc));
-        setInstructors(instructorList);
-      } catch (error) {
-        toast({
-          title: "Error",
-          description: "Could not fetch instructors.",
-          variant: "destructive",
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchInstructors();
-  }, [toast]);
+  }, []);
 
   const handleFormSubmit = async (data: InstructorFormData) => {
     setIsSubmitting(true);
     try {
-        const validatedData = NewInstructorSchema.parse(data);
+        let avatarUrl = data.avatarUrl;
+
+        if (avatarUrl instanceof File) {
+            const file = avatarUrl;
+            const storageRef = ref(storage, `instructors/${Date.now()}_${file.name}`);
+            const snapshot = await uploadBytes(storageRef, file);
+            avatarUrl = await getDownloadURL(snapshot.ref);
+        }
+
+        const dataToSave = {
+            name: data.name,
+            bio: data.bio,
+            avatarUrl: avatarUrl,
+            socials: data.socials,
+        };
+        
+        const NewInstructorSchema = InstructorSchema.omit({ id: true });
+        const validatedData = NewInstructorSchema.parse(dataToSave);
+        
         if (editingInstructor) {
             const instructorDocRef = doc(db, 'instructors', editingInstructor.id);
             await updateDoc(instructorDocRef, validatedData);
-            const updatedSnap = await getDoc(instructorDocRef);
-            const updatedInstructor = toInstructor(updatedSnap);
-            setInstructors(instructors.map(i => i.id === updatedInstructor.id ? updatedInstructor : i));
-
         } else {
-            const docRef = await addDoc(collection(db, 'instructors'), validatedData);
-            const newSnap = await getDoc(docRef);
-            const newInstructor = toInstructor(newSnap);
-            setInstructors(prevInstructors => [newInstructor, ...prevInstructors]);
+            await addDoc(collection(db, 'instructors'), validatedData);
         }
+
+        await fetchInstructors();
 
         toast({
             title: `Instructor ${editingInstructor ? 'updated' : 'added'}`,
