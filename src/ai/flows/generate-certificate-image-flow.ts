@@ -17,14 +17,19 @@ const GenerateCertificateImageInputSchema = z.object({
 });
 export type GenerateCertificateImageInput = z.infer<typeof GenerateCertificateImageInputSchema>;
 
+// This flow is now effectively disabled by returning a static value,
+// as image generation is not available.
 const GenerateCertificateImageOutputSchema = z.object({
   imageDataUri: z.string().describe('The generated image as a Base64 encoded data URI.'),
 });
 export type GenerateCertificateImageOutput = z.infer<typeof GenerateCertificateImageOutputSchema>;
 
 export async function generateCertificateImage(input: GenerateCertificateImageInput): Promise<GenerateCertificateImageOutput> {
-  return generateCertificateImageFlow(input);
+  // Bypassing the actual flow call to prevent errors with image generation.
+  return Promise.resolve({ imageDataUri: 'none' });
 }
+
+// The following flow is kept for reference but is not currently used by the exported function.
 
 const prompt = ai.definePrompt({
     name: 'generateCertificateImagePrompt',
@@ -44,6 +49,7 @@ const generateCertificateImageFlow = ai.defineFlow(
     outputSchema: GenerateCertificateImageOutputSchema,
   },
   async (input) => {
+    // This part of the code is currently unreachable due to the bypass above.
     const { media } = await ai.generate({
         model: 'googleai/gemini-2.0-flash-preview-image-generation',
         prompt: await prompt(input),

@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { CheckCircle, Clock, User, Loader2 } from 'lucide-react';
+import { CheckCircle, Clock, User, Loader2, Library } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
@@ -209,11 +209,9 @@ export default function CoursePage() {
               {renderEnrollmentButton()}
 
             </div>
-            {!course.imageUrl && (
-              <div className="w-full h-96 bg-muted rounded-lg flex items-center justify-center">
-                <p className="text-muted-foreground">Course</p>
-              </div>
-            )}
+            <div className="w-full h-64 md:h-96 bg-muted rounded-lg flex items-center justify-center">
+              <Library className="w-16 h-16 text-muted-foreground" />
+            </div>
           </motion.div>
         </div>
       </section>

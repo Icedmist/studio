@@ -3,10 +3,9 @@
 import type { PlainBlog } from "@/lib/types";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { User, Calendar } from 'lucide-react';
+import { User, Calendar, BookOpen } from 'lucide-react';
 import { format } from "date-fns";
 
 interface PostCardProps {
@@ -32,14 +31,8 @@ export function PostCard({ post }: PostCardProps) {
             <Card className="flex flex-col h-full overflow-hidden transition-all hover:shadow-lg hover:shadow-primary/10 bg-card/60 backdrop-blur-sm border-border/50">
                 <CardHeader className="p-0">
                     <Link href={`/blog/${post.slug}`}>
-                        <div className="relative w-full h-48">
-                            <Image
-                                src={post.imageUrl}
-                                alt={post.title}
-                                fill
-                                className="object-cover"
-                                data-ai-hint={post.title.toLowerCase().split(' ').slice(0, 2).join(' ')}
-                            />
+                        <div className="relative w-full h-48 bg-muted flex items-center justify-center">
+                          <BookOpen className="w-12 h-12 text-muted-foreground" />
                         </div>
                     </Link>
                 </CardHeader>

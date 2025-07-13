@@ -3,9 +3,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import type { Instructor } from '@/lib/types';
-import { db, storage } from '@/lib/firebase';
+import { db } from '@/lib/firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -54,24 +53,9 @@ export function InstructorManager() {
   const handleFormSubmit = async (data: InstructorFormData) => {
     setIsSubmitting(true);
     try {
-        let avatarUrl = data.avatarUrl;
-
-        if (avatarUrl instanceof File) {
-            const file = avatarUrl;
-            const storageRef = ref(storage, `instructors/${Date.now()}_${file.name}`);
-            const snapshot = await uploadBytes(storageRef, file);
-            avatarUrl = await getDownloadURL(snapshot.ref);
-        }
-
-        const dataToSave = {
-            name: data.name,
-            bio: data.bio,
-            avatarUrl: avatarUrl,
-            socials: data.socials,
-        };
-        
+        // Since file uploads are disabled, data is ready to be saved.
         const NewInstructorSchema = InstructorSchema.omit({ id: true });
-        const validatedData = NewInstructorSchema.parse(dataToSave);
+        const validatedData = NewInstructorSchema.parse(data);
         
         if (editingInstructor) {
             const instructorDocRef = doc(db, 'instructors', editingInstructor.id);

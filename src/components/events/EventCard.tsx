@@ -4,10 +4,9 @@ import { useState, useEffect } from "react";
 import type { PlainEvent } from "@/lib/types";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Ticket, Loader2 } from 'lucide-react';
+import { Calendar, MapPin, Ticket, Loader2, CalendarDays } from 'lucide-react';
 import { format } from "date-fns";
 import { Badge } from "../ui/badge";
 import { useAuth } from "@/hooks/use-auth";
@@ -124,14 +123,8 @@ export function EventCard({ event }: EventCardProps) {
         >
             <Card className="flex flex-col h-full overflow-hidden transition-all hover:shadow-lg hover:shadow-primary/10 bg-card/60 backdrop-blur-sm border-border/50">
                 <CardHeader className="p-0 relative">
-                    <div className="relative w-full h-48">
-                        <Image
-                            src={event.imageUrl}
-                            alt={event.title}
-                            fill
-                            className="object-cover"
-                            data-ai-hint={event.title.toLowerCase().split(' ').slice(0, 2).join(' ')}
-                        />
+                    <div className="relative w-full h-48 bg-muted flex items-center justify-center">
+                        <CalendarDays className="w-12 h-12 text-muted-foreground" />
                     </div>
                     <Badge variant={getStatusVariant(event.status)} className="absolute top-2 right-2 capitalize">{event.status}</Badge>
                 </CardHeader>

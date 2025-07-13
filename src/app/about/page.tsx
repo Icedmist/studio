@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Target, Lightbulb, Linkedin, Twitter } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Target, Lightbulb, Linkedin, Twitter, User } from 'lucide-react';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { getInstructors } from '@/services/instructor-data';
@@ -48,8 +48,7 @@ export default async function AboutUsPage() {
                     {instructors.map((instructor) => (
                         <Card key={instructor.id} className="bg-card/80 p-6">
                             <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-primary">
-                                <AvatarImage src={instructor.avatarUrl} data-ai-hint="instructor portrait" />
-                                <AvatarFallback>{instructor.name.charAt(0)}</AvatarFallback>
+                                <AvatarFallback><User className="h-10 w-10" /></AvatarFallback>
                             </Avatar>
                             <h3 className="text-xl font-headline font-bold">{instructor.name}</h3>
                             <p className="text-muted-foreground mt-2 text-sm">{instructor.bio}</p>

@@ -1,10 +1,8 @@
 import { getPostBySlug } from '@/services/blog-data';
 import { notFound } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import Image from 'next/image';
 import { format } from 'date-fns';
-import { User, Calendar } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { User, Calendar, BookOpen } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -19,15 +17,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     <div className="container mx-auto py-12 px-4 max-w-4xl">
       <article>
         <header className="mb-8">
-          <div className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden mb-4">
-            <Image
-              src={post.imageUrl}
-              alt={post.title}
-              fill
-              className="object-cover"
-              data-ai-hint={post.title.toLowerCase().split(' ').slice(0, 2).join(' ')}
-              priority
-            />
+          <div className="relative w-full h-64 md:h-96 rounded-lg mb-4 bg-muted flex items-center justify-center">
+            <BookOpen className="w-16 h-16 text-muted-foreground" />
           </div>
           <h1 className="text-3xl md:text-5xl font-headline font-bold mb-4">{post.title}</h1>
           <div className="flex items-center gap-4 text-muted-foreground text-sm">
@@ -53,6 +44,3 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     </div>
   );
 }
-
-// Optional: Add styles for prose in globals.css if needed
-// Or extend tailwind.config.ts with @tailwindcss/typography plugin

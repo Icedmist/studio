@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Award, Bot, BarChart, Library, Search, MessageSquare, Star, Newspaper } from 'lucide-react';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Award, Bot, BarChart, Library, Search, MessageSquare, Newspaper, User } from 'lucide-react';
 import Link from 'next/link';
 import type { Course } from '@/lib/types';
 import { CourseCard } from '@/components/courses/CourseCard';
@@ -14,43 +14,31 @@ const testimonials = [
     {
       name: 'Alex Johnson',
       role: 'Futures Trader',
-      avatar: 'https://placehold.co/100x100.png',
-      dataAiHint: 'man trader',
       comment: 'The futures trading course was a game-changer for my career. The insights were practical and immediately applicable.',
     },
     {
       name: 'Samantha Lee',
       role: 'Web3 Developer',
-      avatar: 'https://placehold.co/100x100.png',
-      dataAiHint: 'woman developer',
       comment: 'I went from knowing nothing about Web3 to building my own dApps. Highly recommended for aspiring developers!',
     },
      {
       name: 'Michael Chen',
       role: 'AI Enthusiast',
-      avatar: 'https://placehold.co/100x100.png',
-      dataAiHint: 'man ai',
       comment: 'TechTradeHub\'s AI & Machine Learning path is comprehensive and up-to-date with the latest industry trends.',
     },
     {
       name: 'David Rodriguez',
       role: 'Cybersecurity Analyst',
-      avatar: 'https://placehold.co/100x100.png',
-      dataAiHint: 'man cybersecurity',
       comment: 'The tech skills courses gave me the confidence to pivot into a new and exciting career in cybersecurity.',
     },
     {
       name: 'Emily White',
       role: 'Crypto Investor',
-      avatar: 'https://placehold.co/100x100.png',
-      dataAiHint: 'woman crypto',
       comment: 'The crypto trading course demystified the market for me. The community is also incredibly supportive.',
     },
     {
       name: 'James Brown',
       role: 'Aspiring Developer',
-      avatar: 'https://placehold.co/100x100.png',
-      dataAiHint: 'student developer',
       comment: 'As a beginner, I found the courses easy to follow. The progress tracking keeps me motivated to learn every day!',
     },
 ];
@@ -192,8 +180,7 @@ export default function HomePageClient({ courses }: { courses: Course[] }) {
                     <CardHeader>
                       <div className="flex items-center gap-4">
                         <Avatar>
-                          <AvatarImage src={testimonial.avatar} alt={testimonial.name} data-ai-hint={testimonial.dataAiHint} />
-                          <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                          <AvatarFallback><User /></AvatarFallback>
                         </Avatar>
                         <div>
                           <CardTitle className="text-lg">{testimonial.name}</CardTitle>
