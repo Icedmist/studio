@@ -27,11 +27,14 @@ export async function getCourses(): Promise<Course[]> {
 }
 
 export async function getCourse(id: string): Promise<Course | null> {
+    console.log(`Fetching course with ID: ${id}...`);
     if (!db) throw new Error("Firestore not initialized.");
     const courseDoc = doc(db, 'courses', id);
     const courseSnapshot = await getDoc(courseDoc);
     if (courseSnapshot.exists()) {
+        console.log(`Found course: ${courseSnapshot.data().title}`);
         return toCourse(courseSnapshot);
     }
+    console.log(`Course with ID: ${id} not found.`);
     return null;
 }
