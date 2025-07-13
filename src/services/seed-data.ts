@@ -766,26 +766,37 @@ const coursesToSeed: NewCourse[] = [
     }
 ];
 
-export async function seedInitialCourses() {
+export async function seedInitialCourses(): Promise<number> {
     const coursesCollection = collection(db, 'courses');
     const snapshot = await getDocs(coursesCollection);
 
     if (!snapshot.empty) {
         console.log('Courses collection is not empty. Skipping seed.');
-        return;
+        return 0; // Return 0 because no new courses were seeded.
     }
 
     console.log('Courses collection is empty. Seeding initial courses...');
-    const batch = writeBatch(db);
-    coursesToSeed.forEach(courseData => {
-        const newCourseDoc = doc(coursesCollection);
-        try {
-            const validatedData = NewCourseSchema.parse(courseData);
-            batch.set(newCourseDoc, validatedData);
-        } catch (error) {
-            console.error("Course validation failed for:", courseData.title, error);
-        }
-    });
-    await batch.commit();
-    console.log(`Successfully seeded ${coursesToSeed.length} courses.`);
+    try {
+        const batch = writeBatch(db);
+        let seededCount = 0;
+
+        coursesToSeed.forEach(courseData => {
+            const newCourseDoc = doc(coursesCollection);
+            const validationResult = NewCourseSchema.safeParse(courseData);
+            if (validationResult.success) {
+                batch.set(newCourseDoc, validationResult.data);
+                seededCount++;
+            } else {
+                console.warn("Course validation failed for:", courseData.title, validationResult.error.flatten());
+            }
+        });
+
+        await batch.commit();
+        console.log(`Successfully seeded ${seededCount} courses.`);
+        return seededCount;
+    } catch (error) {
+        console.error("Error during batch commit for seeding courses:", error);
+        // Re-throw the error to be caught by the calling component
+        throw new Error(`Failed to commit seed data to Firestore: ${(error as Error).message}`);
+    }
 }
