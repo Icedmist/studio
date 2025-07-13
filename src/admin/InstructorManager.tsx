@@ -1,10 +1,10 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { Instructor } from '@/lib/types';
 import { db, storage } from '@/lib/firebase';
-import { collection, addDoc, updateDoc, deleteDoc, doc, getDoc, getDocs, type DocumentData } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
@@ -30,7 +30,7 @@ export function InstructorManager() {
   const [editingInstructor, setEditingInstructor] = useState<Instructor | null>(null);
   const { toast } = useToast();
 
-  const fetchInstructors = async () => {
+  const fetchInstructors = useCallback(async () => {
     setIsLoading(true);
     try {
       const instructorList = await getInstructors();
@@ -39,17 +39,17 @@ export function InstructorManager() {
       console.error("Failed to fetch instructors", error);
       toast({
         title: "Error",
-        description: "Could not fetch instructors. This might be a permissions issue.",
+        description: `Could not fetch instructors: ${(error as Error).message}. This might be a permissions issue.`,
         variant: "destructive",
       });
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [toast]);
 
   useEffect(() => {
     fetchInstructors();
-  }, []);
+  }, [fetchInstructors]);
 
   const handleFormSubmit = async (data: InstructorFormData) => {
     setIsSubmitting(true);

@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { GoogleIcon } from "@/components/icons/GoogleIcon";
 import { XIcon } from "@/components/icons/XIcon";
@@ -11,6 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { getStudentProgress } from "@/services/student-data";
 
 export function SocialLogins() {
   const { toast } = useToast();
@@ -18,7 +20,12 @@ export function SocialLogins() {
 
   const handleSignIn = async (provider: GoogleAuthProvider | TwitterAuthProvider, providerName: string) => {
     try {
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      // Ensure a student progress document is created on first social login
+      await getStudentProgress(user.uid, user.displayName || undefined);
+      
       toast({
         title: "Login Successful",
         description: "Welcome!",

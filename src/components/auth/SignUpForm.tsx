@@ -12,11 +12,10 @@ import { User, Mail, Lock, Loader2, Gift } from "lucide-react";
 import { SocialLogins } from "./SocialLogins";
 import Link from "next/link";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db } from "@/lib/firebase";
+import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import type { StudentProgress } from "@/lib/types";
+import { getStudentProgress } from "@/services/student-data";
 
 
 const formSchema = z.object({
@@ -58,17 +57,7 @@ export function SignUpForm({ referralCode }: { referralCode: string | null }) {
             });
 
             // Create the student progress document immediately
-            const studentProgressRef = doc(db, "studentProgress", user.uid);
-            const newStudentData: StudentProgress = {
-                studentId: user.uid,
-                name: values.fullName,
-                enrolledCourses: [],
-                overallProgress: 0,
-                completedCourses: 0,
-                coursesInProgress: 0,
-                referredBy: values.referralCode || undefined,
-            };
-            await setDoc(studentProgressRef, newStudentData);
+            await getStudentProgress(user.uid, values.fullName, values.referralCode || undefined);
         }
         
         toast({

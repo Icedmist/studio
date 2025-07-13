@@ -1,9 +1,12 @@
 
+'use server';
+
 // Service to manage student data in Firestore.
 import { db } from '@/lib/firebase';
-import { doc, getDoc, setDoc, updateDoc, collection, getDocs } from "firebase/firestore"; 
-import type { StudentProgress } from '@/lib/types';
-import { getCourse } from './course-data';
+import { doc, getDoc, setDoc, updateDoc, collection, getDocs, writeBatch, serverTimestamp } from "firebase/firestore"; 
+import type { StudentProgress, Course as CourseType } from '@/lib/types';
+import { getCourses } from './course-data';
+import { seedInitialCourses } from './seed-data';
 
 /**
  * Fetches a student's progress from Firestore.
@@ -22,11 +25,9 @@ export async function getStudentProgress(userId: string, name?: string, referral
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-        // Document found, return its data
         return docSnap.data() as StudentProgress;
     } else {
-        // Document doesn't exist, create a new one for the new user
-        console.log(`No such document for user ${userId}. Creating new profile.`);
+        console.log(`No progress document for user ${userId}. Creating new profile.`);
         const newStudentData: StudentProgress = {
             studentId: userId,
             name: name || "New Student", // Use provided name or a default
@@ -37,9 +38,7 @@ export async function getStudentProgress(userId: string, name?: string, referral
             referredBy: referralCode || undefined,
         };
 
-        // Set the new document in Firestore
         await setDoc(docRef, newStudentData);
-
         return newStudentData;
     }
 }
@@ -61,11 +60,14 @@ export async function getAllStudentProgresses(): Promise<StudentProgress[]> {
  * @param enrolledCourses Array of courses the student is enrolled in.
  * @returns An object with calculated progress metrics.
  */
-function calculateProgressMetrics(enrolledCourses: StudentProgress['enrolledCourses']) {
+function calculateProgressMetrics(enrolledCourses: CourseType[]) {
+    if (!enrolledCourses || enrolledCourses.length === 0) {
+        return { coursesInProgress: 0, completedCourses: 0, overallProgress: 0 };
+    }
     const coursesInProgress = enrolledCourses.filter(c => c.progress < 100).length;
     const completedCourses = enrolledCourses.filter(c => c.progress === 100).length;
     const totalProgress = enrolledCourses.reduce((sum, course) => sum + course.progress, 0);
-    const overallProgress = enrolledCourses.length > 0 ? Math.round(totalProgress / enrolledCourses.length) : 0;
+    const overallProgress = Math.round(totalProgress / enrolledCourses.length);
 
     return { coursesInProgress, completedCourses, overallProgress };
 }
@@ -86,10 +88,12 @@ export async function enrollInCourse(userId: string, courseId: string): Promise<
     const studentData = await getStudentProgress(userId);
 
     if (studentData.enrolledCourses.some(c => c.id === courseId)) {
+        console.log(`User ${userId} is already enrolled in course ${courseId}.`);
         return;
     }
 
-    const courseToEnrollWithProgress = {
+    // Create a fresh course object for the student with progress reset
+    const courseToEnrollWithProgress: CourseType = {
         ...courseToEnroll,
         progress: 0,
         modules: courseToEnroll.modules.map(module => ({
@@ -100,15 +104,13 @@ export async function enrollInCourse(userId: string, courseId: string): Promise<
 
     const updatedCourses = [...studentData.enrolledCourses, courseToEnrollWithProgress];
     
-    const { coursesInProgress, completedCourses, overallProgress } = calculateProgressMetrics(updatedCourses);
+    const metrics = calculateProgressMetrics(updatedCourses);
 
-    const plainCourses = updatedCourses.map(course => JSON.parse(JSON.stringify(course)));
+    const plainCourses = JSON.parse(JSON.stringify(updatedCourses));
 
     await updateDoc(studentProgressRef, {
         enrolledCourses: plainCourses,
-        coursesInProgress,
-        completedCourses,
-        overallProgress
+        ...metrics
     });
 }
 
@@ -142,16 +144,15 @@ export async function updateLessonStatus(userId: string, courseId: string, modul
     const completedLessons = course.modules.reduce((sum, module) => sum + module.lessons.filter(l => l.completed).length, 0);
     course.progress = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
 
-    const { coursesInProgress, completedCourses, overallProgress } = calculateProgressMetrics(updatedCourses);
+    const metrics = calculateProgressMetrics(updatedCourses);
     
     const updatedStudentData: StudentProgress = {
         ...studentData,
         enrolledCourses: updatedCourses,
-        coursesInProgress,
-        completedCourses,
-        overallProgress
+        ...metrics
     };
     
+    // Firestore cannot handle undefined fields well inside arrays, so convert to plain object
     const plainData = JSON.parse(JSON.stringify(updatedStudentData));
     await setDoc(studentProgressRef, plainData);
     return updatedStudentData;

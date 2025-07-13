@@ -4,10 +4,10 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     // Helper function to check if a user is an admin
-    function isAdmin(userId) {
-      // Keep this in sync with src/lib/admin.ts
+    function isAdmin() {
+      // List of admin UIDs - keep this in sync with src/lib/admin.ts
       let admins = ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
-      return userId in admins;
+      return request.auth != null && request.auth.uid in admins;
     }
 
     // --- PUBLIC-READ, ADMIN-WRITE COLLECTIONS ---
@@ -15,13 +15,13 @@ service cloud.firestore {
     // Only admins can create, update, or delete them.
     match /(courses|instructors|blogPosts|events)/{document} {
       allow get, list: if true;
-      allow write: if request.auth != null && isAdmin(request.auth.uid);
+      allow write: if isAdmin();
     }
     
     // --- USER-SPECIFIC COLLECTIONS ---
     // Student progress can only be read/written by the owner or an admin.
     match /studentProgress/{userId} {
-      allow read, update, delete: if request.auth != null && (request.auth.uid == userId || isAdmin(request.auth.uid));
+      allow read, update, delete: if request.auth != null && (request.auth.uid == userId || isAdmin());
       // Allow any authenticated user to create their own progress document.
       allow create: if request.auth != null && request.auth.uid == userId;
     }
@@ -30,7 +30,7 @@ service cloud.firestore {
     // Only admins can read the feedback.
     match /feedback/{feedbackId} {
       allow create: if request.auth != null;
-      allow read: if request.auth != null && isAdmin(request.auth.uid);
+      allow read: if isAdmin();
       // No one can update or delete feedback.
       allow update, delete: if false;
     }
@@ -39,9 +39,9 @@ service cloud.firestore {
     // Anyone can check their own registration status. Admins can see all.
     // Users can only register themselves. Admins can manage registrations.
     match /events/{eventId}/attendees/{userId} {
-      allow get: if request.auth != null && (request.auth.uid == userId || isAdmin(request.auth.uid));
-      allow list: if request.auth != null && isAdmin(request.auth.uid);
-      allow write: if request.auth != null && (request.auth.uid == userId || isAdmin(request.auth.uid));
+      allow get: if request.auth != null && (request.auth.uid == userId || isAdmin());
+      allow list: if isAdmin();
+      allow write: if request.auth != null && (request.auth.uid == userId || isAdmin());
     }
   }
 }
