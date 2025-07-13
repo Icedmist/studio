@@ -1,3 +1,4 @@
+
 rules_version = '2';
 
 service cloud.firestore {
@@ -10,6 +11,7 @@ service cloud.firestore {
     }
 
     // --- PUBLIC-READ, ADMIN-WRITE COLLECTIONS ---
+    // Each collection has its own 'match' block.
     
     match /courses/{courseId} {
       allow get, list: if true;
