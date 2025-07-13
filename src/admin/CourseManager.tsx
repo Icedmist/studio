@@ -231,7 +231,7 @@ export function CourseManager() {
           )) : (
             <TableRow>
               <TableCell colSpan={5} className="text-center text-muted-foreground">
-                No courses found. This might be a Firestore permissions issue.
+                No courses found. Click "Add Course" to get started.
               </TableCell>
             </TableRow>
           )}
