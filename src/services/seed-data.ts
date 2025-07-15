@@ -1,4 +1,3 @@
-
 'use server';
 
 import { db } from '@/lib/firebase';
@@ -772,31 +771,39 @@ export async function seedInitialCourses(): Promise<number> {
 
     if (!snapshot.empty) {
         console.log('Courses collection is not empty. Skipping seed.');
-        return 0; // Return 0 because no new courses were seeded.
+        return 0;
     }
 
-    console.log('Courses collection is empty. Seeding initial courses...');
+    console.log(`Courses collection is empty. Seeding ${coursesToSeed.length} initial courses...`);
     try {
-        const batch = writeBatch(db);
+        // Chunk the writes to avoid exceeding Firestore's batch limit of 500 operations.
+        const chunkSize = 10;
+        const chunks = [];
+        for (let i = 0; i < coursesToSeed.length; i += chunkSize) {
+            chunks.push(coursesToSeed.slice(i, i + chunkSize));
+        }
+
         let seededCount = 0;
+        for (const chunk of chunks) {
+            const batch = writeBatch(db);
+            chunk.forEach(courseData => {
+                const newCourseDoc = doc(coursesCollection);
+                const validationResult = NewCourseSchema.safeParse(courseData);
+                if (validationResult.success) {
+                    batch.set(newCourseDoc, validationResult.data);
+                    seededCount++;
+                } else {
+                    console.warn("Course validation failed for:", courseData.title, validationResult.error.flatten());
+                }
+            });
+            console.log(`Committing a chunk of ${chunk.length} courses...`);
+            await batch.commit();
+        }
 
-        coursesToSeed.forEach(courseData => {
-            const newCourseDoc = doc(coursesCollection);
-            const validationResult = NewCourseSchema.safeParse(courseData);
-            if (validationResult.success) {
-                batch.set(newCourseDoc, validationResult.data);
-                seededCount++;
-            } else {
-                console.warn("Course validation failed for:", courseData.title, validationResult.error.flatten());
-            }
-        });
-
-        await batch.commit();
         console.log(`Successfully seeded ${seededCount} courses.`);
         return seededCount;
     } catch (error) {
         console.error("Error during batch commit for seeding courses:", error);
-        // Re-throw the error to be caught by the calling component
         throw new Error(`Failed to commit seed data to Firestore: ${(error as Error).message}`);
     }
 }
