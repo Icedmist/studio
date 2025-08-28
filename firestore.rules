@@ -3,51 +3,53 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    function isAdmin() {
+      // This list must be kept in sync with src/lib/admin.ts
+      return request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
+    }
+
     // --- PUBLIC-READ, ADMIN-WRITE COLLECTIONS ---
     
     match /courses/{courseId} {
-      // Anyone can read courses.
       allow get, list: if true;
-      // Only an authenticated user whose UID is in the hardcoded list can write.
-      // This list MUST be kept in sync with the one in /src/lib/admin.ts
-      allow write: if request.auth != null && request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
+      allow write: if request.auth != null && isAdmin();
     }
 
     match /instructors/{instructorId} {
       allow get, list: if true;
-      allow write: if request.auth != null && request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
+      allow write: if request.auth != null && isAdmin();
     }
 
     match /blogPosts/{postId} {
       allow get, list: if true;
-      allow write: if request.auth != null && request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
+      allow write: if request.auth != null && isAdmin();
     }
 
     match /events/{eventId} {
       allow get, list: if true;
-      allow write: if request.auth != null && request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
+      allow write: if request.auth != null && isAdmin();
     }
     
     // --- USER-SPECIFIC COLLECTIONS ---
     
     match /studentProgress/{userId} {
-      allow get, update, delete: if request.auth != null && (request.auth.uid == userId || request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3']);
-      allow list: if request.auth != null && request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
+      allow get, update, delete: if request.auth != null && (request.auth.uid == userId || isAdmin());
+      allow list: if request.auth != null && isAdmin();
       allow create: if request.auth != null && request.auth.uid == userId;
     }
 
     match /feedback/{feedbackId} {
       allow create: if request.auth != null;
-      allow read, list: if request.auth != null && request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
+      allow read, list: if request.auth != null && isAdmin();
       allow update, delete: if false;
     }
 
     // --- Subcollections ---
     
     match /events/{eventId}/attendees/{userId} {
-      allow get: if request.auth != null && (request.auth.uid == userId || request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3']);
-      allow list: if request.auth != null && request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
-      allow write: if request.auth != null && (request.auth.uid == userId || request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3']);
+      allow get: if request.auth != null && (request.auth.uid == userId || isAdmin());
+      allow list: if request.auth != null && isAdmin();
+      allow write: if request.auth != null && (request.auth.uid == userId || isAdmin());
     }
   }
 }

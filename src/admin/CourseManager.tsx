@@ -71,8 +71,9 @@ export function CourseManager() {
         console.error("Error seeding courses: ", error);
         toast({
             title: "Seeding Failed",
-            description: `Could not seed courses: ${(error as Error).message}. Check the server logs for more details.`,
+            description: `Could not seed courses: ${(error as Error).message}. This is likely a PERMISSION_DENIED error. Please ensure your Firestore security rules allow the admin user to write to the 'courses' collection.`,
             variant: "destructive",
+            duration: 10000,
         });
     } finally {
         setIsSeeding(false);
