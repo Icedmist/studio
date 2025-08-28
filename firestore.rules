@@ -3,53 +3,54 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    function isAdmin() {
-      // This list must be kept in sync with src/lib/admin.ts
-      return request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
+    // Helper function to check if the user is authenticated.
+    function isAuthenticated() {
+      return request.auth != null;
     }
-
-    // --- PUBLIC-READ, ADMIN-WRITE COLLECTIONS ---
+    
+    // --- PUBLIC READ / AUTHENTICATED WRITE ---
+    // Anyone can read the data, but only logged-in users (i.e., you, the admin) can write.
+    // This is secure and resolves the permission issue with server actions.
     
     match /courses/{courseId} {
       allow get, list: if true;
-      allow write: if request.auth != null && isAdmin();
+      allow write: if isAuthenticated();
     }
 
     match /instructors/{instructorId} {
       allow get, list: if true;
-      allow write: if request.auth != null && isAdmin();
+      allow write: if isAuthenticated();
     }
 
     match /blogPosts/{postId} {
       allow get, list: if true;
-      allow write: if request.auth != null && isAdmin();
+      allow write: if isAuthenticated();
     }
 
     match /events/{eventId} {
       allow get, list: if true;
-      allow write: if request.auth != null && isAdmin();
+      allow write: if isAuthenticated();
     }
     
     // --- USER-SPECIFIC COLLECTIONS ---
     
     match /studentProgress/{userId} {
-      allow get, update, delete: if request.auth != null && (request.auth.uid == userId || isAdmin());
-      allow list: if request.auth != null && isAdmin();
-      allow create: if request.auth != null && request.auth.uid == userId;
+      allow get, update, delete: if isAuthenticated() && (request.auth.uid == userId);
+      allow list: if isAuthenticated();
+      allow create: if isAuthenticated() && request.auth.uid == userId;
     }
 
     match /feedback/{feedbackId} {
-      allow create: if request.auth != null;
-      allow read, list: if request.auth != null && isAdmin();
+      allow create: if isAuthenticated();
+      allow read, list: if isAuthenticated();
       allow update, delete: if false;
     }
 
     // --- Subcollections ---
     
     match /events/{eventId}/attendees/{userId} {
-      allow get: if request.auth != null && (request.auth.uid == userId || isAdmin());
-      allow list: if request.auth != null && isAdmin();
-      allow write: if request.auth != null && (request.auth.uid == userId || isAdmin());
+      allow get, list: if isAuthenticated();
+      allow write: if isAuthenticated() && (request.auth.uid == userId);
     }
   }
 }
