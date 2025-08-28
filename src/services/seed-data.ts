@@ -91,7 +91,7 @@ const coursesToSeed: NewCourse[] = [
             lessons: [{ title: "Finance on the Blockchain", content: "Learn how DeFi aims to recreate traditional financial systems with open-source, permissionless protocols.", duration: "45m", completed: false }],
             quiz: [{ questionText: "DeFi stands for:", options: ["Digital Finance", "Decentralized Finance", "Distributed Finance"], correctAnswerIndex: 1 }]
         }],
-        finalAssessment-details: [{ questionText: "What is a Decentralized Exchange (DEX)?", options: ["A traditional stock market", "A platform for peer-to-peer trading without an intermediary", "A bank"], correctAnswerIndex: 1 }]
+        finalAssessment: [{ questionText: "What is a Decentralized Exchange (DEX)?", options: ["A traditional stock market", "A platform for peer-to-peer trading without an intermediary", "A bank"], correctAnswerIndex: 1 }]
     },
     {
         title: "Web3 for Beginners",
@@ -820,4 +820,5 @@ export async function seedInitialCourses(): Promise<number> {
         throw new Error(`Failed to commit seed data to Firestore: ${(error as Error).message}`);
     }
 }
+
 
