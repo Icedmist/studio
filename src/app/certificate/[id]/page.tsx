@@ -1,17 +1,15 @@
+
 'use client';
 
 import { courses } from '@/lib/courses';
 import { notFound, useRouter, useParams } from 'next/navigation';
 import { Logo } from '@/components/Logo';
 import { Button } from '@/components/ui/button';
-import { Download, Loader2 } from 'lucide-react';
+import { Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/hooks/use-auth';
 import { useEffect, useState } from 'react';
 import QRCode from "react-qr-code";
-import { generateCertificateImage } from '@/ai/flows/generate-certificate-image-flow';
-import { Skeleton } from '@/components/ui/skeleton';
-
 
 export default function CertificatePage() {
   const params = useParams<{ id: string }>();
@@ -19,8 +17,6 @@ export default function CertificatePage() {
   const { user } = useAuth();
   const router = useRouter();
   const [url, setUrl] = useState('');
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [isImageLoading, setIsImageLoading] = useState(true);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -36,24 +32,6 @@ export default function CertificatePage() {
       router.push('/login');
     }
   }, [user, router]);
-
-  useEffect(() => {
-    if (course && studentName !== "Student") {
-        setIsImageLoading(true);
-        generateCertificateImage({ courseTitle: course.title, studentName })
-            .then(result => {
-                setImageUrl(result.imageDataUri);
-            })
-            .catch(err => {
-                console.error("Failed to generate certificate image:", err);
-                // Fallback to a gradient or simple background
-                setImageUrl('none'); 
-            })
-            .finally(() => {
-                setIsImageLoading(false);
-            });
-    }
-  }, [course, studentName]);
 
   if (!course) {
     notFound();
@@ -76,41 +54,33 @@ export default function CertificatePage() {
         </Button>
       </div>
 
-      <div className="w-full max-w-4xl bg-card/80 backdrop-blur-lg border-4 border-primary/80 aspect-[1.414/1] flex flex-col text-center shadow-2xl rounded-2xl overflow-hidden relative">
-        {isImageLoading && (
-            <Skeleton className="absolute inset-0 w-full h-full" />
-        )}
-        {imageUrl && imageUrl !== 'none' && (
-             <div 
-                className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000"
-                style={{ backgroundImage: `url(${imageUrl})`, opacity: isImageLoading ? 0 : 1 }}
-             />
-        )}
-        <div className="absolute inset-0 w-full h-full bg-gradient-to-t from-black/50 via-black/20 to-black/50" />
+      <div className="w-full max-w-4xl bg-card border-4 border-primary/80 aspect-[1.414/1] flex flex-col text-center shadow-2xl rounded-2xl overflow-hidden relative">
+        {/* Techy background */}
+        <div className="absolute inset-0 w-full h-full bg-grid-slate-900/[0.04] bg-[bottom_1px_left_1px] dark:bg-grid-slate-400/[0.05] dark:bg-bottom-slate-400/10" />
 
-        <div className="relative z-10 flex flex-col h-full p-8 text-white">
+        <div className="relative z-10 flex flex-col h-full p-8 text-foreground">
             <div className="flex justify-between items-start mb-4">
-                <div className="text-white">
+                <div className="text-foreground">
                     <Logo />
                 </div>
-                <div className="text-right text-white">
+                <div className="text-right text-foreground">
                     <p className="font-semibold">TechTradeHub Academy</p>
-                    <p className="text-xs text-white/80">Master the Future</p>
+                    <p className="text-xs text-muted-foreground">Master the Future</p>
                 </div>
             </div>
             
             <div className="flex-grow flex flex-col justify-center">
-              <p className="font-serif text-3xl md:text-5xl font-bold text-primary mb-2">Certificate of Completion</p>
-              <p className="text-white/80 mb-6">This certifies that</p>
-              <p className="font-serif text-4xl md:text-6xl font-bold mb-6">{studentName}</p>
-              <p className="text-white/80 mb-4">has successfully completed the course</p>
+              <p className="font-headline text-3xl md:text-5xl font-bold text-primary mb-2">Certificate of Completion</p>
+              <p className="text-muted-foreground mb-6">This certifies that</p>
+              <p className="font-headline text-4xl md:text-6xl font-bold mb-6">{studentName}</p>
+              <p className="text-muted-foreground mb-4">has successfully completed the course</p>
               <p className="font-headline text-2xl md:text-3xl font-bold mb-8">{course.title}</p>
             </div>
 
             <div className="flex justify-between items-end">
                 <div className="text-left">
-                    <p className="font-bold border-b border-white pb-1">{completionDate}</p>
-                    <p className="text-xs text-white/80 mt-1">Date</p>
+                    <p className="font-bold border-b border-foreground pb-1">{completionDate}</p>
+                    <p className="text-xs text-muted-foreground mt-1">Date</p>
                 </div>
 
                 <div className="flex items-end gap-4">
@@ -121,7 +91,7 @@ export default function CertificatePage() {
                     ) : (
                       <div className="w-[88px] h-[88px] bg-muted/20 rounded-md animate-pulse" />
                     )}
-                    <div className="text-left text-xs text-white/80">
+                    <div className="text-left text-xs text-muted-foreground">
                         <p>Course ID: TTH-{course.id.padStart(4, '0')}</p>
                         <p>Final Score: {finalScore}%</p>
                         <p className="truncate max-w-[150px]">Verify at: {url}</p>
@@ -129,8 +99,8 @@ export default function CertificatePage() {
                 </div>
 
                 <div className="text-left">
-                    <p className="font-serif text-lg font-bold border-b border-white pb-1">Jane Doe</p>
-                    <p className="text-xs text-white/80 mt-1">Head Instructor</p>
+                    <p className="font-headline text-lg font-bold border-b border-foreground pb-1">Jane Doe</p>
+                    <p className="text-xs text-muted-foreground mt-1">Head Instructor</p>
                 </div>
             </div>
         </div>
@@ -138,3 +108,4 @@ export default function CertificatePage() {
     </motion.div>
   );
 }
+
