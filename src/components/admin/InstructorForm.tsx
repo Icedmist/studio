@@ -12,7 +12,7 @@ import { Loader2, User, Linkedin, Twitter, Image as ImageIcon } from 'lucide-rea
 import { type Instructor } from '@/lib/types';
 
 // This function exports the schema so the parent can infer the type.
-// Disabled file uploads by only accepting a string URL.
+// File uploads are disabled by only accepting a string URL for the avatar.
 export const getInstructorFormSchema = () => z.object({
   name: z.string().min(1, 'Name is required'),
   bio: z.string().min(10, 'Bio must be at least 10 characters'),

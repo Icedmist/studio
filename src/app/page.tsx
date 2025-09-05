@@ -1,10 +1,12 @@
 
 
 import { getCourses } from '@/services/course-data';
+import { getPosts } from '@/services/blog-data';
+import { getEvents } from '@/services/event-data';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Suspense } from 'react';
 import HomePageClient from './home-page-client';
-import type { Course, CourseCategory } from '@/lib/types';
+import type { Course, CourseCategory, PlainBlog, PlainEvent } from '@/lib/types';
 
 function HomePageSkeleton() {
     return (
@@ -24,26 +26,58 @@ function HomePageSkeleton() {
     )
 }
 
+// Function to select one featured course from each category
 async function getFeaturedCourses(allCourses: Course[]): Promise<Course[]> {
     const featured: Course[] = [];
     const categories = new Set<CourseCategory>();
+    const categoryOrder: CourseCategory[] = ['Futures Trading', 'Web3', 'AI & Machine Learning', 'Tech Skills', 'Crypto'];
 
-    for (const course of allCourses) {
-        if (!categories.has(course.category)) {
-            featured.push(course);
-            categories.add(course.category);
+    for (const category of categoryOrder) {
+        if (categories.has(category)) continue;
+        const courseInCategory = allCourses.find(c => c.category === category);
+        if (courseInCategory) {
+            featured.push(courseInCategory);
+            categories.add(category);
         }
-        if (featured.length >= 5) break; // Display up to 5 featured courses
+    }
+    
+    // Fill up to 5 courses if some categories were empty
+    let i = 0;
+    while(featured.length < 5 && i < allCourses.length) {
+        if (!featured.some(c => c.id === allCourses[i].id)) {
+            featured.push(allCourses[i]);
+        }
+        i++;
     }
 
-    return featured;
+    return featured.slice(0, 5);
 }
 
-// Wrapper component to use suspense
+// Wrapper component to use suspense and fetch all data for the homepage
 async function PageContent() {
-    const courses = await getCourses();
+    const [courses, posts, events] = await Promise.all([
+        getCourses(),
+        getPosts('published'),
+        getEvents('upcoming'),
+    ]);
+    
     const featuredCourses = await getFeaturedCourses(courses);
-    return <HomePageClient courses={featuredCourses} />;
+    const latestPosts: PlainBlog[] = posts.slice(0, 3).map(post => ({
+        ...post,
+        createdAt: post.createdAt.toDate().toISOString(),
+        publishedAt: post.publishedAt?.toDate().toISOString(),
+    }));
+
+    const upcomingEvents: PlainEvent[] = events.slice(0, 3).map(event => ({
+        ...event,
+        date: event.date.toDate().toISOString(),
+    }));
+
+    return <HomePageClient 
+        courses={featuredCourses} 
+        posts={latestPosts} 
+        events={upcomingEvents}
+    />;
 }
 
 export default function Home() {
