@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Pencil, Trash2, Library, RefreshCw, Loader2 } from 'lucide-react';
+import { Pencil, Trash2, Library, RefreshCw, Loader2, Sparkles, AlertTriangle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { CourseForm } from '@/components/admin/CourseForm';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -19,6 +19,7 @@ import { NewCourseSchema } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
 import { seedInitialCourses } from '@/services/seed-data';
 import { getCourses } from '@/services/course-data';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 type CourseFormData = z.infer<typeof NewCourseSchema>;
 
@@ -34,18 +35,7 @@ export function CourseManager() {
   const fetchCourses = useCallback(async () => {
     setIsLoading(true);
     try {
-      let courseData = await getCourses();
-      if (courseData.length === 0) {
-        setIsSeeding(true);
-        toast({
-            title: "No courses found",
-            description: "Seeding initial courses into the database. This may take a moment...",
-            variant: "default"
-        });
-        await seedInitialCourses();
-        courseData = await getCourses(); // Re-fetch after seeding
-        setIsSeeding(false);
-      }
+      const courseData = await getCourses();
       setCourses(courseData);
     } catch (error) {
         console.error("Error fetching courses: ", error);
@@ -62,6 +52,39 @@ export function CourseManager() {
   useEffect(() => {
     fetchCourses();
   }, [fetchCourses]);
+
+  const handleSeedCourses = async () => {
+    setIsSeeding(true);
+    toast({
+        title: "Seeding in Progress",
+        description: "Populating the database with initial courses...",
+    });
+    try {
+        const seededCount = await seedInitialCourses();
+        toast({
+            title: "Success!",
+            description: `${seededCount} courses have been added to the database.`,
+            variant: "success",
+        });
+        await fetchCourses(); // Refresh the list
+    } catch (error) {
+        console.error("Error seeding courses: ", error);
+        const errorMessage = (error as Error).message;
+        let description = `Could not seed courses: ${errorMessage}.`;
+        if (errorMessage.includes('PERMISSION_DENIED')) {
+            description = "Permission Denied. Please ensure your Firebase UID is correctly added to the admin list in both /src/lib/admin.ts and firestore.rules.";
+        }
+        
+        toast({
+            title: "Seeding Failed",
+            description: description,
+            variant: "destructive",
+            duration: 10000,
+        });
+    } finally {
+        setIsSeeding(false);
+    }
+  }
 
   const handleFormSubmit = async (data: CourseFormData) => {
     setIsSubmitting(true);
@@ -131,15 +154,35 @@ export function CourseManager() {
   if (isLoading) {
     return (
       <div className="space-y-2">
+        <div className="flex justify-end mb-4 gap-2">
+            <Skeleton className="h-10 w-24" />
+            <Skeleton className="h-10 w-32" />
+        </div>
         {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}
-        {isSeeding && (
-            <div className='flex items-center justify-center gap-2 text-muted-foreground p-4'>
-                <Loader2 className="h-5 w-5 animate-spin" />
-                <span>Seeding initial course data...</span>
-            </div>
-        )}
       </div>
     );
+  }
+
+  if (courses.length === 0) {
+    return (
+        <Card className="text-center bg-card/60">
+            <CardHeader>
+                <div className="mx-auto bg-amber-100 dark:bg-amber-900/50 p-3 rounded-full w-fit">
+                    <AlertTriangle className="h-8 w-8 text-amber-500" />
+                </div>
+                <CardTitle>No Courses Found</CardTitle>
+                <CardDescription>
+                    Your `courses` collection in Firestore is empty. You need to seed the initial course data.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Button onClick={handleSeedCourses} disabled={isSeeding}>
+                    {isSeeding ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
+                    {isSeeding ? 'Seeding...' : 'Seed Initial Courses'}
+                </Button>
+            </CardContent>
+        </Card>
+    )
   }
 
   return (
@@ -178,12 +221,12 @@ export function CourseManager() {
             <TableHead>Title</TableHead>
             <TableHead>Category</TableHead>
             <TableHead>Level</TableHead>
-            <TableHead>Price (₦)</TableHead>
+            <TableHead>Price</TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {courses.length > 0 ? courses.map((course) => (
+          {courses.map((course) => (
             <TableRow key={course.id}>
               <TableCell className="font-medium">{course.title}</TableCell>
               <TableCell>{course.category}</TableCell>
@@ -228,13 +271,7 @@ export function CourseManager() {
                 </AlertDialog>
               </TableCell>
             </TableRow>
-          )) : (
-            <TableRow>
-              <TableCell colSpan={5} className="text-center text-muted-foreground">
-                No courses found. This might be a Firestore permissions issue.
-              </TableCell>
-            </TableRow>
-          )}
+          ))}
         </TableBody>
       </Table>
     </TooltipProvider>

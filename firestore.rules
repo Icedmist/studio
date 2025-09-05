@@ -1,20 +1,21 @@
-
 rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Helper function to check if the user is an admin.
-    // This is the most reliable way when not using custom claims.
+    // --- ADMIN CHECK ---
+    // This function checks if the requesting user's UID is in our list of admins.
     function isAdmin() {
-      // This list MUST be kept in sync with src/lib/admin.ts
+      // This list MUST match the UIDs in src/lib/admin.ts
       return request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
     }
 
     // --- PUBLIC-READ, ADMIN-WRITE COLLECTIONS ---
     
     match /courses/{courseId} {
+      // Anyone can read courses.
       allow get, list: if true;
+      // Only authenticated admins can write (create, update, delete).
       allow write: if request.auth != null && isAdmin();
     }
 
@@ -36,22 +37,32 @@ service cloud.firestore {
     // --- USER-SPECIFIC COLLECTIONS ---
     
     match /studentProgress/{userId} {
+      // An admin can manage any user's progress.
+      // A user can only manage their own progress.
       allow get, update, delete: if request.auth != null && (request.auth.uid == userId || isAdmin());
+      // Only admins can list all student progresses.
       allow list: if request.auth != null && isAdmin();
+      // Any authenticated user can create their own progress document.
       allow create: if request.auth != null && request.auth.uid == userId;
     }
 
     match /feedback/{feedbackId} {
+      // Any authenticated user can create feedback.
       allow create: if request.auth != null;
+      // Only admins can read feedback.
       allow read, list: if request.auth != null && isAdmin();
+      // No one can update or delete feedback.
       allow update, delete: if false;
     }
 
     // --- Subcollections ---
     
     match /events/{eventId}/attendees/{userId} {
+      // Admins can see any attendee. A user can see their own registration.
       allow get: if request.auth != null && (request.auth.uid == userId || isAdmin());
+      // Only admins can list all attendees for an event.
       allow list: if request.auth != null && isAdmin();
+      // A user can register themselves, and an admin can manage any registration.
       allow write: if request.auth != null && (request.auth.uid == userId || isAdmin());
     }
   }
