@@ -83,11 +83,7 @@ export function CourseCard({ course }: CourseCardProps) {
             <CardFooter className="p-4 pt-0 mt-auto">
                  <div className="flex justify-between items-center w-full">
                     <div>
-                        {course.price > 0 ? (
-                            <p className="text-lg font-bold text-primary">₦{course.price.toLocaleString()}</p>
-                        ) : (
-                            <p className="text-lg font-bold text-success">Free</p>
-                        )}
+                        <p className="text-lg font-bold text-success">Free</p>
                     </div>
                     <Link href={getLink()}>
                         <Button size="sm">

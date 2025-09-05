@@ -2,9 +2,9 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { CourseCard } from "@/components/courses/CourseCard";
-import type { Course, CourseCategory } from '@/lib/types';
+import type { Course, CourseCategory, CourseLevel } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { COURSE_CATEGORIES, COURSE_LEVELS } from '@/lib/constants';
 
@@ -14,19 +14,8 @@ interface CourseFilterGridProps {
 
 export function CourseFilterGrid({ courses }: CourseFilterGridProps) {
     const [activeCategory, setActiveCategory] = useState<CourseCategory | 'All'>('All');
-    const [activeLevel, setActiveLevel] = useState<string>('All');
+    const [activeLevel, setActiveLevel] = useState<CourseLevel | 'All'>('All');
     
-    const coursesByCategory = useMemo(() => {
-        const grouped: Record<string, Course[]> = {};
-        courses.forEach(course => {
-            if (!grouped[course.category]) {
-                grouped[course.category] = [];
-            }
-            grouped[course.category].push(course);
-        });
-        return grouped;
-    }, [courses]);
-
     const filteredCourses = useMemo(() => {
         return courses.filter(course => {
             const categoryMatch = activeCategory === 'All' || course.category === activeCategory;
@@ -39,7 +28,7 @@ export function CourseFilterGrid({ courses }: CourseFilterGridProps) {
         setActiveCategory(category);
     };
     
-    const handleLevelClick = (level: string) => {
+    const handleLevelClick = (level: CourseLevel | 'All') => {
         setActiveLevel(level);
     };
 
@@ -66,7 +55,7 @@ export function CourseFilterGrid({ courses }: CourseFilterGridProps) {
                             key={level}
                             size="sm"
                             variant={activeLevel === level ? 'default' : 'outline'}
-                            onClick={() => handleLevelClick(level)}
+                            onClick={() => handleLevelClick(level as CourseLevel | 'All')}
                         >
                             {level}
                         </Button>
@@ -78,13 +67,24 @@ export function CourseFilterGrid({ courses }: CourseFilterGridProps) {
                 layout
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
             >
-                {filteredCourses.length > 0 ? (
-                    filteredCourses.map((course) => (
-                        <CourseCard key={course.id} course={course} />
-                    ))
-                ) : (
-                    <p className="col-span-full text-center text-muted-foreground mt-8">No courses found for the selected filters.</p>
-                )}
+                <AnimatePresence>
+                    {filteredCourses.length > 0 ? (
+                        filteredCourses.map((course) => (
+                             <motion.div
+                                key={course.id}
+                                layout
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                <CourseCard course={course} />
+                            </motion.div>
+                        ))
+                    ) : (
+                        <p className="col-span-full text-center text-muted-foreground mt-8">No courses found for the selected filters.</p>
+                    )}
+                </AnimatePresence>
             </motion.div>
         </div>
     );

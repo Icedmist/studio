@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Lock, Loader2 } from "lucide-react";
+import { Mail, Lock, Loader2, Eye, EyeOff } from "lucide-react";
 import { SocialLogins } from "./SocialLogins";
 import Link from "next/link";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -27,6 +27,7 @@ export function LoginForm() {
   const { toast } = useToast();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -92,7 +93,17 @@ export function LoginForm() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input icon={<Lock />} type="password" placeholder="Enter your password" {...field} />
+                <Input 
+                  icon={<Lock />} 
+                  type={showPassword ? "text" : "password"} 
+                  placeholder="Enter your password" 
+                  {...field}
+                  suffix={
+                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="focus:outline-none">
+                      {showPassword ? <EyeOff /> : <Eye />}
+                    </button>
+                  }
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

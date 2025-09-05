@@ -1,8 +1,10 @@
 
+
 import { getCourses } from '@/services/course-data';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Suspense } from 'react';
 import HomePageClient from './home-page-client';
+import type { Course, CourseCategory } from '@/lib/types';
 
 function HomePageSkeleton() {
     return (
@@ -22,10 +24,26 @@ function HomePageSkeleton() {
     )
 }
 
+async function getFeaturedCourses(allCourses: Course[]): Promise<Course[]> {
+    const featured: Course[] = [];
+    const categories = new Set<CourseCategory>();
+
+    for (const course of allCourses) {
+        if (!categories.has(course.category)) {
+            featured.push(course);
+            categories.add(course.category);
+        }
+        if (featured.length >= 5) break; // Display up to 5 featured courses
+    }
+
+    return featured;
+}
+
 // Wrapper component to use suspense
 async function PageContent() {
     const courses = await getCourses();
-    return <HomePageClient courses={courses} />;
+    const featuredCourses = await getFeaturedCourses(courses);
+    return <HomePageClient courses={featuredCourses} />;
 }
 
 export default function Home() {

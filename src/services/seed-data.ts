@@ -16,7 +16,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "6h",
         instructor: "Fatima Aliyu",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: The Decentralized Web",
@@ -33,7 +33,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "7h",
         instructor: "Chinedu Okafor",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: The Structure of a Blockchain",
@@ -50,7 +50,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "4h",
         instructor: "Fatima Aliyu",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: The Web3 Landscape",
@@ -67,7 +67,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "5h",
         instructor: "David Lee",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Understanding Smart Contracts",
@@ -84,7 +84,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "6h",
         instructor: "Michael Adebayo",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: What is DeFi?",
@@ -101,7 +101,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "4h",
         instructor: "Jane Foster",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Your First Steps in Web3",
@@ -118,7 +118,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "4h",
         instructor: "Emily Carter",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: What is an NFT?",
@@ -135,7 +135,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "5h",
         instructor: "Michael Chen",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Community is King",
@@ -152,7 +152,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "5h",
         instructor: "Fatima Aliyu",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Connecting Technology to Vision",
@@ -169,7 +169,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "6h",
         instructor: "Emily Carter",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Building the Open Metaverse",
@@ -186,7 +186,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "5h",
         instructor: "David Lee",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: The dApp Stack",
@@ -203,7 +203,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "5h",
         instructor: "Dr. Aisha Bello",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Self-Sovereign Identity",
@@ -220,7 +220,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "6h",
         instructor: "Jane Foster",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: The Community Flywheel",
@@ -239,7 +239,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "5h",
         instructor: "Michael Adebayo",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Core Concepts",
@@ -256,7 +256,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "6h",
         instructor: "Nasir Ibrahim Imam",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Getting Set Up",
@@ -273,7 +273,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "7h",
         instructor: "Michael Adebayo",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Trend Following",
@@ -290,7 +290,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "6h",
         instructor: "Emily Carter",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Two Schools of Thought",
@@ -307,7 +307,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "5h",
         instructor: "Dr. Aisha Bello",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Protecting Your Capital",
@@ -324,7 +324,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "10h",
         instructor: "Nasir Ibrahim Imam",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: The Complete Foundation",
@@ -341,7 +341,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "7h",
         instructor: "Michael Adebayo",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Reading the Charts",
@@ -358,7 +358,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "6h",
         instructor: "Emily Carter",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Reversal Patterns",
@@ -375,7 +375,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "5h",
         instructor: "Jane Foster",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: The Trader's Mind",
@@ -392,7 +392,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "6h",
         instructor: "Tunde Adekunle",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Trend Indicators",
@@ -411,7 +411,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "5h",
         instructor: "Nasir Ibrahim Imam",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: The World of Code",
@@ -428,7 +428,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "8h",
         instructor: "Emily Carter",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Structuring the Web",
@@ -445,7 +445,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "6h",
         instructor: "Dr. Aisha Bello",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: The Threat Landscape",
@@ -462,7 +462,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "4h",
         instructor: "Dr. Anya Sharma",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: What is AI?",
@@ -479,7 +479,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "6h",
         instructor: "David Lee",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: How the Internet Works",
@@ -496,7 +496,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "7h",
         instructor: "Tunde Adekunle",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: What is a Database?",
@@ -513,7 +513,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "5h",
         instructor: "Michael Chen",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: The Digital Landscape",
@@ -532,7 +532,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "5h",
         instructor: "Dr. Anya Sharma",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: What is Machine Learning?",
@@ -549,7 +549,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "4h",
         instructor: "Jane Foster",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Understanding AI's Impact",
@@ -566,7 +566,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "10h",
         instructor: "David Lee",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: The ML Toolkit",
@@ -583,7 +583,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "5h",
         instructor: "Dr. Anya Sharma",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: The Neural Network",
@@ -600,7 +600,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "8h",
         instructor: "Tunde Adekunle",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: The Big Picture",
@@ -617,7 +617,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "9h",
         instructor: "David Lee",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Your First TensorFlow Model",
@@ -634,7 +634,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "8h",
         instructor: "Tunde Adekunle",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: The Scikit-learn API",
@@ -651,7 +651,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "4h",
         instructor: "Jane Foster",
-        price: 2500,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [{
             title: "Module 1: Fairness in AI",
@@ -670,7 +670,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Intermediate",
         duration: "10h",
         instructor: "Emily Carter",
-        price: 5000,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [
             {
@@ -689,7 +689,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Advanced",
         duration: "25h",
         instructor: "David Lee",
-        price: 7000,
+        price: 0,
         imageUrl: 'https://placehold.co/600x400.png',
         modules: [
             {
@@ -708,7 +708,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Intermediate",
         duration: "15h",
         instructor: "Michael Adebayo",
-        price: 5000,
+        price: 0,
         imageUrl: "https://placehold.co/600x400.png",
         modules: [
             {
@@ -727,7 +727,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Intermediate",
         duration: "18h",
         instructor: "Fatima Aliyu",
-        price: 5000,
+        price: 0,
         imageUrl: "https://placehold.co/600x400.png",
         modules: [
             {
@@ -746,7 +746,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Beginner",
         duration: "5h",
         instructor: "Chinedu Okafor",
-        price: 2500,
+        price: 0,
         imageUrl: "https://placehold.co/600x400.png",
         modules: [
             {
@@ -765,7 +765,7 @@ const coursesToSeed: NewCourse[] = [
         level: "Advanced",
         duration: "30h",
         instructor: "Dr. Anya Sharma",
-        price: 7000,
+        price: 0,
         imageUrl: "https://placehold.co/600x400.png",
         modules: [
             {
@@ -820,5 +820,3 @@ export async function seedInitialCourses(): Promise<number> {
         throw new Error(`Failed to commit seed data to Firestore: ${(error as Error).message}`);
     }
 }
-
-

@@ -1,23 +1,25 @@
 
+'use client';
+
 import { Suspense } from 'react';
 import { Library, AlertTriangle } from "lucide-react";
 import { Skeleton } from '@/components/ui/skeleton';
-import { getCourses } from '@/services/course-data';
 import { CourseFilterGrid } from '@/components/courses/CourseFilterGrid';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useCourses } from '@/hooks/use-courses';
 
 function CoursesPageSkeleton() {
     return (
-        <>
+        <div className="container mx-auto px-4 py-8">
             <div className="flex items-center gap-2 mb-4">
                 <Library className="h-8 w-8 text-primary" />
                 <h1 className="text-3xl md:text-4xl font-headline font-bold">
                     Course Library
                 </h1>
             </div>
-            <div className="text-muted-foreground mb-12">
+            <div className="mb-12">
                  <Skeleton className="h-6 w-1/2" />
             </div>
              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
@@ -29,12 +31,38 @@ function CoursesPageSkeleton() {
                     </div>
                 ))}
             </div>
-        </>
+        </div>
     )
 }
 
-async function CoursesPageContent() {
-    const courses = await getCourses();
+function CoursesPageContent() {
+    const { courses, isLoading, error } = useCourses();
+
+    if (isLoading) {
+        return <CoursesPageSkeleton />;
+    }
+
+    if (error) {
+        return (
+             <Card className="text-center bg-card/60 max-w-lg mx-auto">
+                <CardHeader>
+                    <div className="mx-auto bg-destructive/10 p-3 rounded-full w-fit">
+                        <AlertTriangle className="h-8 w-8 text-destructive" />
+                    </div>
+                    <CardTitle>Failed to Load Courses</CardTitle>
+                    <CardDescription>
+                        There was an error loading the course catalog. This might be a temporary issue or a problem with Firestore security rules.
+                        <pre className="mt-2 text-xs bg-muted p-2 rounded whitespace-pre-wrap">{error}</pre>
+                    </CardDescription>
+                </CardHeader>
+                 <CardContent>
+                   <Link href="/admin/courses">
+                        <Button>Go to Admin Panel</Button>
+                   </Link>
+                </CardContent>
+            </Card>
+        )
+    }
 
     if (!courses || courses.length === 0) {
         return (
@@ -58,7 +86,7 @@ async function CoursesPageContent() {
     }
 
     return (
-         <>
+         <div className="container mx-auto px-4 py-8">
             <div className="flex items-center gap-2 mb-4">
                 <Library className="h-8 w-8 text-primary" />
                 <h1 className="text-3xl md:text-4xl font-headline font-bold">
@@ -69,16 +97,16 @@ async function CoursesPageContent() {
                 Browse our catalog or filter by category and level to find the perfect course for you.
             </p>
             <CourseFilterGrid courses={courses} />
-        </>
+        </div>
     )
 }
 
-export default async function CoursesPage() {
+export default function CoursesPage() {
+    // Wrap the content in a Suspense boundary for better loading UX,
+    // though the hook inside handles its own loading state.
     return (
-        <div className="container mx-auto px-4 py-8">
-            <Suspense fallback={<CoursesPageSkeleton />}>
-                <CoursesPageContent />
-            </Suspense>
-        </div>
+        <Suspense fallback={<CoursesPageSkeleton />}>
+            <CoursesPageContent />
+        </Suspense>
     )
 }

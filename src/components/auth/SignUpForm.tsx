@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { User, Mail, Lock, Loader2, Gift } from "lucide-react";
+import { User, Mail, Lock, Loader2, Gift, Eye, EyeOff } from "lucide-react";
 import { SocialLogins } from "./SocialLogins";
 import Link from "next/link";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -33,6 +33,8 @@ export function SignUpForm({ referralCode }: { referralCode: string | null }) {
   const { toast } = useToast();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -126,7 +128,17 @@ export function SignUpForm({ referralCode }: { referralCode: string | null }) {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input icon={<Lock />} type="password" placeholder="********" {...field} />
+                <Input 
+                  icon={<Lock />} 
+                  type={showPassword ? "text" : "password"} 
+                  placeholder="********" 
+                  {...field} 
+                  suffix={
+                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="focus:outline-none">
+                      {showPassword ? <EyeOff /> : <Eye />}
+                    </button>
+                  }
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -139,7 +151,17 @@ export function SignUpForm({ referralCode }: { referralCode: string | null }) {
             <FormItem>
               <FormLabel>Confirm Password</FormLabel>
               <FormControl>
-                <Input icon={<Lock />} type="password" placeholder="********" {...field} />
+                <Input 
+                  icon={<Lock />} 
+                  type={showConfirmPassword ? "text" : "password"} 
+                  placeholder="********" 
+                  {...field} 
+                  suffix={
+                     <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="focus:outline-none">
+                      {showConfirmPassword ? <EyeOff /> : <Eye />}
+                    </button>
+                  }
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
