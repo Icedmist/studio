@@ -9,14 +9,14 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Loader2, User, Linkedin, Twitter, Image as ImageIcon } from 'lucide-react';
-import { type Instructor } from '@/lib/types';
+import type { Instructor } from '@/lib/types';
 
 // This function exports the schema so the parent can infer the type.
 // File uploads are disabled by only accepting a string URL for the avatar.
 export const getInstructorFormSchema = () => z.object({
   name: z.string().min(1, 'Name is required'),
   bio: z.string().min(10, 'Bio must be at least 10 characters'),
-  avatarUrl: z.string().url('A valid image URL is required.'),
+  avatarUrl: z.string().url('A valid image URL is required. Use a service like https://i.pravatar.cc or upload to a host.'),
   socials: z.object({
     twitter: z.string().url().optional().or(z.literal('')),
     linkedin: z.string().url().optional().or(z.literal('')),
@@ -39,7 +39,7 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
     defaultValues: {
       name: initialData?.name ?? '',
       bio: initialData?.bio ?? '',
-      avatarUrl: initialData?.avatarUrl ?? 'https://placehold.co/100x100.png',
+      avatarUrl: initialData?.avatarUrl ?? '',
       socials: {
         twitter: initialData?.socials?.twitter ?? '',
         linkedin: initialData?.socials?.linkedin ?? '',
@@ -83,7 +83,7 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
                 <FormItem>
                 <FormLabel>Avatar Image URL</FormLabel>
                 <FormControl>
-                    <Input icon={<ImageIcon />} placeholder="https://placehold.co/100x100.png" {...field} />
+                    <Input icon={<ImageIcon />} placeholder="https://i.pravatar.cc/150" {...field} />
                 </FormControl>
                 <FormMessage />
                 </FormItem>
@@ -128,3 +128,5 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
     </Form>
   );
 }
+
+    
