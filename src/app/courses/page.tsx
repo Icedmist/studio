@@ -51,15 +51,10 @@ function CoursesPageContent() {
                     </div>
                     <CardTitle>Failed to Load Courses</CardTitle>
                     <CardDescription>
-                        There was an error loading the course catalog. This might be a temporary issue or a problem with Firestore security rules.
+                        There was an error loading the course catalog.
                         <pre className="mt-2 text-xs bg-muted p-2 rounded whitespace-pre-wrap">{error}</pre>
                     </CardDescription>
                 </CardHeader>
-                 <CardContent>
-                   <Link href="/admin/courses">
-                        <Button>Go to Admin Panel</Button>
-                   </Link>
-                </CardContent>
             </Card>
         )
     }
@@ -73,10 +68,10 @@ function CoursesPageContent() {
                     </div>
                     <CardTitle>No Courses Available</CardTitle>
                     <CardDescription>
-                        It seems there are no courses in the database right now. If you are an administrator, please go to the admin panel to seed or create courses.
+                        It seems there are no courses in the database right now. Please check back later.
                     </CardDescription>
                 </CardHeader>
-                <CardContent>
+                 <CardContent>
                    <Link href="/admin/courses">
                         <Button>Go to Admin Panel</Button>
                    </Link>

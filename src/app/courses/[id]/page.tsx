@@ -81,7 +81,7 @@ export default function CoursePage() {
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true);
-      const courseData = await getCourse(params.id);
+      const courseData = getCourse(params.id);
       if (!courseData) {
         notFound();
         return;
@@ -157,7 +157,7 @@ export default function CoursePage() {
   
   const renderEnrollmentButton = () => {
     if (!user) {
-        return <Button size="lg" onClick={onEnrollClick}>Enroll Now for ₦{course.price.toLocaleString()}</Button>;
+        return <Button size="lg" onClick={onEnrollClick}>Enroll for Free</Button>;
     }
 
     if (isEnrolled) {
@@ -170,7 +170,7 @@ export default function CoursePage() {
     return (
         <Button size="lg" onClick={onEnrollClick} disabled={isEnrolling}>
             {isEnrolling && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {course.price > 0 ? `Enroll Now for ₦${course.price.toLocaleString()}` : 'Enroll for Free'}
+            Enroll for Free
         </Button>
     );
   };

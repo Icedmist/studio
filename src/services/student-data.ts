@@ -3,10 +3,9 @@
 
 // Service to manage student data in Firestore.
 import { db } from '@/lib/firebase';
-import { doc, getDoc, setDoc, updateDoc, collection, getDocs, writeBatch, serverTimestamp } from "firebase/firestore"; 
+import { doc, getDoc, setDoc, updateDoc, collection, getDocs } from "firebase/firestore"; 
 import type { StudentProgress, Course as CourseType } from '@/lib/types';
-import { getCourses } from './course-data';
-import { seedInitialCourses } from './seed-data';
+import { getCourse as getStaticCourse } from './course-data';
 
 /**
  * Fetches a student's progress from Firestore.
@@ -81,7 +80,7 @@ function calculateProgressMetrics(enrolledCourses: CourseType[]) {
 export async function enrollInCourse(userId: string, courseId: string): Promise<void> {
     if (!db) throw new Error("Firestore not initialized.");
 
-    const courseToEnroll = await getCourse(courseId);
+    const courseToEnroll = getStaticCourse(courseId);
     if (!courseToEnroll) throw new Error("Course not found.");
 
     const studentProgressRef = doc(db, "studentProgress", userId);

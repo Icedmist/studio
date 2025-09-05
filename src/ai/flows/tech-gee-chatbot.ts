@@ -48,7 +48,7 @@ const searchCoursesTool = ai.defineTool(
     })),
   },
   async ({ query }) => {
-    const courses = await getCourses();
+    const courses = getCourses();
     const lowerCaseQuery = query.toLowerCase();
     const matchingCourses = courses.filter(course => 
         course.title.toLowerCase().includes(lowerCaseQuery) ||

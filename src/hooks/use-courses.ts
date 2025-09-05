@@ -11,21 +11,17 @@ export function useCourses() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchCourses() {
-      try {
-        setIsLoading(true);
-        setError(null);
-        const courseData = await getCourses();
-        setCourses(courseData);
-      } catch (err: any) {
-        console.error("Failed to fetch courses:", err);
-        setError(err.message || 'An unknown error occurred.');
-      } finally {
-        setIsLoading(false);
-      }
+    try {
+      setIsLoading(true);
+      setError(null);
+      const courseData = getCourses();
+      setCourses(courseData);
+    } catch (err: any) {
+      console.error("Failed to fetch courses:", err);
+      setError(err.message || 'An unknown error occurred.');
+    } finally {
+      setIsLoading(false);
     }
-
-    fetchCourses();
   }, []);
 
   return { courses, isLoading, error };

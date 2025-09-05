@@ -1,12 +1,12 @@
 
-
 import { getCourses } from '@/services/course-data';
 import { getPosts } from '@/services/blog-data';
 import { getEvents } from '@/services/event-data';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Suspense } from 'react';
 import HomePageClient from './home-page-client';
-import type { Course, CourseCategory, PlainBlog, PlainEvent } from '@/lib/types';
+import type { Course, PlainBlog, PlainEvent, Instructor } from '@/lib/types';
+import { getInstructors } from '@/services/instructor-data';
 
 function HomePageSkeleton() {
     return (
@@ -26,42 +26,24 @@ function HomePageSkeleton() {
     )
 }
 
-// Function to select one featured course from each category
-async function getFeaturedCourses(allCourses: Course[]): Promise<Course[]> {
-    const featured: Course[] = [];
-    const categories = new Set<CourseCategory>();
-    const categoryOrder: CourseCategory[] = ['Futures Trading', 'Web3', 'AI & Machine Learning', 'Tech Skills', 'Crypto'];
-
-    for (const category of categoryOrder) {
-        if (categories.has(category)) continue;
-        const courseInCategory = allCourses.find(c => c.category === category);
-        if (courseInCategory) {
-            featured.push(courseInCategory);
-            categories.add(category);
-        }
-    }
-    
-    // Fill up to 5 courses if some categories were empty
-    let i = 0;
-    while(featured.length < 5 && i < allCourses.length) {
-        if (!featured.some(c => c.id === allCourses[i].id)) {
-            featured.push(allCourses[i]);
-        }
-        i++;
-    }
-
-    return featured.slice(0, 5);
-}
-
-// Wrapper component to use suspense and fetch all data for the homepage
 async function PageContent() {
-    const [courses, posts, events] = await Promise.all([
+    const [allCourses, posts, events, instructors] = await Promise.all([
         getCourses(),
         getPosts('published'),
         getEvents('upcoming'),
+        getInstructors(),
     ]);
     
-    const featuredCourses = await getFeaturedCourses(courses);
+    // Get one course from each category for the "Featured" section
+    const featuredCourses: Course[] = [];
+    const categories = new Set();
+    allCourses.forEach(course => {
+        if (!categories.has(course.category)) {
+            featuredCourses.push(course);
+            categories.add(course.category);
+        }
+    });
+
     const latestPosts: PlainBlog[] = posts.slice(0, 3).map(post => ({
         ...post,
         createdAt: post.createdAt.toDate().toISOString(),
@@ -73,10 +55,13 @@ async function PageContent() {
         date: event.date.toDate().toISOString(),
     }));
 
+    const featuredInstructors: Instructor[] = instructors.slice(0, 3);
+
     return <HomePageClient 
         courses={featuredCourses} 
         posts={latestPosts} 
         events={upcomingEvents}
+        instructors={featuredInstructors}
     />;
 }
 

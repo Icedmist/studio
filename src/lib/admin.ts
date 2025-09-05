@@ -1,4 +1,3 @@
 // This file contains the list of Firebase UIDs for users who should have admin privileges.
-// IMPORTANT: Replace "YOUR_UID_HERE" with your actual Firebase User UID.
-// You can find your UID in the Firebase Console under Authentication > Users.
+// IMPORTANT: This UID must match the one in your Firebase Console for the admin user.
 export const ADMIN_UIDS = ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];

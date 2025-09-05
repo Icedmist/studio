@@ -27,7 +27,7 @@ const RecommendCoursesOutputSchema = z.object({
 export type RecommendCoursesOutput = z.infer<typeof RecommendCoursesOutputSchema>;
 
 export async function recommendCourses(studentProgress: StudentProgress): Promise<Course[]> {
-   const allCourses = await getCourses();
+   const allCourses = getCourses();
    const input = { studentProgress, allCourses };
    const result = await recommendCoursesFlow(input);
    // The AI might recommend a course the user is already enrolled in, so we filter those out.
