@@ -9,11 +9,12 @@ export const Logo = ({ className }: { className?: string }) => (
                 <stop offset="100%" stopColor="hsl(var(--secondary))" />
             </linearGradient>
         </defs>
-        <path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" fill="url(#logo-grad)" fillOpacity="0.1" stroke="url(#logo-grad)" strokeWidth="1.5" strokeLinejoin="round"/>
-        <circle cx="12" cy="12" r="2.5" fill="url(#logo-grad)" />
-        <path d="M12 14.5V22" stroke="url(#logo-grad)" strokeWidth="1.5" strokeLinejoin="round"/>
-        <path d="M12 2V9.5" stroke="url(#logo-grad)" strokeWidth="1.5" strokeLinejoin="round"/>
-        <path d="M2 7L12 12L22 7" stroke="url(#logo-grad)" strokeWidth="1.5" strokeLinejoin="round"/>
+        <path d="M9 9V6.5C9 5.12 10.12 4 11.5 4C12.88 4 14 5.12 14 6.5V9" stroke="url(#logo-grad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M12.06 13.5L14 11.5" stroke="url(#logo-grad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M11.94 13.5L10 11.5" stroke="url(#logo-grad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M11.5 15.5C9.01 15.5 7 17.51 7 20H16C16 17.51 13.99 15.5 11.5 15.5Z" stroke="url(#logo-grad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M7 12.5C4.24 12.5 2 14.74 2 17.5H4" stroke="url(#logo-grad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M16 12.5C18.76 12.5 21 14.74 21 17.5H19" stroke="url(#logo-grad)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
     <span className="text-foreground">TechTradeHub</span>
   </div>
