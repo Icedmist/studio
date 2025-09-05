@@ -17,19 +17,15 @@ function CoursesPageSkeleton() {
                     Course Library
                 </h1>
             </div>
-            <p className="text-muted-foreground mb-12">
-                Loading our extensive catalog of courses... please wait.
-            </p>
-            <h2 className="text-2xl font-headline font-bold text-center mb-2">
-                <Skeleton className="h-8 w-1/3 mx-auto" />
-            </h2>
-            <div className="text-muted-foreground text-center mb-8">
-                 <Skeleton className="h-6 w-1/2 mx-auto" />
+            <div className="text-muted-foreground mb-12">
+                 <Skeleton className="h-6 w-1/2" />
             </div>
              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
                 {[...Array(6)].map((_, i) => (
                     <div key={i} className="flex flex-col h-full rounded-lg border bg-card p-6 space-y-4">
                         <Skeleton className="h-8 w-full mx-auto" />
+                        <Skeleton className="h-4 w-3/4" />
+                        <Skeleton className="h-4 w-1/2" />
                     </div>
                 ))}
             </div>
