@@ -13,6 +13,8 @@ import { EventCard } from '@/components/events/EventCard';
 import { AnimatedHeroText } from './page-client';
 import { motion } from 'framer-motion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { SampleCertificate } from '@/components/home/SampleCertificate';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
 const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -178,17 +180,24 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
                   </Card>
                 </motion.div>
                  <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} transition={{ delay: 0.3 }}>
-                   <Card className="bg-transparent border-0 shadow-none">
-                    <CardHeader className="items-center">
-                      <div className="p-3 rounded-full bg-rose-500/10 w-fit">
-                        <Sparkles className="w-6 h-6 text-rose-500" />
-                      </div>
-                      <CardTitle className="text-lg">Free For All</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">All our high-quality courses and resources are completely free to help you get started.</p>
-                    </CardContent>
-                  </Card>
+                   <Dialog>
+                        <DialogTrigger asChild>
+                            <Card className="bg-transparent border-0 shadow-none cursor-pointer hover:bg-card/50 transition-colors">
+                                <CardHeader className="items-center">
+                                <div className="p-3 rounded-full bg-rose-500/10 w-fit">
+                                    <Award className="w-6 h-6 text-rose-500" />
+                                </div>
+                                <CardTitle className="text-lg">Verifiable Certificates</CardTitle>
+                                </CardHeader>
+                                <CardContent>
+                                <p className="text-sm text-muted-foreground">Receive a verifiable certificate upon course completion to showcase your skills.</p>
+                                </CardContent>
+                            </Card>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-4xl p-0 border-0">
+                            <SampleCertificate />
+                        </DialogContent>
+                    </Dialog>
                  </motion.div>
             </div>
           </div>
@@ -361,5 +370,3 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
       </div>
     );
 }
-
-    
