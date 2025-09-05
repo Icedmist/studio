@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from "react";
@@ -14,6 +15,8 @@ import { isUserRegisteredForEvent } from "@/services/event-data";
 import { handleEventRegistration } from "@/app/actions/events";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { toDate } from "date-fns-tz";
+
 
 interface EventCardProps {
   event: PlainEvent;
@@ -48,7 +51,9 @@ export function EventCard({ event }: EventCardProps) {
         visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
     };
 
-    const eventDate = format(new Date(event.date), 'PPP');
+    // Fix for hydration error: Parse the date as UTC to ensure consistency
+    const utcDate = toDate(event.date, { timeZone: 'UTC' });
+    const eventDate = format(utcDate, 'PPP');
     
     const getStatusVariant = (status: PlainEvent['status']) => {
         switch (status) {
