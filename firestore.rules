@@ -3,67 +3,46 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // --- ADMIN CHECK ---
-    // This function checks if the requesting user's UID is in our list of admins.
+    function isAuth() {
+      return request.auth != null;
+    }
+
+    function isAuthOwner(userId) {
+      return isAuth() && request.auth.uid == userId;
+    }
+
     function isAdmin() {
-      // This list MUST match the UIDs in src/lib/admin.ts
-      return request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
+      return isAuth() && request.auth.uid in ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
     }
 
-    // --- PUBLIC-READ, ADMIN-WRITE COLLECTIONS ---
-    
-    match /courses/{courseId} {
-      // Anyone can read courses.
-      allow get, list: if true;
-      // Only authenticated admins can write (create, update, delete).
-      allow write: if request.auth != null && isAdmin();
+    // Public content: Courses, Events, Blog Posts, Instructors
+    // Anyone can read this data.
+    match /{collectionName}/{docId} where collectionName in ['courses', 'events', 'blogPosts', 'instructors'] {
+      allow read: if true;
+      allow write: if isAdmin();
     }
 
-    match /instructors/{instructorId} {
-      allow get, list: if true;
-      allow write: if request.auth != null && isAdmin();
-    }
-
-    match /blogPosts/{postId} {
-      allow get, list: if true;
-      allow write: if request.auth != null && isAdmin();
-    }
-
-    match /events/{eventId} {
-      allow get, list: if true;
-      allow write: if request.auth != null && isAdmin();
-    }
-    
-    // --- USER-SPECIFIC COLLECTIONS ---
-    
+    // User-specific data: Student Progress
+    // A user can read and write to their OWN progress document.
+    // Admins can read anyone's progress for the admin panel.
     match /studentProgress/{userId} {
-      // An admin can manage any user's progress.
-      // A user can only manage their own progress.
-      allow get, update, delete: if request.auth != null && (request.auth.uid == userId || isAdmin());
-      // Only admins can list all student progresses.
-      allow list: if request.auth != null && isAdmin();
-      // Any authenticated user can create their own progress document.
-      allow create: if request.auth != null && request.auth.uid == userId;
+      allow read: if isAuthOwner(userId) || isAdmin();
+      allow write: if isAuthOwner(userId);
     }
-
-    match /feedback/{feedbackId} {
-      // Any authenticated user can create feedback.
-      allow create: if request.auth != null;
-      // Only admins can read feedback.
-      allow read, list: if request.auth != null && isAdmin();
-      // No one can update or delete feedback.
-      allow update, delete: if false;
-    }
-
-    // --- Subcollections ---
     
+    // Feedback: Logged-in users can create feedback. Admins can read all feedback.
+    match /feedback/{feedbackId} {
+      allow read: if isAdmin();
+      allow create: if isAuth();
+    }
+
+    // Event Attendees: A subcollection
+    // Logged-in users can register themselves (create).
+    // Admins can view the attendee list (read).
     match /events/{eventId}/attendees/{userId} {
-      // Admins can see any attendee. A user can see their own registration.
-      allow get: if request.auth != null && (request.auth.uid == userId || isAdmin());
-      // Only admins can list all attendees for an event.
-      allow list: if request.auth != null && isAdmin();
-      // A user can register themselves, and an admin can manage any registration.
-      allow write: if request.auth != null && (request.auth.uid == userId || isAdmin());
+        allow read: if isAuthOwner(userId) || isAdmin();
+        allow create: if isAuthOwner(userId);
+        allow write, delete: if isAdmin();
     }
   }
 }
