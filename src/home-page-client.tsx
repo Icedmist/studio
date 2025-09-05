@@ -4,7 +4,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Award, Bot, BarChart, Library, Search, MessageSquare, Newspaper, User, CalendarDays, ArrowRight, ShieldCheck, Zap, Users } from 'lucide-react';
+import { Award, Bot, BarChart, Library, Search, MessageSquare, Newspaper, User, CalendarDays, ArrowRight, ShieldCheck, Zap, Users, Target } from 'lucide-react';
 import Link from 'next/link';
 import type { Course, PlainBlog, PlainEvent, Instructor } from '@/lib/types';
 import { CourseCard } from '@/components/courses/CourseCard';
@@ -75,9 +75,39 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
             </motion.div>
           </div>
         </section>
+        
+        {/* About Us Section */}
+        <section id="about-us" className="w-full py-20 md:py-24 bg-card/50 backdrop-blur-lg">
+            <div className="container mx-auto px-4">
+                <div className="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                         <div className="p-3 rounded-full bg-primary/10 w-fit mb-4">
+                            <Target className="w-8 h-8 text-primary" />
+                        </div>
+                        <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4">
+                            About TechTradeHub Academy
+                        </h2>
+                        <p className="text-muted-foreground mb-6">
+                            Founded with a vision to democratize elite tech and financial education, TechTradeHub Academy was born from a desire to bridge the skills gap in a rapidly evolving digital world. We believe that knowledge in cutting-edge fields like AI, Web3, and advanced trading should be accessible to everyone, everywhere.
+                        </p>
+                        <p className="text-muted-foreground mb-8">
+                            Our mission is to provide practical, affordable, and high-quality education in high-demand technology and finance sectors, enabling our students to achieve their career goals and drive innovation.
+                        </p>
+                        <Link href="/about">
+                            <Button variant="outline">
+                                Learn More About Us <ArrowRight className="ml-2 h-4 w-4" />
+                            </Button>
+                        </Link>
+                    </div>
+                    <div className="w-full h-80 bg-muted rounded-lg flex items-center justify-center">
+                        <Library className="w-24 h-24 text-muted-foreground" />
+                    </div>
+                </div>
+            </div>
+        </section>
 
         {/* Featured Courses Section */}
-        <section id="featured-courses" className="w-full py-20 md:py-24 bg-card/50 backdrop-blur-lg">
+        <section id="featured-courses" className="w-full py-20 md:py-24 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-4">
               Explore Our Top Courses
@@ -99,7 +129,7 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
         </section>
   
         {/* Why Choose Us Section */}
-        <section id="why-choose-us" className="w-full py-20 md:py-24 bg-background">
+        <section id="why-choose-us" className="w-full py-20 md:py-24 bg-card/50 backdrop-blur-lg">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12">
               Why Choose TechTradeHub?
@@ -149,7 +179,7 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
         </section>
 
         {/* Dynamic Content Section */}
-        <section className="w-full py-20 md:py-24 bg-card/50 backdrop-blur-lg">
+        <section className="w-full py-20 md:py-24 bg-background">
             <div className="container mx-auto px-4">
                  <div className="grid lg:grid-cols-2 gap-12">
                     {/* Upcoming Events */}
@@ -195,7 +225,7 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
         </section>
 
         {/* Meet the Team Section */}
-        <section id="team" className="w-full py-20 md:py-24 bg-background">
+        <section id="team" className="w-full py-20 md:py-24 bg-card/50 backdrop-blur-lg">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12">
               Meet the Instructors
@@ -233,7 +263,7 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
         </section>
   
         {/* Final CTA Section */}
-        <section className="w-full text-center py-20 md:py-32 bg-card/50 backdrop-blur-lg">
+        <section className="w-full text-center py-20 md:py-32 bg-background">
             <div className="container mx-auto px-4">
               <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4">Ready to Start Learning?</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
