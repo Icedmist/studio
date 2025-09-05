@@ -4,7 +4,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Award, Bot, BarChart, Library, Search, MessageSquare, Newspaper, User, CalendarDays, ArrowRight, ShieldCheck, Zap, Users, Target } from 'lucide-react';
+import { Award, Bot, BarChart, Library, Search, MessageSquare, Newspaper, User, CalendarDays, ArrowRight, ShieldCheck, Zap, Users, Target, BookHeart, Briefcase, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import type { Course, PlainBlog, PlainEvent, Instructor } from '@/lib/types';
 import { CourseCard } from '@/components/courses/CourseCard';
@@ -106,30 +106,8 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
             </div>
         </section>
 
-        {/* Featured Courses Section */}
-        <section id="featured-courses" className="w-full py-20 md:py-24 bg-background">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-4">
-              Explore Our Top Courses
-            </h2>
-            <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">
-              Hand-picked courses to help you get started on your learning journey, no matter your skill level.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-                {courses.map((course) => <CourseCard key={course.id} course={course} />)}
-            </div>
-             <div className="text-center mt-12">
-                <Link href="/courses">
-                    <Button variant="outline">
-                        View All Courses <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                </Link>
-            </div>
-          </div>
-        </section>
-  
         {/* Why Choose Us Section */}
-        <section id="why-choose-us" className="w-full py-20 md:py-24 bg-card/50 backdrop-blur-lg">
+        <section id="why-choose-us" className="w-full py-20 md:py-24 bg-background">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12">
               Why Choose TechTradeHub?
@@ -174,10 +152,71 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
                     </CardContent>
                   </Card>
                  </motion.div>
+                 <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} transition={{ delay: 0.1 }}>
+                  <Card className="bg-transparent border-0 shadow-none">
+                    <CardHeader className="items-center">
+                      <div className="p-3 rounded-full bg-purple-500/10 w-fit">
+                        <BookHeart className="w-8 h-8 text-purple-500" />
+                      </div>
+                      <CardTitle>Community Access</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">Join our exclusive WhatsApp and Telegram groups to network with peers and instructors.</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+                <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} transition={{ delay: 0.2 }}>
+                   <Card className="bg-transparent border-0 shadow-none">
+                    <CardHeader className="items-center">
+                      <div className="p-3 rounded-full bg-orange-500/10 w-fit">
+                        <Briefcase className="w-8 h-8 text-orange-500" />
+                      </div>
+                      <CardTitle>Career-Focused</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">Gain verifiable certificates and skills that are directly applicable to high-demand jobs.</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+                 <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} transition={{ delay: 0.3 }}>
+                   <Card className="bg-transparent border-0 shadow-none">
+                    <CardHeader className="items-center">
+                      <div className="p-3 rounded-full bg-rose-500/10 w-fit">
+                        <Sparkles className="w-8 h-8 text-rose-500" />
+                      </div>
+                      <CardTitle>Free For All</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground">All our high-quality courses and resources are completely free to help you get started.</p>
+                    </CardContent>
+                  </Card>
+                 </motion.div>
             </div>
           </div>
         </section>
 
+        {/* Featured Courses Section */}
+        <section id="featured-courses" className="w-full py-20 md:py-24 bg-card/50">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-4">
+              Explore Our Top Courses
+            </h2>
+            <p className="text-muted-foreground text-center max-w-2xl mx-auto mb-12">
+              Hand-picked courses to help you get started on your learning journey, no matter your skill level.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+                {courses.map((course) => <CourseCard key={course.id} course={course} />)}
+            </div>
+             <div className="text-center mt-12">
+                <Link href="/courses">
+                    <Button variant="outline">
+                        View All Courses <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                </Link>
+            </div>
+          </div>
+        </section>
+  
         {/* Dynamic Content Section */}
         <section className="w-full py-20 md:py-24 bg-background">
             <div className="container mx-auto px-4">
