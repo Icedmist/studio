@@ -15,7 +15,6 @@ import { isUserRegisteredForEvent } from "@/services/event-data";
 import { handleEventRegistration } from "@/app/actions/events";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { toDate } from "date-fns-tz";
 
 
 interface EventCardProps {
@@ -30,6 +29,14 @@ export function EventCard({ event }: EventCardProps) {
     const [isRegistered, setIsRegistered] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [isRegistering, setIsRegistering] = useState(false);
+    const [eventDate, setEventDate] = useState('');
+
+    useEffect(() => {
+        // This ensures date formatting happens only on the client, avoiding hydration mismatch.
+        // The date string is parsed and then formatted.
+        const date = new Date(event.date);
+        setEventDate(format(date, 'PPP'));
+    }, [event.date]);
 
     useEffect(() => {
         if (!user) {
@@ -50,10 +57,6 @@ export function EventCard({ event }: EventCardProps) {
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
     };
-
-    // Fix for hydration error: Parse the date as UTC to ensure consistency
-    const utcDate = toDate(event.date, { timeZone: 'UTC' });
-    const eventDate = format(utcDate, 'PPP');
     
     const getStatusVariant = (status: PlainEvent['status']) => {
         switch (status) {
@@ -140,7 +143,7 @@ export function EventCard({ event }: EventCardProps) {
                      <div className="text-sm text-muted-foreground space-y-2 mb-4">
                         <div className="flex items-center gap-2">
                             <Calendar className="w-4 h-4 shrink-0 text-primary"/>
-                            <span>{eventDate}</span>
+                            <span>{eventDate || <>&nbsp;</>}</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <MapPin className="w-4 h-4 shrink-0 text-primary"/>
