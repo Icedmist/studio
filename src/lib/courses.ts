@@ -15,13 +15,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-01/600/400',
-    modules: [
-      {
-        title: 'Core Concepts',
-        lessons: [{ title: 'Understanding Futures Contracts', content: 'Learn what a futures contract is, the concept of leverage, and the difference between hedging and speculating.', duration: '45m', completed: false }],
-        quiz: []
-      }
-    ],
+    modules: [{ title: 'Core Concepts', lessons: [{ title: 'Understanding Futures Contracts', content: 'Learn what a futures contract is, the concept of leverage, and the difference between hedging and speculating.', duration: '45m', completed: false }], quiz: [] }],
     finalAssessment: []
   },
   {
@@ -35,13 +29,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-02/600/400',
-    modules: [
-      {
-        title: 'Market Landscape',
-        lessons: [{ title: 'Commodities, Financials, and More', content: 'A deep dive into the various futures markets.', duration: '45m', completed: false }],
-        quiz: []
-      }
-    ],
+    modules: [{ title: 'Market Landscape', lessons: [{ title: 'Commodities, Financials, and More', content: 'A deep dive into the various futures markets.', duration: '45m', completed: false }], quiz: [] }],
     finalAssessment: []
   },
   {
@@ -55,13 +43,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-03/600/400',
-    modules: [
-      {
-        title: 'Starter Strategies',
-        lessons: [{ title: 'Trend Following and Range Trading', content: 'Learn two of the most fundamental approaches to trading the markets.', duration: '1h', completed: false }],
-        quiz: []
-      }
-    ],
+    modules: [{ title: 'Starter Strategies', lessons: [{ title: 'Trend Following and Range Trading', content: 'Learn two of the most fundamental approaches to trading the markets.', duration: '1h', completed: false }], quiz: [] }],
     finalAssessment: []
   },
   {
@@ -75,13 +57,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Emily Carter',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-04/600/400',
-    modules: [
-      {
-        title: 'Chart Reading 101',
-        lessons: [{ title: 'Candlesticks, Trends, and Indicators', content: 'Master the basics of reading charts.', duration: '1h', completed: false }],
-        quiz: []
-      }
-    ],
+    modules: [{ title: 'Chart Reading 101', lessons: [{ title: 'Candlesticks, Trends, and Indicators', content: 'Master the basics of reading charts.', duration: '1h', completed: false }], quiz: [] }],
     finalAssessment: []
   },
   {
@@ -95,13 +71,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Emily Carter',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-05/600/400',
-    modules: [
-      {
-        title: 'Beyond the Charts',
-        lessons: [{ title: 'Supply, Demand, and Economic Indicators', content: 'Understand the real-world factors that drive price.', duration: '50m', completed: false }],
-        quiz: []
-      }
-    ],
+    modules: [{ title: 'Beyond the Charts', lessons: [{ title: 'Supply, Demand, and Economic Indicators', content: 'Understand the real-world factors that drive price.', duration: '50m', completed: false }], quiz: [] }],
     finalAssessment: []
   },
   {
@@ -115,13 +85,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Aisha Bello',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-06/600/400',
-    modules: [
-      {
-        title: 'Protecting Your Capital',
-        lessons: [{ title: 'Stop-Losses and Position Sizing', content: 'Learn the two fundamental pillars of risk management.', duration: '45m', completed: false }],
-        quiz: []
-      }
-    ],
+    modules: [{ title: 'Protecting Your Capital', lessons: [{ title: 'Stop-Losses and Position Sizing', content: 'Learn the two fundamental pillars of risk management.', duration: '45m', completed: false }], quiz: [] }],
     finalAssessment: []
   },
   {
@@ -135,13 +99,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-07/600/400',
-    modules: [
-      {
-        title: 'The Inner Game',
-        lessons: [{ title: 'Conquering Fear and Greed', content: 'Learn to manage the emotions that lead to poor decisions.', duration: '45m', completed: false }],
-        quiz: []
-      }
-    ],
+    modules: [{ title: 'The Inner Game', lessons: [{ title: 'Conquering Fear and Greed', content: 'Learn to manage the emotions that lead to poor decisions.', duration: '45m', completed: false }], quiz: [] }],
     finalAssessment: []
   },
   {
@@ -155,13 +113,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-08/600/400',
-    modules: [
-      {
-        title: 'Tools of the Trade',
-        lessons: [{ title: 'Choosing and Navigating a Platform', content: 'Learn what to look for in a trading platform.', duration: '40m', completed: false }],
-        quiz: []
-      }
-    ],
+    modules: [{ title: 'Tools of the Trade', lessons: [{ title: 'Choosing and Navigating a Platform', content: 'Learn what to look for in a trading platform.', duration: '40m', completed: false }], quiz: [] }],
     finalAssessment: []
   },
   {
@@ -175,13 +127,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-09/600/400',
-    modules: [
-      {
-        title: 'Practice Arena',
-        lessons: [{ title: 'Trading Without Risk', content: 'Learn how to use a simulator to hone your skills.', duration: '1h', completed: false }],
-        quiz: []
-      }
-    ],
+    modules: [{ title: 'Practice Arena', lessons: [{ title: 'Trading Without Risk', content: 'Learn how to use a simulator to hone your skills.', duration: '1h', completed: false }], quiz: [] }],
     finalAssessment: []
   },
   {
@@ -195,13 +141,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-10/600/400',
-    modules: [
-      {
-        title: 'Your Trading Blueprint',
-        lessons: [{ title: 'Components of a Solid Plan', content: 'Learn what every successful trading plan must contain.', duration: '45m', completed: false }],
-        quiz: []
-      }
-    ],
+    modules: [{ title: 'Your Trading Blueprint', lessons: [{ title: 'Components of a Solid Plan', content: 'Learn what every successful trading plan must contain.', duration: '45m', completed: false }], quiz: [] }],
     finalAssessment: []
   },
   // Futures Trading - Intermediate
@@ -559,6 +499,219 @@ export const courses: Omit<Course, 'progress'>[] = [
     modules: [{title: 'The Developer\'s Toolkit', lessons: [{ title: 'Hardhat, Ethers.js, and More', content: 'An overview of the tools that power Web3 development.', duration: '1h', completed: false }], quiz: []}],
     finalAssessment: []
   },
+  // Web3 - Intermediate
+  {
+    id: 'web3-i-01',
+    title: 'Advanced Smart Contract Development',
+    description: 'Dive deeper into smart contract design patterns and optimization techniques.',
+    longDescription: 'Take your smart contract skills to the next level. This course covers advanced design patterns like upgradable contracts, the factory pattern, and state machine design. You\'ll also learn gas optimization techniques to make your contracts more efficient.',
+    category: 'Web3',
+    level: 'Intermediate',
+    duration: '15h',
+    instructor: 'Fatima Aliyu',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-i-01/600/400',
+    modules: [{title: 'Design Patterns', lessons: [{ title: 'Upgradable Contracts', content: 'Learn how to design smart contracts that can be updated over time.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-i-02',
+    title: 'Solidity Programming',
+    description: 'A comprehensive course on the Solidity language for Ethereum smart contracts.',
+    longDescription: 'Master the most popular language for smart contract development. This course provides a deep dive into Solidity, covering everything from basic syntax to advanced features like libraries, inheritance, and error handling.',
+    category: 'Web3',
+    level: 'Intermediate',
+    duration: '20h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-i-02/600/400',
+    modules: [{title: 'Solidity Deep Dive', lessons: [{ title: 'Advanced Data Structures', content: 'Learn about mappings, structs, and arrays in Solidity.', duration: '2.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-i-03',
+    title: 'Web3 Frontend Development',
+    description: 'Learn to build interactive frontends for dApps using libraries like Ethers.js and React.',
+    longDescription: 'Connect your web development skills to the blockchain. This course teaches you how to build a React frontend that can communicate with smart contracts, read data from the blockchain, and prompt users to sign transactions with their wallets.',
+    category: 'Web3',
+    level: 'Intermediate',
+    duration: '18h',
+    instructor: 'Emily Carter',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-i-03/600/400',
+    modules: [{title: 'Connecting to the Blockchain', lessons: [{ title: 'Using Ethers.js with React', content: 'Learn how to use the Ethers.js library to interact with the Ethereum blockchain from a React application.', duration: '2.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-i-04',
+    title: 'Blockchain Scalability',
+    description: 'Explore solutions to the blockchain scalability problem, including Layer 2 solutions.',
+    longDescription: 'As blockchains become more popular, scalability becomes a critical issue. This course explores the scalability trilemma and dives into solutions like Layer 2 rollups (Optimistic and ZK) and sharding, explaining how they promise to increase transaction throughput.',
+    category: 'Web3',
+    level: 'Intermediate',
+    duration: '12h',
+    instructor: 'Chinedu Okafor',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-i-04/600/400',
+    modules: [{title: 'Solving the Trilemma', lessons: [{ title: 'Layer 2 Rollups', content: 'Understand the difference between Optimistic and ZK-rollups.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-i-05',
+    title: 'DeFi Protocols',
+    description: 'A technical deep dive into how popular DeFi protocols like Uniswap and Aave work.',
+    longDescription: 'Look under the hood of Decentralized Finance. This course provides a technical breakdown of the smart contracts and economic models that power leading DeFi protocols, from automated market makers (AMMs) to lending platforms.',
+    category: 'Web3',
+    level: 'Intermediate',
+    duration: '16h',
+    instructor: 'Michael Adebayo',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-i-05/600/400',
+    modules: [{title: 'Inside DeFi', lessons: [{ title: 'Automated Market Makers (AMMs)', content: 'Learn the mechanics of how protocols like Uniswap enable decentralized trading.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-i-06',
+    title: 'NFT Marketplaces',
+    description: 'Learn the architecture and development of NFT marketplaces.',
+    longDescription: 'This course guides you through the process of building your own NFT marketplace. You\'ll learn about NFT standards (like ERC-721 and ERC-1155), how to create contracts for minting NFTs, and how to build a frontend to display and trade them.',
+    category: 'Web3',
+    level: 'Intermediate',
+    duration: '22h',
+    instructor: 'Emily Carter',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-i-06/600/400',
+    modules: [{title: 'Building an NFT Platform', lessons: [{ title: 'The ERC-721 Standard', content: 'A deep dive into the most common standard for unique NFTs.', duration: '2.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-i-07',
+    title: 'Web3 Security Audits',
+    description: 'Learn how to identify and fix common vulnerabilities in smart contracts.',
+    longDescription: 'Security is paramount in Web3. This course teaches you the mindset of a security auditor, covering common vulnerabilities like reentrancy attacks and integer overflows, and introducing you to tools and best practices for writing secure smart contracts.',
+    category: 'Web3',
+    level: 'Intermediate',
+    duration: '18h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-i-07/600/400',
+    modules: [{title: 'Thinking Like a Hacker', lessons: [{ title: 'Common Smart Contract Vulnerabilities', content: 'Learn to spot and prevent common security flaws.', duration: '2.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  // Web3 - Advanced
+  {
+    id: 'web3-a-01',
+    title: 'Zero-Knowledge Proofs',
+    description: 'An advanced course on the theory and application of Zero-Knowledge Proofs (ZKPs).',
+    longDescription: 'Explore one of the most exciting frontiers in cryptography. This course covers the mathematical foundations of ZKPs and their applications in creating scalable and private blockchain solutions, such as ZK-rollups.',
+    category: 'Web3',
+    level: 'Advanced',
+    duration: '25h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-a-01/600/400',
+    modules: [{title: 'The Future of Privacy', lessons: [{ title: 'Understanding ZKPs', content: 'A conceptual and mathematical introduction to Zero-Knowledge Proofs.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-a-02',
+    title: 'Layer 1 Blockchains',
+    description: 'A deep dive into the design and architecture of Layer 1 blockchains.',
+    longDescription: 'Go beyond just using blockchains and learn how they are built. This course covers the design considerations of Layer 1 protocols, including consensus mechanisms, networking, and governance, with case studies on different L1 architectures.',
+    category: 'Web3',
+    level: 'Advanced',
+    duration: '30h',
+    instructor: 'Chinedu Okafor',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-a-02/600/400',
+    modules: [{title: 'Building the Base Layer', lessons: [{ title: 'Consensus Algorithms Deep Dive', content: 'A detailed comparison of different consensus mechanisms.', duration: '3.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-a-03',
+    title: 'Web3 Interoperability',
+    description: 'Explore the challenges and solutions for making different blockchains communicate.',
+    longDescription: 'The future of Web3 is multi-chain. This course explores the topic of interoperability, covering different approaches to cross-chain communication, from bridges to protocols like the Cross-Chain Interoperability Protocol (CCIP).',
+    category: 'Web3',
+    level: 'Advanced',
+    duration: '20h',
+    instructor: 'Fatima Aliyu',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-a-03/600/400',
+    modules: [{title: 'The Multi-Chain Future', lessons: [{ title: 'Cross-Chain Bridges', content: 'Learn the architecture and security considerations of blockchain bridges.', duration: '2.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-a-04',
+    title: 'Decentralized Autonomous Organizations (DAOs)',
+    description: 'Learn to design, build, and govern DAOs.',
+    longDescription: 'DAOs represent a new form of internet-native organization. This course covers the technical aspects of building a DAO (smart contracts for voting and treasury management) and the social aspects of designing effective governance systems.',
+    category: 'Web3',
+    level: 'Advanced',
+    duration: '22h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-a-04/600/400',
+    modules: [{title: 'Internet-Native Organizations', lessons: [{ title: 'DAO Governance Models', content: 'Explore different approaches to decentralized decision-making.', duration: '2.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-a-05',
+    title: 'Advanced DeFi Strategies',
+    description: 'Explore complex DeFi strategies, including yield farming, arbitrage, and flash loans.',
+    longDescription: 'Become a DeFi power user. This course dives into advanced strategies for maximizing returns, including complex yield farming, cross-exchange arbitrage, and the powerful (and risky) world of flash loans.',
+    category: 'Web3',
+    level: 'Advanced',
+    duration: '28h',
+    instructor: 'Michael Adebayo',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-a-05/600/400',
+    modules: [{title: 'DeFi Power User', lessons: [{ title: 'Understanding Flash Loans', content: 'Learn the mechanics and use cases of uncollateralized loans.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-a-06',
+    title: 'Web3 and AI Integration',
+    description: 'Explore the powerful intersection of decentralized technologies and artificial intelligence.',
+    longDescription: 'Discover how AI can enhance Web3 and how Web3 can provide better infrastructure for AI. This course explores topics like decentralized AI models, on-chain machine learning, and using AI for smart contract auditing.',
+    category: 'Web3',
+    level: 'Advanced',
+    duration: '24h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-a-06/600/400',
+    modules: [{title: 'The Converging Future', lessons: [{ title: 'Decentralized AI', content: 'Explore concepts for training and running AI models on decentralized networks.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-a-07',
+    title: 'Regulatory Compliance in Web3',
+    description: 'Navigate the complex and evolving legal and regulatory landscape of Web3.',
+    longDescription: 'For founders and professionals. This course provides an overview of the current regulatory environment for cryptocurrencies, DeFi, and NFTs in major jurisdictions, covering topics like AML/KYC and securities law.',
+    category: 'Web3',
+    level: 'Advanced',
+    duration: '18h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-a-07/600/400',
+    modules: [{title: 'Navigating the Law', lessons: [{ title: 'AML/KYC in a Decentralized World', content: 'Explore the challenges and solutions for regulatory compliance.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-a-08',
+    title: 'Web3 Research',
+    description: 'Learn to conduct research and contribute to the cutting edge of Web3 innovation.',
+    longDescription: 'This course is for those who want to push the boundaries of what\'s possible in Web3. It covers how to read academic papers, identify open research problems, and structure a research project in the Web3 space.',
+    category: 'Web3',
+    level: 'Advanced',
+    duration: '26h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-a-08/600/400',
+    modules: [{title: 'Pushing the Frontier', lessons: [{ title: 'Reading Research Papers', content: 'Learn how to deconstruct and understand academic papers in the Web3 field.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  
   // --- Crypto ---
   // Beginner
   {
@@ -603,6 +756,317 @@ export const courses: Omit<Course, 'progress'>[] = [
     modules: [{title: 'Your First Transaction', lessons: [{ title: 'Using a Crypto Exchange', content: 'A step-by-step guide to buying crypto.', duration: '40m', completed: false }], quiz: []}],
     finalAssessment: []
   },
+  {
+    id: 'crypto-b-04',
+    title: 'Crypto Wallets',
+    description: 'Learn how to securely store your cryptocurrencies using different types of wallets.',
+    longDescription: 'Not your keys, not your coins. This course covers the critical topic of crypto storage, explaining the difference between hot wallets and cold wallets, and guiding you through best practices for keeping your assets safe.',
+    category: 'Crypto',
+    level: 'Beginner',
+    duration: '4h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-b-04/600/400',
+    modules: [{title: 'Securing Your Assets', lessons: [{ title: 'Hot vs. Cold Wallets', content: 'Understand the tradeoffs between convenience and security.', duration: '45m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-b-05',
+    title: 'Crypto Security',
+    description: 'Learn to protect your assets from scams, hacks, and other common threats.',
+    longDescription: 'The crypto space has unique security challenges. This course teaches you how to identify common scams, protect your private keys, use hardware wallets, and interact with DeFi protocols safely.',
+    category: 'Crypto',
+    level: 'Beginner',
+    duration: '5h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-b-05/600/400',
+    modules: [{title: 'Protecting Your Crypto', lessons: [{ title: 'Avoiding Common Scams', content: 'Learn to spot and avoid phishing attempts and other scams.', duration: '50m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-b-06',
+    title: 'Understanding Altcoins',
+    description: 'Explore the world of cryptocurrencies beyond Bitcoin, from Ethereum to meme coins.',
+    longDescription: 'There\'s a whole universe of cryptocurrencies beyond Bitcoin. This course provides an overview of different categories of altcoins, including smart contract platforms, DeFi tokens, and meme coins, helping you understand the diverse crypto landscape.',
+    category: 'Crypto',
+    level: 'Beginner',
+    duration: '6h',
+    instructor: 'Chinedu Okafor',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-b-06/600/400',
+    modules: [{title: 'Beyond Bitcoin', lessons: [{ title: 'Categories of Altcoins', content: 'Learn about different types of crypto projects.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-b-07',
+    title: 'Crypto Market Analysis',
+    description: 'A beginner\'s guide to analyzing the crypto market using basic tools and metrics.',
+    longDescription: 'Learn how to evaluate crypto projects. This course introduces basic market analysis techniques, including reading price charts, understanding market capitalization, and looking at on-chain data to make more informed decisions.',
+    category: 'Crypto',
+    level: 'Beginner',
+    duration: '7h',
+    instructor: 'Michael Adebayo',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-b-07/600/400',
+    modules: [{title: 'Evaluating Projects', lessons: [{ title: 'Market Cap and On-Chain Data', content: 'Learn basic metrics for analyzing cryptocurrencies.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-b-08',
+    title: 'ICO and Token Sales',
+    description: 'Understand how new crypto projects raise funds through Initial Coin Offerings (ICOs).',
+    longDescription: 'This course explains the process of how new crypto projects launch and distribute their tokens to the public. You\'ll learn about Initial Coin Offerings (ICOs), Initial DEX Offerings (IDOs), and the risks and opportunities involved.',
+    category: 'Crypto',
+    level: 'Beginner',
+    duration: '4h',
+    instructor: 'Fatima Aliyu',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-b-08/600/400',
+    modules: [{title: 'Project Fundraising', lessons: [{ title: 'Understanding Token Sales', content: 'Learn about different methods of token distribution.', duration: '40m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-b-09',
+    title: 'Crypto Regulations',
+    description: 'An overview of the current regulatory landscape for cryptocurrencies.',
+    longDescription: 'Navigate the complex world of crypto regulations. This course provides a high-level overview of how different countries are approaching cryptocurrency regulation, covering key topics like taxation and securities laws.',
+    category: 'Crypto',
+    level: 'Beginner',
+    duration: '4h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-b-09/600/400',
+    modules: [{title: 'The Legal Landscape', lessons: [{ title: 'Global Regulatory Approaches', content: 'An overview of how regulators are handling crypto.', duration: '40m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-b-10',
+    title: 'Building a Crypto Portfolio',
+    description: 'Learn basic principles for building and managing a diversified crypto portfolio.',
+    longDescription: 'This course covers the fundamentals of portfolio construction for crypto assets. You\'ll learn about diversification, risk management, and different strategies for allocating capital in the volatile crypto market.',
+    category: 'Crypto',
+    level: 'Beginner',
+    duration: '5h',
+    instructor: 'Tunde Adekunle',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-b-10/600/400',
+    modules: [{title: 'Your Crypto Holdings', lessons: [{ title: 'Diversification and Risk', content: 'Learn the importance of spreading your investments.', duration: '45m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  // Crypto - Intermediate
+  {
+    id: 'crypto-i-01',
+    title: 'Technical Analysis for Crypto',
+    description: 'Apply technical analysis techniques specifically to the volatile crypto markets.',
+    longDescription: 'Crypto markets have their own unique characteristics. This course adapts classical technical analysis for crypto, focusing on patterns and indicators that are particularly effective in this high-volatility environment.',
+    category: 'Crypto',
+    level: 'Intermediate',
+    duration: '15h',
+    instructor: 'Michael Adebayo',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-i-01/600/400',
+    modules: [{title: 'Charting Crypto', lessons: [{ title: 'Volatility and Indicators', content: 'Learn how to use indicators in volatile markets.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-i-02',
+    title: 'Fundamental Analysis',
+    description: 'Learn to evaluate crypto projects based on their technology, team, and tokenomics.',
+    longDescription: 'Go beyond the price charts and learn to value crypto projects based on their fundamentals. This course covers how to analyze a project\'s whitepaper, team, community, and tokenomics to assess its long-term potential.',
+    category: 'Crypto',
+    level: 'Intermediate',
+    duration: '14h',
+    instructor: 'Emily Carter',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-i-02/600/400',
+    modules: [{title: 'Valuing Projects', lessons: [{ title: 'Reading a Whitepaper', content: 'Learn to dissect a project\'s core document.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-i-03',
+    title: 'Crypto Trading Strategies',
+    description: 'Explore various strategies for trading cryptocurrencies, from swing trading to day trading.',
+    longDescription: 'This course provides a toolkit of trading strategies tailored for the crypto market. You\'ll learn about different approaches, including swing trading based on market cycles and short-term day trading strategies.',
+    category: 'Crypto',
+    level: 'Intermediate',
+    duration: '16h',
+    instructor: 'Tunde Adekunle',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-i-03/600/400',
+    modules: [{title: 'Trading Toolkits', lessons: [{ title: 'Swing and Day Trading Crypto', content: 'Learn strategies for different time horizons.', duration: '2.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-i-04',
+    title: 'Risk Management in Crypto',
+    description: 'Advanced risk management techniques for the highly volatile crypto market.',
+    longDescription: 'Volatility is a double-edged sword. This course covers advanced risk management techniques specifically for crypto, including strategies for position sizing in volatile assets and using derivatives to hedge your portfolio.',
+    category: 'Crypto',
+    level: 'Intermediate',
+    duration: '12h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-i-04/600/400',
+    modules: [{title: 'Managing Volatility', lessons: [{ title: 'Position Sizing for Crypto', content: 'Learn how to manage risk in a volatile market.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-i-05',
+    title: 'DeFi Investing',
+    description: 'Learn how to invest and generate yield using Decentralized Finance (DeFi) protocols.',
+    longDescription: 'Put your crypto to work. This course explores the world of DeFi investing, teaching you how to provide liquidity to decentralized exchanges, lend your assets on money markets, and participate in yield farming to generate returns on your crypto.',
+    category: 'Crypto',
+    level: 'Intermediate',
+    duration: '18h',
+    instructor: 'Michael Adebayo',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-i-05/600/400',
+    modules: [{title: 'Earning with DeFi', lessons: [{ title: 'Yield Farming and Liquidity Providing', content: 'Learn how to generate yield with your crypto.', duration: '2.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-i-06',
+    title: 'NFT Trading',
+    description: 'Learn strategies and techniques for trading and investing in NFTs.',
+    longDescription: 'The NFT market has its own unique dynamics. This course covers strategies for trading NFTs, including how to identify promising projects, understand rarity traits, and navigate the fast-paced world of NFT mints and secondary markets.',
+    category: 'Crypto',
+    level: 'Intermediate',
+    duration: '14h',
+    instructor: 'Emily Carter',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-i-06/600/400',
+    modules: [{title: 'The NFT Market', lessons: [{ title: 'Analyzing NFT Projects', content: 'Learn how to evaluate NFT projects for trading.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-i-07',
+    title: 'Crypto Tax Planning',
+    description: 'Understand the tax implications of crypto transactions and learn basic planning strategies.',
+    longDescription: 'This course provides a general overview of the tax implications of cryptocurrency transactions, including buying, selling, and earning income from crypto. You\'ll learn about the importance of record-keeping and basic strategies for tax planning.',
+    category: 'Crypto',
+    level: 'Intermediate',
+    duration: '8h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-i-07/600/400',
+    modules: [{title: 'Taxes and Crypto', lessons: [{ title: 'Understanding Crypto Taxation', content: 'A general guide to the tax implications of crypto.', duration: '1.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  // Crypto - Advanced
+  {
+    id: 'crypto-a-01',
+    title: 'Algorithmic Crypto Trading',
+    description: 'Design and deploy automated trading bots for the crypto markets.',
+    longDescription: 'Automate your crypto trading strategies. This course covers the end-to-end process of designing, backtesting, and deploying trading bots that can execute trades 24/7 on cryptocurrency exchanges.',
+    category: 'Crypto',
+    level: 'Advanced',
+    duration: '30h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-a-01/600/400',
+    modules: [{title: 'Crypto Bots', lessons: [{ title: 'Building a Trading Bot', content: 'Learn the architecture of an automated trading system.', duration: '3.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-a-02',
+    title: 'Quantitative Crypto Analysis',
+    description: 'Apply advanced quantitative and statistical models to the crypto markets.',
+    longDescription: 'Bring a scientific approach to your crypto analysis. This course covers advanced quantitative modeling techniques, including time series analysis and statistical arbitrage, applied specifically to crypto market data.',
+    category: 'Crypto',
+    level: 'Advanced',
+    duration: '28h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-a-02/600/400',
+    modules: [{title: 'Quant Crypto', lessons: [{ title: 'Time Series Analysis', content: 'Learn to model and forecast crypto prices.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-a-03',
+    title: 'Crypto Derivatives',
+    description: 'Master trading crypto derivatives, including futures, options, and perpetual swaps.',
+    longDescription: 'This course provides a deep dive into the world of crypto derivatives. You\'ll learn the mechanics of futures, options, and the popular perpetual swaps, and how to use them for speculation and hedging.',
+    category: 'Crypto',
+    level: 'Advanced',
+    duration: '24h',
+    instructor: 'Tunde Adekunle',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-a-03/600/400',
+    modules: [{title: 'Crypto Derivatives', lessons: [{ title: 'Understanding Perpetual Swaps', content: 'Learn the mechanics of this popular crypto derivative.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-a-04',
+    title: 'Advanced DeFi',
+    description: 'Explore the cutting edge of DeFi, including structured products and impermanent loss hedging.',
+    longDescription: 'Go beyond basic yield farming. This course explores the frontier of DeFi, covering topics like structured products, options vaults, and strategies for mitigating impermanent loss when providing liquidity.',
+    category: 'Crypto',
+    level: 'Advanced',
+    duration: '26h',
+    instructor: 'Michael Adebayo',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-a-04/600/400',
+    modules: [{title: 'DeFi Frontier', lessons: [{ title: 'Impermanent Loss Hedging', content: 'Learn strategies to protect against this key risk.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-a-05',
+    title: 'Crypto Arbitrage',
+    description: 'Learn to identify and execute arbitrage opportunities across different crypto exchanges.',
+    longDescription: 'Exploit price discrepancies in the crypto market. This course covers different types of arbitrage, including spatial arbitrage between exchanges and triangular arbitrage, and the technical requirements for executing these strategies.',
+    category: 'Crypto',
+    level: 'Advanced',
+    duration: '20h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-a-05/600/400',
+    modules: [{title: 'Market Inefficiencies', lessons: [{ title: 'Spatial and Triangular Arbitrage', content: 'Learn two common forms of crypto arbitrage.', duration: '2.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-a-06',
+    title: 'Blockchain Development',
+    description: 'Learn the fundamentals of designing and building your own blockchain protocol.',
+    longDescription: 'This course is a deep, technical dive into the architecture of blockchains. You\'ll learn about consensus mechanisms, peer-to-peer networking, and transaction processing, and work on a project to build a simplified blockchain from scratch.',
+    category: 'Crypto',
+    level: 'Advanced',
+    duration: '40h',
+    instructor: 'Chinedu Okafor',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-a-06/600/400',
+    modules: [{title: 'Building a Blockchain', lessons: [{ title: 'Consensus from Scratch', content: 'Implement a basic consensus algorithm.', duration: '4h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-a-07',
+    title: 'Crypto Security Audits',
+    description: 'Learn the professional process of auditing smart contracts and protocols for security vulnerabilities.',
+    longDescription: 'This course provides professional training in smart contract security. You\'ll learn the methodologies and tools used by professional auditors to conduct security reviews of smart contracts and DeFi protocols, culminating in writing a professional audit report.',
+    category: 'Crypto',
+    level: 'Advanced',
+    duration: '35h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-a-07/600/400',
+    modules: [{title: 'Professional Auditing', lessons: [{ title: 'The Auditing Process', content: 'Learn the step-by-step process of a security audit.', duration: '4h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-a-08',
+    title: 'Research in Cryptocurrency',
+    description: 'Explore the academic and research side of cryptocurrency and blockchain technology.',
+    longDescription: 'This course is for those interested in the academic frontier of cryptocurrency. You\'ll learn how to read, understand, and critique research papers in the field, and explore open research questions in areas like cryptography, consensus, and tokenomics.',
+    category: 'Crypto',
+    level: 'Advanced',
+    duration: '25h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-a-08/600/400',
+    modules: [{title: 'The Academic Frontier', lessons: [{ title: 'Reading Crypto Research', content: 'Learn to analyze academic papers in the field.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  
   // --- Tech Skills ---
   // Beginner
   {
@@ -633,6 +1097,331 @@ export const courses: Omit<Course, 'progress'>[] = [
     modules: [{title: 'Building the Web', lessons: [{ title: 'HTML, CSS, and JavaScript', content: 'Learn the three core languages of the web.', duration: '1.5h', completed: false }], quiz: []}],
     finalAssessment: []
   },
+  {
+    id: 'tech-b-03',
+    title: 'Data Structures and Algorithms',
+    description: 'Learn the fundamentals of data structures and algorithms, essential for any programmer.',
+    longDescription: 'This course provides a foundational understanding of data structures like arrays and linked lists, and algorithms for sorting and searching. It\'s a crucial topic for writing efficient code and passing technical interviews.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    duration: '12h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-b-03/600/400',
+    modules: [{title: 'Efficient Coding', lessons: [{ title: 'Arrays and Linked Lists', content: 'Learn about fundamental data structures.', duration: '1.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-b-04',
+    title: 'Database Management',
+    description: 'An introduction to databases and the SQL language for querying data.',
+    longDescription: 'Learn how data is stored, organized, and retrieved. This course introduces you to the concept of relational databases and teaches you the basics of SQL (Structured Query Language) to select, insert, update, and delete data from a database.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    duration: '7h',
+    instructor: 'Tunde Adekunle',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-b-04/600/400',
+    modules: [{title: 'Storing Data', lessons: [{ title: 'Introduction to SQL', content: 'Learn the basics of querying a database.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-b-05',
+    title: 'Version Control with Git',
+    description: 'Learn how to use Git and GitHub to manage code and collaborate with other developers.',
+    longDescription: 'Version control is an essential skill for any developer. This course teaches you how to use Git to track changes in your code and GitHub to collaborate with others, manage projects, and contribute to open source.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    duration: '6h',
+    instructor: 'Emily Carter',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-b-05/600/400',
+    modules: [{title: 'Collaboration in Code', lessons: [{ title: 'Git and GitHub Basics', content: 'Learn to commit, push, and pull changes.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-b-06',
+    title: 'Cloud Computing Basics',
+    description: 'An introduction to the fundamentals of cloud computing with services like AWS.',
+    longDescription: 'Understand what the cloud is and how it works. This course provides a high-level overview of cloud computing concepts and introduces you to core services from a major provider like Amazon Web Services (AWS).',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    duration: '5h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-b-06/600/400',
+    modules: [{title: 'The Cloud', lessons: [{ title: 'What is Cloud Computing?', content: 'Learn about IaaS, PaaS, and SaaS.', duration: '45m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-b-07',
+    title: 'Cybersecurity Essentials',
+    description: 'Understand common cyber threats and learn how to protect yourself and your data.',
+    longDescription: 'In today\'s digital world, cybersecurity is more important than ever. This course introduces you to the basics of digital security, covering topics like malware, phishing, strong passwords, and safe browsing habits to help you protect your personal information.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    duration: '6h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-b-07/600/400',
+    modules: [{title: 'Digital Safety', lessons: [{ title: 'Protecting Your Data', content: 'Learn about common threats and how to mitigate them.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-b-08',
+    title: 'Software Testing',
+    description: 'Learn the fundamentals of software testing and quality assurance.',
+    longDescription: 'Great software is reliable software. This course introduces the fundamentals of software testing, including different testing levels (unit, integration, system) and methodologies to ensure software quality.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    duration: '7h',
+    instructor: 'Nasir Ibrahim Imam',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-b-08/600/400',
+    modules: [{title: 'Ensuring Quality', lessons: [{ title: 'Types of Testing', content: 'Learn about unit, integration, and system testing.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-b-09',
+    title: 'Agile Methodology',
+    description: 'An introduction to Agile and Scrum for software development project management.',
+    longDescription: 'Learn how modern software teams work. This course provides an introduction to the Agile methodology and the Scrum framework, covering concepts like sprints, user stories, and daily stand-ups.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    duration: '4h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-b-09/600/400',
+    modules: [{title: 'Modern Teamwork', lessons: [{ title: 'Introduction to Scrum', content: 'Learn about sprints, roles, and ceremonies.', duration: '40m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-b-10',
+    title: 'Tech Career Development',
+    description: 'A guide to building a resume, portfolio, and preparing for tech interviews.',
+    longDescription: 'Landing a job in tech requires more than just technical skills. This course guides you through building a compelling portfolio, writing an effective resume, and preparing for technical and behavioral interviews.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    duration: '5h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-b-10/600/400',
+    modules: [{title: 'Landing the Job', lessons: [{ title: 'Building Your Portfolio', content: 'Learn how to showcase your projects effectively.', duration: '45m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  // Tech Skills - Intermediate
+  {
+    id: 'tech-i-01',
+    title: 'Advanced Programming',
+    description: 'Explore advanced programming concepts like concurrency, and design patterns.',
+    longDescription: 'Go beyond the basics of a single programming language. This course covers advanced, language-agnostic concepts like object-oriented design patterns, concurrency, and performance optimization that are applicable across many languages.',
+    category: 'Tech Skills',
+    level: 'Intermediate',
+    duration: '18h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-i-01/600/400',
+    modules: [{title: 'Programming Mastery', lessons: [{ title: 'Design Patterns', content: 'Learn about common software design patterns.', duration: '2.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-i-02',
+    title: 'Full-Stack Development',
+    description: 'Learn to build complete web applications, from the database to the user interface.',
+    longDescription: 'Become a versatile developer. This course covers the entire stack, teaching you how to build a backend with Node.js, a database with PostgreSQL, and a frontend with React, and how to connect them all to create a complete web application.',
+    category: 'Tech Skills',
+    level: 'Intermediate',
+    duration: '30h',
+    instructor: 'Emily Carter',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-i-02/600/400',
+    modules: [{title: 'End-to-End Development', lessons: [{ title: 'Building a REST API', content: 'Learn to build a backend API with Node.js.', duration: '3.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-i-03',
+    title: 'DevOps Practices',
+    description: 'Learn the principles and tools of DevOps, including CI/CD and containerization.',
+    longDescription: 'Bridge the gap between development and operations. This course introduces DevOps culture and practices, covering essential tools like Docker for containerization and Jenkins for building CI/CD pipelines.',
+    category: 'Tech Skills',
+    level: 'Intermediate',
+    duration: '20h',
+    instructor: 'Nasir Ibrahim Imam',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-i-03/600/400',
+    modules: [{title: 'Automating Deployments', lessons: [{ title: 'CI/CD Pipelines', content: 'Learn how to automate testing and deployment.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-i-04',
+    title: 'Machine Learning Basics',
+    description: 'A practical introduction to machine learning for developers.',
+    longDescription: 'This course is designed for developers who want to get into machine learning. It focuses on the practical application of ML, teaching you how to use libraries like Scikit-learn and TensorFlow to build and train models for real-world problems.',
+    category: 'Tech Skills',
+    level: 'Intermediate',
+    duration: '25h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-i-04/600/400',
+    modules: [{title: 'Practical Machine Learning', lessons: [{ title: 'Building Predictive Models', content: 'Learn to build classification and regression models.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-i-05',
+    title: 'Big Data Analytics',
+    description: 'Learn to work with large datasets using tools like Spark and Hadoop.',
+    longDescription: 'The world is generating more data than ever. This course introduces you to the world of big data, covering the concepts of distributed computing and teaching you how to use frameworks like Apache Spark to process and analyze massive datasets.',
+    category: 'Tech Skills',
+    level: 'Intermediate',
+    duration: '22h',
+    instructor: 'Tunde Adekunle',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-i-05/600/400',
+    modules: [{title: 'Handling Big Data', lessons: [{ title: 'Introduction to Spark', content: 'Learn the fundamentals of the Spark framework.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-i-06',
+    title: 'API Development',
+    description: 'Learn to design and build robust and scalable RESTful APIs.',
+    longDescription: 'APIs are the backbone of modern software. This course teaches you how to design, build, and document RESTful APIs using best practices, covering topics like authentication, rate limiting, and versioning.',
+    category: 'Tech Skills',
+    level: 'Intermediate',
+    duration: '18h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-i-06/600/400',
+    modules: [{title: 'Building APIs', lessons: [{ title: 'RESTful API Design', content: 'Learn the principles of designing clean and effective APIs.', duration: '2.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-i-07',
+    title: 'Mobile App Development',
+    description: 'An introduction to building mobile apps for iOS and Android using cross-platform frameworks.',
+    longDescription: 'Learn to build apps for billions of users. This course provides an introduction to mobile app development using a cross-platform framework like React Native, allowing you to write code once and deploy it to both iOS and Android.',
+    category: 'Tech Skills',
+    level: 'Intermediate',
+    duration: '28h',
+    instructor: 'Emily Carter',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-i-07/600/400',
+    modules: [{title: 'Building Mobile Apps', lessons: [{ title: 'Introduction to React Native', content: 'Learn the basics of building cross-platform mobile apps.', duration: '3.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  // Tech Skills - Advanced
+  {
+    id: 'tech-a-01',
+    title: 'Distributed Systems',
+    description: 'Learn the principles of designing and building scalable and resilient distributed systems.',
+    longDescription: 'This course covers the fundamental concepts and challenges of building distributed systems, including topics like consensus, replication, and fault tolerance. It\'s essential for anyone working on large-scale applications.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    duration: '35h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-a-01/600/400',
+    modules: [{title: 'Building Scalable Systems', lessons: [{ title: 'Consensus Algorithms', content: 'Learn about algorithms like Paxos and Raft.', duration: '4h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-a-02',
+    title: 'Artificial Intelligence',
+    description: 'A deep dive into advanced AI concepts, including search algorithms and knowledge representation.',
+    longDescription: 'This course goes beyond machine learning to cover classical AI topics, including heuristic search algorithms, knowledge representation, and planning, providing a comprehensive understanding of the field of artificial intelligence.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    duration: '40h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-a-02/600/400',
+    modules: [{title: 'Classical AI', lessons: [{ title: 'Search Algorithms', content: 'Learn about algorithms like A* search.', duration: '4.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-a-03',
+    title: 'Blockchain Development',
+    description: 'Learn the fundamentals of designing and building your own blockchain protocol.',
+    longDescription: 'This course is a deep, technical dive into the architecture of blockchains. You\'ll learn about consensus mechanisms, peer-to-peer networking, and transaction processing, and work on a project to build a simplified blockchain from scratch.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    duration: '40h',
+    instructor: 'Chinedu Okafor',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-a-03/600/400',
+    modules: [{title: 'Building a Blockchain', lessons: [{ title: 'Consensus from Scratch', content: 'Implement a basic consensus algorithm.', duration: '4h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-a-04',
+    title: 'Quantum Computing',
+    description: 'An introduction to the mind-bending world of quantum computing.',
+    longDescription: 'Explore the future of computation. This course provides a conceptual introduction to quantum computing, covering topics like qubits, superposition, and entanglement, and looking at the potential impact of this revolutionary technology.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    duration: '20h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-a-04/600/400',
+    modules: [{title: 'The Quantum Realm', lessons: [{ title: 'Qubits and Superposition', content: 'Learn the fundamental concepts of quantum computing.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-a-05',
+    title: 'Cybersecurity Advanced',
+    description: 'Advanced topics in cybersecurity, including penetration testing and threat intelligence.',
+    longDescription: 'This course is for those looking to specialize in cybersecurity. It covers advanced topics like ethical hacking, penetration testing methodologies, and cyber threat intelligence to proactively defend against attacks.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    duration: '35h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-a-05/600/400',
+    modules: [{title: 'Ethical Hacking', lessons: [{ title: 'Penetration Testing', content: 'Learn the process of professional penetration testing.', duration: '4h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-a-06',
+    title: 'Data Engineering',
+    description: 'Learn to design, build, and manage robust and scalable data pipelines.',
+    longDescription: 'Data engineering is the foundation of data science. This course covers the principles and practices of data engineering, including data modeling, ETL processes, and building scalable data pipelines to support analytics and machine learning.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    duration: '30h',
+    instructor: 'Tunde Adekunle',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-a-06/600/400',
+    modules: [{title: 'Building Data Pipelines', lessons: [{ title: 'ETL Processes', content: 'Learn about Extract, Transform, Load pipelines.', duration: '3.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-a-07',
+    title: 'Tech Leadership',
+    description: 'Develop the skills to lead and manage high-performing engineering teams.',
+    longDescription: 'This course is for developers looking to move into leadership roles. It covers topics like project management, effective communication, team building, and navigating the challenges of technical leadership.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    duration: '15h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-a-07/600/400',
+    modules: [{title: 'Leading Engineers', lessons: [{ title: 'Managing Technical Teams', content: 'Learn the skills needed to lead a team.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-a-08',
+    title: 'Research in Technology',
+    description: 'Learn how to conduct research and contribute to the cutting edge of technology.',
+    longDescription: 'This course is for those who want to push the boundaries of technology. It covers how to read academic papers, identify open research problems, and structure a research project to contribute to the field.',
+    category: 'Tech Skills',
+    level: 'Advanced',
+    duration: '25h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-a-08/600/400',
+    modules: [{title: 'Pushing the Frontier', lessons: [{ title: 'The Research Process', content: 'Learn to structure and conduct research.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+
   // --- AI & Machine Learning ---
   // Beginner
   {
@@ -663,124 +1452,328 @@ export const courses: Omit<Course, 'progress'>[] = [
     modules: [{title: 'Teaching Machines', lessons: [{ title: 'Supervised vs. Unsupervised Learning', content: 'Understand the key difference between learning with labeled and unlabeled data.', duration: '1h', completed: false }], quiz: []}],
     finalAssessment: []
   },
-    {
-        id: 'tech-008',
-        title: "Advanced CSS and UI/UX Design",
-        description: "Master modern CSS techniques like Flexbox, Grid, and animations to create beautiful, responsive interfaces.",
-        longDescription: "Go beyond the basics of CSS. This course covers advanced layout techniques, responsive design principles, CSS animations, and best practices for creating intuitive and visually appealing user interfaces. You'll learn how to think like a designer and build professional-grade frontends.",
-        category: "Tech Skills",
-        level: "Intermediate",
-        duration: "10h",
-        instructor: "Emily Carter",
-        price: 0,
-        imageUrl: 'https://picsum.photos/seed/tech-008/600/400',
-        modules: [
-            {
-                title: "Mastering Flexbox & Grid",
-                lessons: [{ title: "Deep Dive into Modern Layouts", content: "Flexbox is designed for one-dimensional layouts, and Grid is for two-dimensional layouts. Understanding when to use each is key to efficient and clean CSS. We'll cover properties like `justify-content`, `align-items`, `grid-template-columns`, and more.", duration: "2h", completed: false }],
-                quiz: [{ questionText: "Which CSS property is used for 1D layouts?", options: ["Grid", "Flexbox", "Float"], correctAnswerIndex: 1 }]
-            }
-        ],
-        finalAssessment: [{ questionText: "What is the primary purpose of media queries?", options: ["To query APIs", "For responsive design", "To animate elements"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'tech-009',
-        title: "Full-Stack Web Development with Next.js",
-        description: "Build and deploy production-ready, full-stack web applications using the power of Next.js and React.",
-        longDescription: "Become a full-stack developer with this comprehensive course on Next.js. You'll learn about server-side rendering, static site generation, API routes, data fetching strategies, and connecting to a database. We'll build a complete project from scratch and deploy it to the web.",
-        category: "Tech Skills",
-        level: "Advanced",
-        duration: "25h",
-        instructor: "David Lee",
-        price: 0,
-        imageUrl: 'https://picsum.photos/seed/tech-009/600/400',
-        modules: [
-            {
-                title: "Next.js Fundamentals",
-                lessons: [{ title: "App Router and Server Components", content: "The Next.js App Router paradigm shifts focus to Server Components by default, which reduces the amount of JavaScript sent to the client and improves performance. We will explore how to fetch data directly in components and create a seamless user experience.", duration: "3h", completed: false }],
-                quiz: [{ questionText: "The App Router uses which React feature heavily?", options: ["Class Components", "Server Components", "Mixins"], correctAnswerIndex: 1 }]
-            }
-        ],
-        finalAssessment: [{ questionText: "What is a key benefit of Server-Side Rendering (SSR)?", options: ["Faster database queries", "Improved SEO and initial load time", "Easier CSS styling"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'futures-011',
-        title: "Advanced Chart Patterns & Strategies",
-        description: "Identify high-probability trade setups by mastering advanced technical analysis and chart patterns.",
-        longDescription: "Take your technical analysis to the next level. This course dives deep into complex chart patterns like Head and Shoulders, Flags, and Pennants. You'll learn to combine these patterns with indicators like MACD and RSI to develop robust trading strategies.",
-        category: "Futures Trading",
-        level: "Intermediate",
-        duration: "15h",
-        instructor: "Michael Adebayo",
-        price: 0,
-        imageUrl: "https://picsum.photos/seed/futures-011/600/400",
-        modules: [
-            {
-                title: "Complex Chart Patterns",
-                lessons: [{ title: "Head and Shoulders, Flags, and Triangles", content: "The Head and Shoulders pattern is a reliable trend reversal indicator. It consists of three peaks, with the central peak (the head) being the highest. This pattern signals that an upward trend is nearing its end.", duration: "2h", completed: false }],
-                quiz: [{ questionText: "A 'Head and Shoulders' pattern is typically a:", options: ["Continuation pattern", "Reversal pattern", "Sideways pattern"], correctAnswerIndex: 1 }]
-            }
-        ],
-        finalAssessment: [{ questionText: "What does the RSI indicator measure?", options: ["Market volume", "Overbought/oversold conditions", "Market volatility"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'web3-014',
-        title: "Building Smart Contracts with Solidity",
-        description: "Learn the Solidity programming language from scratch and start building your own smart contracts on Ethereum.",
-        longDescription: "This course is a practical guide to Solidity, the most popular language for Ethereum smart contracts. You'll learn about data types, functions, contract inheritance, and security best practices. We'll write, test, and deploy several smart contracts together.",
-        category: "Web3",
-        level: "Intermediate",
-        duration: "18h",
-        instructor: "Fatima Aliyu",
-        price: 0,
-        imageUrl: "https://picsum.photos/seed/web3-014/600/400",
-        modules: [
-            {
-                title: "Solidity Basics",
-                lessons: [{ title: "Variables, Functions, and Modifiers", content: "Solidity is a statically-typed language designed for implementing smart contracts. Key concepts include state variables that are permanently stored in contract storage, functions that can modify these variables, and modifiers that can change the behavior of functions.", duration: "2h", completed: false }],
-                quiz: [{ questionText: "What is the primary language for Ethereum smart contracts?", options: ["JavaScript", "Python", "Solidity"], correctAnswerIndex: 2 }]
-            }
-        ],
-        finalAssessment: [{ questionText: "What does 'gas' refer to on the Ethereum network?", options: ["The fuel for the network", "A type of token", "The cost of executing a transaction"], correctAnswerIndex: 2 }]
-    },
-    {
-        id: 'crypto-001',
-        title: "Cryptocurrency Essentials: Bitcoin & Beyond",
-        description: "A complete introduction to cryptocurrencies, from understanding Bitcoin to exploring different altcoins.",
-        longDescription: "New to crypto? This course is for you. We'll cover the history of Bitcoin, how transactions work, what wallets are, and how to securely buy and store cryptocurrencies. We'll also explore the landscape of altcoins and different crypto categories.",
-        category: "Crypto",
-        level: "Beginner",
-        duration: "5h",
-        instructor: "Chinedu Okafor",
-        price: 0,
-        imageUrl: "https://picsum.photos/seed/crypto-001/600/400",
-        modules: [
-            {
-                title: "Bitcoin Fundamentals",
-                lessons: [{ title: "How Bitcoin Works", content: "Bitcoin is a decentralized digital currency that can be sent from user to user on the peer-to-peer bitcoin network without the need for intermediaries. Transactions are verified by network nodes through cryptography and recorded in a public distributed ledger called a blockchain.", duration: "1h", completed: false }],
-                quiz: [{ questionText: "Who is the pseudonymous creator of Bitcoin?", options: ["Vitalik Buterin", "Satoshi Nakamoto", "Charles Hoskinson"], correctAnswerIndex: 1 }]
-            }
-        ],
-        finalAssessment: [{ questionText: "What is a 'private key' used for in crypto?", options: ["To receive funds", "To sign transactions and access your funds", "To view your public address"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'ai-009',
-        title: "Deep Learning and Neural Networks",
-        description: "An advanced course on deep learning architectures, including CNNs for images and RNNs for sequences.",
-        longDescription: "Master the art of deep learning. This course covers the theory and practice behind neural networks, including Convolutional Neural Networks (CNNs) for image recognition and Recurrent Neural Networks (RNNs) for text and time-series data. You'll build and train complex models using TensorFlow or PyTorch.",
-        category: "AI & Machine Learning",
-        level: "Advanced",
-        duration: "30h",
-        instructor: "Dr. Anya Sharma",
-        price: 0,
-        imageUrl: "https://picsum.photos/seed/ai-009/600/400",
-        modules: [
-            {
-                title: "Convolutional Neural Networks (CNNs)",
-                lessons: [{ title: "Image Recognition with CNNs", content: "CNNs are a class of artificial neural networks, most commonly applied to analyze visual imagery. They are particularly good at identifying patterns in images, which makes them powerful for tasks like object detection and image classification.", duration: "3h", completed: false }],
-                quiz: [{ questionText: "CNNs are particularly effective for which type of data?", options: ["Tabular data", "Text data", "Image data"], correctAnswerIndex: 2 }]
-            }
-        ],
-        finalAssessment: [{ questionText: "What is 'backpropagation'?", options: ["A data preprocessing technique", "The algorithm for training neural networks", "A type of network layer"], correctAnswerIndex: 1 }]
-    }
+  {
+    id: 'ai-b-03',
+    title: 'Python for AI',
+    description: 'Learn the Python programming skills necessary for AI and Machine Learning.',
+    longDescription: 'Python is the language of AI. This course is designed for those new to Python, teaching the specific skills and libraries, like NumPy and Pandas, that are essential for working with data and building machine learning models.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    duration: '10h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-b-03/600/400',
+    modules: [{title: 'The Language of AI', lessons: [{ title: 'NumPy and Pandas', content: 'Learn the two most important libraries for data science in Python.', duration: '1.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-b-04',
+    title: 'Data Preprocessing',
+    description: 'Learn the crucial step of cleaning and preparing data for machine learning models.',
+    longDescription: 'Garbage in, garbage out. This course covers the essential and often overlooked step of data preprocessing. You\'ll learn techniques for cleaning messy data, handling missing values, and transforming features to prepare your data for machine learning.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    duration: '8h',
+    instructor: 'Tunde Adekunle',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-b-04/600/400',
+    modules: [{title: 'Preparing Your Data', lessons: [{ title: 'Handling Missing Data', content: 'Learn different strategies for dealing with missing values.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-b-05',
+    title: 'Supervised Learning',
+    description: 'A practical guide to supervised learning algorithms like regression and classification.',
+    longDescription: 'This course provides a hands-on introduction to supervised learning. You\'ll learn about and implement two of the most common types of models: regression models for predicting continuous values and classification models for predicting categories.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    duration: '12h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-b-05/600/400',
+    modules: [{title: 'Learning from Labels', lessons: [{ title: 'Regression and Classification', content: 'Learn the two main types of supervised learning.', duration: '1.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-b-06',
+    title: 'Unsupervised Learning',
+    description: 'Explore algorithms for finding hidden patterns in data, like clustering.',
+    longDescription: 'What if your data has no labels? This course introduces unsupervised learning, focusing on clustering algorithms that can automatically group similar data points together to reveal hidden structures and patterns.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    duration: '10h',
+    instructor: 'Tunde Adekunle',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-b-06/600/400',
+    modules: [{title: 'Finding Patterns', lessons: [{ title: 'Clustering Algorithms', content: 'Learn how algorithms like K-Means can find groups in data.', duration: '1.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-b-07',
+    title: 'Neural Networks Basics',
+    description: 'A simple introduction to the concept of neural networks and deep learning.',
+    longDescription: 'Deep learning powers some of the most exciting AI applications today. This course provides a high-level, intuitive explanation of neural networks, the building blocks of deep learning. You\'ll understand what they are and how they \'learn\' without getting bogged down in heavy mathematics.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    duration: '5h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-b-07/600/400',
+    modules: [{title: 'The Neural Network', lessons: [{ title: 'What is a Neuron?', content: 'Learn the basic concept of a neuron as a computational unit that processes inputs and produces an output, inspired by the human brain.', duration: '30m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-b-08',
+    title: 'AI Ethics',
+    description: 'An essential introduction to the ethical considerations and challenges of building AI.',
+    longDescription: 'With great power comes great responsibility. This crucial course introduces the topic of AI ethics, focusing on how unintended bias in data and algorithms can lead to unfair outcomes. You\'ll learn to think critically about the societal impact of the AI systems you build.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    duration: '4h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-b-08/600/400',
+    modules: [{title: 'Fairness in AI', lessons: [{ title: 'Understanding and Identifying Bias', content: 'Learn about the different types of bias that can creep into machine learning models and the real-world consequences.', duration: '30m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-b-09',
+    title: 'AI Tools',
+    description: 'An overview of popular AI and Machine Learning libraries and frameworks.',
+    longDescription: 'This course provides a high-level tour of the modern AI toolkit. You\'ll get an overview of the most popular libraries and frameworks, like Scikit-learn, TensorFlow, and PyTorch, understanding what each one is used for and how they fit into the ecosystem.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    duration: '6h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-b-09/600/400',
+    modules: [{title: 'The AI Toolkit', lessons: [{ title: 'Scikit-learn, TensorFlow, and PyTorch', content: 'An overview of the major ML frameworks.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-b-10',
+    title: 'Building ML Models',
+    description: 'A step-by-step guide to the complete machine learning workflow.',
+    longDescription: 'This course takes you through the entire process of building a machine learning model, from defining the problem and gathering data to training a model, evaluating its performance, and interpreting the results. It provides a complete end-to-end perspective.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    duration: '12h',
+    instructor: 'Tunde Adekunle',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-b-10/600/400',
+    modules: [{title: 'The ML Workflow', lessons: [{ title: 'From Data to Model', content: 'Learn the end-to-end process of a machine learning project.', duration: '1.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  // AI & Machine Learning - Intermediate
+  {
+    id: 'ai-i-01',
+    title: 'Deep Learning',
+    description: 'A deep dive into deep learning architectures, including CNNs and RNNs.',
+    longDescription: 'Master the art of deep learning. This course covers the theory and practice behind neural networks, including Convolutional Neural Networks (CNNs) for image recognition and Recurrent Neural Networks (RNNs) for text and time-series data.',
+    category: 'AI & Machine Learning',
+    level: 'Intermediate',
+    duration: '30h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-i-01/600/400',
+    modules: [{title: 'Deep Architectures', lessons: [{ title: 'CNNs and RNNs', content: 'Learn about two of the most important deep learning architectures.', duration: '3.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-i-02',
+    title: 'Natural Language Processing',
+    description: 'Learn to build models that can understand and process human language.',
+    longDescription: 'This course is your gateway to Natural Language Processing (NLP). You\'ll learn techniques for processing text data, building language models, and performing tasks like sentiment analysis and text classification.',
+    category: 'AI & Machine Learning',
+    level: 'Intermediate',
+    duration: '25h',
+    instructor: 'Emily Carter',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-i-02/600/400',
+    modules: [{title: 'Understanding Language', lessons: [{ title: 'Text Preprocessing and Embeddings', content: 'Learn how to prepare text data for machine learning.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-i-03',
+    title: 'Computer Vision',
+    description: 'Learn to build models that can "see" and interpret images and videos.',
+    longDescription: 'This course provides a comprehensive introduction to computer vision. You\'ll learn how to use deep learning models like Convolutional Neural Networks (CNNs) for tasks such as image classification, object detection, and image segmentation.',
+    category: 'AI & Machine Learning',
+    level: 'Intermediate',
+    duration: '28h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-i-03/600/400',
+    modules: [{title: 'Teaching Machines to See', lessons: [{ title: 'Image Classification with CNNs', content: 'Learn to build a model that can classify images.', duration: '3.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-i-04',
+    title: 'Reinforcement Learning',
+    description: 'Explore the exciting field of reinforcement learning, where agents learn through trial and error.',
+    longDescription: 'This course introduces the third paradigm of machine learning: reinforcement learning. You\'ll learn about agents, environments, rewards, and how to use algorithms like Q-learning to train agents that can make optimal decisions to achieve a goal.',
+    category: 'AI & Machine Learning',
+    level: 'Intermediate',
+    duration: '22h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-i-04/600/400',
+    modules: [{title: 'Learning from Interaction', lessons: [{ title: 'Introduction to Q-Learning', content: 'Learn a fundamental reinforcement learning algorithm.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-i-05',
+    title: 'Time Series Forecasting',
+    description: 'Learn to build models that can predict future values based on historical time series data.',
+    longDescription: 'This course focuses on the specific challenge of time series forecasting. You\'ll learn about different models, from classical statistical models like ARIMA to modern deep learning models like LSTMs, for predicting future trends.',
+    category: 'AI & Machine Learning',
+    level: 'Intermediate',
+    duration: '20h',
+    instructor: 'Tunde Adekunle',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-i-05/600/400',
+    modules: [{title: 'Predicting the Future', lessons: [{ title: 'ARIMA and LSTMs', content: 'Learn about classical and modern forecasting models.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-i-06',
+    title: 'Model Deployment',
+    description: 'Learn how to take your trained machine learning models and deploy them to production.',
+    longDescription: 'A model is only useful if it can be used. This course covers the crucial step of model deployment, teaching you how to wrap your model in an API and deploy it as a web service using tools like Flask and Docker.',
+    category: 'AI & Machine Learning',
+    level: 'Intermediate',
+    duration: '18h',
+    instructor: 'Nasir Ibrahim Imam',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-i-06/600/400',
+    modules: [{title: 'From Model to Production', lessons: [{ title: 'Deploying with Flask and Docker', content: 'Learn to serve your model as an API.', duration: '2.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-i-07',
+    title: 'AI in Business',
+    description: 'Learn to identify opportunities and manage AI projects in a business context.',
+    longDescription: 'This course is designed for aspiring AI project managers and business leaders. It covers how to identify high-value use cases for AI, build a business case, manage an AI project lifecycle, and measure its impact.',
+    category: 'AI & Machine Learning',
+    level: 'Intermediate',
+    duration: '15h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-i-07/600/400',
+    modules: [{title: 'The Business of AI', lessons: [{ title: 'The AI Project Lifecycle', content: 'Learn how to manage an AI project from start to finish.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  // AI & Machine Learning - Advanced
+  {
+    id: 'ai-a-01',
+    title: 'Generative Models',
+    description: 'A deep dive into generative models like GANs and VAEs for creating new data.',
+    longDescription: 'Explore the creative side of AI. This course provides a deep dive into generative models, covering the theory and implementation of Generative Adversarial Networks (GANs) and Variational Autoencoders (VAEs) for generating realistic images and other data.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    duration: '35h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-a-01/600/400',
+    modules: [{title: 'Creative AI', lessons: [{ title: 'Generative Adversarial Networks (GANs)', content: 'Learn how two neural networks can compete to create.', duration: '4h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-a-02',
+    title: 'Transformers',
+    description: 'Master the Transformer architecture, the foundation of modern NLP and vision models.',
+    longDescription: 'The Transformer architecture has revolutionized AI. This course provides a deep dive into the inner workings of Transformers, including the attention mechanism, and explores their application in models like BERT and GPT.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    duration: '30h',
+    instructor: 'Emily Carter',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-a-02/600/400',
+    modules: [{title: 'The Transformer Architecture', lessons: [{ title: 'The Attention Mechanism', content: 'Learn the core component of the Transformer.', duration: '3.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-a-03',
+    title: 'AI for Robotics',
+    description: 'Learn how to apply AI and reinforcement learning to control robotic systems.',
+    longDescription: 'Bring AI into the physical world. This course explores the intersection of AI and robotics, covering topics like motion planning, control systems, and using reinforcement learning to teach robots to perform complex tasks.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    duration: '40h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-a-03/600/400',
+    modules: [{title: 'Intelligent Robots', lessons: [{ title: 'Reinforcement Learning for Control', content: 'Learn how to train robots with reinforcement learning.', duration: '4.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-a-04',
+    title: 'Quantum Machine Learning',
+    description: 'Explore the intersection of quantum computing and machine learning.',
+    longDescription: 'This course is at the absolute frontier of technology. It provides a conceptual introduction to Quantum Machine Learning (QML), exploring how quantum computers could potentially revolutionize machine learning and solving problems that are intractable today.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    duration: '25h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-a-04/600/400',
+    modules: [{title: 'The Quantum Frontier', lessons: [{ title: 'Quantum Machine Learning Algorithms', content: 'An overview of QML algorithms.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-a-05',
+    title: 'AI Security',
+    description: 'Learn about the security vulnerabilities of AI models and how to defend against them.',
+    longDescription: 'AI models can be attacked. This course covers the emerging field of AI security, exploring topics like adversarial attacks that can fool models and data poisoning attacks that can corrupt them, and discussing defensive strategies.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    duration: '28h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-a-05/600/400',
+    modules: [{title: 'Defending AI', lessons: [{ title: 'Adversarial Attacks', content: 'Learn how to create inputs that fool AI models.', duration: '3.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-a-06',
+    title: 'Explainable AI',
+    description: 'Learn techniques for making complex "black box" AI models more interpretable.',
+    longDescription: 'How do we trust a model we don\'t understand? This course explores the important field of Explainable AI (XAI), covering techniques like SHAP and LIME that help us understand and interpret the decisions of complex models.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    duration: '22h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-a-06/600/400',
+    modules: [{title: 'Opening the Black Box', lessons: [{ title: 'Model Interpretability', content: 'Learn about techniques like SHAP.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-a-07',
+    title: 'AI Research',
+    description: 'Learn how to conduct research and contribute to the cutting edge of AI.',
+    longDescription: 'This course is for those who want to push the boundaries of AI. It covers how to read, understand, and critique academic papers in the field, and how to structure and conduct your own research project to contribute to the field.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    duration: '26h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-a-07/600/400',
+    modules: [{title: 'Pushing the Frontier', lessons: [{ title: 'The Research Process', content: 'Learn how to structure and conduct research.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-a-08',
+    title: 'Ethics and Policy in AI',
+    description: 'A deep dive into the ethical and policy challenges posed by advanced AI.',
+    longDescription: 'This course explores the complex ethical and policy questions surrounding advanced AI, from job displacement to the alignment of superintelligent systems. It\'s for those who want to think deeply about the future of AI and its impact on humanity.',
+    category: 'AI & Machine Learning',
+    level: 'Advanced',
+    duration: '20h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-a-08/600/400',
+    modules: [{title: 'The Future of AI', lessons: [{ title: 'AI Alignment', content: 'Explore the challenge of aligning AI with human values.', duration: '2.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  }
 ];
