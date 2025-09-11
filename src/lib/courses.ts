@@ -1,699 +1,668 @@
+
 import type { Course } from '@/lib/types';
 
 export const courses: Omit<Course, 'progress'>[] = [
-    // Web3 - Beginner
-    {
-        id: 'web3-001',
-        title: "Web3 Fundamentals",
-        description: "Grasp the core concepts of the decentralized web, from blockchain to dApps.",
-        longDescription: "This course is the perfect starting point for your Web3 journey. It explains the philosophy behind decentralization, the role of blockchain technology, and how decentralized applications (dApps) are set to revolutionize the internet as we know it.",
-        category: "Web3",
-        level: "Beginner",
-        duration: "6h",
-        instructor: "Fatima Aliyu",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: The Decentralized Web",
-            lessons: [{ title: "What is Web3?", content: "Learn about the evolution from Web1 to Web3 and the core principles of decentralization, trustlessness, and user ownership.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "What is a core principle of Web3?", options: ["Centralized control", "User data ownership", "Corporate governance"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "What does dApp stand for?", options: ["Digital Application", "Decentralized Application", "Data Application"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'web3-002',
-        title: "Blockchain Basics",
-        description: "Understand how blockchain technology works, including blocks, chains, and consensus.",
-        longDescription: "Demystify blockchain technology. This course breaks down complex concepts like cryptographic hashing, block creation, and consensus mechanisms (like Proof of Work and Proof of Stake) into easy-to-understand lessons. You'll understand the magic behind the technology that powers cryptocurrencies and more.",
-        category: "Web3",
-        level: "Beginner",
-        duration: "7h",
-        instructor: "Chinedu Okafor",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: The Structure of a Blockchain",
-            lessons: [{ title: "Blocks, Chains, and Hashing", content: "Learn how individual blocks are created and linked together using cryptographic hashes to form an immutable chain.", duration: "1h", completed: false }],
-            quiz: [{ questionText: "What makes a blockchain immutable?", options: ["Central servers", "Cryptographic links between blocks", "User passwords"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "Proof of Work is an example of a:", options: ["Consensus mechanism", "Type of cryptocurrency", "Programming language"], correctAnswerIndex: 0 }]
-    },
-    {
-        id: 'web3-003',
-        title: "Introduction to Web3",
-        description: "A high-level overview of the Web3 ecosystem, its key players, and its potential.",
-        longDescription: "Get a bird's-eye view of the entire Web3 landscape. We explore major platforms like Ethereum and Solana, discuss different use cases from DeFi to NFTs, and look at the future potential of a decentralized internet.",
-        category: "Web3",
-        level: "Beginner",
-        duration: "4h",
-        instructor: "Fatima Aliyu",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: The Web3 Landscape",
-            lessons: [{ title: "Exploring the Ecosystem", content: "Discover the key components of the Web3 world, including blockchains, wallets, dApps, and DAOs.", duration: "30m", completed: false }],
-            quiz: [{ questionText: "Ethereum is an example of a:", options: ["Web browser", "Blockchain platform", "Social media app"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "Which of the following is a use case for Web3?", options: ["Sending emails", "Decentralized Finance (DeFi)", "Editing photos"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'web3-004',
-        title: "Smart Contract Fundamentals",
-        description: "Learn what smart contracts are, how they work, and their role in automation.",
-        longDescription: "Smart contracts are the backbone of Web3. This course explains what they are (self-executing contracts with the terms of the agreement directly written into code), how they run on a blockchain, and their potential to automate processes in finance, governance, and more.",
-        category: "Web3",
-        level: "Beginner",
-        duration: "5h",
-        instructor: "David Lee",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Understanding Smart Contracts",
-            lessons: [{ title: "What is a Smart Contract?", content: "Learn the core concept of self-executing code on a blockchain and how it enables trustless interactions.", duration: "40m", completed: false }],
-            quiz: [{ questionText: "Smart contracts are:", options: ["Legal documents", "Self-executing code on a blockchain", "A type of cryptocurrency"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "What is the primary benefit of smart contracts?", options: ["They are fast", "They are trustless and automated", "They are easy to write"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'web3-005',
-        title: "Introduction to DeFi",
-        description: "Discover the world of Decentralized Finance and its key components like lending and borrowing.",
-        longDescription: "Explore the revolutionary world of Decentralized Finance (DeFi). This course covers the core concepts of building a financial system on the blockchain, free from traditional intermediaries. You'll learn about decentralized exchanges, lending protocols, and yield farming.",
-        category: "Web3",
-        level: "Beginner",
-        duration: "6h",
-        instructor: "Michael Adebayo",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: What is DeFi?",
-            lessons: [{ title: "Finance on the Blockchain", content: "Learn how DeFi aims to recreate traditional financial systems with open-source, permissionless protocols.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "DeFi stands for:", options: ["Digital Finance", "Decentralized Finance", "Distributed Finance"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "What is a Decentralized Exchange (DEX)?", options: ["A traditional stock market", "A platform for peer-to-peer trading without an intermediary", "A bank"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'web3-006',
-        title: "Web3 for Beginners",
-        description: "A friendly and practical guide to getting started with the decentralized web.",
-        longDescription: "This course is designed for non-developers who want to understand and use the decentralized web. We walk you through setting up a wallet, interacting with dApps, and understanding the core ideas behind user-owned data and digital assets.",
-        category: "Web3",
-        level: "Beginner",
-        duration: "4h",
-        instructor: "Jane Foster",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Your First Steps in Web3",
-            lessons: [{ title: "Setting up a Crypto Wallet", content: "Learn what a crypto wallet is, the difference between hot and cold wallets, and how to securely set one up.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "A crypto wallet is used to:", options: ["Store physical cash", "Manage your digital assets and interact with dApps", "Browse the internet"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "What is a dApp?", options: ["A decentralized application", "A downloadable application", "A data-heavy application"], correctAnswerIndex: 0 }]
-    },
-    {
-        id: 'web3-007',
-        title: "Introduction to NFTs",
-        description: "Learn what Non-Fungible Tokens (NFTs) are, their use cases, and how they work.",
-        longDescription: "Go beyond the hype and understand the technology of Non-Fungible Tokens. This course explains what 'non-fungible' means, how NFTs represent ownership on a blockchain, and explores their use cases in art, gaming, and digital identity.",
-        category: "Web3",
-        level: "Beginner",
-        duration: "4h",
-        instructor: "Emily Carter",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: What is an NFT?",
-            lessons: [{ title: "Understanding Non-Fungibility", content: "Learn the difference between fungible tokens (like currency) and non-fungible tokens (unique assets).", duration: "30m", completed: false }],
-            quiz: [{ questionText: "NFT stands for:", options: ["New Financial Technology", "Non-Fungible Token", "Networked File Transfer"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "An NFT represents:", options: ["A share in a company", "Unique ownership of a digital or physical asset", "A type of cryptocurrency"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'web3-008',
-        title: "Web3 Marketing",
-        description: "Discover new strategies for marketing in the decentralized ecosystem.",
-        longDescription: "Marketing is different in Web3. This course explores community-centric marketing strategies, how to engage with users through tokens and NFTs, and the importance of transparency and grassroots growth over traditional advertising.",
-        category: "Web3",
-        level: "Beginner",
-        duration: "5h",
-        instructor: "Michael Chen",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Community is King",
-            lessons: [{ title: "Building a Web3 Community", content: "Learn why building a strong, engaged community is the most important marketing activity for a Web3 project.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "A key aspect of Web3 marketing is:", options: ["Traditional advertising", "Community building", "Email marketing"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "What is a 'token drop' often used for?", options: ["Paying salaries", "Rewarding early community members", "Securing the network"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'web3-009',
-        title: "Blockchain and Web3",
-        description: "A course connecting the dots between blockchain technology and the Web3 vision.",
-        longDescription: "This course synthesizes your knowledge by explicitly connecting the technical features of blockchain (decentralization, immutability) to the broader vision of Web3 (user ownership, open protocols). It helps you see the big picture of how the technology enables the movement.",
-        category: "Web3",
-        level: "Beginner",
-        duration: "5h",
-        instructor: "Fatima Aliyu",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Connecting Technology to Vision",
-            lessons: [{ title: "How Blockchain Powers Web3", content: "This lesson explicitly links concepts like decentralization and consensus to the Web3 goals of building a user-owned internet.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "Immutability on a blockchain leads to what feature in Web3?", options: ["Faster speeds", "Censorship resistance", "Lower costs"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "Web3 aims to be a more _____ internet.", options: ["Corporate-controlled", "User-owned", "Regulated"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'web3-010',
-        title: "Web3 and Metaverse",
-        description: "Explore the intersection of Web3 technologies and the emerging Metaverse.",
-        longDescription: "The Metaverse promises to be a persistent, interconnected set of virtual spaces. This course explores how Web3 technologies like NFTs for digital assets and DAOs for governance are crucial building blocks for an open and user-owned Metaverse, as opposed to a closed, corporate-controlled one.",
-        category: "Web3",
-        level: "Beginner",
-        duration: "6h",
-        instructor: "Emily Carter",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Building the Open Metaverse",
-            lessons: [{ title: "The Role of NFTs in Virtual Worlds", content: "Learn how NFTs can represent ownership of virtual land, avatars, and items, creating a true creator economy.", duration: "50m", completed: false }],
-            quiz: [{ questionText: "In the Metaverse, NFTs can be used to represent:", options: ["Chat messages", "Ownership of virtual items", "User passwords"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "A DAO could be used in the Metaverse to:", options: ["Render graphics", "Govern a virtual world", "Increase internet speed"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'web3-011',
-        title: "Decentralized Applications (dApps)",
-        description: "Learn the architecture of dApps and how they differ from traditional web apps.",
-        longDescription: "This course explains the fundamental architecture of a decentralized application. You'll learn how a dApp's frontend interacts with a smart contract on the blockchain, which serves as its backend, and understand the key differences compared to a traditional client-server web application.",
-        category: "Web3",
-        level: "Beginner",
-        duration: "5h",
-        instructor: "David Lee",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: The dApp Stack",
-            lessons: [{ title: "Frontend Meets Smart Contract", content: "Understand the key components of a dApp: a frontend for user interaction and a smart contract for backend logic on the blockchain.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "A dApp's backend is typically a:", options: ["Centralized server", "Smart contract", "Mobile device"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "What is a major advantage of dApps?", options: ["They are always faster", "They are censorship-resistant", "They are controlled by one company"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'web3-012',
-        title: "Web3 Identity and Authentication",
-        description: "Discover how identity works in a decentralized world using wallets and digital signatures.",
-        longDescription: "Explore the concept of Self-Sovereign Identity (SSI) in Web3. This course explains how your crypto wallet acts as your identity, allowing you to authenticate with dApps and prove ownership of assets without relying on a traditional username and password from a central provider.",
-        category: "Web3",
-        level: "Beginner",
-        duration: "5h",
-        instructor: "Dr. Aisha Bello",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Self-Sovereign Identity",
-            lessons: [{ title: "Authenticating with Your Wallet", content: "Learn how dApps use cryptographic signatures from your wallet to verify your identity without needing a password.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "In Web3, your primary identity is often your:", options: ["Email address", "Crypto wallet address", "Social media profile"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "What is a major benefit of Web3 identity?", options: ["It's controlled by a single company", "It gives the user control over their own data", "It's easier to remember than a password"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'web3-013',
-        title: "Web3 Community Building",
-        description: "Learn the art and science of building and managing a thriving Web3 community.",
-        longDescription: "A strong community is the lifeblood of any Web3 project. This course covers the essentials of community building, from choosing the right platform (like Discord or Telegram) to fostering engagement, establishing a positive culture, and using tools to manage a growing user base.",
-        category: "Web3",
-        level: "Beginner",
-        duration: "6h",
-        instructor: "Jane Foster",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: The Community Flywheel",
-            lessons: [{ title: "From Early Adopters to Evangelists", content: "Learn the strategies for attracting your first community members and empowering them to become advocates for your project.", duration: "50m", completed: false }],
-            quiz: [{ questionText: "A popular platform for Web3 communities is:", options: ["Facebook", "Discord", "LinkedIn"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "What is a key to a successful Web3 community?", options: ["Heavy advertising", "Active engagement and a sense of ownership", "Strict rules"], correctAnswerIndex: 1 }]
-    },
-    
-    // Futures Trading - Beginner
-    {
-        id: 'futures-001',
-        title: "Futures Trading 101",
-        description: "The essential starting point for anyone new to futures trading.",
-        longDescription: "This course is the A-to-Z guide for absolute beginners. We cover what futures contracts are, why they exist, who trades them, and the basic terminology you need to know before you even think about placing a trade. This is your foundation for success.",
-        category: "Futures Trading",
-        level: "Beginner",
-        duration: "5h",
-        instructor: "Michael Adebayo",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Core Concepts",
-            lessons: [{ title: "Understanding Futures Contracts", content: "Learn what a futures contract is, the concept of leverage, and the difference between hedging and speculating.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "Leverage in futures trading can:", options: ["Only increase profits", "Amplify both gains and losses", "Eliminate risk"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "A 'speculator' in the futures market aims to:", options: ["Reduce risk on a physical commodity", "Profit from price movements", "Provide liquidity"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'futures-002',
-        title: "Introduction to Futures Trading",
-        description: "A practical introduction to the futures market and trading platforms.",
-        longDescription: "This course moves from theory to practice. We'll guide you through the process of choosing a broker, understanding a trading platform's interface, and reading futures contract specifications. You'll learn the practical steps needed to get started.",
-        category: "Futures Trading",
-        level: "Beginner",
-        duration: "6h",
-        instructor: "Nasir Ibrahim Imam",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Getting Set Up",
-            lessons: [{ title: "Choosing a Broker and Platform", content: "Learn the key factors to consider when selecting a futures broker, including commissions, platform features, and customer support.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "The 'tick size' of a futures contract refers to its:", options: ["Physical size", "Minimum price fluctuation", "Expiration date"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "What is a 'margin' in futures trading?", options: ["The profit on a trade", "A good faith deposit to open a position", "The broker's commission"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'futures-003',
-        title: "Futures Trading Strategies",
-        description: "Learn basic but effective strategies for trading futures.",
-        longDescription: "Discover foundational trading strategies that you can start using right away. This course covers trend-following, range trading, and breakout strategies. We'll show you how to identify the market conditions suitable for each and the entry and exit rules.",
-        category: "Futures Trading",
-        level: "Beginner",
-        duration: "7h",
-        instructor: "Michael Adebayo",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Trend Following",
-            lessons: [{ title: "Trading with the Trend", content: "Learn the classic trading wisdom 'the trend is your friend' and how to use moving averages to identify and trade with the market's primary direction.", duration: "1h", completed: false }],
-            quiz: [{ questionText: "Trend-following strategies work best in:", options: ["Sideways markets", "Trending markets", "Volatile markets"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "A 'breakout' strategy involves trading:", options: ["Inside a trading range", "When the price moves outside a defined range", "Only at the market open"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'futures-004',
-        title: "Futures Market Analysis",
-        description: "A beginner's guide to both technical and fundamental market analysis.",
-        longDescription: "Learn the two major schools of thought in market analysis. This course introduces you to technical analysis (studying price charts) and fundamental analysis (studying economic factors). You'll understand how to use both to form a complete view of the market.",
-        category: "Futures Trading",
-        level: "Beginner",
-        duration: "6h",
-        instructor: "Emily Carter",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Two Schools of Thought",
-            lessons: [{ title: "Technical vs. Fundamental Analysis", content: "Understand the core differences between analyzing price action and analyzing underlying economic factors.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "A technical analyst primarily studies:", options: ["Economic reports", "Price charts", "Company earnings"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "An interest rate decision is an example of:", options: ["Technical data", "Fundamental data", "Price action"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'futures-005',
-        title: "Risk Management in Futures Trading",
-        description: "Learn the most important skill for any trader: how to manage risk and protect your capital.",
-        longDescription: "Trading is all about managing risk. This crucial course teaches you the essentials of risk management, including how to set stop-loss orders, determine the correct position size, and understand the risk-to-reward ratio of your trades. This is the key to long-term survival in the markets.",
-        category: "Futures Trading",
-        level: "Beginner",
-        duration: "5h",
-        instructor: "Dr. Aisha Bello",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Protecting Your Capital",
-            lessons: [{ title: "The Stop-Loss Order", content: "Learn what a stop-loss order is and why it's the most important tool for limiting potential losses on any single trade.", duration: "40m", completed: false }],
-            quiz: [{ questionText: "A stop-loss order is designed to:", options: ["Guarantee a profit", "Limit your potential loss", "Enter a trade"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "The risk-to-reward ratio compares:", options: ["The amount you risk to the amount you expect to gain", "Your total capital to your risk", "Your wins vs. your losses"], correctAnswerIndex: 0 }]
-    },
-    {
-        id: 'futures-006',
-        title: "Futures Trading for Beginners",
-        description: "A comprehensive course covering all the essentials for new futures traders.",
-        longDescription: "This is a complete package for the new trader. It combines the fundamentals of futures, market analysis, risk management, and basic strategies into one course, giving you a well-rounded foundation to confidently start your trading journey.",
-        category: "Futures Trading",
-        level: "Beginner",
-        duration: "10h",
-        instructor: "Nasir Ibrahim Imam",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: The Complete Foundation",
-            lessons: [{ title: "From Concept to First Trade", content: "This module provides a summary of all essential knowledge, from understanding contracts to managing risk, preparing you for the market.", duration: "1h", completed: false }],
-            quiz: [{ questionText: "What is the most important aspect of trading?", options: ["High profits", "Risk management", "Complex strategies"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "A good first step for a beginner trader is to:", options: ["Risk a lot of money", "Learn and practice with a solid plan", "Ignore market news"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'futures-007',
-        title: "Technical Analysis for Futures Trading",
-        description: "An introduction to reading charts and using technical indicators for trading decisions.",
-        longDescription: "Learn to read the language of the market: price charts. This course introduces you to the core concepts of technical analysis, including support and resistance, trendlines, and common chart patterns. You'll learn how to interpret what the chart is telling you.",
-        category: "Futures Trading",
-        level: "Beginner",
-        duration: "7h",
-        instructor: "Michael Adebayo",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Reading the Charts",
-            lessons: [{ title: "Support and Resistance", content: "Learn to identify key price levels where the market has previously reversed, providing potential trading opportunities.", duration: "1h", completed: false }],
-            quiz: [{ questionText: "Support is a price level where:", options: ["Selling pressure is expected to be strong", "Buying pressure is expected to be strong", "The price never goes"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "A trendline is drawn to:", options: ["Connect key highs or lows to visualize a trend", "Predict the exact future price", "Calculate profit"], correctAnswerIndex: 0 }]
-    },
-    {
-        id: 'futures-008',
-        title: "Futures Trading with Chart Patterns",
-        description: "Learn to identify and trade common chart patterns like triangles, flags, and double tops.",
-        longDescription: "Price charts often form recognizable patterns that can indicate future price movements. This course teaches you how to spot, interpret, and trade some of the most common and reliable chart patterns, such as triangles, flags, and double tops/bottoms.",
-        category: "Futures Trading",
-        level: "Beginner",
-        duration: "6h",
-        instructor: "Emily Carter",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Reversal Patterns",
-            lessons: [{ title: "Double Tops and Bottoms", content: "Learn to identify these powerful reversal patterns that can signal the end of a trend.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "A double top pattern looks like the letter:", options: ["W", "M", "S"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "Chart patterns are a form of:", options: ["Fundamental analysis", "Technical analysis", "Economic forecasting"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'futures-009',
-        title: "Futures Trading Psychology",
-        description: "Master the mental game of trading by understanding fear, greed, and discipline.",
-        longDescription: "Trading is 90% psychology. This course explores the common psychological pitfalls that cause traders to lose money, such as fear, greed, and hope. You'll learn practical techniques to develop discipline, patience, and a resilient trading mindset.",
-        category: "Futures Trading",
-        level: "Beginner",
-        duration: "5h",
-        instructor: "Jane Foster",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: The Trader's Mind",
-            lessons: [{ title: "Conquering Fear and Greed", content: "Understand how the emotions of fear and greed can sabotage your trading decisions and learn strategies to control them.", duration: "40m", completed: false }],
-            quiz: [{ questionText: "The two primary emotions to control in trading are:", options: ["Joy and sadness", "Fear and greed", "Excitement and boredom"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "A trading plan is important because it:", options: ["Guarantees profits", "Helps remove emotion from decisions", "Is required by brokers"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'futures-010',
-        title: "Futures Trading with Indicators",
-        description: "An introduction to using popular indicators like Moving Averages and RSI.",
-        longDescription: "Technical indicators can help clarify price action and provide trade signals. This course introduces you to some of the most popular indicators, including Moving Averages for trend identification and the Relative Strength Index (RSI) for measuring momentum.",
-        category: "Futures Trading",
-        level: "Beginner",
-        duration: "6h",
-        instructor: "Tunde Adekunle",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Trend Indicators",
-            lessons: [{ title: "Moving Averages", content: "Learn how to use moving averages to identify the direction and strength of a market trend.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "A Moving Average is a type of:", options: ["Momentum indicator", "Trend indicator", "Volatility indicator"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "The RSI indicator is used to identify:", options: ["The market trend", "Overbought and oversold conditions", "Support and resistance levels"], correctAnswerIndex: 1 }]
-    },
+  // --- Futures Trading ---
+  // Beginner
+  {
+    id: 'futures-b-01',
+    title: 'Introduction to Futures Trading',
+    description: 'The essential starting point for anyone new to futures trading.',
+    longDescription: "This course is the A-to-Z guide for absolute beginners. We cover what futures contracts are, why they exist, who trades them, and the basic terminology you need to know before you even think about placing a trade. This is your foundation for success.",
+    category: 'Futures Trading',
+    level: 'Beginner',
+    duration: '5h',
+    instructor: 'Michael Adebayo',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-b-01/600/400',
+    modules: [
+      {
+        title: 'Core Concepts',
+        lessons: [{ title: 'Understanding Futures Contracts', content: 'Learn what a futures contract is, the concept of leverage, and the difference between hedging and speculating.', duration: '45m', completed: false }],
+        quiz: []
+      }
+    ],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-b-02',
+    title: 'Futures Markets Overview',
+    description: 'Get a comprehensive overview of the different types of futures markets available.',
+    longDescription: 'Explore the vast landscape of futures markets, from commodities like oil and gold to financial instruments like stock indices and currencies. This course helps you understand the characteristics of each market.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    duration: '4h',
+    instructor: 'Nasir Ibrahim Imam',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-b-02/600/400',
+    modules: [
+      {
+        title: 'Market Landscape',
+        lessons: [{ title: 'Commodities, Financials, and More', content: 'A deep dive into the various futures markets.', duration: '45m', completed: false }],
+        quiz: []
+      }
+    ],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-b-03',
+    title: 'Basic Futures Trading Strategies',
+    description: 'Learn foundational strategies to start your trading journey with confidence.',
+    longDescription: 'Discover simple yet effective trading strategies for beginners, including trend-following and support/resistance trading. Learn how to identify potential entry and exit points.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    duration: '6h',
+    instructor: 'Michael Adebayo',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-b-03/600/400',
+    modules: [
+      {
+        title: 'Starter Strategies',
+        lessons: [{ title: 'Trend Following and Range Trading', content: 'Learn two of the most fundamental approaches to trading the markets.', duration: '1h', completed: false }],
+        quiz: []
+      }
+    ],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-b-04',
+    title: 'Technical Analysis for Futures',
+    description: 'Learn to read price charts and use indicators to make informed trading decisions.',
+    longDescription: 'An introduction to technical analysis tailored for the futures market. Learn to interpret chart patterns, use moving averages, RSI, and other key indicators to forecast price movements.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    duration: '7h',
+    instructor: 'Emily Carter',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-b-04/600/400',
+    modules: [
+      {
+        title: 'Chart Reading 101',
+        lessons: [{ title: 'Candlesticks, Trends, and Indicators', content: 'Master the basics of reading charts.', duration: '1h', completed: false }],
+        quiz: []
+      }
+    ],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-b-05',
+    title: 'Fundamental Analysis in Futures',
+    description: 'Understand how economic news and reports can impact futures market prices.',
+    longDescription: 'Learn how to analyze supply, demand, and macroeconomic factors to predict long-term trends in the futures markets. This course covers key reports and news events that move markets.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    duration: '6h',
+    instructor: 'Emily Carter',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-b-05/600/400',
+    modules: [
+      {
+        title: 'Beyond the Charts',
+        lessons: [{ title: 'Supply, Demand, and Economic Indicators', content: 'Understand the real-world factors that drive price.', duration: '50m', completed: false }],
+        quiz: []
+      }
+    ],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-b-06',
+    title: 'Risk Management Essentials',
+    description: 'Learn the most critical skill: how to manage risk and protect your trading capital.',
+    longDescription: 'This course teaches you the most important aspect of trading: survival. Learn about stop-losses, position sizing, and risk/reward ratios to ensure you can trade for the long term.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    duration: '5h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-b-06/600/400',
+    modules: [
+      {
+        title: 'Protecting Your Capital',
+        lessons: [{ title: 'Stop-Losses and Position Sizing', content: 'Learn the two fundamental pillars of risk management.', duration: '45m', completed: false }],
+        quiz: []
+      }
+    ],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-b-07',
+    title: 'Trading Psychology',
+    description: 'Master the mental game of trading by understanding fear, greed, and discipline.',
+    longDescription: 'Trading success is 80% psychology. This course helps you understand and overcome common psychological pitfalls that can derail a trading career. Learn to build discipline and a winning mindset.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    duration: '5h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-b-07/600/400',
+    modules: [
+      {
+        title: 'The Inner Game',
+        lessons: [{ title: 'Conquering Fear and Greed', content: 'Learn to manage the emotions that lead to poor decisions.', duration: '45m', completed: false }],
+        quiz: []
+      }
+    ],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-b-08',
+    title: 'Futures Trading Platforms',
+    description: 'A practical guide to choosing and using futures trading software.',
+    longDescription: 'Navigate the world of trading platforms. This course provides an overview of popular trading software, their features, and how to set them up for efficient trading.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    duration: '4h',
+    instructor: 'Nasir Ibrahim Imam',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-b-08/600/400',
+    modules: [
+      {
+        title: 'Tools of the Trade',
+        lessons: [{ title: 'Choosing and Navigating a Platform', content: 'Learn what to look for in a trading platform.', duration: '40m', completed: false }],
+        quiz: []
+      }
+    ],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-b-09',
+    title: 'Simulated Trading Practice',
+    description: 'Apply your knowledge in a risk-free environment using a trading simulator.',
+    longDescription: 'Before you risk real money, practice makes perfect. This course guides you through setting up and using a trading simulator to test your strategies and build confidence.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    duration: '8h',
+    instructor: 'Michael Adebayo',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-b-09/600/400',
+    modules: [
+      {
+        title: 'Practice Arena',
+        lessons: [{ title: 'Trading Without Risk', content: 'Learn how to use a simulator to hone your skills.', duration: '1h', completed: false }],
+        quiz: []
+      }
+    ],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-b-10',
+    title: 'Building a Trading Plan',
+    description: 'Create a structured, personalized trading plan to guide your decisions.',
+    longDescription: 'Fail to plan, plan to fail. This course walks you through the essential components of a trading plan, including your strategy, risk parameters, and goals, to create a document that will guide you.',
+    category: 'Futures Trading',
+    level: 'Beginner',
+    duration: '4h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-b-10/600/400',
+    modules: [
+      {
+        title: 'Your Trading Blueprint',
+        lessons: [{ title: 'Components of a Solid Plan', content: 'Learn what every successful trading plan must contain.', duration: '45m', completed: false }],
+        quiz: []
+      }
+    ],
+    finalAssessment: []
+  },
+  // Futures Trading - Intermediate
+  {
+    id: 'futures-i-01',
+    title: 'Advanced Trading Strategies',
+    description: 'Explore more complex strategies like scalping, swing trading, and pairs trading.',
+    longDescription: 'Go beyond the basics with advanced strategies. This course covers techniques for different timeframes and market conditions, providing a more versatile trading toolkit.',
+    category: 'Futures Trading',
+    level: 'Intermediate',
+    duration: '12h',
+    instructor: 'Michael Adebayo',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-i-01/600/400',
+    modules: [{title: 'Strategy Expansion', lessons: [{ title: 'Scalping, Swinging, and Spreading', content: 'Learn new ways to approach the market.', duration: '1.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-i-02',
+    title: 'Quantitative Analysis',
+    description: 'Apply statistical methods to analyze market data and identify opportunities.',
+    longDescription: 'Introduce a quantitative edge to your trading. This course covers statistical concepts like correlation, regression, and backtesting to scientifically validate your trading ideas.',
+    category: 'Futures Trading',
+    level: 'Intermediate',
+    duration: '15h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-i-02/600/400',
+    modules: [{title: 'Trading by Numbers', lessons: [{ title: 'Statistical Foundations', content: 'Learn how to use data to your advantage.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-i-03',
+    title: 'Algorithmic Trading Introduction',
+    description: 'Learn the basics of automating your trading strategies with code.',
+    longDescription: 'Let the machines do the work. This course provides an introduction to algorithmic trading, covering the logic, design, and implementation of simple automated trading systems.',
+    category: 'Futures Trading',
+    level: 'Intermediate',
+    duration: '18h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-i-03/600/400',
+    modules: [{title: 'Automating Your Edge', lessons: [{ title: 'From Strategy to Algorithm', content: 'Learn the process of translating a trading idea into executable code.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-i-04',
+    title: 'Options on Futures',
+    description: 'Discover the flexibility and strategic advantages of trading options on futures contracts.',
+    longDescription: 'Unlock a new dimension of trading. This course explains what options on futures are and how they can be used for income generation, hedging, and creating complex, risk-defined strategies.',
+    category: 'Futures Trading',
+    level: 'Intermediate',
+    duration: '14h',
+    instructor: 'Tunde Adekunle',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-i-04/600/400',
+    modules: [{title: 'Strategic Flexibility', lessons: [{ title: 'Calls, Puts, and Spreads', content: 'Learn the building blocks of options trading.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-i-05',
+    title: 'Market Microstructure',
+    description: 'Understand the mechanics of order books, liquidity, and trade execution.',
+    longDescription: "Dive deep into the 'how' of market movements. This course explores the order book, the role of market makers, and how trade execution dynamics can provide a short-term trading edge.",
+    category: 'Futures Trading',
+    level: 'Intermediate',
+    duration: '10h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-i-05/600/400',
+    modules: [{title: 'Inside the Market', lessons: [{ title: 'The Order Book and Liquidity', content: 'Learn to read and interpret the flow of orders.', duration: '1.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-i-06',
+    title: 'Hedging Techniques',
+    description: 'Learn how businesses and producers use futures to hedge against price risk.',
+    longDescription: 'Understand the original purpose of futures markets. This course covers practical hedging strategies used by corporations and agricultural producers to lock in prices and manage risk.',
+    category: 'Futures Trading',
+    level: 'Intermediate',
+    duration: '9h',
+    instructor: 'Nasir Ibrahim Imam',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-i-06/600/400',
+    modules: [{title: 'Risk Mitigation', lessons: [{ title: 'Locking In Prices', content: 'Learn the mechanics of creating a hedge.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-i-07',
+    title: 'Portfolio Management with Futures',
+    description: 'Learn to use futures contracts to manage risk and enhance returns in a larger portfolio.',
+    longDescription: 'Integrate futures into a broader investment strategy. This course teaches how to use index futures to hedge stock portfolios and how to use other contracts for asset allocation.',
+    category: 'Futures Trading',
+    level: 'Intermediate',
+    duration: '11h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-i-07/600/400',
+    modules: [{title: 'Holistic Management', lessons: [{ title: 'Hedging and Asset Allocation', content: 'Learn to use futures as powerful portfolio tools.', duration: '1.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  // Futures Trading - Advanced
+  {
+    id: 'futures-a-01',
+    title: 'High-Frequency Trading',
+    description: 'An exploration of the strategies and technologies used in high-frequency trading (HFT).',
+    longDescription: 'Enter the world of microseconds. This course provides a high-level overview of HFT, discussing the infrastructure, strategies, and regulatory landscape of this competitive field.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    duration: '20h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-a-01/600/400',
+    modules: [{title: 'The Speed Game', lessons: [{ title: 'HFT Strategies and Infrastructure', content: 'An overview of the fastest game in the markets.', duration: '2.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-a-02',
+    title: 'Machine Learning for Trading',
+    description: 'Apply advanced machine learning models to predict market movements.',
+    longDescription: 'Build predictive models using advanced ML techniques. This course covers everything from feature engineering to using models like LSTMs and Gradient Boosting for forecasting.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    duration: '30h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-a-02/600/400',
+    modules: [{title: 'Predictive Modeling', lessons: [{ title: 'From Data to Prediction', content: 'Learn the workflow of building an ML-based trading model.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-a-03',
+    title: 'Market Making in Futures',
+    description: 'Learn the theory and practice of market making and providing liquidity.',
+    longDescription: 'Understand the role of a market maker. This course covers the strategies, risk management techniques, and inventory models used by firms that provide liquidity to the futures markets.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    duration: '22h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-a-03/600/400',
+    modules: [{title: 'Providing Liquidity', lessons: [{ title: 'The Market Maker\'s Role', content: 'Learn the fundamentals of quoting and managing inventory.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-a-04',
+    title: 'Exotic Futures Products',
+    description: 'Explore niche and complex futures products like volatility and weather futures.',
+    longDescription: 'Go beyond traditional contracts. This course explores the world of exotic futures, including products based on volatility (like VIX futures) and even weather derivatives.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    duration: '16h',
+    instructor: 'Tunde Adekunle',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-a-04/600/400',
+    modules: [{title: 'Niche Markets', lessons: [{ title: 'Trading Volatility and Weather', content: 'Learn about these unique and complex markets.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-a-05',
+    title: 'Global Futures Trading',
+    description: 'Understand the nuances of trading across different international futures exchanges.',
+    longDescription: 'The world is your market. This course covers the operational and strategic details of trading on major global exchanges like Eurex and SGX, including time zone considerations and regulations.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    duration: '18h',
+    instructor: 'Nasir Ibrahim Imam',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-a-05/600/400',
+    modules: [{title: 'Trading the World', lessons: [{ title: 'International Exchanges and Nuances', content: 'Learn to navigate the global market landscape.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-a-06',
+    title: 'Systemic Risk Analysis',
+    description: 'Analyze how risks can propagate through the interconnected financial system.',
+    longDescription: 'Take a macro view of risk. This course explores the concept of systemic risk, how it can lead to financial crises, and the role of regulation in mitigating it.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    duration: '15h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-a-06/600/400',
+    modules: [{title: 'Macro-Level Risk', lessons: [{ title: 'Understanding Financial Contagion', content: 'Learn how failures can cascade through the system.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-a-07',
+    title: 'Advanced Legal and Regulatory Issues',
+    description: 'A deep dive into the complex legal and compliance landscape for futures traders.',
+    longDescription: 'For professionals who need to know. This course covers advanced regulatory topics, including compliance, reporting requirements, and the legal structure of the derivatives industry.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    duration: '12h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-a-07/600/400',
+    modules: [{title: 'Compliance and Law', lessons: [{ title: 'Navigating the Rules', content: 'A detailed look at the regulatory environment.', duration: '2h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'futures-a-08',
+    title: 'Futures Trading Research',
+    description: 'Learn how to conduct original research to develop novel trading strategies.',
+    longDescription: 'Develop your own unique trading edge. This course teaches the process of academic-level research, from forming a hypothesis to gathering data and rigorously testing a new strategy.',
+    category: 'Futures Trading',
+    level: 'Advanced',
+    duration: '25h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/futures-a-08/600/400',
+    modules: [{title: 'Developing an Edge', lessons: [{ title: 'The Research Process', content: 'Learn to think and work like a quantitative researcher.', duration: '3h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
 
-    // Tech Skills - Beginner
-    {
-        id: 'tech-001',
-        title: "Introduction to Coding",
-        description: "A gentle introduction to the world of programming for absolute beginners.",
-        longDescription: "Ever wondered how software is made? This course is your first step. It demystifies coding by explaining the core concepts in simple terms. You'll learn what a programming language is, write your first lines of code, and understand the logic that makes software work.",
-        category: "Tech Skills",
-        level: "Beginner",
-        duration: "5h",
-        instructor: "Nasir Ibrahim Imam",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: The World of Code",
-            lessons: [{ title: "What is Programming?", content: "Learn the fundamental concepts of giving instructions to a computer and how programming powers the digital world.", duration: "30m", completed: false }],
-            quiz: [{ questionText: "A programming language is a way to:", options: ["Talk to other people", "Instruct a computer", "Design images"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "A 'variable' in programming is used to:", options: ["Store information", "End the program", "Draw on the screen"], correctAnswerIndex: 0 }]
-    },
-    {
-        id: 'tech-002',
-        title: "Web Development Basics",
-        description: "Learn the essential trio of web development: HTML, CSS, and JavaScript.",
-        longDescription: "This course covers the three fundamental technologies that build the web. You will learn how to structure pages with HTML, style them with CSS for a great look, and add interactivity with JavaScript to make them come alive.",
-        category: "Tech Skills",
-        level: "Beginner",
-        duration: "8h",
-        instructor: "Emily Carter",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Structuring the Web",
-            lessons: [{ title: "Introduction to HTML", content: "Learn the basic tags and structure of an HTML document, the skeleton of every webpage.", duration: "1h", completed: false }],
-            quiz: [{ questionText: "HTML stands for:", options: ["HyperText Markup Language", "High-Tech Media Language", "Hyper-Transferable Markup Language"], correctAnswerIndex: 0 }]
-        }],
-        finalAssessment: [{ questionText: "Which language is used to add interactivity to a website?", options: ["HTML", "CSS", "JavaScript"], correctAnswerIndex: 2 }]
-    },
-    {
-        id: 'tech-003',
-        title: "Cybersecurity Fundamentals",
-        description: "Understand common cyber threats and learn how to protect yourself and your data.",
-        longDescription: "In today's digital world, cybersecurity is more important than ever. This course introduces you to the basics of digital security, covering topics like malware, phishing, strong passwords, and safe browsing habits to help you protect your personal information.",
-        category: "Tech Skills",
-        level: "Beginner",
-        duration: "6h",
-        instructor: "Dr. Aisha Bello",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: The Threat Landscape",
-            lessons: [{ title: "Understanding Malware and Phishing", content: "Learn to identify common types of malicious software and deceptive techniques used to steal information.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "Phishing is an attempt to:", options: ["Steal sensitive information", "Install a virus", "Fix your computer"], correctAnswerIndex: 0 }]
-        }],
-        finalAssessment: [{ questionText: "What is a key feature of a strong password?", options: ["It's easy to remember", "It's a common word", "It includes a mix of character types"], correctAnswerIndex: 2 }]
-    },
-    {
-        id: 'tech-004',
-        title: "Artificial Intelligence (AI) Basics",
-        description: "A non-technical introduction to the concepts and impact of Artificial Intelligence.",
-        longDescription: "This course is for anyone curious about AI, no technical background required. We'll explore what AI is, the difference between AI and machine learning, and look at the amazing ways AI is already impacting our daily lives, from recommendation engines to voice assistants.",
-        category: "Tech Skills",
-        level: "Beginner",
-        duration: "4h",
-        instructor: "Dr. Anya Sharma",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: What is AI?",
-            lessons: [{ title: "Defining Intelligence", content: "Explore the different types of AI and the general goal of creating machines that can reason and learn.", duration: "30m", completed: false }],
-            quiz: [{ questionText: "An example of AI in daily life is:", options: ["A calculator", "A voice assistant like Siri", "A light switch"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "Machine learning is a subset of:", options: ["Artificial Intelligence", "Data Science", "Web Development"], correctAnswerIndex: 0 }]
-    },
-    {
-        id: 'tech-005',
-        title: "Networking Fundamentals",
-        description: "Learn the basic concepts of computer networks, from IP addresses to routers.",
-        longDescription: "Understand how the internet works. This course covers the fundamentals of computer networking, including IP addresses, DNS, routers, and switches. You'll learn how data travels across the globe in seconds to connect you to websites and services.",
-        category: "Tech Skills",
-        level: "Beginner",
-        duration: "6h",
-        instructor: "David Lee",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: How the Internet Works",
-            lessons: [{ title: "IP Addresses and DNS", content: "Learn how IP addresses act like mailing addresses for devices and how the Domain Name System (DNS) acts like the internet's phonebook.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "What does DNS stand for?", options: ["Digital Network System", "Domain Name System", "Data Naming Service"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "A router's main job is to:", options: ["Store files", "Direct traffic between networks", "Provide electricity"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'tech-006',
-        title: "Database Management",
-        description: "An introduction to databases and the SQL language for querying data.",
-        longDescription: "Learn how data is stored, organized, and retrieved. This course introduces you to the concept of relational databases and teaches you the basics of SQL (Structured Query Language) to select, insert, update, and delete data from a database.",
-        category: "Tech Skills",
-        level: "Beginner",
-        duration: "7h",
-        instructor: "Tunde Adekunle",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: What is a Database?",
-            lessons: [{ title: "Relational Databases and Tables", content: "Understand how relational databases use tables, rows, and columns to store data in a structured way.", duration: "45m", completed: false }],
-            quiz: [{ questionText: "SQL is a language for:", options: ["Styling websites", "Managing data in a database", "Building mobile apps"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "The 'SELECT' statement in SQL is used to:", options: ["Add new data", "Retrieve data", "Delete data"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'tech-007',
-        title: "Digital Marketing Essentials",
-        description: "Learn the fundamentals of digital marketing, from SEO to social media.",
-        longDescription: "This course covers the key pillars of digital marketing. You'll get an introduction to Search Engine Optimization (SEO), social media marketing, content marketing, and email marketing, and understand how they work together to build an online presence.",
-        category: "Tech Skills",
-        level: "Beginner",
-        duration: "5h",
-        instructor: "Michael Chen",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: The Digital Landscape",
-            lessons: [{ title: "Introduction to SEO", content: "Learn what Search Engine Optimization is and why it's important for getting a website discovered on search engines like Google.", duration: "40m", completed: false }],
-            quiz: [{ questionText: "SEO stands for:", options: ["Social Engagement Optimization", "Search Engine Optimization", "Secure External Operations"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "Which of these is a key part of digital marketing?", options: ["Social Media Marketing", "Print advertising", "Radio commercials"], correctAnswerIndex: 0 }]
-    },
-
-    // AI & ML - Beginner
-    {
-        id: 'ai-001',
-        title: "Introduction to Machine Learning",
-        description: "Learn the core concepts of machine learning and how it's used today.",
-        longDescription: "This course is the ideal starting point for anyone interested in machine learning. It covers the fundamental concepts of supervised, unsupervised, and reinforcement learning, explaining how machines can learn from data to make predictions and decisions.",
-        category: "AI & Machine Learning",
-        level: "Beginner",
-        duration: "5h",
-        instructor: "Dr. Anya Sharma",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: What is Machine Learning?",
-            lessons: [{ title: "Supervised vs. Unsupervised Learning", content: "Understand the key difference between learning with labeled data (supervised) and finding patterns in unlabeled data (unsupervised).", duration: "45m", completed: false }],
-            quiz: [{ questionText: "Predicting a house price from its features is:", options: ["Supervised learning", "Unsupervised learning", "Reinforcement learning"], correctAnswerIndex: 0 }]
-        }],
-        finalAssessment: [{ questionText: "Grouping similar customers together is:", options: ["Supervised learning", "Unsupervised learning", "Reinforcement learning"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'ai-002',
-        title: "AI for Everyone",
-        description: "A non-technical guide to understanding AI and its impact on society and business.",
-        longDescription: "AI is transforming every industry. This non-technical course is designed for business leaders, professionals, and anyone curious about AI's impact. You'll learn what AI can realistically do, how to spot opportunities for AI in your work, and understand the ethical considerations.",
-        category: "AI & Machine Learning",
-        level: "Beginner",
-        duration: "4h",
-        instructor: "Jane Foster",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Understanding AI's Impact",
-            lessons: [{ title: "AI in Business and Society", content: "Explore real-world case studies of how AI is being used to drive value and the societal conversations surrounding its use.", duration: "40m", completed: false }],
-            quiz: [{ questionText: "This course is primarily for:", options: ["Expert AI engineers", "Anyone, including non-technical people", "Only data scientists"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "A key consideration when implementing AI is:", options: ["The color of the logo", "Ethical implications and bias", "The programming language"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'ai-003',
-        title: "Machine Learning with Python",
-        description: "Get started with practical machine learning by using the Python programming language.",
-        longDescription: "This hands-on course teaches you how to implement basic machine learning algorithms using Python. You'll learn to use essential libraries like Pandas for data handling and Scikit-learn to build your first predictive models.",
-        category: "AI & Machine Learning",
-        level: "Beginner",
-        duration: "10h",
-        instructor: "David Lee",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: The ML Toolkit",
-            lessons: [{ title: "Introduction to Pandas and Scikit-learn", content: "Learn how to load data with Pandas and train a simple model with Scikit-learn in just a few lines of code.", duration: "1h", completed: false }],
-            quiz: [{ questionText: "Which library is the standard for machine learning in Python?", options: ["TensorFlow", "PyTorch", "Scikit-learn"], correctAnswerIndex: 2 }]
-        }],
-        finalAssessment: [{ questionText: "A Pandas DataFrame is used for:", options: ["Storing and manipulating tabular data", "Building neural networks", "Creating charts"], correctAnswerIndex: 0 }]
-    },
-    {
-        id: 'ai-004',
-        title: "Deep Learning Basics",
-        description: "A simple introduction to the concept of neural networks and deep learning.",
-        longDescription: "Deep learning powers some of the most exciting AI applications today. This course provides a high-level, intuitive explanation of neural networks, the building blocks of deep learning. You'll understand what they are and how they 'learn' without getting bogged down in heavy mathematics.",
-        category: "AI & Machine Learning",
-        level: "Beginner",
-        duration: "5h",
-        instructor: "Dr. Anya Sharma",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: The Neural Network",
-            lessons: [{ title: "What is a Neuron?", content: "Learn the basic concept of a neuron as a computational unit that processes inputs and produces an output, inspired by the human brain.", duration: "30m", completed: false }],
-            quiz: [{ questionText: "Deep learning models are also known as:", options: ["Simple algorithms", "Neural networks", "Decision trees"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "A key feature of deep learning models is their ability to:", options: ["Learn from a huge amount of data", "Run on any computer", "Never make mistakes"], correctAnswerIndex: 0 }]
-    },
-    {
-        id: 'ai-005',
-        title: "AI and ML for Beginners",
-        description: "A comprehensive introductory course covering the essentials of AI and Machine Learning.",
-        longDescription: "This course is a one-stop-shop for anyone new to the field. It combines the core concepts of AI, the different types of machine learning, and a gentle introduction to the tools and practices used by data scientists, providing a complete foundational understanding.",
-        category: "AI & Machine Learning",
-        level: "Beginner",
-        duration: "8h",
-        instructor: "Tunde Adekunle",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: The Big Picture",
-            lessons: [{ title: "From AI Concepts to ML in Practice", content: "This module connects the high-level ideas of AI to the practical application of machine learning algorithms.", duration: "1h", completed: false }],
-            quiz: [{ questionText: "Machine learning is a subfield of:", options: ["Data analysis", "Artificial Intelligence", "Computer science"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "The primary goal of a supervised learning model is to:", options: ["Find hidden groups in data", "Make predictions based on labeled examples", "Learn through trial and error"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'ai-006',
-        title: "AI and ML with TensorFlow",
-        description: "A beginner's guide to using Google's powerful TensorFlow framework for machine learning.",
-        longDescription: "Get started with one of the world's most popular machine learning frameworks. This course introduces the basics of TensorFlow, guiding you through the process of building and training a simple neural network for a classification task.",
-        category: "AI & Machine Learning",
-        level: "Beginner",
-        duration: "9h",
-        instructor: "David Lee",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Your First TensorFlow Model",
-            lessons: [{ title: "Building a Sequential Model", content: "Learn how to stack layers to create a simple neural network using TensorFlow's Keras API.", duration: "1h", completed: false }],
-            quiz: [{ questionText: "TensorFlow is developed and maintained by:", options: ["Facebook", "Google", "Microsoft"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "The Keras API in TensorFlow is used for:", options: ["Loading data", "Building and training models easily", "Visualizing results"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'ai-007',
-        title: "Machine Learning with Scikit-learn",
-        description: "Learn the go-to Python library for classical machine learning algorithms.",
-        longDescription: "Scikit-learn is an essential tool for any data scientist. This course focuses on the practical application of Scikit-learn to build models for tasks like regression, classification, and clustering. You'll learn its simple, consistent API and how to evaluate your models.",
-        category: "AI & Machine Learning",
-        level: "Beginner",
-        duration: "8h",
-        instructor: "Tunde Adekunle",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: The Scikit-learn API",
-            lessons: [{ title: "Fit, Predict, Transform", content: "Learn the core API design of Scikit-learn, centered around the `.fit()` and `.predict()` methods.", duration: "1h", completed: false }],
-            quiz: [{ questionText: "Scikit-learn is primarily used for:", options: ["Deep learning", "Classical machine learning algorithms", "Data visualization"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "To train a model in Scikit-learn, you use the ____ method.", options: [".train()", ".fit()", ".learn()"], correctAnswerIndex: 1 }]
-    },
-    {
-        id: 'ai-008',
-        title: "AI Ethics and Bias",
-        description: "An essential introduction to the ethical considerations and challenges of building AI.",
-        longDescription: "With great power comes great responsibility. This crucial course introduces the topic of AI ethics, focusing on how unintended bias in data and algorithms can lead to unfair outcomes. You'll learn to think critically about the societal impact of the AI systems you build.",
-        category: "AI & Machine Learning",
-        level: "Beginner",
-        duration: "4h",
-        instructor: "Jane Foster",
-        price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
-        modules: [{
-            title: "Module 1: Fairness in AI",
-            lessons: [{ title: "Understanding and Identifying Bias", content: "Learn about the different types of bias that can creep into machine learning models and the real-world consequences.", duration: "30m", completed: false }],
-            quiz: [{ questionText: "AI bias often comes from:", options: ["The computer's hardware", "The data used to train the model", "The programming language"], correctAnswerIndex: 1 }]
-        }],
-        finalAssessment: [{ questionText: "Why is AI ethics important?", options: ["It's a popular topic", "To ensure AI systems are fair, safe, and beneficial", "To make models more complex"], correctAnswerIndex: 1 }]
-    },
-
-    // Existing Courses to Retain
+  // --- Web3 ---
+  // Beginner
+  {
+    id: 'web3-b-01',
+    title: 'Introduction to Web3',
+    description: 'A high-level overview of the Web3 ecosystem, its key players, and its potential.',
+    longDescription: "Get a bird's-eye view of the entire Web3 landscape. We explore major platforms like Ethereum and Solana, discuss different use cases from DeFi to NFTs, and look at the future potential of a decentralized internet.",
+    category: 'Web3',
+    level: 'Beginner',
+    duration: '4h',
+    instructor: 'Fatima Aliyu',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-b-01/600/400',
+    modules: [{title: 'The Web3 Landscape', lessons: [{ title: 'Exploring the Ecosystem', content: 'Discover the key components of the Web3 world.', duration: '30m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-b-02',
+    title: 'Blockchain Fundamentals',
+    description: 'Understand how blockchain technology works, including blocks, chains, and consensus.',
+    longDescription: "Demystify blockchain technology. This course breaks down complex concepts like cryptographic hashing, block creation, and consensus mechanisms into easy-to-understand lessons.",
+    category: 'Web3',
+    level: 'Beginner',
+    duration: '7h',
+    instructor: 'Chinedu Okafor',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-b-02/600/400',
+    modules: [{title: 'The Blockchain Structure', lessons: [{ title: 'Blocks, Chains, and Hashing', content: 'Learn how blocks are linked to form an immutable chain.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-b-03',
+    title: 'Cryptocurrencies 101',
+    description: 'Learn the basics of cryptocurrencies like Bitcoin and Ethereum.',
+    longDescription: 'This course covers the fundamentals of digital currencies, explaining their purpose, how they are created, and their role in the Web3 ecosystem.',
+    category: 'Web3',
+    level: 'Beginner',
+    duration: '5h',
+    instructor: 'Chinedu Okafor',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-b-03/600/400',
+    modules: [{title: 'Digital Money', lessons: [{ title: 'What is Cryptocurrency?', content: 'An introduction to decentralized digital currencies.', duration: '45m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-b-04',
+    title: 'Smart Contracts Basics',
+    description: 'Learn what smart contracts are and their role in automating processes.',
+    longDescription: 'Smart contracts are the backbone of Web3. This course explains what they are (self-executing contracts) and how they enable trustless automation on the blockchain.',
+    category: 'Web3',
+    level: 'Beginner',
+    duration: '5h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-b-04/600/400',
+    modules: [{title: 'Code is Law', lessons: [{ title: 'Understanding Smart Contracts', content: 'Learn the core concept of self-executing code on a blockchain.', duration: '40m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-b-05',
+    title: 'Decentralized Applications (DApps)',
+    description: 'Learn the architecture of dApps and how they differ from traditional web apps.',
+    longDescription: 'This course explains the fundamental architecture of a dApp, from its frontend to its smart contract backend, and the key differences from traditional web applications.',
+    category: 'Web3',
+    level: 'Beginner',
+    duration: '5h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-b-05/600/400',
+    modules: [{title: 'The DApp Stack', lessons: [{ title: 'Frontend Meets Smart Contract', content: 'Understand the key components of a dApp.', duration: '45m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-b-06',
+    title: 'Web3 Wallets',
+    description: 'A practical guide to setting up and using Web3 wallets like MetaMask.',
+    longDescription: 'Your wallet is your gateway to Web3. This course provides a step-by-step guide to setting up a wallet, managing your assets securely, and connecting to dApps.',
+    category: 'Web3',
+    level: 'Beginner',
+    duration: '3h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-b-06/600/400',
+    modules: [{title: 'Your Web3 Passport', lessons: [{ title: 'Setting Up Your First Wallet', content: 'A hands-on guide to wallet creation and security.', duration: '40m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-b-07',
+    title: 'NFTs Explained',
+    description: 'Learn what Non-Fungible Tokens (NFTs) are, their use cases, and how they work.',
+    longDescription: 'Go beyond the hype and understand the technology of NFTs. This course explains non-fungibility, how NFTs represent ownership, and their use cases in art, gaming, and more.',
+    category: 'Web3',
+    level: 'Beginner',
+    duration: '4h',
+    instructor: 'Emily Carter',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-b-07/600/400',
+    modules: [{title: 'Unique Digital Assets', lessons: [{ title: 'Understanding Non-Fungibility', content: 'Learn the difference between fungible and non-fungible tokens.', duration: '30m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-b-08',
+    title: 'Web3 Security',
+    description: 'Learn the basics of staying safe in the Web3 world, from avoiding scams to protecting assets.',
+    longDescription: 'The decentralized web has unique security challenges. This course teaches you how to identify common scams, protect your private keys, and interact with dApps safely.',
+    category: 'Web3',
+    level: 'Beginner',
+    duration: '4h',
+    instructor: 'Dr. Aisha Bello',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-b-08/600/400',
+    modules: [{title: 'Stay Safe', lessons: [{ title: 'Common Scams and Best Practices', content: 'Learn to protect yourself in the decentralized world.', duration: '45m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-b-09',
+    title: 'Ethereum for Beginners',
+    description: 'A focused introduction to the Ethereum blockchain, its features, and ecosystem.',
+    longDescription: 'Learn about the world\'s leading smart contract platform. This course covers the history of Ethereum, the role of Ether (ETH), gas fees, and the vast ecosystem built on top of it.',
+    category: 'Web3',
+    level: 'Beginner',
+    duration: '6h',
+    instructor: 'Fatima Aliyu',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-b-09/600/400',
+    modules: [{title: 'The World Computer', lessons: [{ title: 'Understanding Ethereum', content: 'A deep dive into the Ethereum platform.', duration: '50m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'web3-b-10',
+    title: 'Web3 Development Tools',
+    description: 'An overview of the essential tools for Web3 developers, like Hardhat and Ethers.js.',
+    longDescription: 'Get familiar with the modern Web3 developer stack. This course introduces you to essential tools for building, testing, and deploying smart contracts and dApps.',
+    category: 'Web3',
+    level: 'Beginner',
+    duration: '6h',
+    instructor: 'David Lee',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-b-10/600/400',
+    modules: [{title: 'The Developer\'s Toolkit', lessons: [{ title: 'Hardhat, Ethers.js, and More', content: 'An overview of the tools that power Web3 development.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  // --- Crypto ---
+  // Beginner
+  {
+    id: 'crypto-b-01',
+    title: 'Introduction to Cryptocurrency',
+    description: 'A comprehensive guide to the world of crypto, from Bitcoin to altcoins.',
+    longDescription: 'This is the perfect starting point for your crypto journey. This course covers the history of digital money, what makes cryptocurrency unique, and the key concepts you need to know.',
+    category: 'Crypto',
+    level: 'Beginner',
+    duration: '5h',
+    instructor: 'Chinedu Okafor',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-b-01/600/400',
+    modules: [{title: 'The New Money', lessons: [{ title: 'What Is Cryptocurrency?', content: 'Learn the fundamentals of decentralized digital currency.', duration: '45m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-b-02',
+    title: 'Blockchain Technology',
+    description: 'Understand the foundational technology that powers all cryptocurrencies.',
+    longDescription: 'Learn how blockchain works. This course explains concepts like decentralization, blocks, cryptographic hashing, and consensus mechanisms in simple, easy-to-understand terms.',
+    category: 'Crypto',
+    level: 'Beginner',
+    duration: '6h',
+    instructor: 'Chinedu Okafor',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-b-02/600/400',
+    modules: [{title: 'The Distributed Ledger', lessons: [{ title: 'How a Blockchain Works', content: 'A deep dive into the technology behind crypto.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'crypto-b-03',
+    title: 'Buying and Selling Crypto',
+    description: 'A practical, step-by-step guide to buying and selling cryptocurrencies safely.',
+    longDescription: 'Ready to make your first purchase? This course walks you through choosing an exchange, creating an account, and executing your first buy and sell orders securely.',
+    category: 'Crypto',
+    level: 'Beginner',
+    duration: '3h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/crypto-b-03/600/400',
+    modules: [{title: 'Your First Transaction', lessons: [{ title: 'Using a Crypto Exchange', content: 'A step-by-step guide to buying crypto.', duration: '40m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  // --- Tech Skills ---
+  // Beginner
+  {
+    id: 'tech-b-01',
+    title: 'Introduction to Programming',
+    description: 'A gentle introduction to the world of programming for absolute beginners.',
+    longDescription: 'Ever wondered how software is made? This course is your first step. It demystifies coding by explaining the core concepts in simple terms, using Python as a starting point.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    duration: '8h',
+    instructor: 'Nasir Ibrahim Imam',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-b-01/600/400',
+    modules: [{title: 'The World of Code', lessons: [{ title: 'What is Programming?', content: 'Learn the fundamental concepts of giving instructions to a computer.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'tech-b-02',
+    title: 'Web Development Fundamentals',
+    description: 'Learn the essential trio of web development: HTML, CSS, and JavaScript.',
+    longDescription: 'This course covers the three fundamental technologies that build the web. You will learn how to structure pages with HTML, style them with CSS, and add interactivity with JavaScript.',
+    category: 'Tech Skills',
+    level: 'Beginner',
+    duration: '10h',
+    instructor: 'Emily Carter',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/tech-b-02/600/400',
+    modules: [{title: 'Building the Web', lessons: [{ title: 'HTML, CSS, and JavaScript', content: 'Learn the three core languages of the web.', duration: '1.5h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  // --- AI & Machine Learning ---
+  // Beginner
+  {
+    id: 'ai-b-01',
+    title: 'Introduction to AI',
+    description: 'A non-technical introduction to the concepts and impact of Artificial Intelligence.',
+    longDescription: 'This course is for anyone curious about AI, no technical background required. We\'ll explore what AI is, the different types, and how it is already impacting our daily lives.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    duration: '4h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-b-01/600/400',
+    modules: [{title: 'The AI Revolution', lessons: [{ title: 'Defining Intelligence', content: 'Explore the different types of AI and the quest to create intelligent machines.', duration: '40m', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
+  {
+    id: 'ai-b-02',
+    title: 'Machine Learning Fundamentals',
+    description: 'Learn the core concepts of machine learning, from supervised to unsupervised learning.',
+    longDescription: 'This course is the ideal starting point for machine learning. It covers supervised, unsupervised, and reinforcement learning, explaining how machines can learn from data to make predictions.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    duration: '6h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-b-02/600/400',
+    modules: [{title: 'Teaching Machines', lessons: [{ title: 'Supervised vs. Unsupervised Learning', content: 'Understand the key difference between learning with labeled and unlabeled data.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: []
+  },
     {
         id: 'tech-008',
         title: "Advanced CSS and UI/UX Design",
@@ -704,7 +673,7 @@ export const courses: Omit<Course, 'progress'>[] = [
         duration: "10h",
         instructor: "Emily Carter",
         price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
+        imageUrl: 'https://picsum.photos/seed/tech-008/600/400',
         modules: [
             {
                 title: "Mastering Flexbox & Grid",
@@ -724,7 +693,7 @@ export const courses: Omit<Course, 'progress'>[] = [
         duration: "25h",
         instructor: "David Lee",
         price: 0,
-        imageUrl: 'https://placehold.co/600x400.png',
+        imageUrl: 'https://picsum.photos/seed/tech-009/600/400',
         modules: [
             {
                 title: "Next.js Fundamentals",
@@ -744,7 +713,7 @@ export const courses: Omit<Course, 'progress'>[] = [
         duration: "15h",
         instructor: "Michael Adebayo",
         price: 0,
-        imageUrl: "https://placehold.co/600x400.png",
+        imageUrl: "https://picsum.photos/seed/futures-011/600/400",
         modules: [
             {
                 title: "Complex Chart Patterns",
@@ -764,7 +733,7 @@ export const courses: Omit<Course, 'progress'>[] = [
         duration: "18h",
         instructor: "Fatima Aliyu",
         price: 0,
-        imageUrl: "https://placehold.co/600x400.png",
+        imageUrl: "https://picsum.photos/seed/web3-014/600/400",
         modules: [
             {
                 title: "Solidity Basics",
@@ -784,7 +753,7 @@ export const courses: Omit<Course, 'progress'>[] = [
         duration: "5h",
         instructor: "Chinedu Okafor",
         price: 0,
-        imageUrl: "https://placehold.co/600x400.png",
+        imageUrl: "https://picsum.photos/seed/crypto-001/600/400",
         modules: [
             {
                 title: "Bitcoin Fundamentals",
@@ -804,7 +773,7 @@ export const courses: Omit<Course, 'progress'>[] = [
         duration: "30h",
         instructor: "Dr. Anya Sharma",
         price: 0,
-        imageUrl: "https://placehold.co/600x400.png",
+        imageUrl: "https://picsum.photos/seed/ai-009/600/400",
         modules: [
             {
                 title: "Convolutional Neural Networks (CNNs)",
