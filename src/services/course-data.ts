@@ -1,16 +1,35 @@
 
-import { courses } from '@/lib/courses';
-import type { Course } from '@/lib/types';
+'use server';
 
-export function getCourses(): Course[] {
-    // Since courses are now static, just return them with a default progress value.
-    return courses.map(course => ({ ...course, progress: 0 }));
+import { db } from '@/lib/firebase';
+import { collection, getDocs, getDoc, doc, type DocumentData } from "firebase/firestore";
+import type { Course } from '@/lib/types';
+import { CourseSchema } from '@/lib/types';
+
+// Helper to convert Firestore doc to Course type
+const toCourse = (doc: DocumentData): Course => {
+    const data = doc.data();
+    return CourseSchema.parse({
+        id: doc.id,
+        ...data,
+        progress: 0, // Default progress for a raw course
+    });
+};
+
+export async function getCourses(): Promise<Course[]> {
+    if (!db) throw new Error("Firestore not initialized.");
+    const coursesCol = collection(db, 'courses');
+    const courseSnapshot = await getDocs(coursesCol);
+    const courseList = courseSnapshot.docs.map(doc => toCourse(doc));
+    return courseList;
 }
 
-export function getCourse(id: string): Course | null {
-    const course = courses.find(c => c.id === id);
-    if (course) {
-        return { ...course, progress: 0 };
+export async function getCourse(id: string): Promise<Course | null> {
+    if (!db) throw new Error("Firestore not initialized.");
+    const courseDoc = doc(db, 'courses', id);
+    const courseSnapshot = await getDoc(courseDoc);
+    if (courseSnapshot.exists()) {
+        return toCourse(courseSnapshot);
     }
     return null;
 }
