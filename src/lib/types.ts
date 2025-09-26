@@ -4,11 +4,9 @@ import { COURSE_CATEGORIES, COURSE_LEVELS } from './constants';
 export type CourseCategory = (typeof COURSE_CATEGORIES)[number];
 export type CourseLevel = (typeof COURSE_LEVELS)[number];
 
-// Zod schema for a Quiz Question
+// Zod schema for a Quiz Question - now for subjective/essay questions
 export const QuestionSchema = z.object({
   questionText: z.string().min(1, 'Question text cannot be empty'),
-  options: z.array(z.string()).min(2, 'A question must have at least two options'),
-  correctAnswerIndex: z.number().min(0, 'A correct answer must be selected'),
 });
 export type Question = z.infer<typeof QuestionSchema>;
 

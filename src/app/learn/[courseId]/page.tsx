@@ -9,12 +9,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { ArrowLeft, ArrowRight, CheckCircle, Circle, Home, Loader2, AlertTriangle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle, Circle, Home, Loader2, AlertTriangle, BookCheck } from 'lucide-react';
 import Link from 'next/link';
 import { handleUpdateLessonStatus } from '@/app/actions/progress';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { Progress } from '@/components/ui/progress';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 
 function LearningInterface() {
     const { user } = useAuth();
@@ -27,12 +29,14 @@ function LearningInterface() {
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    const isAssessment = searchParams.get('assessment') === 'final';
     const moduleIndex = parseInt(searchParams.get('module') || '0', 10);
     const lessonIndex = parseInt(searchParams.get('lesson') || '0', 10);
 
     const enrolledCourse = useMemo(() => progress?.enrolledCourses.find(c => c.id === params.courseId), [progress, params.courseId]);
     const currentModule = useMemo(() => enrolledCourse?.modules[moduleIndex], [enrolledCourse, moduleIndex]);
     const currentLesson = useMemo(() => currentModule?.lessons[lessonIndex], [currentModule, lessonIndex]);
+    const finalAssessment = useMemo(() => enrolledCourse?.finalAssessment, [enrolledCourse]);
 
     useEffect(() => {
         if (user) {
@@ -58,23 +62,33 @@ function LearningInterface() {
     const { prevLesson, nextLesson } = useMemo(() => {
         if (!enrolledCourse) return { prevLesson: null, nextLesson: null };
 
-        let lessonsFlat: { moduleIndex: number; lessonIndex: number }[] = [];
+        let lessonsFlat: { moduleIndex: number; lessonIndex: number; isAssessment?: boolean }[] = [];
         enrolledCourse.modules.forEach((mod, mIdx) => {
             mod.lessons.forEach((_, lIdx) => {
                 lessonsFlat.push({ moduleIndex: mIdx, lessonIndex: lIdx });
             });
         });
 
-        const currentFlatIndex = lessonsFlat.findIndex(l => l.moduleIndex === moduleIndex && l.lessonIndex === lessonIndex);
+        // Add final assessment as the last item
+        if (enrolledCourse.finalAssessment && enrolledCourse.finalAssessment.length > 0) {
+            lessonsFlat.push({ moduleIndex: -1, lessonIndex: -1, isAssessment: true });
+        }
+
+        const currentFlatIndex = isAssessment
+            ? lessonsFlat.findIndex(l => l.isAssessment)
+            : lessonsFlat.findIndex(l => l.moduleIndex === moduleIndex && l.lessonIndex === lessonIndex);
 
         const prev = currentFlatIndex > 0 ? lessonsFlat[currentFlatIndex - 1] : null;
         const next = currentFlatIndex < lessonsFlat.length - 1 ? lessonsFlat[currentFlatIndex + 1] : null;
 
-        return {
-            prevLesson: prev ? `/learn/${params.courseId}?module=${prev.moduleIndex}&lesson=${prev.lessonIndex}` : null,
-            nextLesson: next ? `/learn/${params.courseId}?module=${next.moduleIndex}&lesson=${next.lessonIndex}` : null,
+        const toUrl = (item: typeof prev) => {
+            if (!item) return null;
+            if (item.isAssessment) return `/learn/${params.courseId}?assessment=final`;
+            return `/learn/${params.courseId}?module=${item.moduleIndex}&lesson=${item.lessonIndex}`;
         };
-    }, [enrolledCourse, moduleIndex, lessonIndex, params.courseId]);
+
+        return { prevLesson: toUrl(prev), nextLesson: toUrl(next) };
+    }, [enrolledCourse, moduleIndex, lessonIndex, params.courseId, isAssessment]);
 
     const toggleLessonCompletion = async () => {
         if (!user || !currentLesson) return;
@@ -87,7 +101,6 @@ function LearningInterface() {
                 title: `Lesson ${newStatus ? 'Completed' : 'Unmarked'}!`,
                 variant: 'success',
             });
-            // Refetch progress to update UI
             const data = await getStudentProgress(user.uid);
             setProgress(data);
              if (newStatus && nextLesson) {
@@ -103,7 +116,7 @@ function LearningInterface() {
         return <LearningSkeleton />;
     }
 
-    if (!currentLesson || !currentModule) {
+    if (!isAssessment && (!currentLesson || !currentModule)) {
         return (
             <div className="flex h-screen items-center justify-center text-center">
                  <Card className="max-w-md w-full bg-destructive/10 border-destructive text-destructive">
@@ -124,6 +137,62 @@ function LearningInterface() {
 
     const totalLessons = enrolledCourse.modules.reduce((sum, mod) => sum + mod.lessons.length, 0);
     const completedLessons = enrolledCourse.modules.reduce((sum, mod) => sum + mod.lessons.filter(l => l.completed).length, 0);
+
+    const renderContent = () => {
+        if (isAssessment) {
+            return (
+                <div className="prose dark:prose-invert max-w-none">
+                    <h2 className='font-headline'>Final Assessment</h2>
+                    <p>Please answer the following questions to the best of your ability. Your answers will be reviewed by an instructor.</p>
+                    <div className="space-y-8 mt-6">
+                        {finalAssessment?.map((q, idx) => (
+                            <div key={idx}>
+                                <Label htmlFor={`question-${idx}`} className="text-lg font-semibold">{`Question ${idx + 1}: ${q.questionText}`}</Label>
+                                <Textarea id={`question-${idx}`} rows={8} className="mt-2" placeholder="Your answer here..." />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <>
+                    <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-8">
+                        <p className="text-muted-foreground">Lesson video placeholder for "{currentLesson?.title}"</p>
+                    </div>
+                    <div className="prose dark:prose-invert max-w-none">
+                        <h2 className='font-headline'>About This Lesson</h2>
+                        <p>This is placeholder content for the lesson "{currentLesson?.title}". In a real application, this area would contain detailed text, code snippets, images, and other educational materials related to the video content.</p>
+                        <p>{currentLesson?.content}</p>
+                    </div>
+                </>
+            );
+        }
+    };
+    
+    const renderFooter = () => {
+        if (isAssessment) {
+            return (
+                 <Button size="lg" className="w-full sm:w-auto" onClick={() => alert("Submission logic not yet implemented.")}>
+                    <BookCheck className="mr-2"/> Submit for Review
+                </Button>
+            );
+        } else {
+            return (
+                <Button
+                    size="lg"
+                    variant={currentLesson?.completed ? 'outline' : 'success'}
+                    onClick={toggleLessonCompletion}
+                    disabled={isSubmitting}
+                    className="w-full sm:w-auto"
+                >
+                    {isSubmitting ? <Loader2 className="mr-2 animate-spin"/> : <CheckCircle className="mr-2"/>}
+                    {currentLesson?.completed ? 'Mark as Incomplete' : 'Mark as Complete'}
+                </Button>
+            );
+        }
+    }
+
 
     return (
         <div className="flex min-h-screen">
@@ -150,7 +219,7 @@ function LearningInterface() {
                                                 <Link href={`/learn/${params.courseId}?module=${mIdx}&lesson=${lIdx}`}>
                                                     <div className={cn(
                                                         "flex items-center gap-3 p-3 mx-2 rounded-md text-sm transition-colors",
-                                                        moduleIndex === mIdx && lessonIndex === lIdx ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
+                                                        !isAssessment && moduleIndex === mIdx && lessonIndex === lIdx ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
                                                     )}>
                                                         {lesson.completed ? <CheckCircle className="h-5 w-5 text-green-500 shrink-0" /> : <Circle className="h-5 w-5 text-muted-foreground shrink-0" />}
                                                         <span className='truncate'>{lesson.title}</span>
@@ -163,6 +232,19 @@ function LearningInterface() {
                                 </AccordionContent>
                             </AccordionItem>
                         ))}
+                         {finalAssessment && finalAssessment.length > 0 && (
+                             <div className="p-2">
+                                <Link href={`/learn/${params.courseId}?assessment=final`}>
+                                     <div className={cn(
+                                        "flex items-center gap-3 p-3 mx-2 rounded-md text-sm transition-colors font-semibold",
+                                        isAssessment ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
+                                    )}>
+                                        <BookCheck className="h-5 w-5 shrink-0" />
+                                        <span>Final Assessment</span>
+                                    </div>
+                                </Link>
+                            </div>
+                        )}
                     </Accordion>
                  </div>
                  <div className="p-4 border-t">
@@ -175,7 +257,9 @@ function LearningInterface() {
             {/* Main Content */}
             <main className="flex-1 flex flex-col">
                 <header className="flex items-center justify-between p-4 border-b">
-                    <h1 className="text-xl md:text-2xl font-headline font-bold truncate">{currentLesson.title}</h1>
+                    <h1 className="text-xl md:text-2xl font-headline font-bold truncate">
+                        {isAssessment ? "Final Assessment" : currentLesson?.title}
+                    </h1>
                     <div className="hidden md:flex">
                         <Button variant="ghost" disabled={!prevLesson} onClick={() => prevLesson && router.push(prevLesson)}>
                             <ArrowLeft className="mr-2"/> Previous
@@ -186,28 +270,10 @@ function LearningInterface() {
                     </div>
                 </header>
                 <div className="flex-grow p-4 md:p-8">
-                    {/* Placeholder for lesson content */}
-                    <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-8">
-                        <p className="text-muted-foreground">Lesson video placeholder</p>
-                    </div>
-                    <div className="prose dark:prose-invert max-w-none">
-                        <h2 className='font-headline'>About This Lesson</h2>
-                        <p>This is placeholder content for the lesson "{currentLesson.title}". In a real application, this area would contain detailed text, code snippets, images, and other educational materials related to the video content.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
-                    </div>
+                   {renderContent()}
                 </div>
                 <footer className="p-4 border-t bg-card/50 flex flex-col sm:flex-row items-center justify-center gap-4">
-                     <Button
-                        size="lg"
-                        variant={currentLesson.completed ? 'outline' : 'success'}
-                        onClick={toggleLessonCompletion}
-                        disabled={isSubmitting}
-                        className="w-full sm:w-auto"
-                    >
-                        {isSubmitting ? <Loader2 className="mr-2 animate-spin"/> : <CheckCircle className="mr-2"/>}
-                        {currentLesson.completed ? 'Mark as Incomplete' : 'Mark as Complete'}
-                    </Button>
-
+                     {renderFooter()}
                      <div className="flex md:hidden w-full">
                         <Button className="w-1/2" variant="ghost" disabled={!prevLesson} onClick={() => prevLesson && router.push(prevLesson)}>
                             <ArrowLeft className="mr-2"/> Previous

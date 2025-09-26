@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { CheckCircle, Clock, User, Loader2, Library } from 'lucide-react';
+import { CheckCircle, Clock, User, Loader2, Library, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
@@ -17,7 +17,7 @@ import { getStudentProgress } from '@/services/student-data';
 import type { StudentProgress, Course } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { handleEnroll } from '@/app/actions/enroll';
-import { getCourse } from '@/services/course-data';
+import { getCourse as getStaticCourse } from '@/services/course-data';
 import { Skeleton } from '@/components/ui/skeleton';
 
 
@@ -81,7 +81,7 @@ export default function CoursePage() {
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true);
-      const courseData = getCourse(params.id);
+      const courseData = await getStaticCourse(params.id);
       if (!courseData) {
         notFound();
         return;
@@ -167,12 +167,41 @@ export default function CoursePage() {
         return <Link href={getFirstIncompleteLessonLink()}><Button size="lg">Continue Course</Button></Link>;
     }
     
-    return (
-        <Button size="lg" onClick={onEnrollClick} disabled={isEnrolling}>
-            {isEnrolling && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Enroll for Free
-        </Button>
-    );
+    switch (course.level) {
+        case 'Beginner':
+            return (
+                <Button size="lg" onClick={onEnrollClick} disabled={isEnrolling}>
+                    {isEnrolling && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    Enroll for Free
+                </Button>
+            );
+        case 'Intermediate':
+            const completedBeginnerCourses = studentProgress?.completedCourses ?? 0;
+            // Example credit requirement: must have completed at least 2 courses
+            const hasEnoughCredit = completedBeginnerCourses >= 2;
+            return (
+                 <div className="flex flex-col gap-2 items-start">
+                    <Button size="lg" disabled={!hasEnoughCredit} onClick={() => alert("Application logic not yet implemented.")}>
+                        Apply with Credits
+                    </Button>
+                    {!hasEnoughCredit && (
+                        <p className="text-xs text-muted-foreground flex items-center gap-1">
+                            <AlertCircle className="w-3 h-3" />
+                            You need to complete at least 2 Beginner courses to apply. You have completed {completedBeginnerCourses}.
+                        </p>
+                    )}
+                 </div>
+            );
+        case 'Advanced':
+            return (
+                <div className="flex flex-col gap-2 items-start">
+                    <Button size="lg" disabled>Content not available yet</Button>
+                    <p className="text-xs text-muted-foreground">This is a premium course. Content is currently being finalized.</p>
+                </div>
+            );
+        default:
+            return <Button size="lg" disabled>Enrollment not available</Button>;
+    }
   };
 
 

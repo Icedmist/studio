@@ -12,7 +12,6 @@ import type { Course } from '@/lib/types';
 import { NewCourseSchema } from '@/lib/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { COURSE_CATEGORIES, COURSE_LEVELS } from '@/lib/constants';
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 
 type CourseFormData = z.infer<typeof NewCourseSchema>;
 
@@ -43,72 +42,15 @@ const QuestionForm = ({ control, namePrefix }: { control: any, namePrefix: `modu
                             <FormItem>
                                 <FormLabel>Question {questionIndex + 1}</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="What is the capital of France?" {...field} />
+                                    <Textarea rows={3} placeholder="Enter the subjective/essay question here..." {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
-                     <Controller
-                        control={control}
-                        name={`${namePrefix}.${questionIndex}.options`}
-                        render={() => {
-                            const { fields: optionFields, append: appendOption, remove: removeOption } = useFieldArray({
-                                control,
-                                name: `${namePrefix}.${questionIndex}.options`
-                            });
-
-                            return (
-                                <div className='space-y-2'>
-                                  <FormLabel>Options</FormLabel>
-                                  <FormField
-                                    control={control}
-                                    name={`${namePrefix}.${questionIndex}.correctAnswerIndex`}
-                                    render={({ field }) => (
-                                      <FormItem>
-                                        <FormControl>
-                                          <RadioGroup
-                                            onValueChange={(value) => field.onChange(parseInt(value, 10))}
-                                            value={field.value?.toString()}
-                                            className="space-y-1"
-                                          >
-                                            {optionFields.map((optionItem, optionIndex) => (
-                                                <div key={optionItem.id} className="flex gap-2 items-center">
-                                                    <FormControl>
-                                                        <RadioGroupItem value={optionIndex.toString()} id={`${namePrefix}.${questionIndex}.options.${optionIndex}`}/>
-                                                    </FormControl>
-                                                    <FormField
-                                                      control={control}
-                                                      name={`${namePrefix}.${questionIndex}.options.${optionIndex}`}
-                                                      render={({ field }) => (
-                                                          <FormItem className='flex-grow'>
-                                                              <FormControl>
-                                                                  <Input placeholder={`Option ${optionIndex + 1}`} {...field} />
-                                                              </FormControl>
-                                                          </FormItem>
-                                                      )}
-                                                    />
-                                                    <Button type="button" variant="ghost" size="icon" className="h-8 w-8" onClick={() => removeOption(optionIndex)}>
-                                                        <Trash2 className="h-4 w-4" />
-                                                    </Button>
-                                                </div>
-                                            ))}
-                                            <FormMessage />
-                                          </RadioGroup>
-                                        </FormControl>
-                                      </FormItem>
-                                    )}
-                                  />
-                                    <Button type="button" variant="outline" size="sm" onClick={() => appendOption('')}>
-                                        <PlusCircle className="mr-2 h-4 w-4" /> Add Option
-                                    </Button>
-                                </div>
-                            )
-                        }}
-                     />
                 </div>
             ))}
-            <Button type="button" variant="secondary" onClick={() => append({ questionText: '', options: ['', ''], correctAnswerIndex: 0 })}>
+            <Button type="button" variant="secondary" onClick={() => append({ questionText: '' })}>
                 <PlusCircle className="mr-2 h-4 w-4" /> Add Question
             </Button>
         </div>
@@ -374,11 +316,6 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
                             }}
                          />
                     </div>
-                    <div className="pl-4 border-l-2 space-y-2">
-                         <h4 className='font-medium text-sm'>Module {moduleIndex + 1} Quiz</h4>
-                         <p className='text-xs text-muted-foreground'>6 questions required, 4 must be correct to pass.</p>
-                         <QuestionForm control={form.control} namePrefix={`modules.${moduleIndex}.quiz`} />
-                    </div>
                 </div>
             ))}
             <Button type="button" variant="secondary" onClick={() => appendModule({ title: '', lessons: [{ title: '', duration: '', content: '' }], quiz: [] })}>
@@ -387,8 +324,8 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
         </div>
 
         <div className="space-y-4 rounded-md border p-4">
-            <h3 className="font-semibold text-lg flex items-center gap-2"><HelpCircle className="h-5 w-5 text-primary"/>Final Assessment</h3>
-            <p className='text-sm text-muted-foreground'>15 questions required, 70% must be correct to earn the certificate.</p>
+            <h3 className="font-semibold text-lg flex items-center gap-2"><HelpCircle className="h-5 w-5 text-primary"/>Final Assessment (Essay Questions)</h3>
+            <p className='text-sm text-muted-foreground'>These are subjective questions that will be reviewed by an instructor.</p>
             <QuestionForm control={form.control} namePrefix="finalAssessment" />
         </div>
 

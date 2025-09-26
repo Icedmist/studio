@@ -184,6 +184,13 @@ export function CourseManager() {
         </Card>
     )
   }
+  
+  const getPriceDisplay = (course: Course) => {
+    if (course.level === 'Beginner') return 'Free';
+    if (course.level === 'Intermediate') return 'Credit-based';
+    if (course.level === 'Advanced') return course.price.toLocaleString();
+    return course.price > 0 ? course.price.toLocaleString() : 'Free';
+  }
 
   return (
     <TooltipProvider>
@@ -221,7 +228,7 @@ export function CourseManager() {
             <TableHead>Title</TableHead>
             <TableHead>Category</TableHead>
             <TableHead>Level</TableHead>
-            <TableHead>Price</TableHead>
+            <TableHead>Price (₦)</TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -234,7 +241,7 @@ export function CourseManager() {
                 <Badge variant="outline">{course.level}</Badge>
               </TableCell>
               <TableCell>
-                {course.price > 0 ? course.price.toLocaleString() : 'Free'}
+                {getPriceDisplay(course)}
               </TableCell>
               <TableCell className="text-right space-x-2">
                 <Tooltip>
