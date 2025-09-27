@@ -113,92 +113,70 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
             <h2 className="text-2xl md:text-3xl font-headline font-bold text-center mb-12">
               Why Choose TechTradeHub?
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
-                 <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} transition={{ delay: 0.1 }}>
-                  <Card className="bg-transparent border-0 shadow-none">
-                    <CardHeader className="items-center">
-                      <div className="p-3 rounded-full bg-primary/10 w-fit">
-                        <ShieldCheck className="w-6 h-6 text-primary" />
-                      </div>
-                      <CardTitle className="text-lg">Expert-Led Content</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">Learn from industry professionals with real-world experience in trading, development, and AI.</p>
-                    </CardContent>
-                  </Card>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 max-w-4xl mx-auto">
+                <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} transition={{ delay: 0.1 }} className="flex gap-6">
+                  <div className="p-3 rounded-full bg-primary/10 h-fit">
+                    <ShieldCheck className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Expert-Led Content</h3>
+                    <p className="text-sm text-muted-foreground">Learn from industry professionals with real-world experience in trading, development, and AI.</p>
+                  </div>
                 </motion.div>
-                <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} transition={{ delay: 0.2 }}>
-                   <Card className="bg-transparent border-0 shadow-none">
-                    <CardHeader className="items-center">
-                      <div className="p-3 rounded-full bg-success/10 w-fit">
-                        <Zap className="w-6 h-6 text-success" />
-                      </div>
-                      <CardTitle className="text-lg">Practical, Hands-On Learning</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">Our curriculum is project-based, ensuring you gain practical skills you can apply immediately.</p>
-                    </CardContent>
-                  </Card>
+                <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} transition={{ delay: 0.2 }} className="flex gap-6">
+                   <div className="p-3 rounded-full bg-success/10 h-fit">
+                    <Zap className="w-6 h-6 text-success" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Practical, Hands-On Learning</h3>
+                    <p className="text-sm text-muted-foreground">Our curriculum is project-based, ensuring you gain practical skills you can apply immediately.</p>
+                  </div>
                 </motion.div>
-                 <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} transition={{ delay: 0.3 }}>
-                   <Card className="bg-transparent border-0 shadow-none">
-                    <CardHeader className="items-center">
-                      <div className="p-3 rounded-full bg-secondary/10 w-fit">
-                        <Users className="w-6 h-6 text-secondary" />
-                      </div>
-                      <CardTitle className="text-lg">Vibrant Community</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">Connect with fellow learners, share ideas, and grow together in our active community channels.</p>
-                    </CardContent>
-                  </Card>
+                 <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} transition={{ delay: 0.3 }} className="flex gap-6">
+                   <div className="p-3 rounded-full bg-secondary/10 h-fit">
+                    <Users className="w-6 h-6 text-secondary" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Vibrant Community</h3>
+                    <p className="text-sm text-muted-foreground">Connect with fellow learners, share ideas, and grow together in our active community channels.</p>
+                  </div>
                  </motion.div>
-                 <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} transition={{ delay: 0.1 }}>
-                  <Card className="bg-transparent border-0 shadow-none">
-                    <CardHeader className="items-center">
-                      <div className="p-3 rounded-full bg-purple-500/10 w-fit">
-                        <BookHeart className="w-6 h-6 text-purple-500" />
-                      </div>
-                      <CardTitle className="text-lg">Community Access</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">Join our exclusive WhatsApp and Telegram groups to network with peers and instructors.</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-                <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} transition={{ delay: 0.2 }}>
-                   <Card className="bg-transparent border-0 shadow-none">
-                    <CardHeader className="items-center">
-                      <div className="p-3 rounded-full bg-orange-500/10 w-fit">
-                        <Briefcase className="w-6 h-6 text-orange-500" />
-                      </div>
-                      <CardTitle className="text-lg">Career-Focused</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">Gain verifiable certificates and skills that are directly applicable to high-demand jobs.</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-                 <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} transition={{ delay: 0.3 }}>
-                   <Dialog>
+                 <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} transition={{ delay: 0.4 }} className="flex gap-6">
+                    <Dialog>
                         <DialogTrigger asChild>
-                            <Card className="bg-transparent border-0 shadow-none cursor-pointer hover:bg-card/50 transition-colors">
-                                <CardHeader className="items-center">
-                                <div className="p-3 rounded-full bg-rose-500/10 w-fit">
+                            <div className="flex gap-6 cursor-pointer group">
+                                <div className="p-3 rounded-full bg-rose-500/10 h-fit">
                                     <Award className="w-6 h-6 text-rose-500" />
                                 </div>
-                                <CardTitle className="text-lg">Verifiable Certificates</CardTitle>
-                                </CardHeader>
-                                <CardContent>
-                                <p className="text-sm text-muted-foreground">Receive a verifiable certificate upon course completion to showcase your skills.</p>
-                                </CardContent>
-                            </Card>
+                                <div>
+                                    <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">Verifiable Certificates</h3>
+                                    <p className="text-sm text-muted-foreground">Receive a verifiable certificate upon course completion to showcase your skills.</p>
+                                </div>
+                            </div>
                         </DialogTrigger>
                         <DialogContent className="max-w-4xl p-0 border-0">
                             <SampleCertificate />
                         </DialogContent>
                     </Dialog>
                  </motion.div>
+                 <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} transition={{ delay: 0.5 }} className="flex gap-6">
+                  <div className="p-3 rounded-full bg-purple-500/10 h-fit">
+                    <BookHeart className="w-6 h-6 text-purple-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Community Access</h3>
+                    <p className="text-sm text-muted-foreground">Join our exclusive WhatsApp and Telegram groups to network with peers and instructors.</p>
+                  </div>
+                </motion.div>
+                <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} transition={{ delay: 0.6 }} className="flex gap-6">
+                   <div className="p-3 rounded-full bg-orange-500/10 h-fit">
+                    <Briefcase className="w-6 h-6 text-orange-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Career-Focused</h3>
+                    <p className="text-sm text-muted-foreground">Gain verifiable certificates and skills that are directly applicable to high-demand jobs.</p>
+                  </div>
+                </motion.div>
             </div>
           </div>
         </section>
@@ -370,3 +348,5 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
       </div>
     );
 }
+
+    
