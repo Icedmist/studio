@@ -12,7 +12,7 @@ export function AnimatedHeroText() {
     useEffect(() => {
         const timer = setInterval(() => {
             setWordIndex((prevIndex) => (prevIndex + 1) % animatedWords.length);
-        }, 2500);
+        }, 3500);
         return () => clearInterval(timer);
     }, [animatedWords.length]);
 
