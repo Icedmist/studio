@@ -355,3 +355,5 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
       </div>
     );
 }
+
+    
