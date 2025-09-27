@@ -12,8 +12,18 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // No images configured, as per user request to disable image handling
-  images: {},
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+      }
+    ],
+  },
   webpack: (config, { isServer }) => {
     // Genkit uses Handlebars, which in turn uses a feature not supported by
     // Webpack. We mark it as external to avoid this error.

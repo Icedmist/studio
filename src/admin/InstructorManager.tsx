@@ -18,6 +18,7 @@ import Link from 'next/link';
 import { z } from 'zod';
 import { InstructorSchema } from '@/lib/types';
 import { getInstructors } from '@/services/instructor-data';
+import { uploadFile } from '@/services/storage';
 
 type InstructorFormData = z.infer<ReturnType<typeof getInstructorFormSchema>>;
 
@@ -53,9 +54,29 @@ export function InstructorManager() {
   const handleFormSubmit = async (data: InstructorFormData) => {
     setIsSubmitting(true);
     try {
-        // Since file uploads are disabled, data is ready to be saved.
+        let avatarUrl = data.avatarUrl;
+
+        // If a new file is uploaded, upload it and get the URL
+        if (data.avatarFile && data.avatarFile.length > 0) {
+            const file = data.avatarFile[0];
+            const filePath = `instructors/${Date.now()}_${file.name}`;
+            avatarUrl = await uploadFile(file, filePath);
+        } else if (!avatarUrl && editingInstructor) {
+            // Keep the old URL if no new file is selected during an edit
+            avatarUrl = editingInstructor.avatarUrl;
+        }
+
+        if (!avatarUrl) {
+            throw new Error("Instructor image is required.");
+        }
+
         const NewInstructorSchema = InstructorSchema.omit({ id: true });
-        const validatedData = NewInstructorSchema.parse(data);
+        const validatedData = NewInstructorSchema.parse({
+            name: data.name,
+            bio: data.bio,
+            socials: data.socials,
+            avatarUrl: avatarUrl, // Use the final URL
+        });
         
         if (editingInstructor) {
             const instructorDocRef = doc(db, 'instructors', editingInstructor.id);
