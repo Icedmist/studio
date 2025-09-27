@@ -7,8 +7,12 @@ import type { NewCourse } from '@/lib/types';
 import { NewCourseSchema } from '@/lib/types';
 import { courses as coursesToSeedStatic } from '@/lib/courses';
 
-const coursesToSeed: NewCourse[] = coursesToSeedStatic.map(({id, progress, ...course}) => course);
-
+const coursesToSeed: NewCourse[] = coursesToSeedStatic.map(({id, progress, ...course}) => ({
+    ...course,
+    // Ensure the ID is part of the data being seeded so we can reference it.
+    // This is a temporary measure for seeding. The final document ID will be the one used.
+    id: id, 
+}));
 
 export async function seedInitialCourses(): Promise<number> {
     const coursesCollection = collection(db, 'courses');
@@ -21,27 +25,29 @@ export async function seedInitialCourses(): Promise<number> {
 
     console.log(`Courses collection is empty. Seeding ${coursesToSeed.length} initial courses...`);
     try {
-        // Chunk the writes to avoid exceeding Firestore's batch limit of 500 operations.
-        const chunkSize = 10;
-        const chunks = [];
-        for (let i = 0; i < coursesToSeed.length; i += chunkSize) {
-            chunks.push(coursesToSeed.slice(i, i + chunkSize));
-        }
-
+        const chunkSize = 400; // Firestore batch limit is 500 operations
         let seededCount = 0;
-        for (const chunk of chunks) {
+
+        for (let i = 0; i < coursesToSeed.length; i += chunkSize) {
             const batch = writeBatch(db);
+            const chunk = coursesToSeed.slice(i, i + chunkSize);
+            
             chunk.forEach(courseData => {
-                // Use the static ID from the courses.ts file
-                const newCourseDoc = doc(coursesCollection, (courseData as any).id);
-                const validationResult = NewCourseSchema.safeParse(courseData);
+                const courseId = (courseData as any).id;
+                // Omit the temporary 'id' field from the data written to Firestore
+                const { id, ...dataToSave } = courseData; 
+
+                const validationResult = NewCourseSchema.safeParse(dataToSave);
+                
                 if (validationResult.success) {
+                    const newCourseDoc = doc(coursesCollection, courseId);
                     batch.set(newCourseDoc, validationResult.data);
                     seededCount++;
                 } else {
                     console.warn("Course validation failed for:", courseData.title, validationResult.error.flatten());
                 }
             });
+
             console.log(`Committing a chunk of ${chunk.length} courses...`);
             await batch.commit();
         }
