@@ -113,35 +113,39 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
             <h2 className="text-2xl md:text-3xl font-headline font-bold text-center mb-12">
               Why Choose TechTradeHub?
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 max-w-4xl mx-auto">
-                <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} transition={{ delay: 0.1 }} className="flex gap-6">
-                  <div className="p-3 rounded-full bg-primary/10 h-fit">
-                    <ShieldCheck className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">Expert-Led Content</h3>
-                    <p className="text-sm text-muted-foreground">Learn from industry professionals with real-world experience in trading, development, and AI.</p>
-                  </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {/* Column 1 */}
+                <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} transition={{ delay: 0.1 }} className="space-y-12">
+                    <div className="flex gap-6">
+                        <div className="p-3 rounded-full bg-primary/10 h-fit">
+                            <ShieldCheck className="w-6 h-6 text-primary" />
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-semibold mb-2">Expert-Led Content</h3>
+                            <p className="text-sm text-muted-foreground">Learn from industry professionals with real-world experience in trading, development, and AI.</p>
+                        </div>
+                    </div>
+                    <div className="flex gap-6">
+                        <div className="p-3 rounded-full bg-success/10 h-fit">
+                            <Zap className="w-6 h-6 text-success" />
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-semibold mb-2">Practical, Hands-On Learning</h3>
+                            <p className="text-sm text-muted-foreground">Our curriculum is project-based, ensuring you gain practical skills you can apply immediately.</p>
+                        </div>
+                    </div>
                 </motion.div>
-                <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} transition={{ delay: 0.2 }} className="flex gap-6">
-                   <div className="p-3 rounded-full bg-success/10 h-fit">
-                    <Zap className="w-6 h-6 text-success" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">Practical, Hands-On Learning</h3>
-                    <p className="text-sm text-muted-foreground">Our curriculum is project-based, ensuring you gain practical skills you can apply immediately.</p>
-                  </div>
-                </motion.div>
-                 <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} transition={{ delay: 0.3 }} className="flex gap-6">
-                   <div className="p-3 rounded-full bg-secondary/10 h-fit">
-                    <Users className="w-6 h-6 text-secondary" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">Vibrant Community</h3>
-                    <p className="text-sm text-muted-foreground">Connect with fellow learners, share ideas, and grow together in our active community channels.</p>
-                  </div>
-                 </motion.div>
-                 <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} transition={{ delay: 0.4 }} className="flex gap-6">
+                {/* Column 2 */}
+                <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} transition={{ delay: 0.2 }} className="space-y-12">
+                    <div className="flex gap-6">
+                        <div className="p-3 rounded-full bg-secondary/10 h-fit">
+                            <Users className="w-6 h-6 text-secondary" />
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-semibold mb-2">Vibrant Community</h3>
+                            <p className="text-sm text-muted-foreground">Connect with fellow learners, share ideas, and grow together in our active community channels.</p>
+                        </div>
+                    </div>
                     <Dialog>
                         <DialogTrigger asChild>
                             <div className="flex gap-6 cursor-pointer group">
@@ -158,24 +162,27 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
                             <SampleCertificate />
                         </DialogContent>
                     </Dialog>
-                 </motion.div>
-                 <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} transition={{ delay: 0.5 }} className="flex gap-6">
-                  <div className="p-3 rounded-full bg-purple-500/10 h-fit">
-                    <BookHeart className="w-6 h-6 text-purple-500" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">Community Access</h3>
-                    <p className="text-sm text-muted-foreground">Join our exclusive WhatsApp and Telegram groups to network with peers and instructors.</p>
-                  </div>
                 </motion.div>
-                <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.5 }} transition={{ delay: 0.6 }} className="flex gap-6">
-                   <div className="p-3 rounded-full bg-orange-500/10 h-fit">
-                    <Briefcase className="w-6 h-6 text-orange-500" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2">Career-Focused</h3>
-                    <p className="text-sm text-muted-foreground">Gain verifiable certificates and skills that are directly applicable to high-demand jobs.</p>
-                  </div>
+                {/* Column 3 */}
+                <motion.div variants={cardVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} transition={{ delay: 0.3 }} className="space-y-12">
+                    <div className="flex gap-6">
+                        <div className="p-3 rounded-full bg-purple-500/10 h-fit">
+                            <BookHeart className="w-6 h-6 text-purple-500" />
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-semibold mb-2">Community Access</h3>
+                            <p className="text-sm text-muted-foreground">Join our exclusive WhatsApp and Telegram groups to network with peers and instructors.</p>
+                        </div>
+                    </div>
+                    <div className="flex gap-6">
+                        <div className="p-3 rounded-full bg-orange-500/10 h-fit">
+                            <Briefcase className="w-6 h-6 text-orange-500" />
+                        </div>
+                        <div>
+                            <h3 className="text-lg font-semibold mb-2">Career-Focused</h3>
+                            <p className="text-sm text-muted-foreground">Gain verifiable certificates and skills that are directly applicable to high-demand jobs.</p>
+                        </div>
+                    </div>
                 </motion.div>
             </div>
           </div>
@@ -348,5 +355,3 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
       </div>
     );
 }
-
-    
