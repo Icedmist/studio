@@ -3,5 +3,4 @@ config();
 
 import '@/ai/flows/tech-gee-chatbot.ts';
 import '@/ai/flows/recommend-courses-flow.ts';
-import '@/ai/flows/generate-certificate-image-flow.ts';
 import '@/ai/flows/send-event-confirmation-email-flow.ts';
