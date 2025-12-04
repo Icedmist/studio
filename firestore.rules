@@ -1,9 +1,6 @@
 
 rules_version = '2';
 
-// To deploy these rules, run:
-// firebase deploy --only firestore:rules
-
 service cloud.firestore {
   match /databases/{database}/documents {
   
@@ -72,9 +69,10 @@ service cloud.firestore {
 
     // A student can only read and write to their own progress document.
     match /studentProgress/{userId} {
-      allow read, write: if isOwner(userId);
-      // Admins can read student progress for administrative purposes
+      // Allow get/list for admins to view user data in the admin panel
       allow get, list: if isAdmin();
+      // Allow users to read and write their own progress
+      allow read, write: if isOwner(userId);
     }
 
     // Feedback can be created by any authenticated user.
