@@ -9,12 +9,14 @@ import { courses as coursesToSeedStatic } from '@/lib/courses';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 
-const coursesToSeed: NewCourse[] = coursesToSeedStatic.map(({id, progress, ...course}) => ({
-    ...course,
-    // Ensure the ID is part of the data being seeded so we can reference it.
-    // This is a temporary measure for seeding. The final document ID will be the one used.
-    id: id, 
-}));
+// This maps the static course data into a format that can be seeded.
+const coursesToSeed: NewCourse[] = coursesToSeedStatic.map(({id, progress, ...course}) => (
+    NewCourseSchema.parse(course)
+));
+
+// We need the original IDs for creating the documents
+const courseIds = coursesToSeedStatic.map(c => c.id);
+
 
 export async function seedInitialCourses(): Promise<number> {
     const coursesCollection = collection(db, 'courses');
@@ -41,12 +43,11 @@ export async function seedInitialCourses(): Promise<number> {
     for (let i = 0; i < coursesToSeed.length; i += chunkSize) {
         const batch = writeBatch(db);
         const chunk = coursesToSeed.slice(i, i + chunkSize);
+        const idChunk = courseIds.slice(i, i+chunkSize);
         
-        chunk.forEach(courseData => {
-            const courseId = (courseData as any).id;
-            const { id, ...dataToSave } = courseData; 
-
-            const validationResult = NewCourseSchema.safeParse(dataToSave);
+        chunk.forEach((courseData, index) => {
+            const courseId = idChunk[index];
+            const validationResult = NewCourseSchema.safeParse(courseData);
             
             if (validationResult.success) {
                 const newCourseDoc = doc(coursesCollection, courseId);
@@ -64,8 +65,8 @@ export async function seedInitialCourses(): Promise<number> {
             if (serverError.code === 'permission-denied') {
                 const permissionError = new FirestorePermissionError({
                     path: coursesCollection.path,
-                    operation: 'create', // Batch write is a create operation
-                    requestResourceData: chunk.map(c => ({ id: (c as any).id, ...c }))
+                    operation: 'create',
+                    requestResourceData: chunk,
                 });
                 errorEmitter.emit('permission-error', permissionError);
             }
@@ -77,3 +78,4 @@ export async function seedInitialCourses(): Promise<number> {
     console.log(`Successfully seeded ${seededCount} courses.`);
     return seededCount;
 }
+
