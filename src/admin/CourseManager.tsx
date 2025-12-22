@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { courses as staticCourses } from '@/lib/courses';
 import { AlertCircle, ChevronRight, Library } from 'lucide-react';
 import { Card, CardDescription, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { COURSE_CATEGORIES } from '@/lib/constants';
+import { COURSE_CATEGORIES, COURSE_LEVELS } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
 
 type GroupedCourses = {
@@ -41,24 +41,23 @@ export function CourseManager() {
   const categorySummary = useMemo(() => {
     return COURSE_CATEGORIES.map(category => ({
       name: category,
-      count: Object.values(groupedCourses[category] || {}).reduce((sum, levelCourses) => sum + (levelCourses?.length || 0), 0)
+      count: staticCourses.filter(c => c.category === category).length
     })).filter(c => c.count > 0);
-  }, [groupedCourses]);
+  }, []);
 
   const levelSummary = useMemo(() => {
     if (!selectedCategory) return [];
-    const categoryData = groupedCourses[selectedCategory];
-    if (!categoryData) return [];
-    return Object.entries(categoryData).map(([level, courses]) => ({
-      name: level as CourseLevel,
-      count: courses?.length || 0,
-    }));
-  }, [selectedCategory, groupedCourses]);
+    const categoryCourses = staticCourses.filter(c => c.category === selectedCategory);
+    return COURSE_LEVELS.map(level => ({
+      name: level,
+      count: categoryCourses.filter(c => c.level === level).length
+    })).filter(l => l.count > 0);
+  }, [selectedCategory]);
   
   const coursesToShow = useMemo(() => {
     if (!selectedCategory || !selectedLevel) return [];
-    return groupedCourses[selectedCategory]?.[selectedLevel] || [];
-  }, [selectedCategory, selectedLevel, groupedCourses]);
+    return staticCourses.filter(c => c.category === selectedCategory && c.level === selectedLevel);
+  }, [selectedCategory, selectedLevel]);
 
   const handleCategorySelect = (category: CourseCategory) => {
     setSelectedCategory(category);
@@ -69,7 +68,7 @@ export function CourseManager() {
     setSelectedLevel(level);
   };
 
-  const resetSelection = (level: 'category' | 'level' | null = null) => {
+  const resetSelection = (level: 'category' | null = null) => {
     if (!level) {
         setSelectedCategory(null);
     }
