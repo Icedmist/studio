@@ -48,44 +48,48 @@ async function CoursePageContent() {
 
     if (error) {
         return (
-             <Card className="text-center bg-card/60 max-w-lg mx-auto">
-                <CardHeader>
-                    <div className="mx-auto bg-destructive/10 p-3 rounded-full w-fit">
-                        <AlertTriangle className="h-8 w-8 text-destructive" />
-                    </div>
-                    <CardTitle>Failed to Load Courses</CardTitle>
-                    <CardDescription>
-                        There was an error loading the course catalog. This can happen if the Firestore database is not yet populated or if there are permission issues.
-                        <pre className="mt-2 text-xs bg-muted p-2 rounded whitespace-pre-wrap">{error}</pre>
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                   <Link href="/admin/courses">
-                        <Button>Go to Admin Panel</Button>
-                   </Link>
-                </CardContent>
-            </Card>
+             <div className="container mx-auto py-12 flex justify-center">
+                <Card className="text-center bg-card/60 max-w-lg mx-auto">
+                    <CardHeader>
+                        <div className="mx-auto bg-destructive/10 p-3 rounded-full w-fit">
+                            <AlertTriangle className="h-8 w-8 text-destructive" />
+                        </div>
+                        <CardTitle>Failed to Load Courses</CardTitle>
+                        <CardDescription>
+                            There was an error loading the course catalog. This can happen if the Firestore database is not yet populated or if there are permission issues with your security rules.
+                            <pre className="mt-4 text-left text-xs bg-muted p-2 rounded whitespace-pre-wrap">{error}</pre>
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                       <Link href="/admin/courses">
+                            <Button>Go to Admin Panel</Button>
+                       </Link>
+                    </CardContent>
+                </Card>
+             </div>
         )
     }
 
     if (!courses || courses.length === 0) {
         return (
-            <Card className="text-center bg-card/60 max-w-lg mx-auto">
-                <CardHeader>
-                    <div className="mx-auto bg-amber-100 dark:bg-amber-900/50 p-3 rounded-full w-fit">
-                        <AlertTriangle className="h-8 w-8 text-amber-500" />
-                    </div>
-                    <CardTitle>No Courses Available</CardTitle>
-                    <CardDescription>
-                        It seems there are no courses in the database right now. Please go to the admin panel to seed the initial course data.
-                    </CardDescription>
-                </CardHeader>
-                 <CardContent>
-                   <Link href="/admin/courses">
-                        <Button>Go to Admin Panel</Button>
-                   </Link>
-                </CardContent>
-            </Card>
+            <div className="container mx-auto py-12 flex justify-center">
+                <Card className="text-center bg-card/60 max-w-lg mx-auto">
+                    <CardHeader>
+                        <div className="mx-auto bg-amber-100 dark:bg-amber-900/50 p-3 rounded-full w-fit">
+                            <AlertTriangle className="h-8 w-8 text-amber-500" />
+                        </div>
+                        <CardTitle>No Courses Available</CardTitle>
+                        <CardDescription>
+                            It seems there are no courses in the database right now. Please go to the admin panel to seed the initial course data.
+                        </CardDescription>
+                    </CardHeader>
+                     <CardContent>
+                       <Link href="/admin/courses">
+                            <Button>Go to Admin Panel</Button>
+                       </Link>
+                    </CardContent>
+                </Card>
+            </div>
         )
     }
 

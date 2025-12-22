@@ -8,39 +8,24 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2, User, Linkedin, Twitter, Upload } from 'lucide-react';
+import { Loader2, User, Linkedin, Twitter, Image as ImageIcon } from 'lucide-react';
 import type { Instructor } from '@/lib/types';
 import { TeamMemberRoleSchema } from '@/lib/types';
-import { useState, useEffect } from 'react';
-import NextImage from 'next/image';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { courses as staticCourses } from '@/lib/courses';
 import { ScrollArea } from '../ui/scroll-area';
 import { Checkbox } from '../ui/checkbox';
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-
 export const getInstructorFormSchema = () => z.object({
   name: z.string().min(1, 'Name is required'),
   bio: z.string().min(10, 'Bio must be at least 10 characters'),
-  avatarUrl: z.string().url().optional().or(z.literal('')),
+  avatarUrl: z.string().url('Must be a valid URL for the avatar image'),
   role: TeamMemberRoleSchema,
   socials: z.object({
     twitter: z.string().url().optional().or(z.literal('')),
     linkedin: z.string().url().optional().or(z.literal('')),
   }),
   assignedCourses: z.array(z.string()).optional(),
-  avatarFile: z
-    .any()
-    .refine(
-        (files) => !files || files.length === 0 || files?.[0]?.size <= MAX_FILE_SIZE,
-        `Max file size is 5MB.`
-    )
-    .refine(
-        (files) => !files || files.length === 0 || ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-        ".jpg, .jpeg, .png and .webp files are accepted."
-    ).optional(),
 });
 
 type InstructorFormData = z.infer<ReturnType<typeof getInstructorFormSchema>>;
@@ -53,14 +38,12 @@ interface InstructorFormProps {
 }
 
 export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }: InstructorFormProps) {
-  const [imagePreview, setImagePreview] = useState<string | null>(initialData?.avatarUrl || null);
-  
   const form = useForm<InstructorFormData>({
     resolver: zodResolver(getInstructorFormSchema()),
     defaultValues: {
       name: initialData?.name ?? '',
       bio: initialData?.bio ?? '',
-      avatarUrl: initialData?.avatarUrl ?? '',
+      avatarUrl: initialData?.avatarUrl ?? 'https://i.pravatar.cc/150',
       role: initialData?.role ?? 'Instructor',
       socials: {
         twitter: initialData?.socials?.twitter ?? '',
@@ -70,56 +53,19 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
     },
   });
 
-  const avatarFile = form.watch('avatarFile');
   const selectedRole = form.watch('role');
-
-  useEffect(() => {
-    if (avatarFile && avatarFile.length > 0) {
-      const file = avatarFile[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    } else if (initialData?.avatarUrl) {
-      setImagePreview(initialData.avatarUrl);
-    } else {
-      setImagePreview(null);
-    }
-  }, [avatarFile, initialData]);
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-h-[80vh] overflow-y-auto p-1 pr-4">
-        {imagePreview && (
-            <div className="flex justify-center">
-                <NextImage 
-                    src={imagePreview}
-                    alt="Avatar preview"
-                    width={128}
-                    height={128}
-                    className="rounded-full w-32 h-32 object-cover border-4 border-primary"
-                />
-            </div>
-        )}
         <FormField
           control={form.control}
-          name="avatarFile"
+          name="avatarUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Avatar Image</FormLabel>
+              <FormLabel>Avatar Image URL</FormLabel>
               <FormControl>
-                <div className="relative">
-                  <Input 
-                      type="file" 
-                      className="pl-12"
-                      accept="image/png, image/jpeg, image/webp"
-                      onChange={(e) => field.onChange(e.target.files)}
-                  />
-                  <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                    <Upload className="w-5 h-5" />
-                  </div>
-                </div>
+                <Input icon={<ImageIcon />} placeholder="https://example.com/image.png" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

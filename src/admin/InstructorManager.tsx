@@ -19,7 +19,6 @@ import { z } from 'zod';
 import { InstructorSchema } from '@/lib/types';
 import { getInstructors } from '@/services/instructor-data';
 import { courses as staticCourses } from '@/lib/courses';
-import { uploadFile } from '@/services/storage';
 import { Badge } from '@/components/ui/badge';
 
 type InstructorFormData = z.infer<ReturnType<typeof getInstructorFormSchema>>;
@@ -56,27 +55,13 @@ export function InstructorManager() {
   const handleFormSubmit = async (data: InstructorFormData) => {
     setIsSubmitting(true);
     try {
-        let avatarUrl = data.avatarUrl;
-
-        if (data.avatarFile && data.avatarFile.length > 0) {
-            const file = data.avatarFile[0];
-            const filePath = `instructors/${Date.now()}_${file.name}`;
-            avatarUrl = await uploadFile(file, filePath);
-        } else if (!avatarUrl && editingInstructor) {
-            avatarUrl = editingInstructor.avatarUrl;
-        }
-
-        if (!avatarUrl) {
-            throw new Error("Member image is required.");
-        }
-
         const NewInstructorSchema = InstructorSchema.omit({ id: true });
         const validatedData = NewInstructorSchema.parse({
             name: data.name,
             bio: data.bio,
             role: data.role,
             socials: data.socials,
-            avatarUrl: avatarUrl,
+            avatarUrl: data.avatarUrl,
             assignedCourses: data.role === 'Instructor' ? data.assignedCourses : [],
         });
         
