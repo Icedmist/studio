@@ -8,6 +8,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { ChatbotWrapper } from '@/components/chatbot/ChatbotWrapper';
+import { FirebaseErrorListener } from '@/components/FirebaseErrorListener';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -48,6 +49,7 @@ export default function RootLayout({
         )}
       >
         <AuthProvider>
+          <FirebaseErrorListener />
           <Header />
           <main className="flex-grow">{children}</main>
           <Footer />
