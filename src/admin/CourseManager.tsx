@@ -4,12 +4,10 @@
 import { useState, useEffect, useMemo } from 'react';
 import type { Course, CourseCategory, CourseLevel } from '@/lib/types';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
 import { courses as staticCourses } from '@/lib/courses';
-import { AlertCircle, ChevronRight, Library } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { Card, CardDescription, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { COURSE_CATEGORIES, COURSE_LEVELS } from '@/lib/constants';
-import { Button } from '@/components/ui/button';
 
 type GroupedCourses = {
   [category in CourseCategory]?: {
@@ -77,7 +75,7 @@ export function CourseManager() {
 
   const getPriceDisplay = (course: Omit<Course, 'progress'>) => {
     if (course.price === 0) return 'Free';
-    return course.price.toLocaleString();
+    return `₦${course.price.toLocaleString()}`;
   }
 
   const renderBreadcrumbs = () => (
@@ -100,12 +98,9 @@ export function CourseManager() {
 
   return (
     <div>
-       <Card className="mb-6 bg-blue-500/10 border-blue-500/30">
+      <Card className="mb-6 bg-blue-500/10 border-blue-500/30">
         <CardHeader>
-          <div className="flex items-center gap-3">
-             <AlertCircle className="w-5 h-5 text-blue-500" />
             <CardTitle className="text-blue-400">Course Data Source</CardTitle>
-          </div>
           <CardDescription className="text-blue-400/80">
             Course data is managed directly from the file at `/src/lib/courses.ts`. This admin page is for read-only viewing to confirm the data structure and counts.
           </CardDescription>
@@ -172,3 +167,5 @@ export function CourseManager() {
     </div>
   );
 }
+
+    

@@ -117,7 +117,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     level: 'Intermediate',
     duration: '12h',
     instructor: 'Michael Adebayo',
-    price: 0,
+    price: 5000,
     imageUrl: 'https://picsum.photos/seed/futures-i-01/600/400',
     modules: [{title: 'Strategy Expansion', lessons: [{ title: 'Scalping, Swinging, and Spreading', content: 'Learn the mechanics and mindset required for short-term scalping, multi-day swing trading, and market-neutral spread trading.', duration: '1.5h', completed: false }] }],
     finalAssessment: [
@@ -133,7 +133,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     level: 'Intermediate',
     duration: '15h',
     instructor: 'Dr. Anya Sharma',
-    price: 0,
+    price: 5000,
     imageUrl: 'https://picsum.photos/seed/futures-i-02/600/400',
     modules: [{title: 'Trading by Numbers', lessons: [{ title: 'Statistical Foundations', content: 'Learn how to apply concepts like standard deviation, correlation, and regression to market data to find a statistical edge.', duration: '2h', completed: false }] }],
     finalAssessment: [
@@ -150,7 +150,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     level: 'Advanced',
     duration: '20h',
     instructor: 'David Lee',
-    price: 0,
+    price: 7000,
     imageUrl: 'https://picsum.photos/seed/futures-a-01/600/400',
     modules: [{title: 'The Speed Game', lessons: [{ title: 'HFT Strategies and Infrastructure', content: 'An overview of market making, arbitrage, and momentum ignition strategies used in HFT, plus the required co-location and hardware.', duration: '2.5h', completed: false }] }],
     finalAssessment: [
@@ -208,7 +208,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     level: 'Intermediate',
     duration: '10h',
     instructor: 'Dr. Anya Sharma',
-    price: 0,
+    price: 5000,
     imageUrl: 'https://picsum.photos/seed/web3-i-01/600/400',
     modules: [{title: 'Smart Contract Security', lessons: [{ title: 'Auditing and Verification', content: 'Learn industry best practices for auditing smart contracts, including common vulnerabilities like re-entrancy and integer overflows, and how to use tools for formal verification.', duration: '2h', completed: false }] }],
     finalAssessment: [
@@ -224,7 +224,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     level: 'Advanced',
     duration: '18h',
     instructor: 'Dr. Anya Sharma',
-    price: 0,
+    price: 7000,
     imageUrl: 'https://picsum.photos/seed/web3-a-01/600/400',
     modules: [{title: 'Secure Development Lifecycle', lessons: [{ title: 'Smart Contract Auditing', content: 'Learn the process of auditing a smart contract, from setting up the environment to delivering a report.', duration: '3h', completed: false }] }],
     finalAssessment: [
@@ -337,7 +337,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     level: 'Intermediate',
     duration: '25h',
     instructor: 'David Lee',
-    price: 0,
+    price: 5000,
     imageUrl: 'https://picsum.photos/seed/tech-i-01/600/400',
     modules: [
       {
@@ -377,6 +377,30 @@ export const courses: Omit<Course, 'progress'>[] = [
     ]
   },
   {
+    id: 'ai-b-02',
+    title: 'Python for Data Science',
+    description: 'Learn the foundational Python skills necessary for AI and Machine Learning.',
+    longDescription: 'This course teaches you the Python programming language from the ground up, with a focus on the libraries essential for data science, such as NumPy, Pandas, and Matplotlib. No prior programming experience is required.',
+    category: 'AI & Machine Learning',
+    level: 'Beginner',
+    duration: '20h',
+    instructor: 'Jane Foster',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/ai-b-02/600/400',
+    modules: [
+      {
+        title: 'Python and NumPy',
+        lessons: [
+          { title: 'Python Basics', content: 'Learn variables, data types, loops, functions, and control flow in Python.', duration: '3h', completed: false },
+          { title: 'Working with NumPy Arrays', content: 'Understand the power of NumPy for efficient numerical computation and array manipulation.', duration: '2h', completed: false },
+        ]
+      }
+    ],
+    finalAssessment: [
+      { questionText: "What is a NumPy array, and how is it different from a standard Python list? What are the main advantages of using NumPy?" }
+    ]
+  },
+  {
     id: 'ai-i-01',
     title: 'Deep Learning and Neural Networks',
     description: 'Dive into the architecture and application of neural networks.',
@@ -385,7 +409,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     level: 'Intermediate',
     duration: '30h',
     instructor: 'Dr. Anya Sharma',
-    price: 0,
+    price: 5000,
     imageUrl: 'https://picsum.photos/seed/ai-i-01/600/400',
     modules: [
       {
@@ -409,7 +433,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     level: 'Advanced',
     duration: '20h',
     instructor: 'Jane Foster',
-    price: 0,
+    price: 7000,
     imageUrl: 'https://picsum.photos/seed/ai-a-01/600/400',
     modules: [{title: 'The Future of AI', lessons: [{ title: 'AI Alignment', content: 'Explore the technical and philosophical challenges of ensuring that advanced AI systems pursue goals that are aligned with human values.', duration: '2.5h', completed: false }] }],
     finalAssessment: [
@@ -417,3 +441,5 @@ export const courses: Omit<Course, 'progress'>[] = [
     ]
   }
 ];
+
+    
