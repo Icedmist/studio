@@ -14,8 +14,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-01/600/400',
-    modules: [{ title: 'Core Concepts', lessons: [{ title: 'What Are Futures?', content: 'Detailed lesson on futures contracts.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Explain the concept of leverage in futures trading.' }]
+    modules: [{ title: 'Core Concepts', lessons: [{ title: 'What Are Futures?', content: 'Detailed lesson on futures contracts, explaining their purpose as agreements to buy or sell an asset at a predetermined future date and price. We cover the history of futures, the concept of standardization, and the role they play in risk management and speculation.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Explain the concept of leverage in futures trading and describe one potential benefit and one major risk associated with it.' }]
   },
   {
     id: 'futures-b-02',
@@ -28,8 +28,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-02/600/400',
-    modules: [{ title: 'Market Types', lessons: [{ title: 'Commodities vs. Financials', content: 'Explore the differences between commodity and financial futures.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What are the main drivers of a commodity futures market like oil?' }]
+    modules: [{ title: 'Market Types', lessons: [{ title: 'Commodities vs. Financials', content: 'Explore the differences between commodity (e.g., oil, corn) and financial (e.g., S&P 500, bonds) futures. We discuss their respective participants, volatility factors, and economic significance.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What are the main economic drivers of a commodity futures market like crude oil, and how do they differ from the drivers of an equity index future like the E-mini S&P 500?' }]
   },
   {
     id: 'futures-b-03',
@@ -42,8 +42,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-03/600/400',
-    modules: [{ title: 'Core Strategies', lessons: [{ title: 'Trend Following', content: 'Learn how to identify and trade with the trend.', duration: '1.5h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Describe a simple trend-following strategy.' }]
+    modules: [{ title: 'Core Strategies', lessons: [{ title: 'Trend Following', content: 'Learn how to identify the direction of the market trend using moving averages and other indicators, and how to place trades that align with that trend for higher probability outcomes.', duration: '1.5h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Describe a simple trend-following strategy using a 50-period moving average. What are the entry and exit rules?' }]
   },
   {
     id: 'futures-b-04',
@@ -56,8 +56,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-04/600/400',
-    modules: [{ title: 'Chart Reading', lessons: [{ title: 'Support and Resistance', content: 'Learn to identify key price levels.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is a support level and how is it used in trading?' }]
+    modules: [{ title: 'Chart Reading', lessons: [{ title: 'Support and Resistance', content: 'Learn to identify key price levels where buying or selling pressure is expected to be strong. This forms the basis for many trading decisions and risk management techniques.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is a support level, how is it identified on a chart, and how might a trader use it to make a trading decision?' }]
   },
   {
     id: 'futures-b-05',
@@ -70,8 +70,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-05/600/400',
-    modules: [{ title: 'Market Drivers', lessons: [{ title: 'Supply and Demand', content: 'Understand the primary driver of all markets.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'How might a weather report affect a corn futures contract?' }]
+    modules: [{ title: 'Market Drivers', lessons: [{ title: 'Supply and Demand', content: 'Understand the primary driver of all markets. This lesson covers how to analyze reports on production, inventory, and consumption for commodities.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'How might a government report showing higher-than-expected crop yields affect a corn futures contract? Explain your reasoning.' }]
   },
   {
     id: 'futures-b-06',
@@ -84,8 +84,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-06/600/400',
-    modules: [{ title: 'Capital Protection', lessons: [{ title: 'Position Sizing', content: 'Learn how to calculate the correct trade size.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Explain the 1% rule of risk management.' }]
+    modules: [{ title: 'Capital Protection', lessons: [{ title: 'Position Sizing', content: 'Learn how to calculate the correct trade size based on your account balance and risk tolerance, ensuring no single trade can significantly damage your capital.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Explain the 1% rule of risk management and how to apply it. If you have a $10,000 account, what is your maximum risk per trade?' }]
   },
   {
     id: 'futures-b-07',
@@ -98,8 +98,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-07/600/400',
-    modules: [{ title: 'Mind Over Market', lessons: [{ title: 'Fear and Greed', content: 'Learn to manage the two primary emotions in trading.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is "revenge trading" and how can you avoid it?' }]
+    modules: [{ title: 'Mind Over Market', lessons: [{ title: 'Fear and Greed', content: 'Learn to manage the two primary emotions in trading by creating a structured trading plan and sticking to it, regardless of emotional impulses.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is "revenge trading" and what are two practical steps a trader can take to avoid it after a loss?' }]
   },
   {
     id: 'futures-b-08',
@@ -112,8 +112,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-08/600/400',
-    modules: [{ title: 'Platform Setup', lessons: [{ title: 'Placing Order Types', content: 'Learn market, limit, and stop orders.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the difference between a limit order and a market order?' }]
+    modules: [{ title: 'Platform Setup', lessons: [{ title: 'Placing Order Types', content: 'Learn the difference between market, limit, and stop orders, and when to use each one to control your entry and exit prices effectively.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the difference between a limit order and a market order, and in what scenario would you choose one over the other?' }]
   },
   {
     id: 'futures-b-09',
@@ -126,8 +126,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-09/600/400',
-    modules: [{ title: 'Paper Trading', lessons: [{ title: 'Analyzing Your Results', content: 'Learn to keep a trade journal and review your performance.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What are the benefits of simulated trading?' }]
+    modules: [{ title: 'Paper Trading', lessons: [{ title: 'Analyzing Your Results', content: 'Learn to keep a detailed trade journal to track your simulated trades, review your performance, and identify areas for improvement before going live.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What are the three most important things to track in a trading journal during simulated trading?' }]
   },
   {
     id: 'futures-b-10',
@@ -140,8 +140,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/futures-b-10/600/400',
-    modules: [{ title: 'Your Business Plan', lessons: [{ title: 'Defining Your Rules', content: 'Learn to set strict rules for entry, exit, and risk.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What are the essential components of a trading plan?' }]
+    modules: [{ title: 'Your Business Plan', lessons: [{ title: 'Defining Your Rules', content: 'Learn to set strict, unambiguous rules for trade entry, exit, and risk management to ensure disciplined trading and consistent decision-making.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What are the five essential components of a comprehensive trading plan?' }]
   },
   {
     id: 'futures-i-01',
@@ -182,8 +182,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/futures-i-03/600/400',
-    modules: [{ title: 'Automating Strategies', lessons: [{ title: 'System Design Basics', content: 'Learn the components of an automated trading system.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is "overfitting" in the context of backtesting?' }]
+    modules: [{ title: 'Automating Strategies', lessons: [{ title: 'System Design Basics', content: 'Learn the components of an automated trading system, from data handling and signal generation to execution and risk management.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is "overfitting" in the context of backtesting a trading algorithm, and why is it a significant problem?' }]
   },
   {
     id: 'futures-i-04',
@@ -196,8 +196,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/futures-i-04/600/400',
-    modules: [{ title: 'Options Basics', lessons: [{ title: 'Calls and Puts', content: 'Understand the fundamental building blocks of options.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the primary benefit of buying a put option as a hedge?' }]
+    modules: [{ title: 'Options Basics', lessons: [{ title: 'Calls and Puts', content: 'Understand the fundamental building blocks of options, including rights vs. obligations, strike price, and expiration date.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the primary benefit of buying a put option on a futures contract as a hedge, compared to simply short-selling the future itself?' }]
   },
   {
     id: 'futures-i-05',
@@ -210,8 +210,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/futures-i-05/600/400',
-    modules: [{ title: 'The Order Book', lessons: [{ title: 'Understanding Liquidity', content: 'Learn how liquidity affects your trading execution.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the "bid-ask spread" and what does it represent?' }]
+    modules: [{ title: 'The Order Book', lessons: [{ title: 'Understanding Liquidity', content: 'Learn how liquidity affects your trading execution, slippage, and overall transaction costs. Analyze order book depth to gauge market sentiment.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the "bid-ask spread" and what does a wide vs. a narrow spread typically indicate about a market\'s liquidity?' }]
   },
   {
     id: 'futures-i-06',
@@ -224,8 +224,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/futures-i-06/600/400',
-    modules: [{ title: 'Managing Risk', lessons: [{ title: 'A Farmer\'s Hedge', content: 'A case study on hedging a corn crop.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Why would an airline hedge its fuel costs with futures?' }]
+    modules: [{ title: 'Managing Risk', lessons: [{ title: 'A Farmer\'s Hedge', content: 'A case study on how a corn farmer can use short positions in corn futures to lock in a price for their upcoming harvest and protect against price declines.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'An airline is concerned about rising fuel costs. Explain how they could use crude oil futures to hedge this risk. What is the name of this type of hedge?' }]
   },
   {
     id: 'futures-i-07',
@@ -238,8 +238,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/futures-i-07/600/400',
-    modules: [{ title: 'Portfolio Applications', lessons: [{ title: 'Beta Hedging', content: 'Learn to hedge a stock portfolio with index futures.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'How can a portfolio manager use futures to equitize cash?' }]
+    modules: [{ title: 'Portfolio Applications', lessons: [{ title: 'Beta Hedging', content: 'Learn to hedge the systematic market risk of a stock portfolio by shorting an appropriate amount of stock index futures.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'How can a portfolio manager use futures to "equitize" a large cash position quickly and efficiently, and why might they do this?' }]
   },
   {
     id: 'futures-a-01',
@@ -266,8 +266,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/futures-a-02/600/400',
-    modules: [{ title: 'AI in Markets', lessons: [{ title: 'Feature Engineering', content: 'Learn to create predictive features from market data.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the danger of "lookahead bias" in financial machine learning?' }]
+    modules: [{ title: 'AI in Markets', lessons: [{ title: 'Feature Engineering', content: 'Learn to create predictive features from raw market data, such as volatility, momentum, and other statistical measures, to feed into your models.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the danger of "lookahead bias" when developing a machine learning model for financial forecasting?' }]
   },
   {
     id: 'futures-a-03',
@@ -280,8 +280,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/futures-a-03/600/400',
-    modules: [{ title: 'Providing Liquidity', lessons: [{ title: 'Inventory Management', content: 'Learn strategies for managing risk as a market maker.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is "adverse selection" for a market maker?' }]
+    modules: [{ title: 'Providing Liquidity', lessons: [{ title: 'Inventory Management', content: 'Learn strategies for managing the risk of holding an inventory of futures contracts, including delta hedging and risk recycling.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is "adverse selection" for a market maker, and how does it relate to the bid-ask spread?' }]
   },
   {
     id: 'futures-a-04',
@@ -294,8 +294,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/futures-a-04/600/400',
-    modules: [{ title: 'Beyond Commodities', lessons: [{ title: 'VIX Futures', content: 'Learn to trade market volatility itself.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Who would be a natural user of weather futures?' }]
+    modules: [{ title: 'Beyond Commodities', lessons: [{ title: 'VIX Futures', content: 'Learn to trade market volatility itself through VIX futures and understand concepts like contango and backwardation in the VIX term structure.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Who would be a natural user (hedger) of weather futures based on heating degree days (HDD)?' }]
   },
   {
     id: 'futures-a-05',
@@ -308,8 +308,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/futures-a-05/600/400',
-    modules: [{ title: 'Trading Around the World', lessons: [{ title: 'Eurex and Asian Markets', content: 'Explore products and strategies for non-US markets.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is a key consideration when trading on an exchange in a different time zone?' }]
+    modules: [{ title: 'Trading Around the World', lessons: [{ title: 'Eurex and Asian Markets', content: 'Explore products and strategies for non-US markets, including key differences in margin requirements and trading hours.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is a key regulatory consideration when trading on a futures exchange in a different country?' }]
   },
   {
     id: 'futures-a-06',
@@ -322,8 +322,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/futures-a-06/600/400',
-    modules: [{ title: 'The Big Picture', lessons: [{ title: 'Leverage Cycles', content: 'Understand how leverage builds and unwinds in the financial system.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What was the role of futures and derivatives in the 2008 financial crisis?' }]
+    modules: [{ title: 'The Big Picture', lessons: [{ title: 'Leverage Cycles', content: 'Understand how leverage builds up in the financial system during good times and unwinds violently during crises, and the role of derivatives in this cycle.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What was the role of futures and derivatives, specifically Credit Default Swaps (CDS), in the 2008 financial crisis?' }]
   },
   {
     id: 'futures-a-07',
@@ -336,7 +336,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/futures-a-07/600/400',
-    modules: [{ title: 'Compliance', lessons: [{ title: 'CFTC Regulations', content: 'An overview of the key rules governing US futures markets.', duration: '3h', completed: false }] }],
+    modules: [{ title: 'Compliance', lessons: [{ title: 'CFTC Regulations', content: 'An overview of the key rules from the Commodity Futures Trading Commission governing US futures markets, including position limits and reporting requirements.', duration: '3h', completed: false }] }],
     finalAssessment: [{ questionText: 'What is the main purpose of the Commodity Futures Trading Commission (CFTC)?' }]
   },
   {
@@ -350,8 +350,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/futures-a-08/600/400',
-    modules: [{ title: 'Finding Your Edge', lessons: [{ title: 'Hypothesis Testing', content: 'Learn the scientific method for validating trading ideas.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Develop a simple, testable hypothesis for a new trading strategy.' }]
+    modules: [{ title: 'Finding Your Edge', lessons: [{ title: 'Hypothesis Testing', content: 'Learn the scientific method for validating trading ideas, including formulating a null hypothesis and using statistical tests to determine significance.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Develop a simple, testable hypothesis for a new trading strategy. For example, "Buying S&P 500 futures after a 2% down day leads to positive returns over the next 5 days."' }]
   },
   // --- Web3 ---
   {
@@ -379,8 +379,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/web3-b-02/600/400',
-    modules: [{ title: 'How it Works', lessons: [{ title: 'Consensus Mechanisms', content: 'Learn about Proof of Work and Proof of Stake.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the main difference between Proof of Work and Proof of Stake?' }]
+    modules: [{ title: 'How it Works', lessons: [{ title: 'Consensus Mechanisms', content: 'Learn how different blockchains like Bitcoin and Ethereum agree on the state of the ledger through Proof of Work and Proof of Stake, and the trade-offs between them.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the main difference between Proof of Work and Proof of Stake consensus mechanisms in terms of energy consumption and security?' }]
   },
   {
     id: 'web3-b-03',
@@ -393,8 +393,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/web3-b-03/600/400',
-    modules: [{ title: 'Meet the Coins', lessons: [{ title: 'Bitcoin vs. Ethereum', content: 'Understand the key differences between the two largest cryptocurrencies.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the primary function of Ether (ETH) on the Ethereum network?' }]
+    modules: [{ title: 'Meet the Coins', lessons: [{ title: 'Bitcoin vs. Ethereum', content: 'Understand the key differences between Bitcoin as a store of value and Ethereum as a platform for smart contracts and decentralized applications.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the primary function of Ether (ETH) on the Ethereum network, and how does it differ from the primary function of Bitcoin (BTC)?' }]
   },
   {
     id: 'web3-b-04',
@@ -407,8 +407,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/web3-b-04/600/400',
-    modules: [{ title: 'Code is Law', lessons: [{ title: 'Use Cases', content: 'Explore real-world examples of smart contracts.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What makes a smart contract "smart" and "self-executing"?' }]
+    modules: [{ title: 'Code is Law', lessons: [{ title: 'Use Cases', content: 'Explore real-world examples of smart contracts, from simple escrow services to complex financial instruments in decentralized finance (DeFi).', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What makes a smart contract "smart" and "self-executing"? Provide a simple, real-world analogy.' }]
   },
   {
     id: 'web3-b-05',
@@ -421,8 +421,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/web3-b-05/600/400',
-    modules: [{ title: 'The DApp Ecosystem', lessons: [{ title: 'Uniswap Explained', content: 'A case study of a popular DeFi DApp.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is one key advantage a DApp has over a traditional app?' }]
+    modules: [{ title: 'The DApp Ecosystem', lessons: [{ title: 'Uniswap Explained', content: 'A case study of a popular DeFi DApp, exploring how it facilitates token swaps without a traditional order book.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is one key advantage a DApp has over a traditional app, and what is one key disadvantage for the end-user?' }]
   },
   {
     id: 'web3-b-06',
@@ -435,8 +435,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/web3-b-06/600/400',
-    modules: [{ title: 'Your Digital Identity', lessons: [{ title: 'Setting up MetaMask', content: 'A step-by-step guide to creating your first wallet.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is a "seed phrase" and why is it so important?' }]
+    modules: [{ title: 'Your Digital Identity', lessons: [{ title: 'Setting up MetaMask', content: 'A step-by-step guide to creating your first wallet, securing your seed phrase, and adding different networks.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is a "seed phrase" (or recovery phrase) and why is it critically important to keep it secret and secure?' }]
   },
   {
     id: 'web3-b-07',
@@ -449,8 +449,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/web3-b-07/600/400',
-    modules: [{ title: 'Digital Ownership', lessons: [{ title: 'Beyond Art', content: 'Explore other use cases for NFTs.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What does "non-fungible" mean?' }]
+    modules: [{ title: 'Digital Ownership', lessons: [{ title: 'Beyond Art', content: 'Explore other use cases for NFTs, such as ticketing, domain names, and in-game items.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What does "non-fungible" mean? Explain with an example of something fungible and something non-fungible.' }]
   },
   {
     id: 'web3-b-08',
@@ -463,8 +463,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/web3-b-08/600/400',
-    modules: [{ title: 'Protecting Your Assets', lessons: [{ title: 'Common Scams', content: 'Learn to spot phishing and other common crypto scams.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Why should you never share your seed phrase with anyone?' }]
+    modules: [{ title: 'Protecting Your Assets', lessons: [{ title: 'Common Scams', content: 'Learn to spot phishing attempts, malicious smart contracts, and other common crypto scams.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Why should you never share your private key or seed phrase with anyone, even a "support agent"?' }]
   },
   {
     id: 'web3-b-09',
@@ -477,8 +477,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/web3-b-09/600/400',
-    modules: [{ title: 'The World Computer', lessons: [{ title: 'Understanding Gas', content: 'Learn why transactions on Ethereum cost money.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is "gas" in the context of Ethereum?' }]
+    modules: [{ title: 'The World Computer', lessons: [{ title: 'Understanding Gas', content: 'Learn why transactions on Ethereum cost money (gas fees) and how they are calculated based on network demand.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is "gas" in the context of Ethereum, and why is it necessary?' }]
   },
   {
     id: 'web3-b-10',
@@ -491,8 +491,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/web3-b-10/600/400',
-    modules: [{ title: 'The Developer Stack', lessons: [{ title: 'Intro to Hardhat', content: 'Learn the benefits of a local development environment.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Why is a tool like Hardhat or Truffle useful for smart contract development?' }]
+    modules: [{ title: 'The Developer Stack', lessons: [{ title: 'Intro to Hardhat', content: 'Learn the benefits of a local development environment for compiling, testing, and deploying smart contracts.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Why is a tool like Hardhat or Foundry useful for smart contract development, as opposed to just writing code in a simple text editor?' }]
   },
   {
     id: 'web3-i-01',
@@ -505,8 +505,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/web3-i-01/600/400',
-    modules: [{ title: 'Contract Architecture', lessons: [{ title: 'Proxy Patterns', content: 'Learn how to make your smart contracts upgradable.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Why is it important for smart contracts to be upgradable?' }]
+    modules: [{ title: 'Contract Architecture', lessons: [{ title: 'Proxy Patterns', content: 'Learn how to make your smart contracts upgradable using patterns like the Transparent Upgradeable Proxy to fix bugs or add new features after deployment.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Why is it important for smart contracts to be upgradable, and what is one major security risk of using a proxy pattern?' }]
   },
   {
     id: 'web3-i-02',
@@ -519,8 +519,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/web3-i-02/600/400',
-    modules: [{ title: 'Mastering Solidity', lessons: [{ title: 'Assembly and Low-Level Calls', content: 'Learn to use assembly for gas optimization.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'When might you use `assembly` in a Solidity contract?' }]
+    modules: [{ title: 'Mastering Solidity', lessons: [{ title: 'Assembly and Low-Level Calls', content: 'Learn to use inline assembly (`assembly {}`) for fine-grained control and gas optimization, but also understand the risks involved.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'When might you use `assembly` in a Solidity contract, and what is a key danger to be aware of when doing so?' }]
   },
   {
     id: 'web3-i-03',
@@ -533,8 +533,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/web3-i-03/600/400',
-    modules: [{ title: 'DApp Interfaces', lessons: [{ title: 'Using wagmi Hooks', content: 'Learn to simplify wallet connections and interactions.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What problem do libraries like wagmi or web3-react solve?' }]
+    modules: [{ title: 'DApp Interfaces', lessons: [{ title: 'Using wagmi Hooks', content: 'Learn to simplify wallet connections, network switching, and contract interactions using the powerful and easy-to-use React Hooks provided by wagmi.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What problem do libraries like wagmi or web3-react solve for frontend developers building DApps?' }]
   },
   {
     id: 'web3-i-04',
@@ -547,8 +547,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/web3-i-04/600/400',
-    modules: [{ title: 'Layer 2 Solutions', lessons: [{ title: 'Optimistic vs. ZK-Rollups', content: 'Understand the tradeoffs between different Layer 2 technologies.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the main difference between an Optimistic Rollup and a ZK-Rollup?' }]
+    modules: [{ title: 'Layer 2 Solutions', lessons: [{ title: 'Optimistic vs. ZK-Rollups', content: 'Understand the tradeoffs between different Layer 2 technologies, focusing on fraud proofs vs. validity proofs.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the main difference between an Optimistic Rollup and a ZK-Rollup in terms of how they prove the validity of transactions to Layer 1?' }]
   },
   {
     id: 'web3-i-05',
@@ -561,8 +561,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/web3-i-05/600/400',
-    modules: [{ title: 'Money Legos', lessons: [{ title: 'Automated Market Makers (AMMs)', content: 'Learn how platforms like Uniswap work.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'How does an AMM differ from a traditional order book exchange?' }]
+    modules: [{ title: 'Money Legos', lessons: [{ title: 'Automated Market Makers (AMMs)', content: 'Learn how platforms like Uniswap use liquidity pools and algorithms to facilitate trading without a traditional order book.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'How does an Automated Market Maker (AMM) like Uniswap differ from a traditional order book exchange like the New York Stock Exchange?' }]
   },
   {
     id: 'web3-i-06',
@@ -575,8 +575,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/web3-i-06/600/400',
-    modules: [{ title: 'Building Your Own OpenSea', lessons: [{ title: 'ERC-721 and ERC-1155', content: 'Understand the different NFT standards.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'When would you use an ERC-1155 token instead of an ERC-721?' }]
+    modules: [{ title: 'Building Your Own OpenSea', lessons: [{ title: 'ERC-721 and ERC-1155', content: 'Understand the different NFT standards and when to use each for different types of digital assets.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'When would you choose to use an ERC-1155 token standard instead of the more common ERC-721 for an NFT project?' }]
   },
   {
     id: 'web3-i-07',
@@ -589,8 +589,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/web3-i-07/600/400',
-    modules: [{ title: 'Finding Bugs', lessons: [{ title: 'Static and Dynamic Analysis', content: 'Learn to use tools like Slither and Mythril.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is static analysis in the context of smart contract auditing?' }]
+    modules: [{ title: 'Finding Bugs', lessons: [{ title: 'Static and Dynamic Analysis', content: 'Learn to use automated tools like Slither for static analysis and tools like Foundry for dynamic analysis (fuzzing) to find bugs.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is static analysis in the context of smart contract auditing, and what is one common vulnerability it can help detect?' }]
   },
   {
     id: 'web3-a-01',
@@ -603,8 +603,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/web3-a-01/600/400',
-    modules: [{ title: 'The Magic of ZK', lessons: [{ title: 'SNARKs vs. STARKs', content: 'Understand the tradeoffs between different ZKP systems.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the "zero-knowledge" property of a ZKP?' }]
+    modules: [{ title: 'The Magic of ZK', lessons: [{ title: 'SNARKs vs. STARKs', content: 'Understand the tradeoffs between different ZKP systems in terms of proof size, prover time, and trusted setups.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the "zero-knowledge" property of a ZKP, and why is it important for privacy?' }]
   },
   {
     id: 'web3-a-02',
@@ -617,8 +617,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/web3-a-02/600/400',
-    modules: [{ title: 'Building from Scratch', lessons: [{ title: 'The Blockchain Trilemma', content: 'Explore the tradeoff between decentralization, security, and scalability.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'How does Solana\'s architecture attempt to solve the scalability challenge?' }]
+    modules: [{ title: 'Building from Scratch', lessons: [{ title: 'The Blockchain Trilemma', content: 'Explore the tradeoff between decentralization, security, and scalability, and how different Layer 1s approach this challenge.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'How does Solana\'s architecture (e.g., Proof of History) attempt to solve the scalability part of the blockchain trilemma, and what is a potential trade-off?' }]
   },
   {
     id: 'web3-a-03',
@@ -631,8 +631,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/web3-a-03/600/400',
-    modules: [{ title: 'Connecting Chains', lessons: [{ title: 'Bridge Security', content: 'Understand the risks associated with cross-chain bridges.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the primary security risk of a centralized bridge?' }]
+    modules: [{ title: 'Connecting Chains', lessons: [{ title: 'Bridge Security', content: 'Understand the significant risks associated with cross-chain bridges, which have been a major target for hacks.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the primary security risk of a centralized cross-chain bridge?' }]
   },
   {
     id: 'web3-a-04',
@@ -645,8 +645,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/web3-a-04/600/400',
-    modules: [{ title: 'Governing the Ungovernable', lessons: [{ title: 'Voting Mechanisms', content: 'Explore different ways DAOs make decisions.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is "token-based governance" and what is one of its potential drawbacks?' }]
+    modules: [{ title: 'Governing the Ungovernable', lessons: [{ title: 'Voting Mechanisms', content: 'Explore different ways DAOs make decisions, such as token-based voting, conviction voting, and holographic consensus.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is "token-based governance" in a DAO, and what is one of its potential drawbacks (e.g., voter apathy, plutocracy)?' }]
   },
   {
     id: 'web3-a-05',
@@ -659,8 +659,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/web3-a-05/600/400',
-    modules: [{ title: 'DeFi Masterclass', lessons: [{ title: 'Yield Farming on Leverage', content: 'Understand the high-risk, high-reward world of leveraged farming.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is "impermanent loss" in the context of providing liquidity to an AMM?' }]
+    modules: [{ title: 'DeFi Masterclass', lessons: [{ title: 'Yield Farming on Leverage', content: 'Understand the high-risk, high-reward world of leveraged yield farming, including the risk of liquidation.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is "impermanent loss" in the context of providing liquidity to an AMM, and how does it occur?' }]
   },
   {
     id: 'web3-a-06',
@@ -673,8 +673,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/web3-a-06/600/400',
-    modules: [{ title: 'The Future is Now', lessons: [{ title: 'Decentralized Compute', content: 'Explore how blockchains can be used for AI computation.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is one potential benefit of running an AI model on a decentralized network?' }]
+    modules: [{ title: 'The Future is Now', lessons: [{ title: 'Decentralized Compute', content: 'Explore how blockchains can be used to create marketplaces for AI computation, potentially reducing costs and censorship.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is one potential benefit of running an AI model on a decentralized network compared to a centralized service like AWS or Google Cloud?' }]
   },
   {
     id: 'web3-a-07',
@@ -687,8 +687,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/web3-a-07/600/400',
-    modules: [{ title: 'Navigating the Law', lessons: [{ title: 'The Howey Test and Tokens', content: 'Understand when a token might be considered a security.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the Howey Test and why is it relevant to crypto projects?' }]
+    modules: [{ title: 'Navigating the Law', lessons: [{ title: 'The Howey Test and Tokens', content: 'Understand the criteria used by US regulators to determine if an asset is a security, and how this applies to crypto tokens.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the Howey Test and why is it so relevant to cryptocurrency projects and ICOs?' }]
   },
   {
     id: 'web3-a-08',
@@ -701,8 +701,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/web3-a-08/600/400',
-    modules: [{ title: 'Contribute to the Field', lessons: [{ title: 'Research Methodology', content: 'Learn how to design and execute a Web3 research project.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Propose a novel research question related to DAO governance.' }]
+    modules: [{ title: 'Contribute to the Field', lessons: [{ title: 'Research Methodology', content: 'Learn how to design and execute a Web3 research project, including data collection from on-chain sources and qualitative analysis.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Propose a novel, specific, and testable research question related to DAO governance or DeFi user behavior.' }]
   },
   // --- Crypto ---
   {
@@ -730,8 +730,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/crypto-b-02/600/400',
-    modules: [{ title: 'Under the Hood', lessons: [{ title: 'Merkle Trees', content: 'Learn how Merkle trees efficiently verify data.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the purpose of a Merkle tree in a blockchain?' }]
+    modules: [{ title: 'Under the Hood', lessons: [{ title: 'Merkle Trees', content: 'Learn how Merkle trees efficiently verify data integrity within a block without having to check every single transaction.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the purpose of a Merkle tree in a blockchain block?' }]
   },
   {
     id: 'crypto-b-03',
@@ -744,8 +744,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/crypto-b-03/600/400',
-    modules: [{ title: 'Using an Exchange', lessons: [{ title: 'Order Types', content: 'Learn about market, limit, and stop-limit orders.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'When would you use a limit order instead of a market order?' }]
+    modules: [{ title: 'Using an Exchange', lessons: [{ title: 'Order Types', content: 'Learn about market, limit, and stop-limit orders to control your buying and selling prices.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'When would you use a limit order instead of a market order when buying a cryptocurrency?' }]
   },
   {
     id: 'crypto-b-04',
@@ -758,8 +758,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/crypto-b-04/600/400',
-    modules: [{ title: 'Securing Your Crypto', lessons: [{ title: 'Hardware vs. Software Wallets', content: 'Understand the security tradeoffs.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the primary advantage of a hardware wallet?' }]
+    modules: [{ title: 'Securing Your Crypto', lessons: [{ title: 'Hardware vs. Software Wallets', content: 'Understand the security tradeoffs between "hot" software wallets and "cold" hardware wallets.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the primary security advantage of a hardware wallet over a software wallet?' }]
   },
   {
     id: 'crypto-b-05',
@@ -772,8 +772,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/crypto-b-05/600/400',
-    modules: [{ title: 'Staying Safe', lessons: [{ title: 'Recognizing Scams', content: 'Learn to spot red flags in crypto projects and communications.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Describe two common types of crypto scams.' }]
+    modules: [{ title: 'Staying Safe', lessons: [{ title: 'Recognizing Scams', content: 'Learn to spot red flags in crypto projects, communications, and airdrop campaigns.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Describe two common types of cryptocurrency scams and how to avoid them.' }]
   },
   {
     id: 'crypto-b-06',
@@ -786,8 +786,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/crypto-b-06/600/400',
-    modules: [{ title: 'Beyond the Majors', lessons: [{ title: 'Tokenomics 101', content: 'Learn how token supply and distribution affect value.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What are "tokenomics"?' }]
+    modules: [{ title: 'Beyond the Majors', lessons: [{ title: 'Tokenomics 101', content: 'Learn how token supply, distribution, and utility affect a project\'s long-term value.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What are "tokenomics" and why are they important to consider when evaluating a cryptocurrency project?' }]
   },
   {
     id: 'crypto-b-07',
@@ -800,8 +800,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/crypto-b-07/600/400',
-    modules: [{ title: 'Reading the Market', lessons: [{ title: 'On-Chain Metrics', content: 'Learn to use on-chain data to gauge market sentiment.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is one example of an "on-chain" metric?' }]
+    modules: [{ title: 'Reading the Market', lessons: [{ title: 'On-Chain Metrics', content: 'Learn to use on-chain data, such as transaction count and active addresses, to gauge market sentiment and network health.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is one example of an "on-chain" metric and what might it tell you about a cryptocurrency?' }]
   },
   {
     id: 'crypto-b-08',
@@ -814,8 +814,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/crypto-b-08/600/400',
-    modules: [{ title: 'Fundraising in Crypto', lessons: [{ title: 'Evaluating Whitepapers', content: 'Learn what to look for in a project\'s whitepaper.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What are some red flags to look for when evaluating an ICO?' }]
+    modules: [{ title: 'Fundraising in Crypto', lessons: [{ title: 'Evaluating Whitepapers', content: 'Learn what to look for in a project\'s whitepaper to assess its viability, team, and technology.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What are some red flags to look for when evaluating an ICO or new token sale?' }]
   },
   {
     id: 'crypto-b-09',
@@ -828,8 +828,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/crypto-b-09/600/400',
-    modules: [{ title: 'The Legal Landscape', lessons: [{ title: 'Crypto Taxation Basics', content: 'Understand the basics of how crypto is taxed.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'In many countries, is crypto treated as property or currency for tax purposes?' }]
+    modules: [{ title: 'The Legal Landscape', lessons: [{ title: 'Crypto Taxation Basics', content: 'Understand the basics of how crypto transactions are typically taxed as property, leading to capital gains or losses.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'In many countries, is cryptocurrency treated as property or as currency for tax purposes? What is the implication of this?' }]
   },
   {
     id: 'crypto-b-10',
@@ -842,8 +842,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/crypto-b-10/600/400',
-    modules: [{ title: 'Portfolio Strategy', lessons: [{ title: 'Diversification', content: 'Learn why you shouldn\'t put all your eggs in one basket.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Why is diversification important in a crypto portfolio?' }]
+    modules: [{ title: 'Portfolio Strategy', lessons: [{ title: 'Diversification', content: 'Learn why you shouldn\'t put all your eggs in one basket and how to diversify across different types of crypto assets.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Why is diversification particularly important in a cryptocurrency portfolio?' }]
   },
   {
     id: 'crypto-i-01',
@@ -856,8 +856,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/crypto-i-01/600/400',
-    modules: [{ title: 'Crypto Charting', lessons: [{ title: 'Volatility Indicators', content: 'Learn to use indicators like Bollinger Bands for crypto.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'How might you adjust a standard moving average strategy for the crypto market?' }]
+    modules: [{ title: 'Crypto Charting', lessons: [{ title: 'Volatility Indicators', content: 'Learn to use indicators like Bollinger Bands and Average True Range (ATR) to measure and adapt to crypto\'s high volatility.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'How might you adjust a standard moving average crossover strategy to better suit the volatile crypto market?' }]
   },
   {
     id: 'crypto-i-02',
@@ -870,8 +870,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/crypto-i-02/600/400',
-    modules: [{ title: 'Valuing Networks', lessons: [{ title: 'On-Chain Analysis', content: 'Dive deep into metrics like transaction count and active addresses.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is Metcalfe\'s Law and how does it apply to crypto networks?' }]
+    modules: [{ title: 'Valuing Networks', lessons: [{ title: 'On-Chain Analysis', content: 'Dive deep into metrics like transaction count, active addresses, and token velocity to gauge the health and usage of a network.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is Metcalfe\'s Law and how can it be applied to valuing a cryptocurrency network?' }]
   },
   {
     id: 'crypto-i-03',
@@ -884,8 +884,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/crypto-i-03/600/400',
-    modules: [{ title: 'Trading Setups', lessons: [{ title: 'Arbitrage Opportunities', content: 'Learn how to spot and execute arbitrage trades.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is crypto arbitrage?' }]
+    modules: [{ title: 'Trading Setups', lessons: [{ title: 'Arbitrage Opportunities', content: 'Learn how to spot and execute arbitrage trades by taking advantage of price differences for the same asset on different exchanges.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is crypto arbitrage and what is the main risk associated with executing it?' }]
   },
   {
     id: 'crypto-i-04',
@@ -898,8 +898,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/crypto-i-04/600/400',
-    modules: [{ title: 'Surviving Volatility', lessons: [{ title: 'Hedging with Derivatives', content: 'Learn to use futures and options to protect your portfolio.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'How can you hedge a Bitcoin spot position?' }]
+    modules: [{ title: 'Surviving Volatility', lessons: [{ title: 'Hedging with Derivatives', content: 'Learn to use futures and options on platforms like Binance or Deribit to protect your portfolio from price downturns.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'How can you use futures contracts to hedge a spot Bitcoin position?' }]
   },
   {
     id: 'crypto-i-05',
@@ -912,8 +912,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/crypto-i-05/600/400',
-    modules: [{ title: 'Earning Yield', lessons: [{ title: 'Yield Farming', content: 'Understand how to earn rewards by providing liquidity.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is "impermanent loss"?' }]
+    modules: [{ title: 'Earning Yield', lessons: [{ title: 'Yield Farming', content: 'Understand how to earn rewards by providing liquidity to DeFi protocols, and the risks involved, such as impermanent loss.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is "impermanent loss" and when does it occur for a liquidity provider?' }]
   },
   {
     id: 'crypto-i-06',
@@ -926,8 +926,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/crypto-i-06/600/400',
-    modules: [{ title: 'The NFT Market', lessons: [{ title: 'Rarity and Traits', content: 'Learn how to evaluate the rarity of an NFT within a collection.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What are "rarity tools" and how are they used in NFT trading?' }]
+    modules: [{ title: 'The NFT Market', lessons: [{ title: 'Rarity and Traits', content: 'Learn how to use rarity tools to evaluate the rarity of an NFT within a collection and how that can affect its value.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What are "rarity tools" and how are they used by NFT traders?' }]
   },
   {
     id: 'crypto-i-07',
@@ -940,8 +940,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/crypto-i-07/600/400',
-    modules: [{ title: 'Tax Essentials', lessons: [{ title: 'Tracking Your Transactions', content: 'Learn about tools for tracking your crypto trades for tax purposes.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is a "taxable event" in crypto?' }]
+    modules: [{ title: 'Tax Essentials', lessons: [{ title: 'Tracking Your Transactions', content: 'Learn about tools and methods for tracking your crypto trades for tax purposes to accurately calculate gains and losses.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is a "taxable event" in cryptocurrency and provide two examples.' }]
   },
   {
     id: 'crypto-a-01',
@@ -954,8 +954,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/crypto-a-01/600/400',
-    modules: [{ title: 'Bot Development', lessons: [{ title: 'Exchange APIs', content: 'Learn to connect your bot to exchanges like Binance.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What are some of the challenges of live algorithmic trading in crypto?' }]
+    modules: [{ title: 'Bot Development', lessons: [{ title: 'Exchange APIs', content: 'Learn to connect your bot to exchanges like Binance or FTX using their APIs to fetch data and execute trades automatically.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What are some of the unique challenges of live algorithmic trading in crypto compared to traditional markets (e.g., related to APIs, uptime, fees)?' }]
   },
   {
     id: 'crypto-a-02',
@@ -968,8 +968,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/crypto-a-02/600/400',
-    modules: [{ title: 'Data-Driven Insights', lessons: [{ title: 'Sentiment Analysis', content: 'Learn to analyze social media data to gauge market sentiment.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'How can you use machine learning to analyze on-chain data?' }]
+    modules: [{ title: 'Data-Driven Insights', lessons: [{ title: 'Sentiment Analysis', content: 'Learn to analyze social media data from platforms like Twitter to gauge market sentiment and incorporate it into a trading model.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'How can you use machine learning to analyze on-chain transaction data for predictive signals?' }]
   },
   {
     id: 'crypto-a-03',
@@ -982,8 +982,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/crypto-a-03/600/400',
-    modules: [{ title: 'Advanced Instruments', lessons: [{ title: 'Perpetual Swaps', content: 'Understand the most popular crypto derivative.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the "funding rate" in a perpetual swap?' }]
+    modules: [{ title: 'Advanced Instruments', lessons: [{ title: 'Perpetual Swaps', content: 'Understand the most popular crypto derivative, how it tracks the spot price, and the role of the funding rate.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the "funding rate" in a perpetual swap, and what does it represent for long and short position holders?' }]
   },
   {
     id: 'crypto-a-04',
@@ -996,8 +996,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/crypto-a-04/600/400',
-    modules: [{ title: 'DeFi 2.0', lessons: [{ title: 'Undercollateralized Lending', content: 'Explore the future of decentralized credit.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is one major challenge for undercollateralized lending in DeFi?' }]
+    modules: [{ title: 'DeFi 2.0', lessons: [{ title: 'Undercollateralized Lending', content: 'Explore the future of decentralized credit, its mechanisms, and the risks involved.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is one major challenge that must be solved to make undercollateralized lending in DeFi mainstream and secure?' }]
   },
   {
     id: 'crypto-a-05',
@@ -1010,8 +1010,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/crypto-a-05/600/400',
-    modules: [{ title: 'Risk-Free Profit?', lessons: [{ title: 'Triangular Arbitrage', content: 'Learn to spot price discrepancies between three assets.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is "execution risk" in arbitrage?' }]
+    modules: [{ title: 'Risk-Free Profit?', lessons: [{ title: 'Triangular Arbitrage', content: 'Learn to spot and execute near-instantaneous profit opportunities from price discrepancies between three cryptocurrencies.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is "execution risk" in the context of arbitrage, and why is it especially high in crypto markets?' }]
   },
   {
     id: 'crypto-a-06',
@@ -1024,8 +1024,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/crypto-a-06/600/400',
-    modules: [{ title: 'Capstone Project', lessons: [{ title: 'Building a DeFi Protocol', content: 'Build a lending or exchange protocol from scratch.', duration: '10h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Outline the architecture of a DApp you would build.' }]
+    modules: [{ title: 'Capstone Project', lessons: [{ title: 'Building a DeFi Protocol', content: 'Build a lending or exchange protocol from scratch, including the smart contracts and a basic frontend.', duration: '10h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Outline the high-level architecture of a decentralized exchange (DEX) DApp you would build, including the key smart contracts.' }]
   },
   {
     id: 'crypto-a-07',
@@ -1038,8 +1038,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/crypto-a-07/600/400',
-    modules: [{ title: 'Become a White Hat', lessons: [{ title: 'Formal Verification', content: 'Learn about advanced techniques for proving contract correctness.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is "formal verification" and how is it used in smart contract auditing?' }]
+    modules: [{ title: 'Become a White Hat', lessons: [{ title: 'Formal Verification', content: 'Learn about advanced techniques and tools for mathematically proving the correctness of smart contract code.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is "formal verification" and how does it differ from traditional testing in smart contract auditing?' }]
   },
   {
     id: 'crypto-a-08',
@@ -1052,8 +1052,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/crypto-a-08/600/400',
-    modules: [{ title: 'Pushing the Frontier', lessons: [{ title: 'Publishing Your Work', content: 'Learn how to contribute your research to the community.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Propose a novel research question in the field of cryptocurrency.' }]
+    modules: [{ title: 'Pushing the Frontier', lessons: [{ title: 'Publishing Your Work', content: 'Learn how to structure a research paper, submit to academic conferences or journals, and contribute your findings to the community.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Propose a novel research question in the field of cryptocurrency or DeFi that you could investigate.' }]
   },
   // --- Tech Skills ---
   {
@@ -1067,8 +1067,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/tech-b-01/600/400',
-    modules: [{ title: 'First Steps in Code', lessons: [{ title: 'Variables and Data Types', content: 'Learn the building blocks of programming.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the difference between a list and a dictionary in Python?' }]
+    modules: [{ title: 'First Steps in Code', lessons: [{ title: 'Variables and Data Types', content: 'Learn the building blocks of programming, including how to store and manipulate different types of information like numbers, text, and booleans.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the difference between a list and a dictionary in Python? Provide an example of when you would use each.' }]
   },
   {
     id: 'tech-b-02',
@@ -1081,8 +1081,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/tech-b-02/600/400',
-    modules: [{ title: 'Building for the Web', lessons: [{ title: 'DOM Manipulation', content: 'Learn how to use JavaScript to interact with HTML elements.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the purpose of the CSS "box model"?' }]
+    modules: [{ title: 'Building for the Web', lessons: [{ title: 'DOM Manipulation', content: 'Learn how to use JavaScript to dynamically interact with and modify the content and structure of a web page.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the purpose of the CSS "box model" and what are its four main components?' }]
   },
   {
     id: 'tech-b-03',
@@ -1095,8 +1095,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/tech-b-03/600/400',
-    modules: [{ title: 'Efficient Problem Solving', lessons: [{ title: 'Big O Notation', content: 'Learn how to analyze the efficiency of algorithms.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is Big O notation?' }]
+    modules: [{ title: 'Efficient Problem Solving', lessons: [{ title: 'Big O Notation', content: 'Learn how to analyze the efficiency and scalability of algorithms, a critical skill for writing high-performance code.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is Big O notation and why is it important for a software developer to understand?' }]
   },
   {
     id: 'tech-b-04',
@@ -1109,7 +1109,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/tech-b-04/600/400',
-    modules: [{ title: 'Working with Data', lessons: [{ title: 'SQL Joins', content: 'Learn how to combine data from multiple tables.', duration: '2h', completed: false }] }],
+    modules: [{ title: 'Working with Data', lessons: [{ title: 'SQL Joins', content: 'Learn how to combine data from multiple tables using INNER JOIN, LEFT JOIN, and other join types.', duration: '2h', completed: false }] }],
     finalAssessment: [{ questionText: 'What is the difference between an INNER JOIN and a LEFT JOIN in SQL?' }]
   },
   {
@@ -1123,8 +1123,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/tech-b-05/600/400',
-    modules: [{ title: 'Collaboration with Git', lessons: [{ title: 'Branching and Merging', content: 'Learn the core workflow for collaborative development.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Why is it a good practice to work on a new feature in a separate branch?' }]
+    modules: [{ title: 'Collaboration with Git', lessons: [{ title: 'Branching and Merging', content: 'Learn the core workflow for collaborative development, allowing multiple people to work on a project simultaneously without conflicts.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Why is it a good practice to work on a new feature in a separate Git branch?' }]
   },
   {
     id: 'tech-b-06',
@@ -1137,8 +1137,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/tech-b-06/600/400',
-    modules: [{ title: 'The Cloud Explained', lessons: [{ title: 'IaaS, PaaS, SaaS', content: 'Understand the different cloud service models.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the difference between IaaS and PaaS?' }]
+    modules: [{ title: 'The Cloud Explained', lessons: [{ title: 'IaaS, PaaS, SaaS', content: 'Understand the different cloud service models and when you might choose one over the others.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the difference between Infrastructure as a Service (IaaS) and Platform as a Service (PaaS)? Give an example of a service for each.' }]
   },
   {
     id: 'tech-b-07',
@@ -1151,8 +1151,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/tech-b-07/600/400',
-    modules: [{ title: 'Digital Defense', lessons: [{ title: 'Phishing and Social Engineering', content: 'Learn to recognize and avoid common attacks.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What are some common signs of a phishing email?' }]
+    modules: [{ title: 'Digital Defense', lessons: [{ title: 'Phishing and Social Engineering', content: 'Learn to recognize and avoid common attacks that target human psychology rather than technical vulnerabilities.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What are three common signs of a phishing email?' }]
   },
   {
     id: 'tech-b-08',
@@ -1165,8 +1165,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/tech-b-08/600/400',
-    modules: [{ title: 'Ensuring Quality', lessons: [{ title: 'The Testing Pyramid', content: 'Understand the different levels of software testing.', duration: '1h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the purpose of a unit test?' }]
+    modules: [{ title: 'Ensuring Quality', lessons: [{ title: 'The Testing Pyramid', content: 'Understand the different levels of software testing and why it is important to have a good balance of each.', duration: '1h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the purpose of a unit test, and how does it differ from an integration test?' }]
   },
   {
     id: 'tech-b-09',
@@ -1179,8 +1179,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/tech-b-09/600/400',
-    modules: [{ title: 'Building Better Products', lessons: [{ title: 'Scrum Roles and Ceremonies', content: 'Learn about sprints, stand-ups, and retrospectives.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the purpose of a "daily stand-up" in Scrum?' }]
+    modules: [{ title: 'Building Better Products', lessons: [{ title: 'Scrum Roles and Ceremonies', content: 'Learn about sprints, daily stand-ups, sprint planning, and retrospectives.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the purpose of a "daily stand-up" or "daily scrum" in the Scrum framework?' }]
   },
   {
     id: 'tech-b-10',
@@ -1193,8 +1193,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/tech-b-10/600/400',
-    modules: [{ title: 'Your Career Path', lessons: [{ title: 'The Technical Interview', content: 'Learn how to prepare for and excel in technical interviews.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the STAR method for answering behavioral interview questions?' }]
+    modules: [{ title: 'Your Career Path', lessons: [{ title: 'The Technical Interview', content: 'Learn how to prepare for and excel in technical interviews, including data structure and algorithm questions.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the STAR method, and how can it be used to answer behavioral interview questions?' }]
   },
   {
     id: 'tech-i-01',
@@ -1207,8 +1207,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/tech-i-01/600/400',
-    modules: [{ title: 'Building Scalable Systems', lessons: [{ title: 'Design Patterns', content: 'Learn common solutions to recurring software design problems.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the Singleton design pattern and when might it be used?' }]
+    modules: [{ title: 'Building Scalable Systems', lessons: [{ title: 'Design Patterns', content: 'Learn common, reusable solutions to recurring software design problems, such as Singleton, Factory, and Observer patterns.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the Singleton design pattern and what is one common criticism of its use?' }]
   },
   {
     id: 'tech-i-02',
@@ -1221,8 +1221,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/tech-i-02/600/400',
-    modules: [{ title: 'End-to-End Development', lessons: [{ title: 'Building a REST API', content: 'Learn to build a backend API with Node.js and Express.', duration: '5h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is a REST API?' }]
+    modules: [{ title: 'End-to-End Development', lessons: [{ title: 'Building a REST API', content: 'Learn to build a backend API with Node.js and Express to serve data to your frontend application.', duration: '5h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is a REST API and what are the main HTTP verbs used in its design?' }]
   },
   {
     id: 'tech-i-03',
@@ -1235,8 +1235,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/tech-i-03/600/400',
-    modules: [{ title: 'Automating the Pipeline', lessons: [{ title: 'Containerization with Docker', content: 'Learn to package applications in containers.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What problem does containerization with Docker solve?' }]
+    modules: [{ title: 'Automating the Pipeline', lessons: [{ title: 'Containerization with Docker', content: 'Learn to package applications and their dependencies in isolated containers for consistent deployment across environments.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What problem does containerization with a tool like Docker solve?' }]
   },
   {
     id: 'tech-i-04',
@@ -1249,7 +1249,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/tech-i-04/600/400',
-    modules: [{ title: 'Predictive Models', lessons: [{ title: 'Linear Regression', content: 'Build your first machine learning model to predict values.', duration: '3h', completed: false }] }],
+    modules: [{ title: 'Predictive Models', lessons: [{ title: 'Linear Regression', content: 'Build your first machine learning model to predict continuous values based on input features.', duration: '3h', completed: false }] }],
     finalAssessment: [{ questionText: 'What is the difference between regression and classification in machine learning?' }]
   },
   {
@@ -1263,8 +1263,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/tech-i-05/600/400',
-    modules: [{ title: 'Data at Scale', lessons: [{ title: 'Introduction to Spark', content: 'Learn the basics of the leading big data processing engine.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the core concept behind MapReduce?' }]
+    modules: [{ title: 'Data at Scale', lessons: [{ title: 'Introduction to Spark', content: 'Learn the basics of the leading big data processing engine and its core concepts like RDDs and DataFrames.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the core concept behind the MapReduce programming model for big data processing?' }]
   },
   {
     id: 'tech-i-06',
@@ -1277,8 +1277,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/tech-i-06/600/400',
-    modules: [{ title: 'Building APIs', lessons: [{ title: 'REST vs. GraphQL', content: 'Understand the pros and cons of different API design philosophies.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is one advantage of GraphQL over REST?' }]
+    modules: [{ title: 'Building APIs', lessons: [{ title: 'REST vs. GraphQL', content: 'Understand the pros and cons of different API design philosophies and when to choose one over the other.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is one key advantage of GraphQL over REST for frontend developers?' }]
   },
   {
     id: 'tech-i-07',
@@ -1291,8 +1291,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/tech-i-07/600/400',
-    modules: [{ title: 'Apps for Everyone', lessons: [{ title: 'React Native Components', content: 'Learn the basic building blocks of a React Native app.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the main benefit of using a framework like React Native?' }]
+    modules: [{ title: 'Apps for Everyone', lessons: [{ title: 'React Native Components', content: 'Learn the basic building blocks of a React Native app, such as View, Text, and StyleSheet.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the main benefit of using a cross-platform framework like React Native compared to native development (Swift/Kotlin)?' }]
   },
   {
     id: 'tech-a-01',
@@ -1305,8 +1305,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/tech-a-01/600/400',
-    modules: [{ title: 'Building Resilient Systems', lessons: [{ title: 'Consensus Algorithms', content: 'Learn about protocols like Paxos and Raft.', duration: '5h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the CAP theorem?' }]
+    modules: [{ title: 'Building Resilient Systems', lessons: [{ title: 'Consensus Algorithms', content: 'Learn about classic consensus protocols like Paxos and its more understandable successor, Raft.', duration: '5h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the CAP theorem in distributed systems, and what are its three components?' }]
   },
   {
     id: 'tech-a-02',
@@ -1319,8 +1319,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/tech-a-02/600/400',
-    modules: [{ title: 'Intelligent Agents', lessons: [{ title: 'Search Algorithms', content: 'Learn about algorithms like A* search.', duration: '5h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the difference between a heuristic and an algorithm?' }]
+    modules: [{ title: 'Intelligent Agents', lessons: [{ title: 'Search Algorithms', content: 'Learn about informed and uninformed search algorithms, including Breadth-First Search, Depth-First Search, and A* search.', duration: '5h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the difference between a heuristic function and an algorithm?' }]
   },
   {
     id: 'tech-a-03',
@@ -1333,8 +1333,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/tech-a-03/600/400',
-    modules: [{ title: 'From the Ground Up', lessons: [{ title: 'Building a Block', content: 'Learn to implement the core data structure of a blockchain.', duration: '5h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the role of a "nonce" in Proof of Work?' }]
+    modules: [{ title: 'From the Ground Up', lessons: [{ title: 'Building a Block', content: 'Learn to implement the core data structure of a blockchain, including hashing and linking blocks together.', duration: '5h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the role of a "nonce" in a Proof-of-Work blockchain?' }]
   },
   {
     id: 'tech-a-04',
@@ -1347,8 +1347,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/tech-a-04/600/400',
-    modules: [{ title: 'The Next Frontier', lessons: [{ title: 'Qubits and Superposition', content: 'Learn the fundamental concepts of quantum mechanics.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is a "qubit"?' }]
+    modules: [{ title: 'The Next Frontier', lessons: [{ title: 'Qubits and Superposition', content: 'Learn the fundamental concepts of quantum mechanics that underpin quantum computing.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is a "qubit" and how does it differ from a classical bit?' }]
   },
   {
     id: 'tech-a-05',
@@ -1361,7 +1361,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/tech-a-05/600/400',
-    modules: [{ title: 'Offense and Defense', lessons: [{ title: 'Penetration Testing', content: 'Learn the methodology of ethical hacking.', duration: '5h', completed: false }] }],
+    modules: [{ title: 'Offense and Defense', lessons: [{ title: 'Penetration Testing', content: 'Learn the methodology of ethical hacking to find and exploit vulnerabilities in systems.', duration: '5h', completed: false }] }],
     finalAssessment: [{ questionText: 'What are the main phases of a penetration test?' }]
   },
   {
@@ -1375,7 +1375,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/tech-a-06/600/400',
-    modules: [{ title: 'Building Data Pipelines', lessons: [{ title: 'Data Warehousing', content: 'Learn about data modeling and storage for analytics.', duration: '4h', completed: false }] }],
+    modules: [{ title: 'Building Data Pipelines', lessons: [{ title: 'Data Warehousing', content: 'Learn about data modeling, ETL/ELT processes, and storage solutions for analytics.', duration: '4h', completed: false }] }],
     finalAssessment: [{ questionText: 'What is the difference between a data lake and a data warehouse?' }]
   },
   {
@@ -1389,8 +1389,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/tech-a-07/600/400',
-    modules: [{ title: 'Leading Engineers', lessons: [{ title: 'Technical Project Management', content: 'Learn to scope, plan, and execute technical projects.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Describe a common challenge in managing engineering teams.' }]
+    modules: [{ title: 'Leading Engineers', lessons: [{ title: 'Technical Project Management', content: 'Learn to scope, plan, and execute technical projects effectively with an engineering team.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Describe a common challenge in managing a team of software engineers and how you might address it.' }]
   },
   {
     id: 'tech-a-08',
@@ -1403,8 +1403,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/tech-a-08/600/400',
-    modules: [{ title: 'Creating Knowledge', lessons: [{ title: 'Writing a Research Paper', content: 'Learn the structure and style of academic writing.', duration: '5h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Propose a research question in your area of technical interest.' }]
+    modules: [{ title: 'Creating Knowledge', lessons: [{ title: 'Writing a Research Paper', content: 'Learn the structure and style of academic writing for technology conferences and journals.', duration: '5h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Propose a novel research question in a technical area of your interest.' }]
   },
   // --- AI & Machine Learning ---
   {
@@ -1432,8 +1432,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/ai-b-02/600/400',
-    modules: [{ title: 'Core Algorithms', lessons: [{ title: 'Linear Regression', content: 'Learn to predict continuous values.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the difference between classification and regression?' }]
+    modules: [{ title: 'Core Algorithms', lessons: [{ title: 'Linear Regression', content: 'Learn to predict continuous values by fitting a line to data. This is a foundational supervised learning algorithm.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the difference between classification and regression in machine learning?' }]
   },
   {
     id: 'ai-b-03',
@@ -1460,8 +1460,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/ai-b-04/600/400',
-    modules: [{ title: 'Data Cleaning', lessons: [{ title: 'Handling Missing Data', content: 'Learn different strategies for dealing with missing values.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Why is feature scaling important for some machine learning algorithms?' }]
+    modules: [{ title: 'Data Cleaning', lessons: [{ title: 'Handling Missing Data', content: 'Learn different strategies for dealing with missing values in a dataset, such as imputation or removal.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Why is feature scaling (e.g., normalization or standardization) important for some machine learning algorithms?' }]
   },
   {
     id: 'ai-b-05',
@@ -1474,8 +1474,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/ai-b-05/600/400',
-    modules: [{ title: 'Predictive Modeling', lessons: [{ title: 'Decision Trees', content: 'Learn how decision trees make predictions.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is "overfitting" in the context of a decision tree?' }]
+    modules: [{ title: 'Predictive Modeling', lessons: [{ title: 'Decision Trees', content: 'Learn how decision trees make predictions by recursively splitting the data based on features.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is "overfitting" in the context of a decision tree, and how can it be prevented?' }]
   },
   {
     id: 'ai-b-06',
@@ -1488,8 +1488,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/ai-b-06/600/400',
-    modules: [{ title: 'Finding Structure', lessons: [{ title: 'K-Means Clustering', content: 'Learn to group data points into clusters.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the goal of a clustering algorithm like K-Means?' }]
+    modules: [{ title: 'Finding Structure', lessons: [{ title: 'K-Means Clustering', content: 'Learn to group similar data points into clusters without any prior labels.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the main goal of a clustering algorithm like K-Means?' }]
   },
   {
     id: 'ai-b-07',
@@ -1502,7 +1502,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/ai-b-07/600/400',
-    modules: [{ title: 'Brain-Inspired Computing', lessons: [{ title: 'Activation Functions', content: 'Learn the role of activation functions like ReLU.', duration: '2h', completed: false }] }],
+    modules: [{ title: 'Brain-Inspired Computing', lessons: [{ title: 'Activation Functions', content: 'Learn the role of non-linear activation functions like ReLU and Sigmoid in allowing neural networks to learn complex patterns.', duration: '2h', completed: false }] }],
     finalAssessment: [{ questionText: 'What is the purpose of an activation function in a neural network?' }]
   },
   {
@@ -1516,8 +1516,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/ai-b-08/600/400',
-    modules: [{ title: 'Responsible AI', lessons: [{ title: 'Algorithmic Bias', content: 'Learn how AI systems can perpetuate and amplify human biases.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is algorithmic bias, and give one example.' }]
+    modules: [{ title: 'Responsible AI', lessons: [{ title: 'Algorithmic Bias', content: 'Learn how AI systems can inadvertently learn and amplify human biases present in data.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is algorithmic bias, and give one real-world example.' }]
   },
   {
     id: 'ai-b-09',
@@ -1530,8 +1530,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/ai-b-09/600/400',
-    modules: [{ title: 'The ML Toolbox', lessons: [{ title: 'Intro to Scikit-learn', content: 'Build your first models with this powerful library.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the main purpose of the Scikit-learn library?' }]
+    modules: [{ title: 'The ML Toolbox', lessons: [{ title: 'Intro to Scikit-learn', content: 'Build your first models for classification, regression, and clustering using this powerful and easy-to-use library.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the main purpose of the Scikit-learn library in the Python ecosystem?' }]
   },
   {
     id: 'ai-b-10',
@@ -1544,8 +1544,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 0,
     imageUrl: 'https://picsum.photos/seed/ai-b-10/600/400',
-    modules: [{ title: 'The ML Workflow', lessons: [{ title: 'Model Evaluation', content: 'Learn how to measure the performance of your models.', duration: '2h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the difference between a training set and a testing set?' }]
+    modules: [{ title: 'The ML Workflow', lessons: [{ title: 'Model Evaluation', content: 'Learn how to measure the performance of your models using metrics like accuracy, precision, and recall.', duration: '2h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the difference between a training set and a testing set, and why is this separation important?' }]
   },
   {
     id: 'ai-i-01',
@@ -1572,8 +1572,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/ai-i-02/600/400',
-    modules: [{ title: 'Language and Machines', lessons: [{ title: 'Word Embeddings', content: 'Learn how words can be represented as vectors.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is a word embedding?' }]
+    modules: [{ title: 'Language and Machines', lessons: [{ title: 'Word Embeddings', content: 'Learn how words can be represented as dense vectors that capture semantic meaning, a key breakthrough for modern NLP.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is a word embedding, and how does it represent the meaning of a word better than a simple one-hot encoding?' }]
   },
   {
     id: 'ai-i-03',
@@ -1586,8 +1586,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/ai-i-03/600/400',
-    modules: [{ title: 'Teaching Machines to See', lessons: [{ title: 'Convolutional Neural Networks (CNNs)', content: 'Learn the architecture that revolutionized computer vision.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is a "convolutional layer" and what is its main purpose?' }]
+    modules: [{ title: 'Teaching Machines to See', lessons: [{ title: 'Convolutional Neural Networks (CNNs)', content: 'Learn the architecture that revolutionized computer vision, including convolutional layers, pooling layers, and filters.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is a "convolutional layer" in a CNN, and what is its main purpose?' }]
   },
   {
     id: 'ai-i-04',
@@ -1600,7 +1600,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/ai-i-04/600/400',
-    modules: [{ title: 'Learning from Trial and Error', lessons: [{ title: 'Q-Learning', content: 'Learn a foundational algorithm for reinforcement learning.', duration: '4h', completed: false }] }],
+    modules: [{ title: 'Learning from Trial and Error', lessons: [{ title: 'Q-Learning', content: 'Learn a foundational algorithm for reinforcement learning that helps an agent learn the value of actions in different states.', duration: '4h', completed: false }] }],
     finalAssessment: [{ questionText: 'What is the "exploration vs. exploitation" tradeoff in reinforcement learning?' }]
   },
   {
@@ -1614,8 +1614,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/ai-i-05/600/400',
-    modules: [{ title: 'Predicting the Future', lessons: [{ title: 'ARIMA Models', content: 'Learn a classic statistical method for time series.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What does the "AR" in ARIMA stand for?' }]
+    modules: [{ title: 'Predicting the Future', lessons: [{ title: 'ARIMA Models', content: 'Learn a classic statistical method for time series analysis and forecasting.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What do the "AR" and "MA" components in an ARIMA model stand for?' }]
   },
   {
     id: 'ai-i-06',
@@ -1628,8 +1628,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/ai-i-06/600/400',
-    modules: [{ title: 'From Notebook to Production', lessons: [{ title: 'Deploying with Docker', content: 'Learn to containerize your machine learning application.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Why is it a good idea to deploy a model inside a Docker container?' }]
+    modules: [{ title: 'From Notebook to Production', lessons: [{ title: 'Deploying with Docker', content: 'Learn to containerize your machine learning application for consistent, portable, and scalable deployment.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Why is it a good idea to deploy a machine learning model inside a Docker container?' }]
   },
   {
     id: 'ai-i-07',
@@ -1642,8 +1642,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 5000,
     imageUrl: 'https://picsum.photos/seed/ai-i-07/600/400',
-    modules: [{ title: 'The Business of AI', lessons: [{ title: 'AI Product Management', content: 'Learn how to manage the lifecycle of an AI product.', duration: '3h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Describe one way a retail company could use AI to improve its business.' }]
+    modules: [{ title: 'The Business of AI', lessons: [{ title: 'AI Product Management', content: 'Learn how to manage the lifecycle of an AI product, from ideation and data collection to deployment and iteration.', duration: '3h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Describe one way a retail company could use AI to improve its business operations or customer experience.' }]
   },
   {
     id: 'ai-a-01',
@@ -1656,8 +1656,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/ai-a-01/600/400',
-    modules: [{ title: 'Creating with AI', lessons: [{ title: 'Generative Adversarial Networks (GANs)', content: 'Learn how two neural networks can compete to create realistic data.', duration: '5h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What are the two main components of a GAN?' }]
+    modules: [{ title: 'Creating with AI', lessons: [{ title: 'Generative Adversarial Networks (GANs)', content: 'Learn how two neural networks, a generator and a discriminator, can compete to create highly realistic data.', duration: '5h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What are the two main components of a Generative Adversarial Network (GAN), and what is the role of each?' }]
   },
   {
     id: 'ai-a-02',
@@ -1670,8 +1670,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/ai-a-02/600/400',
-    modules: [{ title: 'The Attention Mechanism', lessons: [{ title: 'Self-Attention', content: 'Understand the key innovation of the transformer model.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the purpose of the "self-attention" mechanism in a transformer?' }]
+    modules: [{ title: 'The Attention Mechanism', lessons: [{ title: 'Self-Attention', content: 'Understand the key innovation of the transformer model that allows it to weigh the importance of different words in a sequence.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the purpose of the "self-attention" mechanism in a transformer model?' }]
   },
   {
     id: 'ai-a-03',
@@ -1684,8 +1684,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Dr. Anya Sharma',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/ai-a-03/600/400',
-    modules: [{ title: 'Intelligent Machines', lessons: [{ title: 'Robotic Perception', content: 'Learn how robots "see" and understand the world.', duration: '5h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is the SLAM (Simultaneous Localization and Mapping) problem in robotics?' }]
+    modules: [{ title: 'Intelligent Machines', lessons: [{ title: 'Robotic Perception', content: 'Learn how robots use sensors and computer vision to "see" and understand their environment.', duration: '5h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is the SLAM (Simultaneous Localization and Mapping) problem in robotics, and why is it so challenging?' }]
   },
   {
     id: 'ai-a-04',
@@ -1698,8 +1698,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Michael Adebayo',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/ai-a-04/600/400',
-    modules: [{ title: 'The Quantum Leap', lessons: [{ title: 'Variational Quantum Eigensolvers', content: 'Learn a key algorithm in quantum machine learning.', duration: '5h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is one potential advantage of quantum machine learning over classical machine learning?' }]
+    modules: [{ title: 'The Quantum Leap', lessons: [{ title: 'Variational Quantum Eigensolvers', content: 'Learn a key hybrid quantum-classical algorithm used in quantum machine learning.', duration: '5h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is one potential advantage of quantum machine learning over classical machine learning for a specific type of problem?' }]
   },
   {
     id: 'ai-a-05',
@@ -1712,7 +1712,7 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Nasir Ibrahim Imam',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/ai-a-05/600/400',
-    modules: [{ title: 'Securing AI', lessons: [{ title: 'Adversarial Attacks', content: 'Learn how to fool machine learning models.', duration: '4h', completed: false }] }],
+    modules: [{ title: 'Securing AI', lessons: [{ title: 'Adversarial Attacks', content: 'Learn how to create inputs that are designed to fool machine learning models, and how to defend against them.', duration: '4h', completed: false }] }],
     finalAssessment: [{ questionText: 'What is an "adversarial attack" on a machine learning model?' }]
   },
   {
@@ -1726,8 +1726,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Jane Foster',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/ai-a-06/600/400',
-    modules: [{ title: 'Opening the Black Box', lessons: [{ title: 'LIME and SHAP', content: 'Learn two popular techniques for model explanation.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Why is explainability important for AI systems?' }]
+    modules: [{ title: 'Opening the Black Box', lessons: [{ title: 'LIME and SHAP', content: 'Learn two popular, model-agnostic techniques for explaining the predictions of any machine learning model.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Why is explainability important for AI systems, especially in high-stakes domains like medicine or finance?' }]
   },
   {
     id: 'ai-a-07',
@@ -1740,8 +1740,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'Fatima Aliyu',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/ai-a-07/600/400',
-    modules: [{ title: 'Contributing to Science', lessons: [{ title: 'The Peer Review Process', content: 'Learn how scientific research is validated and published.', duration: '5h', completed: false }] }],
-    finalAssessment: [{ questionText: 'Propose a novel research question in the field of AI.' }]
+    modules: [{ title: 'Contributing to Science', lessons: [{ title: 'The Peer Review Process', content: 'Learn how scientific research in AI is validated and published through the peer review process.', duration: '5h', completed: false }] }],
+    finalAssessment: [{ questionText: 'Propose a novel research question in the field of AI that you could investigate.' }]
   },
   {
     id: 'ai-a-08',
@@ -1754,8 +1754,8 @@ export const courses: Omit<Course, 'progress'>[] = [
     instructor: 'David Lee',
     price: 7000,
     imageUrl: 'https://picsum.photos/seed/ai-a-08/600/400',
-    modules: [{ title: 'Shaping the Future', lessons: [{ title: 'AI Governance', content: 'Explore different models for regulating and governing AI.', duration: '4h', completed: false }] }],
-    finalAssessment: [{ questionText: 'What is one major challenge in creating effective AI governance policy?' }]
+    modules: [{ title: 'Shaping the Future', lessons: [{ title: 'AI Governance', content: 'Explore different models for regulating and governing the development and deployment of AI at a national and international level.', duration: '4h', completed: false }] }],
+    finalAssessment: [{ questionText: 'What is one major challenge in creating effective and globally consistent AI governance policy?' }]
   }
 ];
 

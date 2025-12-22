@@ -1,284 +1,188 @@
 
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import type { Course } from '@/lib/types';
-import { db } from '@/lib/firebase';
-import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { useState, useMemo } from 'react';
+import type { Course, CourseCategory, CourseLevel } from '@/lib/types';
+import { courses as staticCourses } from '@/lib/courses';
+import { COURSE_CATEGORIES, COURSE_LEVELS } from '@/lib/constants';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Pencil, Trash2, Library, RefreshCw, Loader2, Sparkles, AlertTriangle } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { CourseForm } from '@/components/admin/CourseForm';
-import { Skeleton } from '@/components/ui/skeleton';
-import { z } from 'zod';
-import { NewCourseSchema } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
-import { seedInitialCourses } from '@/services/seed-data';
-import { getCourses } from '@/services/course-data';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { ArrowLeft, Library, ChevronsRight, Home } from 'lucide-react';
 
-type CourseFormData = z.infer<typeof NewCourseSchema>;
+type ViewState = 'categories' | 'levels' | 'courses';
 
 export function CourseManager() {
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isSeeding, setIsSeeding] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [editingCourse, setEditingCourse] = useState<Course | null>(null);
-  const { toast } = useToast();
+  const [view, setView] = useState<ViewState>('categories');
+  const [selectedCategory, setSelectedCategory] = useState<CourseCategory | null>(null);
+  const [selectedLevel, setSelectedLevel] = useState<CourseLevel | null>(null);
 
-  const fetchCourses = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const courseData = await getCourses();
-      setCourses(courseData);
-    } catch (error) {
-        console.error("Error fetching courses: ", error);
-        toast({
-            title: "Error",
-            description: `Could not fetch courses: ${(error as Error).message}. This is likely a Firestore security rule issue.`,
-            variant: "destructive",
-        });
-    } finally {
-      setIsLoading(false);
-    }
-  }, [toast]);
-
-  useEffect(() => {
-    fetchCourses();
-  }, [fetchCourses]);
-
-  const handleSeedCourses = async () => {
-    setIsSeeding(true);
-    toast({
-        title: "Seeding in Progress",
-        description: "Populating the database with initial courses...",
-    });
-    try {
-        const seededCount = await seedInitialCourses();
-        toast({
-            title: "Success!",
-            description: `${seededCount} courses have been added to the database.`,
-            variant: "success",
-        });
-        await fetchCourses(); // Refresh the list
-    } catch (error) {
-        console.error("Error seeding courses: ", error);
-        const errorMessage = (error as Error).message;
-        let description = `Could not seed courses: ${errorMessage}.`;
-        if (errorMessage.includes('PERMISSION_DENIED')) {
-            description = "Permission Denied. Please ensure your Firebase UID is correctly added to the admin list in both /src/lib/admin.ts and firestore.rules.";
-        }
-        
-        toast({
-            title: "Seeding Failed",
-            description: description,
-            variant: "destructive",
-            duration: 10000,
-        });
-    } finally {
-        setIsSeeding(false);
-    }
-  }
-
-  const handleFormSubmit = async (data: CourseFormData) => {
-    setIsSubmitting(true);
-    try {
-      const validatedData = NewCourseSchema.parse(data);
-      if (editingCourse) {
-        const courseDoc = doc(db, 'courses', editingCourse.id);
-        await updateDoc(courseDoc, validatedData);
-      } else {
-        await addDoc(collection(db, 'courses'), validatedData);
+  const coursesByCategory = useMemo(() => {
+    return staticCourses.reduce((acc, course) => {
+      const category = course.category;
+      if (!acc[category]) {
+        acc[category] = [];
       }
+      acc[category].push(course);
+      return acc;
+    }, {} as Record<CourseCategory, typeof staticCourses>);
+  }, []);
 
-      toast({
-        title: `Course ${editingCourse ? 'updated' : 'added'}`,
-        description: `The course details have been saved successfully.`,
-        variant: "success",
-      });
-      setDialogOpen(false);
-      setEditingCourse(null);
-      await fetchCourses(); // Refresh list
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "An unknown error occurred.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  const levelsForCategory = useMemo(() => {
+    if (!selectedCategory) return {};
+    return (coursesByCategory[selectedCategory] || []).reduce((acc, course) => {
+      const level = course.level;
+      if (!acc[level]) {
+        acc[level] = [];
+      }
+      acc[level].push(course);
+      return acc;
+    }, {} as Record<CourseLevel, typeof staticCourses>);
+  }, [selectedCategory, coursesByCategory]);
 
-  const openEditDialog = (course: Course) => {
-    setEditingCourse(course);
-    setDialogOpen(true);
-  };
-
-  const openAddDialog = () => {
-    setEditingCourse(null);
-    setDialogOpen(true);
-  };
-
-  const onDialogClose = () => {
-    if (!isSubmitting) {
-      setDialogOpen(false);
-      setEditingCourse(null);
-    }
-  }
-
-  const confirmDelete = async (id: string) => {
-    try {
-      await deleteDoc(doc(db, 'courses', id));
-      toast({
-        title: "Course Deleted",
-        description: "The course has been removed successfully.",
-        variant: "success",
-      });
-      await fetchCourses(); // Refresh list
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "An unknown error occurred.",
-        variant: "destructive",
-      });
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <div className="space-y-2">
-        <div className="flex justify-end mb-4 gap-2">
-            <Skeleton className="h-10 w-24" />
-            <Skeleton className="h-10 w-32" />
-        </div>
-        {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}
-      </div>
-    );
-  }
-
-  if (courses.length === 0) {
-    return (
-        <Card className="text-center bg-card/60">
-            <CardHeader>
-                <div className="mx-auto bg-amber-100 dark:bg-amber-900/50 p-3 rounded-full w-fit">
-                    <AlertTriangle className="h-8 w-8 text-amber-500" />
-                </div>
-                <CardTitle>No Courses Found</CardTitle>
-                <CardDescription>
-                    Your `courses` collection in Firestore is empty. You need to seed the initial course data.
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                <Button onClick={handleSeedCourses} disabled={isSeeding}>
-                    {isSeeding ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
-                    {isSeeding ? 'Seeding...' : 'Seed Initial Courses'}
-                </Button>
-            </CardContent>
-        </Card>
-    )
-  }
+  const coursesForLevel = useMemo(() => {
+    if (!selectedCategory || !selectedLevel) return [];
+    return levelsForCategory[selectedLevel] || [];
+  }, [selectedCategory, selectedLevel, levelsForCategory]);
   
-  const getPriceDisplay = (course: Course) => {
+  const getPriceDisplay = (course: Omit<Course, 'progress'>) => {
     if (course.price === 0) return 'Free';
     return `₦${course.price.toLocaleString()}`;
   }
 
+
+  const handleCategorySelect = (category: CourseCategory) => {
+    setSelectedCategory(category);
+    setView('levels');
+  };
+
+  const handleLevelSelect = (level: CourseLevel) => {
+    setSelectedLevel(level);
+    setView('courses');
+  };
+
+  const handleBack = () => {
+    if (view === 'courses') {
+      setView('levels');
+      setSelectedLevel(null);
+    } else if (view === 'levels') {
+      setView('categories');
+      setSelectedCategory(null);
+    }
+  };
+
+  const Breadcrumbs = () => (
+    <div className="flex items-center text-sm text-muted-foreground mb-4 gap-2">
+      <button onClick={() => setView('categories')} className="hover:text-primary">
+        <Home className="h-4 w-4" />
+      </button>
+      {selectedCategory && (
+        <>
+          <ChevronsRight className="h-4 w-4" />
+          <button onClick={() => { setView('levels'); setSelectedLevel(null); }} className="hover:text-primary disabled:cursor-not-allowed" disabled={view === 'levels'}>
+            {selectedCategory}
+          </button>
+        </>
+      )}
+       {selectedLevel && (
+        <>
+          <ChevronsRight className="h-4 w-4" />
+          <span className="font-semibold text-foreground">{selectedLevel}</span>
+        </>
+      )}
+    </div>
+  )
+
   return (
-    <TooltipProvider>
-      <div className="flex justify-end mb-4 gap-2">
-        <Button variant="outline" onClick={fetchCourses} disabled={isLoading}>
-          <RefreshCw className="mr-2 h-4 w-4" />
-          Refresh
-        </Button>
-        <Button onClick={openAddDialog}>
-          <Library className="mr-2 h-4 w-4" />
-          Add Course
-        </Button>
-      </div>
+    <div className="container mx-auto py-8 px-4">
+        {view !== 'categories' && (
+             <Button variant="outline" onClick={handleBack} className="mb-4">
+                <ArrowLeft className="mr-2 h-4 w-4" /> Back
+            </Button>
+        )}
+      
+      {view !== 'categories' && <Breadcrumbs />}
 
-      <Dialog open={dialogOpen} onOpenChange={onDialogClose}>
-        <DialogContent className="max-w-4xl">
-          <DialogHeader>
-            <DialogTitle>{editingCourse ? 'Edit Course' : 'Add New Course'}</DialogTitle>
-             <DialogDescription>
-                Fill in the details for the course. All fields are required.
-            </DialogDescription>
-          </DialogHeader>
-          <CourseForm 
-            onSubmit={handleFormSubmit} 
-            initialData={editingCourse}
-            isSubmitting={isSubmitting}
-            onCancel={onDialogClose}
-          />
-        </DialogContent>
-      </Dialog>
-
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Title</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Level</TableHead>
-            <TableHead>Price (₦)</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {courses.map((course) => (
-            <TableRow key={course.id}>
-              <TableCell className="font-medium">{course.title}</TableCell>
-              <TableCell>{course.category}</TableCell>
-              <TableCell>
-                <Badge variant="outline">{course.level}</Badge>
-              </TableCell>
-              <TableCell>
-                {getPriceDisplay(course)}
-              </TableCell>
-              <TableCell className="text-right space-x-2">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon" onClick={() => openEditDialog(course)}>
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent><p>Edit course</p></TooltipContent>
-                </Tooltip>
-                <AlertDialog>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <AlertDialogTrigger asChild>
-                        <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive">
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </AlertDialogTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent><p>Delete course</p></TooltipContent>
-                  </Tooltip>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete the course and all its data.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={() => confirmDelete(course.id)}>Continue</AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TooltipProvider>
+      {view === 'categories' && (
+         <Card>
+            <CardHeader>
+                <CardTitle>Course Categories</CardTitle>
+                <CardDescription>Select a category to view its levels.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {COURSE_CATEGORIES.map(category => (
+                        <button key={category} onClick={() => handleCategorySelect(category)} className="text-left">
+                            <Card className="hover:border-primary hover:shadow-lg transition-all">
+                                <CardHeader>
+                                    <CardTitle>{category}</CardTitle>
+                                    <CardDescription>{coursesByCategory[category]?.length || 0} Courses</CardDescription>
+                                </CardHeader>
+                            </Card>
+                        </button>
+                    ))}
+                </div>
+            </CardContent>
+        </Card>
+      )}
+      
+      {view === 'levels' && selectedCategory && (
+         <Card>
+            <CardHeader>
+                <CardTitle>Levels for {selectedCategory}</CardTitle>
+                <CardDescription>Select a level to view its courses.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {COURSE_LEVELS.map(level => (
+                    <button key={level} onClick={() => handleLevelSelect(level)} className="text-left" disabled={!levelsForCategory[level]}>
+                         <Card className="hover:border-primary hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                             <CardHeader>
+                                <CardTitle>{level}</CardTitle>
+                                <CardDescription>{levelsForCategory[level]?.length || 0} Courses</CardDescription>
+                            </CardHeader>
+                        </Card>
+                    </button>
+                ))}
+                </div>
+            </CardContent>
+        </Card>
+      )}
+      
+      {view === 'courses' && selectedLevel && (
+        <Card>
+            <CardHeader>
+                <CardTitle>Courses</CardTitle>
+                <CardDescription>Courses in {selectedCategory} / {selectedLevel}</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Table>
+                    <TableHeader>
+                    <TableRow>
+                        <TableHead>Title</TableHead>
+                        <TableHead>Instructor</TableHead>
+                        <TableHead>Price (₦)</TableHead>
+                        <TableHead>Duration</TableHead>
+                    </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                    {coursesForLevel.map((course) => (
+                        <TableRow key={course.id}>
+                        <TableCell className="font-medium">{course.title}</TableCell>
+                        <TableCell>{course.instructor}</TableCell>
+                        <TableCell>
+                            <Badge variant="outline">{getPriceDisplay(course)}</Badge>
+                        </TableCell>
+                        <TableCell>{course.duration}</TableCell>
+                        </TableRow>
+                    ))}
+                    </TableBody>
+                </Table>
+            </CardContent>
+        </Card>
+      )}
+    </div>
   );
 }
+
