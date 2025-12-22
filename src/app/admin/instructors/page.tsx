@@ -1,7 +1,7 @@
 
 'use client';
 
-import { InstructorManager } from '../InstructorManager';
+import { InstructorManager } from '@/admin/InstructorManager';
 import { Card, CardContent } from '@/components/ui/card';
 import { UserPlus } from 'lucide-react';
 
