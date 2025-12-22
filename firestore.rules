@@ -6,8 +6,7 @@ service cloud.firestore {
   
     // Helper function to check if a user is an authenticated admin
     function isAdmin() {
-      // IMPORTANT: Update this list with your actual Firebase Admin UIDs
-      // You can find a user's UID in the Firebase Console > Authentication > Users tab.
+      // IMPORTANT: This list MUST be kept in sync with /src/lib/admin.ts
       let adminUIDs = ['dqrHnJtM27bMpNudHxO5hL3wsNE3'];
       return request.auth != null && request.auth.uid in adminUIDs;
     }
