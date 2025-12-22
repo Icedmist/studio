@@ -25,9 +25,19 @@ export async function seedInitialCourses(): Promise<number> {
         
         chunk.forEach((course) => {
             // Create a temporary object for validation, excluding 'id' and 'progress'
-            const courseToValidate: Omit<typeof course, 'id'> = { ...course };
-            delete (courseToValidate as any).id;
-            delete (courseToValidate as any).progress;
+             const courseToValidate: NewCourse = {
+                title: course.title,
+                description: course.description,
+                longDescription: course.longDescription,
+                category: course.category,
+                level: course.level,
+                imageUrl: course.imageUrl,
+                modules: course.modules,
+                finalAssessment: course.finalAssessment,
+                price: course.price,
+                duration: course.duration,
+                instructor: course.instructor,
+            };
             
             const validationResult = NewCourseSchema.safeParse(courseToValidate);
             

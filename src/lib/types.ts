@@ -38,7 +38,7 @@ export const CourseSchema = z.object({
   category: z.enum(COURSE_CATEGORIES),
   level: z.enum(COURSE_LEVELS),
   imageUrl: z.string().url('Must be a valid URL'),
-  progress: z.number().min(0).max(100),
+  progress: z.number().min(0).max(100).optional(), // Progress is optional
   modules: z.array(ModuleSchema).min(1, 'A course must have at least one module'),
   finalAssessment: z.array(QuestionSchema).optional(),
   price: z.number().min(0, 'Price cannot be negative'),
