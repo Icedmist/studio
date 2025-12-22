@@ -2,13 +2,11 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
-import { AuthProvider } from '@/hooks/use-auth';
 import { Poppins, Montserrat, Playfair_Display } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { Toaster } from '@/components/ui/toaster';
 import { ChatbotWrapper } from '@/components/chatbot/ChatbotWrapper';
-import { FirebaseErrorListener } from '@/components/FirebaseErrorListener';
+import { ClientProviders } from '@/components/layout/ClientProviders';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -48,14 +46,12 @@ export default function RootLayout({
           playfairDisplay.variable
         )}
       >
-        <AuthProvider>
-          <FirebaseErrorListener />
+        <ClientProviders>
           <Header />
           <main className="flex-grow">{children}</main>
           <Footer />
           <ChatbotWrapper />
-          <Toaster />
-        </AuthProvider>
+        </ClientProviders>
       </body>
     </html>
   );
