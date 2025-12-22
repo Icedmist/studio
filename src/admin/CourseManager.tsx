@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Pencil, Trash2, Library, RefreshCw, Loader2, Sparkles, AlertTriangle } from 'lucide-react';
+import { Pencil, Trash2, Library, RefreshCw, Loader2, Sparkles, AlertTriangle, ShieldAlert } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { CourseForm } from '@/components/admin/CourseForm';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -20,6 +20,8 @@ import { Badge } from '@/components/ui/badge';
 import { seedInitialCourses } from '@/services/seed-data';
 import { getCourses } from '@/services/course-data';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useAuth } from '@/hooks/use-auth';
+import { ADMIN_UIDS } from '@/lib/admin';
 
 type CourseFormData = z.infer<typeof NewCourseSchema>;
 
@@ -31,8 +33,15 @@ export function CourseManager() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const { toast } = useToast();
+  const { user } = useAuth();
+  
+  const isAuthorized = user ? ADMIN_UIDS.includes(user.uid) : false;
 
   const fetchCourses = useCallback(async () => {
+    if (!isAuthorized) {
+        setIsLoading(false);
+        return;
+    }
     setIsLoading(true);
     try {
       const courseData = await getCourses();
@@ -47,13 +56,17 @@ export function CourseManager() {
     } finally {
       setIsLoading(false);
     }
-  }, [toast]);
+  }, [toast, isAuthorized]);
 
   useEffect(() => {
     fetchCourses();
   }, [fetchCourses]);
 
   const handleSeedCourses = async () => {
+    if (!isAuthorized) {
+        toast({ title: "Unauthorized", description: "You do not have permission to seed courses.", variant: "destructive" });
+        return;
+    }
     setIsSeeding(true);
     toast({
         title: "Seeding in Progress",
@@ -150,6 +163,22 @@ export function CourseManager() {
       });
     }
   };
+  
+  if (!isAuthorized) {
+    return (
+        <Card className="text-center bg-destructive/10 border-destructive">
+            <CardHeader>
+                <div className="mx-auto bg-destructive/20 p-3 rounded-full w-fit">
+                    <ShieldAlert className="h-8 w-8 text-destructive-foreground" />
+                </div>
+                <CardTitle className='text-destructive-foreground'>Access Denied</CardTitle>
+                <CardDescription className='text-destructive-foreground/80'>
+                    You do not have the required permissions to manage courses. This might be because your UID is not in the admin list.
+                </CardDescription>
+            </CardHeader>
+        </Card>
+    )
+  }
 
   if (isLoading) {
     return (
@@ -284,3 +313,5 @@ export function CourseManager() {
     </TooltipProvider>
   );
 }
+
+    
