@@ -11,11 +11,11 @@ export default function AdminInstructorsPage() {
             <div className="flex items-center gap-2 mb-4">
                 <UserPlus className="h-8 w-8 text-primary" />
                 <h1 className="text-3xl md:text-4xl font-headline font-bold">
-                    Team Management
+                    Instructor Management
                 </h1>
             </div>
             <p className="text-muted-foreground mb-8">
-                Add, view, and manage instructors, co-founders, and other team members.
+                Add, view, and manage instructors for the academy.
             </p>
             <Card className="bg-card/80 backdrop-blur-sm border-border/50">
                 <CardContent className='pt-6'>
@@ -25,3 +25,5 @@ export default function AdminInstructorsPage() {
         </div>
     );
 }
+
+    

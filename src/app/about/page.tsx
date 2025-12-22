@@ -44,7 +44,7 @@ export default async function AboutUsPage() {
             </div>
 
              <div className="text-center max-w-5xl mx-auto">
-                <h2 className="text-2xl font-headline font-semibold mb-8 text-primary">Meet the Full Team</h2>
+                <h2 className="text-2xl font-headline font-semibold mb-8 text-primary">Meet the Instructors</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {instructors.map((instructor) => (
                         <Card key={instructor.id} className="bg-card/80 p-6">

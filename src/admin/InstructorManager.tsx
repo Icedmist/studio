@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { Instructor, Course } from '@/lib/types';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
@@ -18,8 +18,7 @@ import Link from 'next/link';
 import { z } from 'zod';
 import { InstructorSchema } from '@/lib/types';
 import { getInstructors } from '@/services/instructor-data';
-import { courses as staticCourses } from '@/lib/courses';
-import { Badge } from '@/components/ui/badge';
+import { uploadFile } from '@/services/storage';
 
 type InstructorFormData = z.infer<ReturnType<typeof getInstructorFormSchema>>;
 
@@ -55,14 +54,29 @@ export function InstructorManager() {
   const handleFormSubmit = async (data: InstructorFormData) => {
     setIsSubmitting(true);
     try {
+        let avatarUrl = data.avatarUrl;
+
+        // Check if a new file is being uploaded
+        if (data.avatarFile && data.avatarFile.length > 0) {
+            const file = data.avatarFile[0];
+            const filePath = `instructors/${Date.now()}_${file.name}`;
+            avatarUrl = await uploadFile(file, filePath);
+        } else if (!avatarUrl && editingInstructor) {
+            // Retain the existing URL if no new file is provided during an edit
+            avatarUrl = editingInstructor.avatarUrl;
+        }
+
+        if (!avatarUrl) {
+            throw new Error("Instructor image is required. Please upload an image or provide a URL.");
+        }
+
         const NewInstructorSchema = InstructorSchema.omit({ id: true });
         const validatedData = NewInstructorSchema.parse({
             name: data.name,
             bio: data.bio,
-            role: data.role,
             socials: data.socials,
-            avatarUrl: data.avatarUrl,
-            assignedCourses: data.role === 'Instructor' ? data.assignedCourses : [],
+            avatarUrl: avatarUrl, // Use the potentially new URL
+            assignedCourses: data.assignedCourses || [],
         });
         
         if (editingInstructor) {
@@ -75,8 +89,8 @@ export function InstructorManager() {
         await fetchInstructors();
 
         toast({
-            title: `Team Member ${editingInstructor ? 'updated' : 'added'}`,
-            description: `The team member details have been saved successfully.`,
+            title: `Instructor ${editingInstructor ? 'updated' : 'added'}`,
+            description: `The instructor details have been saved successfully.`,
             variant: "success",
         });
         setDialogOpen(false);
@@ -91,6 +105,7 @@ export function InstructorManager() {
         setIsSubmitting(false);
     }
   };
+
 
   const openEditDialog = (instructor: Instructor) => {
     setEditingInstructor(instructor);
@@ -114,8 +129,8 @@ export function InstructorManager() {
         await deleteDoc(doc(db, 'instructors', id));
         setInstructors(instructors.filter(i => i.id !== id));
         toast({
-            title: "Team Member Deleted",
-            description: "The team member has been removed successfully.",
+            title: "Instructor Deleted",
+            description: "The instructor has been removed successfully.",
             variant: "success",
         });
     } catch (error: any) {
@@ -140,14 +155,14 @@ export function InstructorManager() {
       <div className="flex justify-end mb-4">
         <Button onClick={openAddDialog}>
           <UserPlus className="mr-2 h-4 w-4" />
-          Add Team Member
+          Add Instructor
         </Button>
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={onDialogClose}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>{editingInstructor ? 'Edit Member' : 'Add New Member'}</DialogTitle>
+            <DialogTitle>{editingInstructor ? 'Edit Instructor' : 'Add New Instructor'}</DialogTitle>
           </DialogHeader>
           <InstructorForm 
             onSubmit={handleFormSubmit} 
@@ -162,7 +177,6 @@ export function InstructorManager() {
         <TableHeader>
             <TableRow>
                 <TableHead>Name</TableHead>
-                <TableHead>Role</TableHead>
                 <TableHead>Workload</TableHead>
                 <TableHead>Socials</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
@@ -172,11 +186,8 @@ export function InstructorManager() {
             {instructors.length > 0 ? instructors.map((instructor) => (
             <TableRow key={instructor.id}>
                 <TableCell className="font-medium">{instructor.name}</TableCell>
-                <TableCell>
-                    <Badge variant="outline">{instructor.role}</Badge>
-                </TableCell>
                 <TableCell className="font-medium">
-                    {instructor.role === 'Instructor' ? `${instructor.assignedCourses?.length || 0} Courses` : 'N/A'}
+                    {`${instructor.assignedCourses?.length || 0} Courses`}
                 </TableCell>
                 <TableCell>
                 <div className='flex gap-2'>
@@ -230,7 +241,7 @@ export function InstructorManager() {
                         <AlertDialogHeader>
                             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                             <AlertDialogDescription>
-                                This action cannot be undone. This will permanently delete the team member's data from our servers.
+                                This action cannot be undone. This will permanently delete the instructor's data from our servers.
                             </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
@@ -244,7 +255,7 @@ export function InstructorManager() {
             )) : (
               <TableRow>
                 <TableCell colSpan={5} className="text-center text-muted-foreground">
-                  No team members found. Click "Add Team Member" to get started.
+                  No instructors found. Click "Add Instructor" to get started.
                 </TableCell>
               </TableRow>
             )}
@@ -253,3 +264,5 @@ export function InstructorManager() {
     </TooltipProvider>
   );
 }
+
+    

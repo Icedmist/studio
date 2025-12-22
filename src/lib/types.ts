@@ -65,22 +65,12 @@ export const StudentProgressSchema = z.object({
 export type StudentProgress = z.infer<typeof StudentProgressSchema>;
 
 
-export const TeamMemberRoleSchema = z.enum([
-    'Instructor',
-    'Co-founder',
-    'CTO',
-    'CEO',
-    'Head of Department',
-]);
-export type TeamMemberRole = z.infer<typeof TeamMemberRoleSchema>;
-
 // Zod schema for an Instructor/Team Member
 export const InstructorSchema = z.object({
   id: z.string(),
   name: z.string().min(1, 'Name is required'),
   bio: z.string().min(10, 'Bio must be at least 10 characters'),
   avatarUrl: z.string().url('Must be a valid URL for the avatar image'),
-  role: TeamMemberRoleSchema.default('Instructor'),
   socials: z.object({
     twitter: z.string().url().optional().or(z.literal('')),
     linkedin: z.string().url().optional().or(z.literal('')),
@@ -158,3 +148,5 @@ export const AttendeeSchema = z.object({
     registeredAt: z.any(),
 });
 export type Attendee = z.infer<typeof AttendeeSchema>;
+
+    
