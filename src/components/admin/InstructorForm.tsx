@@ -8,9 +8,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2, User, Linkedin, Twitter, Image as ImageIcon, Upload, Library, CaseSensitive } from 'lucide-react';
+import { Loader2, User, Linkedin, Twitter, Upload } from 'lucide-react';
 import type { Instructor } from '@/lib/types';
-import { InstructorSchema, TeamMemberRoleSchema } from '@/lib/types';
+import { TeamMemberRoleSchema } from '@/lib/types';
 import { useState, useEffect } from 'react';
 import NextImage from 'next/image';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
@@ -178,8 +178,10 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
                 name="assignedCourses"
                 render={() => (
                     <FormItem>
-                        <FormLabel className="text-base">Assign Courses</FormLabel>
-                        <FormMessage />
+                        <div className="mb-4">
+                            <FormLabel className="text-base">Assign Courses</FormLabel>
+                            <FormMessage />
+                        </div>
                         <ScrollArea className="h-60 w-full rounded-md border p-4">
                             {staticCourses.map(course => (
                                 <FormField
@@ -189,7 +191,7 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
                                     render={({ field }) => (
                                         <FormItem
                                             key={course.id}
-                                            className="flex flex-row items-center space-x-3 space-y-0"
+                                            className="flex flex-row items-start space-x-3 space-y-0"
                                         >
                                             <FormControl>
                                                 <Checkbox
