@@ -8,24 +8,29 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2, User, Linkedin, Twitter, Image as ImageIcon, Upload } from 'lucide-react';
+import { Loader2, User, Linkedin, Twitter, Image as ImageIcon, Upload, Library, CaseSensitive } from 'lucide-react';
 import type { Instructor } from '@/lib/types';
+import { InstructorSchema, TeamMemberRoleSchema } from '@/lib/types';
 import { useState, useEffect } from 'react';
 import NextImage from 'next/image';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { courses as staticCourses } from '@/lib/courses';
+import { ScrollArea } from '../ui/scroll-area';
+import { Checkbox } from '../ui/checkbox';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
-// This function exports the schema so the parent can infer the type.
-// It now includes a file upload field which is optional.
 export const getInstructorFormSchema = () => z.object({
   name: z.string().min(1, 'Name is required'),
   bio: z.string().min(10, 'Bio must be at least 10 characters'),
   avatarUrl: z.string().url().optional().or(z.literal('')),
+  role: TeamMemberRoleSchema,
   socials: z.object({
     twitter: z.string().url().optional().or(z.literal('')),
     linkedin: z.string().url().optional().or(z.literal('')),
   }),
+  assignedCourses: z.array(z.string()).optional(),
   avatarFile: z
     .any()
     .refine(
@@ -56,14 +61,17 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
       name: initialData?.name ?? '',
       bio: initialData?.bio ?? '',
       avatarUrl: initialData?.avatarUrl ?? '',
+      role: initialData?.role ?? 'Instructor',
       socials: {
         twitter: initialData?.socials?.twitter ?? '',
         linkedin: initialData?.socials?.linkedin ?? '',
       },
+      assignedCourses: initialData?.assignedCourses ?? [],
     },
   });
 
   const avatarFile = form.watch('avatarFile');
+  const selectedRole = form.watch('role');
 
   useEffect(() => {
     if (avatarFile && avatarFile.length > 0) {
@@ -80,7 +88,7 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-h-[80vh] overflow-y-auto p-1 pr-4">
         {imagePreview && (
             <div className="flex justify-center">
                 <NextImage 
@@ -128,6 +136,28 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
             </FormItem>
           )}
         />
+         <FormField
+          control={form.control}
+          name="role"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Role</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select a role" />
+                    </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                    {TeamMemberRoleSchema.options.map(role => (
+                        <SelectItem key={role} value={role}>{role}</SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="bio"
@@ -135,12 +165,53 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
             <FormItem>
               <FormLabel>Bio</FormLabel>
               <FormControl>
-                <Textarea placeholder="A short biography about the instructor..." {...field} />
+                <Textarea placeholder="A short biography about the team member..." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+
+        {selectedRole === 'Instructor' && (
+            <FormField
+                control={form.control}
+                name="assignedCourses"
+                render={() => (
+                    <FormItem>
+                        <FormLabel className="text-base">Assign Courses</FormLabel>
+                        <FormMessage />
+                        <ScrollArea className="h-60 w-full rounded-md border p-4">
+                            {staticCourses.map(course => (
+                                <FormField
+                                    key={course.id}
+                                    control={form.control}
+                                    name="assignedCourses"
+                                    render={({ field }) => (
+                                        <FormItem
+                                            key={course.id}
+                                            className="flex flex-row items-center space-x-3 space-y-0"
+                                        >
+                                            <FormControl>
+                                                <Checkbox
+                                                    checked={field.value?.includes(course.id)}
+                                                    onCheckedChange={checked => {
+                                                        return checked
+                                                            ? field.onChange([...(field.value || []), course.id])
+                                                            : field.onChange(field.value?.filter(id => id !== course.id))
+                                                    }}
+                                                />
+                                            </FormControl>
+                                            <FormLabel className="font-normal">{course.title}</FormLabel>
+                                        </FormItem>
+                                    )}
+                                />
+                            ))}
+                        </ScrollArea>
+                    </FormItem>
+                )}
+            />
+        )}
+
          <FormField
           control={form.control}
           name="socials.twitter"
@@ -173,7 +244,7 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
             </Button>
             <Button type="submit" disabled={isSubmitting}>
             {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {initialData ? 'Update Instructor' : 'Add Instructor'}
+            {initialData ? 'Update Member' : 'Add Member'}
             </Button>
         </div>
       </form>

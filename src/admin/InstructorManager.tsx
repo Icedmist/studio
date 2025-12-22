@@ -20,6 +20,7 @@ import { InstructorSchema } from '@/lib/types';
 import { getInstructors } from '@/services/instructor-data';
 import { courses as staticCourses } from '@/lib/courses';
 import { uploadFile } from '@/services/storage';
+import { Badge } from '@/components/ui/badge';
 
 type InstructorFormData = z.infer<ReturnType<typeof getInstructorFormSchema>>;
 
@@ -31,15 +32,6 @@ export function InstructorManager() {
   const [editingInstructor, setEditingInstructor] = useState<Instructor | null>(null);
   const { toast } = useToast();
 
-  const courseCountByInstructor = useMemo(() => {
-    return staticCourses.reduce((acc, course) => {
-        if (course.instructor) {
-            acc[course.instructor] = (acc[course.instructor] || 0) + 1;
-        }
-        return acc;
-    }, {} as Record<string, number>);
-  }, []);
-
   const fetchInstructors = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -49,7 +41,7 @@ export function InstructorManager() {
       console.error("Failed to fetch instructors", error);
       toast({
         title: "Error",
-        description: `Could not fetch instructors: ${(error as Error).message}. This might be a permissions issue.`,
+        description: `Could not fetch team members: ${(error as Error).message}.`,
         variant: "destructive",
       });
     } finally {
@@ -66,26 +58,26 @@ export function InstructorManager() {
     try {
         let avatarUrl = data.avatarUrl;
 
-        // If a new file is uploaded, upload it and get the URL
         if (data.avatarFile && data.avatarFile.length > 0) {
             const file = data.avatarFile[0];
             const filePath = `instructors/${Date.now()}_${file.name}`;
             avatarUrl = await uploadFile(file, filePath);
         } else if (!avatarUrl && editingInstructor) {
-            // Keep the old URL if no new file is selected during an edit
             avatarUrl = editingInstructor.avatarUrl;
         }
 
         if (!avatarUrl) {
-            throw new Error("Instructor image is required.");
+            throw new Error("Member image is required.");
         }
 
         const NewInstructorSchema = InstructorSchema.omit({ id: true });
         const validatedData = NewInstructorSchema.parse({
             name: data.name,
             bio: data.bio,
+            role: data.role,
             socials: data.socials,
-            avatarUrl: avatarUrl, // Use the final URL
+            avatarUrl: avatarUrl,
+            assignedCourses: data.role === 'Instructor' ? data.assignedCourses : [],
         });
         
         if (editingInstructor) {
@@ -98,8 +90,8 @@ export function InstructorManager() {
         await fetchInstructors();
 
         toast({
-            title: `Instructor ${editingInstructor ? 'updated' : 'added'}`,
-            description: `The instructor details have been saved successfully.`,
+            title: `Team Member ${editingInstructor ? 'updated' : 'added'}`,
+            description: `The team member details have been saved successfully.`,
             variant: "success",
         });
         setDialogOpen(false);
@@ -137,8 +129,8 @@ export function InstructorManager() {
         await deleteDoc(doc(db, 'instructors', id));
         setInstructors(instructors.filter(i => i.id !== id));
         toast({
-            title: "Instructor Deleted",
-            description: "The instructor has been removed successfully.",
+            title: "Team Member Deleted",
+            description: "The team member has been removed successfully.",
             variant: "success",
         });
     } catch (error: any) {
@@ -163,14 +155,14 @@ export function InstructorManager() {
       <div className="flex justify-end mb-4">
         <Button onClick={openAddDialog}>
           <UserPlus className="mr-2 h-4 w-4" />
-          Add Instructor
+          Add Team Member
         </Button>
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={onDialogClose}>
-        <DialogContent>
+        <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>{editingInstructor ? 'Edit Instructor' : 'Add New Instructor'}</DialogTitle>
+            <DialogTitle>{editingInstructor ? 'Edit Member' : 'Add New Member'}</DialogTitle>
           </DialogHeader>
           <InstructorForm 
             onSubmit={handleFormSubmit} 
@@ -185,8 +177,8 @@ export function InstructorManager() {
         <TableHeader>
             <TableRow>
                 <TableHead>Name</TableHead>
-                <TableHead>Bio</TableHead>
-                <TableHead>Courses</TableHead>
+                <TableHead>Role</TableHead>
+                <TableHead>Workload</TableHead>
                 <TableHead>Socials</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
             </TableRow>
@@ -195,8 +187,12 @@ export function InstructorManager() {
             {instructors.length > 0 ? instructors.map((instructor) => (
             <TableRow key={instructor.id}>
                 <TableCell className="font-medium">{instructor.name}</TableCell>
-                <TableCell className="text-muted-foreground max-w-sm">{instructor.bio}</TableCell>
-                <TableCell className="font-medium">{courseCountByInstructor[instructor.name] || 0}</TableCell>
+                <TableCell>
+                    <Badge variant="outline">{instructor.role}</Badge>
+                </TableCell>
+                <TableCell className="font-medium">
+                    {instructor.role === 'Instructor' ? `${instructor.assignedCourses?.length || 0} Courses` : 'N/A'}
+                </TableCell>
                 <TableCell>
                 <div className='flex gap-2'>
                     {instructor.socials?.twitter && (
@@ -232,7 +228,7 @@ export function InstructorManager() {
                               <Pencil className="h-4 w-4" />
                           </Button>
                       </TooltipTrigger>
-                      <TooltipContent><p>Edit instructor</p></TooltipContent>
+                      <TooltipContent><p>Edit member</p></TooltipContent>
                   </Tooltip>
                   <AlertDialog>
                     <Tooltip>
@@ -243,13 +239,13 @@ export function InstructorManager() {
                                 </Button>
                             </AlertDialogTrigger>
                         </TooltipTrigger>
-                        <TooltipContent><p>Delete instructor</p></TooltipContent>
+                        <TooltipContent><p>Delete member</p></TooltipContent>
                     </Tooltip>
                     <AlertDialogContent>
                         <AlertDialogHeader>
                             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                             <AlertDialogDescription>
-                                This action cannot be undone. This will permanently delete the instructor and remove their data from our servers.
+                                This action cannot be undone. This will permanently delete the team member's data from our servers.
                             </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
@@ -263,7 +259,7 @@ export function InstructorManager() {
             )) : (
               <TableRow>
                 <TableCell colSpan={5} className="text-center text-muted-foreground">
-                  No instructors found. Click "Add Instructor" to get started.
+                  No team members found. Click "Add Team Member" to get started.
                 </TableCell>
               </TableRow>
             )}
@@ -272,4 +268,3 @@ export function InstructorManager() {
     </TooltipProvider>
   );
 }
-    

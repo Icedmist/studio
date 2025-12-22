@@ -1,3 +1,4 @@
+
 import { z } from 'zod';
 import { COURSE_CATEGORIES, COURSE_LEVELS } from './constants';
 
@@ -62,18 +63,31 @@ export const StudentProgressSchema = z.object({
 });
 export type StudentProgress = z.infer<typeof StudentProgressSchema>;
 
-// Zod schema for an Instructor
+
+export const TeamMemberRoleSchema = z.enum([
+    'Instructor',
+    'Co-founder',
+    'CTO',
+    'CEO',
+    'Head of Department',
+]);
+export type TeamMemberRole = z.infer<typeof TeamMemberRoleSchema>;
+
+// Zod schema for an Instructor/Team Member
 export const InstructorSchema = z.object({
   id: z.string(),
   name: z.string().min(1, 'Name is required'),
   bio: z.string().min(10, 'Bio must be at least 10 characters'),
   avatarUrl: z.string().url('Must be a valid URL'),
+  role: TeamMemberRoleSchema,
   socials: z.object({
     twitter: z.string().url().optional().or(z.literal('')),
     linkedin: z.string().url().optional().or(z.literal('')),
   }),
+  assignedCourses: z.array(z.string()).optional(), // Array of course IDs
 });
 export type Instructor = z.infer<typeof InstructorSchema>;
+
 
 // Zod schema for feedback
 export const FeedbackSchema = z.object({
