@@ -79,7 +79,7 @@ export const InstructorSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   bio: z.string().min(10, 'Bio must be at least 10 characters'),
   avatarUrl: z.string().url('Must be a valid URL'),
-  role: TeamMemberRoleSchema,
+  role: TeamMemberRoleSchema.default('Instructor'),
   socials: z.object({
     twitter: z.string().url().optional().or(z.literal('')),
     linkedin: z.string().url().optional().or(z.literal('')),
