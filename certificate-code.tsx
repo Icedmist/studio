@@ -1,5 +1,6 @@
 
-'use client';
+'use client';import { findCourseById } from '@/lib/courses';
+
 
 import { courses } from '@/lib/courses';
 import { notFound, useRouter, useParams } from 'next/navigation';

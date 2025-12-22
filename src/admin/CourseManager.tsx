@@ -69,9 +69,15 @@ export function CourseManager() {
         await fetchCourses(); // Refresh the list
     } catch (error) {
         console.error("Error seeding courses: ", error);
+        const errorMessage = (error as Error).message;
+        let description = `Could not seed courses: ${errorMessage}.`;
+        if (errorMessage.includes('PERMISSION_DENIED')) {
+            description = "Permission Denied. Please ensure your Firebase UID is correctly added to the admin list in both /src/lib/admin.ts and firestore.rules.";
+        }
+        
         toast({
             title: "Seeding Failed",
-            description: `Could not seed courses: ${(error as Error).message}. This is likely a PERMISSION_DENIED error. Please ensure your Firestore security rules allow the admin user to write to the 'courses' collection.`,
+            description: description,
             variant: "destructive",
             duration: 10000,
         });
@@ -178,6 +184,13 @@ export function CourseManager() {
         </Card>
     )
   }
+  
+  const getPriceDisplay = (course: Course) => {
+    if (course.level === 'Beginner') return 'Free';
+    if (course.level === 'Intermediate') return 'Credit-based';
+    if (course.level === 'Advanced') return course.price.toLocaleString();
+    return course.price > 0 ? course.price.toLocaleString() : 'Free';
+  }
 
   return (
     <TooltipProvider>
@@ -228,7 +241,7 @@ export function CourseManager() {
                 <Badge variant="outline">{course.level}</Badge>
               </TableCell>
               <TableCell>
-                {course.price > 0 ? course.price.toLocaleString() : 'Free'}
+                {getPriceDisplay(course)}
               </TableCell>
               <TableCell className="text-right space-x-2">
                 <Tooltip>
