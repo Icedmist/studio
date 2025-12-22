@@ -83,6 +83,8 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
       reader.readAsDataURL(file);
     } else if (initialData?.avatarUrl) {
       setImagePreview(initialData.avatarUrl);
+    } else {
+      setImagePreview(null);
     }
   }, [avatarFile, initialData]);
 
@@ -191,7 +193,7 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
                                     render={({ field }) => (
                                         <FormItem
                                             key={course.id}
-                                            className="flex flex-row items-start space-x-3 space-y-0"
+                                            className="flex flex-row items-start space-x-3 space-y-0 mb-2"
                                         >
                                             <FormControl>
                                                 <Checkbox

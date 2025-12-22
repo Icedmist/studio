@@ -1,7 +1,5 @@
 
-'use client';
-
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense } from 'react';
 import { Library, AlertTriangle } from "lucide-react";
 import { Skeleton } from '@/components/ui/skeleton';
 import { CourseFilterGrid } from '@/components/courses/CourseFilterGrid';
@@ -37,31 +35,15 @@ function CoursesPageSkeleton() {
     )
 }
 
-function CoursesPageContent() {
-    const [courses, setCourses] = useState<Course[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+async function CoursePageContent() {
+    let courses: Course[] = [];
+    let error: string | null = null;
 
-    useEffect(() => {
-        async function fetchCourses() {
-            try {
-                setIsLoading(true);
-                setError(null);
-                const courseData = await getCourses();
-                setCourses(courseData);
-            } catch (err: any) {
-                console.error("Failed to fetch courses:", err);
-                setError(err.message || 'An unknown error occurred.');
-            } finally {
-                setIsLoading(false);
-            }
-        }
-
-        fetchCourses();
-    }, []);
-
-    if (isLoading) {
-        return <CoursesPageSkeleton />;
+    try {
+        courses = await getCourses();
+    } catch (err: any) {
+        console.error("Failed to fetch courses:", err);
+        error = err.message || 'An unknown error occurred.';
     }
 
     if (error) {
@@ -73,10 +55,15 @@ function CoursesPageContent() {
                     </div>
                     <CardTitle>Failed to Load Courses</CardTitle>
                     <CardDescription>
-                        There was an error loading the course catalog.
+                        There was an error loading the course catalog. This can happen if the Firestore database is not yet populated or if there are permission issues.
                         <pre className="mt-2 text-xs bg-muted p-2 rounded whitespace-pre-wrap">{error}</pre>
                     </CardDescription>
                 </CardHeader>
+                <CardContent>
+                   <Link href="/admin/courses">
+                        <Button>Go to Admin Panel</Button>
+                   </Link>
+                </CardContent>
             </Card>
         )
     }
@@ -90,7 +77,7 @@ function CoursesPageContent() {
                     </div>
                     <CardTitle>No Courses Available</CardTitle>
                     <CardDescription>
-                        It seems there are no courses in the database right now. Please check back later, or seed them from the Admin panel.
+                        It seems there are no courses in the database right now. Please go to the admin panel to seed the initial course data.
                     </CardDescription>
                 </CardHeader>
                  <CardContent>
@@ -119,11 +106,9 @@ function CoursesPageContent() {
 }
 
 export default function CoursesPage() {
-    // Wrap the content in a Suspense boundary for better loading UX,
-    // though the hook inside handles its own loading state.
     return (
         <Suspense fallback={<CoursesPageSkeleton />}>
-            <CoursesPageContent />
+            <CoursePageContent />
         </Suspense>
     )
 }
