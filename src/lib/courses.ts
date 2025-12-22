@@ -107,6 +107,20 @@ export const courses: Omit<Course, 'progress'>[] = [
     modules: [{title: 'The Web3 Landscape', lessons: [{ title: 'Exploring the Ecosystem', content: 'Discover the key components of the Web3 world.', duration: '30m', completed: false }], quiz: []}],
     finalAssessment: [{questionText: 'In your own words, what is Web3 and how does it differ from the Web2 we use today?'}]
   },
+  {
+    id: 'web3-b-02',
+    title: 'Web3 Security Fundamentals',
+    description: 'Learn to identify and mitigate common security risks in the Web3 space.',
+    longDescription: 'In a world of immutable ledgers, security is paramount. This course covers the basics of Web3 security, from understanding common smart contract vulnerabilities to best practices for securing your wallet.',
+    category: 'Web3',
+    level: 'Beginner',
+    duration: '6h',
+    instructor: 'Dr. Anya Sharma',
+    price: 0,
+    imageUrl: 'https://picsum.photos/seed/web3-b-02/600/400',
+    modules: [{title: 'Protecting Your Assets', lessons: [{ title: 'Common Vulnerabilities', content: 'Learn about re-entrancy attacks, oracle manipulation, and other common risks.', duration: '1h', completed: false }], quiz: []}],
+    finalAssessment: [{questionText: 'Explain what a re-entrancy attack is and suggest one way a developer can prevent it.'}]
+  },
   // ... and so on for all 125 courses. For brevity, I'll only show the changes to pricing and assessments.
   // The full file would contain all courses with updated prices.
   {
