@@ -74,7 +74,11 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
   const form = useForm<CourseFormData>({
     resolver: zodResolver(NewCourseSchema),
     defaultValues: initialData 
-      ? NewCourseSchema.parse(initialData)
+      ? NewCourseSchema.parse({
+            ...initialData,
+            modules: initialData.modules.map(m => ({...m, quiz: m.quiz || []})),
+            finalAssessment: initialData.finalAssessment || [],
+        })
       : {
         title: '',
         description: '',
