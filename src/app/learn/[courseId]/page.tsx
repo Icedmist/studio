@@ -1,9 +1,11 @@
+
 'use client';
 
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
-import { getStudentProgress } from '@/services/student-data';
+import { getStudentProgress, updateLessonStatus } from '@/services/student-data';
+import { getCourse as getStaticCourse } from '@/services/course-data';
 import type { StudentProgress, Course, Module, Lesson } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,7 +13,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { ArrowLeft, ArrowRight, CheckCircle, Circle, Home, Loader2, AlertTriangle, BookCheck } from 'lucide-react';
 import Link from 'next/link';
-import { handleUpdateLessonStatus } from '@/app/actions/progress';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { Progress } from '@/components/ui/progress';
@@ -25,7 +26,7 @@ function LearningInterface() {
     const searchParams = useSearchParams();
     const { toast } = useToast();
 
-    const [progress, setProgress] = useState<StudentProgress | null>(null);
+    const [enrolledCourse, setEnrolledCourse] = useState<Course | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -33,31 +34,53 @@ function LearningInterface() {
     const moduleIndex = parseInt(searchParams.get('module') || '0', 10);
     const lessonIndex = parseInt(searchParams.get('lesson') || '0', 10);
 
-    const enrolledCourse = useMemo(() => progress?.enrolledCourses.find(c => c.id === params.courseId), [progress, params.courseId]);
     const currentModule = useMemo(() => enrolledCourse?.modules[moduleIndex], [enrolledCourse, moduleIndex]);
     const currentLesson = useMemo(() => currentModule?.lessons[lessonIndex], [currentModule, lessonIndex]);
     const finalAssessment = useMemo(() => enrolledCourse?.finalAssessment, [enrolledCourse]);
 
+    // This effect fetches both the static course data and the student's progress
+    // and then merges them together.
     useEffect(() => {
-        if (user) {
+        async function loadCourseData() {
+            if (!user) {
+                router.replace(`/login?redirect=/courses/${params.courseId}`);
+                return;
+            }
+
             setIsLoading(true);
-            getStudentProgress(user.uid)
-                .then(data => {
-                    setProgress(data);
-                    const isEnrolled = data.enrolledCourses.some(c => c.id === params.courseId);
-                    if (!isEnrolled) {
-                        router.replace(`/courses/${params.courseId}`);
-                    }
-                })
-                .catch(err => {
-                    console.error("Failed to fetch student progress", err);
+            try {
+                const [staticCourse, progressData] = await Promise.all([
+                    getStaticCourse(params.courseId),
+                    getStudentProgress(user.uid)
+                ]);
+
+                if (!staticCourse) {
+                    toast({ title: "Error", description: "Course not found.", variant: 'destructive' });
                     router.replace('/dashboard');
-                })
-                .finally(() => setIsLoading(false));
-        } else {
-            router.replace(`/login?redirect=/courses/${params.courseId}`);
+                    return;
+                }
+
+                const courseWithProgress = progressData.enrolledCourses.find(c => c.id === params.courseId);
+
+                if (!courseWithProgress) {
+                    // Not enrolled, redirect
+                    router.replace(`/courses/${params.courseId}`);
+                    return;
+                }
+
+                // The courseWithProgress from student-data now contains the full merged data
+                setEnrolledCourse(courseWithProgress);
+
+            } catch (err) {
+                console.error("Failed to load learning data:", err);
+                toast({ title: "Error", description: "Could not load course data.", variant: 'destructive' });
+                router.replace('/dashboard');
+            } finally {
+                setIsLoading(false);
+            }
         }
-    }, [user, params.courseId, router]);
+        loadCourseData();
+    }, [user, params.courseId, router, toast]);
 
     const { prevLesson, nextLesson } = useMemo(() => {
         if (!enrolledCourse) return { prevLesson: null, nextLesson: null };
@@ -94,20 +117,22 @@ function LearningInterface() {
         if (!user || !currentLesson) return;
         setIsSubmitting(true);
         const newStatus = !currentLesson.completed;
-        const result = await handleUpdateLessonStatus(user.uid, params.courseId, moduleIndex, lessonIndex, newStatus);
-        
-        if (result.success) {
+        try {
+            await updateLessonStatus(user.uid, params.courseId, moduleIndex, lessonIndex, newStatus);
             toast({
                 title: `Lesson ${newStatus ? 'Completed' : 'Unmarked'}!`,
                 variant: 'success',
             });
-            const data = await getStudentProgress(user.uid);
-            setProgress(data);
-             if (newStatus && nextLesson) {
+            // Re-fetch progress to update the UI instantly
+            const progressData = await getStudentProgress(user.uid);
+            const updatedCourse = progressData.enrolledCourses.find(c => c.id === params.courseId);
+            setEnrolledCourse(updatedCourse || null);
+
+            if (newStatus && nextLesson) {
                 router.push(nextLesson);
             }
-        } else {
-            toast({ title: "Error", description: result.error, variant: 'destructive' });
+        } catch (error) {
+            toast({ title: "Error", description: (error as Error).message, variant: 'destructive' });
         }
         setIsSubmitting(false);
     };
@@ -162,7 +187,6 @@ function LearningInterface() {
                     </div>
                     <div className="prose dark:prose-invert max-w-none">
                         <h2 className='font-headline'>About This Lesson</h2>
-                        <p>This is placeholder content for the lesson "{currentLesson?.title}". In a real application, this area would contain detailed text, code snippets, images, and other educational materials related to the video content.</p>
                         <p>{currentLesson?.content}</p>
                     </div>
                 </>
