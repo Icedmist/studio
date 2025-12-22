@@ -441,5 +441,3 @@ export const courses: Omit<Course, 'progress'>[] = [
     ]
   }
 ];
-
-    

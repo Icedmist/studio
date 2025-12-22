@@ -272,5 +272,4 @@ export function InstructorManager() {
     </TooltipProvider>
   );
 }
-
     

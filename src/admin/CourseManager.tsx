@@ -167,5 +167,4 @@ export function CourseManager() {
     </div>
   );
 }
-
     
