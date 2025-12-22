@@ -6,7 +6,6 @@ import { collection, writeBatch, doc } from "firebase/firestore";
 import type { NewCourse } from '@/lib/types';
 import { NewCourseSchema } from '@/lib/types';
 import { courses as coursesToSeedStatic } from '@/lib/courses';
-import { errorEmitter } from '@/firebase/error-emitter';
 
 export async function seedInitialCourses(): Promise<number> {
     if (!db) {
@@ -23,21 +22,19 @@ export async function seedInitialCourses(): Promise<number> {
         const chunk = coursesToSeedStatic.slice(i, i + chunkSize);
         
         chunk.forEach((course) => {
-            // The 'progress' property does not exist on the static course objects.
-            // We need to add it before validation.
-            const courseDataForValidation: NewCourse = {
-                ...course,
-            };
+            // Remove 'id' and 'progress' from the static course object before validation
+            // because they are not part of the NewCourseSchema
+            const { id, ...courseData } = course;
 
-            const validationResult = NewCourseSchema.safeParse(courseDataForValidation);
+            const validationResult = NewCourseSchema.safeParse(courseData);
             
             if (validationResult.success) {
-                // Use the original course id for the document
-                const newCourseDoc = doc(coursesCollection, course.id);
+                // Use the original static course id for the document ID
+                const newCourseDoc = doc(coursesCollection, id);
                 batch.set(newCourseDoc, validationResult.data);
                 seededCount++;
             } else {
-                console.warn("Course validation failed for:", course.title, validationResult.error.flatten());
+                console.warn(`Course validation failed for: ${course.title}`, validationResult.error.flatten());
             }
         });
 
@@ -46,13 +43,9 @@ export async function seedInitialCourses(): Promise<number> {
             await batch.commit();
         } catch (serverError: any) {
              if (serverError.code === 'permission-denied') {
-                 const permissionError = {
-                    path: `[batch write to collection: ${coursesCollection.path}]`,
-                    operation: 'write' as const
-                };
-                errorEmitter.emit('permission-error', permissionError);
-                return 0;
-            }
+                 // No need to emit here, the UI will show the descriptive error toast
+                 throw new Error("Permission Denied. Please ensure your Firebase UID is correctly added to the admin list in both /src/lib/admin.ts and firestore.rules.");
+             }
              console.error("Error during batch commit for seeding courses:", serverError);
              throw new Error(`Failed to commit seed data to Firestore. Check console for details. Error: ${serverError.code || serverError.message}`);
         }
@@ -61,3 +54,5 @@ export async function seedInitialCourses(): Promise<number> {
     console.log(`Successfully seeded ${seededCount} courses.`);
     return seededCount;
 }
+
+    
