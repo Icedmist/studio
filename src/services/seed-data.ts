@@ -6,6 +6,8 @@ import { collection, writeBatch, doc } from "firebase/firestore";
 import type { NewCourse } from '@/lib/types';
 import { NewCourseSchema } from '@/lib/types';
 import { courses as coursesToSeedStatic } from '@/lib/courses';
+import { FirestorePermissionError } from '@/firebase/errors';
+import { errorEmitter } from '@/firebase/error-emitter';
 
 export async function seedInitialCourses(): Promise<number> {
     if (!db) {
@@ -43,8 +45,13 @@ export async function seedInitialCourses(): Promise<number> {
             await batch.commit();
         } catch (serverError: any) {
              if (serverError.code === 'permission-denied') {
-                 // No need to emit here, the UI will show the descriptive error toast
-                 throw new Error("Permission Denied. Please ensure your Firebase UID is correctly added to the admin list in both /src/lib/admin.ts and firestore.rules.");
+                const error = new FirestorePermissionError({
+                    path: `collection '${coursesCollection.path}' (batched write)`,
+                    operation: 'create'
+                });
+                errorEmitter.emit('permission-error', error);
+                // Return 0 as the operation failed. The UI will show an error toast.
+                return 0;
              }
              console.error("Error during batch commit for seeding courses:", serverError);
              throw new Error(`Failed to commit seed data to Firestore. Check console for details. Error: ${serverError.code || serverError.message}`);
