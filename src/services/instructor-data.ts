@@ -2,11 +2,9 @@
 'use server';
 
 import { db } from '@/lib/firebase';
-import { collection, getDocs, type DocumentData } from "firebase/firestore";
+import { collection, getDocs, type DocumentData, query, orderBy } from "firebase/firestore";
 import type { Instructor } from '@/lib/types';
 import { InstructorSchema } from '@/lib/types';
-import { FirestorePermissionError } from '@/firebase/errors';
-import { errorEmitter } from '@/firebase/error-emitter';
 
 // Helper to convert Firestore doc to Instructor type
 const toInstructor = (doc: DocumentData): Instructor => {
@@ -21,20 +19,16 @@ export async function getInstructors(): Promise<Instructor[]> {
     if (!db) throw new Error("Firestore not initialized.");
     
     const instructorsCol = collection(db, 'instructors');
+    const q = query(instructorsCol, orderBy('name', 'asc'));
     
     try {
-        const instructorSnapshot = await getDocs(instructorsCol);
+        const instructorSnapshot = await getDocs(q);
         const instructorList = instructorSnapshot.docs.map(doc => toInstructor(doc));
         return instructorList;
     } catch (error: any) {
-        if (error.code === 'permission-denied') {
-            const permissionError = new FirestorePermissionError({
-                path: 'instructors',
-                operation: 'list',
-            });
-            errorEmitter.emit('permission-error', permissionError);
-        }
-        // Re-throw the original error to be caught by the calling component
-        throw error;
+        // Log the error for server-side debugging and re-throw it.
+        // The page calling this function should handle the error gracefully.
+        console.error("Firestore error fetching instructors:", error);
+        throw new Error(`Failed to fetch instructors: ${error.message}`);
     }
 }
