@@ -3,262 +3,48 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import type { Course } from '@/lib/types';
-import { db } from '@/lib/firebase';
-import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Pencil, Trash2, Library, RefreshCw, Loader2, Sparkles, AlertTriangle, ShieldAlert } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { CourseForm } from '@/components/admin/CourseForm';
-import { Skeleton } from '@/components/ui/skeleton';
-import { z } from 'zod';
-import { NewCourseSchema } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
-import { seedInitialCourses } from '@/services/seed-data';
-import { getCourses } from '@/services/course-data';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useAuth } from '@/hooks/use-auth';
-import { ADMIN_UIDS } from '@/lib/admin';
-
-type CourseFormData = z.infer<typeof NewCourseSchema>;
+import { courses as staticCourses } from '@/lib/courses';
+import { AlertCircle } from 'lucide-react';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export function CourseManager() {
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isSeeding, setIsSeeding] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [editingCourse, setEditingCourse] = useState<Course | null>(null);
-  const { toast } = useToast();
-  const { user } = useAuth();
-  
-  const isAuthorized = user ? ADMIN_UIDS.includes(user.uid) : false;
-
-  const fetchCourses = useCallback(async () => {
-    if (!isAuthorized) {
-        setIsLoading(false);
-        return;
-    }
-    setIsLoading(true);
-    try {
-      const courseData = await getCourses();
-      setCourses(courseData);
-    } catch (error) {
-        console.error("Error fetching courses: ", error);
-        toast({
-            title: "Error",
-            description: `Could not fetch courses: ${(error as Error).message}. This is likely a Firestore security rule issue.`,
-            variant: "destructive",
-        });
-    } finally {
-      setIsLoading(false);
-    }
-  }, [toast, isAuthorized]);
+  const [courses, setCourses] = useState<Omit<Course, 'progress'>[]>([]);
 
   useEffect(() => {
-    fetchCourses();
-  }, [fetchCourses]);
-
-  const handleSeedCourses = async () => {
-    if (!isAuthorized) {
-        toast({ title: "Unauthorized", description: "You do not have permission to seed courses.", variant: "destructive" });
-        return;
-    }
-    setIsSeeding(true);
-    toast({
-        title: "Seeding in Progress",
-        description: "Populating the database with initial courses...",
-    });
-    try {
-        const seededCount = await seedInitialCourses();
-        toast({
-            title: "Success!",
-            description: `${seededCount} courses have been added to the database.`,
-            variant: "success",
-        });
-        await fetchCourses(); // Refresh the list
-    } catch (error) {
-        console.error("Error seeding courses: ", error);
-        const errorMessage = (error as Error).message;
-        let description = `Could not seed courses: ${errorMessage}.`;
-        if (errorMessage.includes('PERMISSION_DENIED')) {
-            description = "Permission Denied. Please ensure your Firebase UID is correctly added to the admin list in both /src/lib/admin.ts and firestore.rules.";
-        }
-        
-        toast({
-            title: "Seeding Failed",
-            description: description,
-            variant: "destructive",
-            duration: 10000,
-        });
-    } finally {
-        setIsSeeding(false);
-    }
-  }
-
-  const handleFormSubmit = async (data: CourseFormData) => {
-    setIsSubmitting(true);
-    try {
-      const validatedData = NewCourseSchema.parse(data);
-      if (editingCourse) {
-        const courseDoc = doc(db, 'courses', editingCourse.id);
-        await updateDoc(courseDoc, validatedData);
-      } else {
-        await addDoc(collection(db, 'courses'), validatedData);
-      }
-
-      toast({
-        title: `Course ${editingCourse ? 'updated' : 'added'}`,
-        description: `The course details have been saved successfully.`,
-        variant: "success",
-      });
-      setDialogOpen(false);
-      setEditingCourse(null);
-      await fetchCourses(); // Refresh list
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "An unknown error occurred.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const openEditDialog = (course: Course) => {
-    setEditingCourse(course);
-    setDialogOpen(true);
-  };
-
-  const openAddDialog = () => {
-    setEditingCourse(null);
-    setDialogOpen(true);
-  };
-
-  const onDialogClose = () => {
-    if (!isSubmitting) {
-      setDialogOpen(false);
-      setEditingCourse(null);
-    }
-  }
-
-  const confirmDelete = async (id: string) => {
-    try {
-      await deleteDoc(doc(db, 'courses', id));
-      toast({
-        title: "Course Deleted",
-        description: "The course has been removed successfully.",
-        variant: "success",
-      });
-      await fetchCourses(); // Refresh list
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message || "An unknown error occurred.",
-        variant: "destructive",
-      });
-    }
-  };
+    // Data is now loaded directly from the static file
+    setCourses(staticCourses);
+  }, []);
   
-  if (!isAuthorized) {
-    return (
-        <Card className="text-center bg-destructive/10 border-destructive">
-            <CardHeader>
-                <div className="mx-auto bg-destructive/20 p-3 rounded-full w-fit">
-                    <ShieldAlert className="h-8 w-8 text-destructive-foreground" />
-                </div>
-                <CardTitle className='text-destructive-foreground'>Access Denied</CardTitle>
-                <CardDescription className='text-destructive-foreground/80'>
-                    You do not have the required permissions to manage courses. This might be because your UID is not in the admin list.
-                </CardDescription>
-            </CardHeader>
-        </Card>
-    )
-  }
-
-  if (isLoading) {
-    return (
-      <div className="space-y-2">
-        <div className="flex justify-end mb-4 gap-2">
-            <Skeleton className="h-10 w-24" />
-            <Skeleton className="h-10 w-32" />
-        </div>
-        {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}
-      </div>
-    );
-  }
-
-  if (courses.length === 0) {
-    return (
-        <Card className="text-center bg-card/60">
-            <CardHeader>
-                <div className="mx-auto bg-amber-100 dark:bg-amber-900/50 p-3 rounded-full w-fit">
-                    <AlertTriangle className="h-8 w-8 text-amber-500" />
-                </div>
-                <CardTitle>No Courses Found</CardTitle>
-                <CardDescription>
-                    Your `courses` collection in Firestore is empty. You need to seed the initial course data.
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                <Button onClick={handleSeedCourses} disabled={isSeeding}>
-                    {isSeeding ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Sparkles className="mr-2 h-4 w-4" />}
-                    {isSeeding ? 'Seeding...' : 'Seed Initial Courses'}
-                </Button>
-            </CardContent>
-        </Card>
-    )
-  }
-  
-  const getPriceDisplay = (course: Course) => {
-    if (course.level === 'Beginner') return 'Free';
-    if (course.level === 'Intermediate') return 'Credit-based';
-    if (course.level === 'Advanced') return course.price.toLocaleString();
-    return course.price > 0 ? course.price.toLocaleString() : 'Free';
+  const getPriceDisplay = (course: Omit<Course, 'progress'>) => {
+    if (course.price === 0) return 'Free';
+    return course.price.toLocaleString();
   }
 
   return (
     <TooltipProvider>
-      <div className="flex justify-end mb-4 gap-2">
-        <Button variant="outline" onClick={fetchCourses} disabled={isLoading}>
-          <RefreshCw className="mr-2 h-4 w-4" />
-          Refresh
-        </Button>
-        <Button onClick={openAddDialog}>
-          <Library className="mr-2 h-4 w-4" />
-          Add Course
-        </Button>
-      </div>
-
-      <Dialog open={dialogOpen} onOpenChange={onDialogClose}>
-        <DialogContent className="max-w-4xl">
-          <DialogHeader>
-            <DialogTitle>{editingCourse ? 'Edit Course' : 'Add New Course'}</DialogTitle>
-             <DialogDescription>
-                Fill in the details for the course. All fields are required.
-            </DialogDescription>
-          </DialogHeader>
-          <CourseForm 
-            onSubmit={handleFormSubmit} 
-            initialData={editingCourse}
-            isSubmitting={isSubmitting}
-            onCancel={onDialogClose}
-          />
-        </DialogContent>
-      </Dialog>
-
+       <Card className="mb-6 bg-blue-500/10 border-blue-500/30">
+        <CardHeader>
+          <div className="flex items-center gap-3">
+             <AlertCircle className="w-5 h-5 text-blue-500" />
+            <CardTitle className="text-blue-400">Course Data Source Changed</CardTitle>
+          </div>
+          <CardDescription className="text-blue-400/80">
+            Course data is now being managed directly from the file at `/src/lib/courses.ts`. Any changes to courses should be made in that file. This admin page is now for read-only purposes.
+          </CardDescription>
+        </CardHeader>
+      </Card>
+      
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead>Title</TableHead>
             <TableHead>Category</TableHead>
             <TableHead>Level</TableHead>
-            <TableHead>Price (₦)</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+            <TableHead>Price</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -271,40 +57,6 @@ export function CourseManager() {
               </TableCell>
               <TableCell>
                 {getPriceDisplay(course)}
-              </TableCell>
-              <TableCell className="text-right space-x-2">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon" onClick={() => openEditDialog(course)}>
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent><p>Edit course</p></TooltipContent>
-                </Tooltip>
-                <AlertDialog>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <AlertDialogTrigger asChild>
-                        <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive">
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </AlertDialogTrigger>
-                    </TooltipTrigger>
-                    <TooltipContent><p>Delete course</p></TooltipContent>
-                  </Tooltip>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete the course and all its data.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={() => confirmDelete(course.id)}>Continue</AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
               </TableCell>
             </TableRow>
           ))}
