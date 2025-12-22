@@ -1,14 +1,16 @@
 
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Library, AlertTriangle } from "lucide-react";
 import { Skeleton } from '@/components/ui/skeleton';
 import { CourseFilterGrid } from '@/components/courses/CourseFilterGrid';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { useCourses } from '@/hooks/use-courses';
+import { getCourses } from '@/services/course-data';
+import type { Course } from '@/lib/types';
+
 
 function CoursesPageSkeleton() {
     return (
@@ -36,7 +38,27 @@ function CoursesPageSkeleton() {
 }
 
 function CoursesPageContent() {
-    const { courses, isLoading, error } = useCourses();
+    const [courses, setCourses] = useState<Course[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        async function fetchCourses() {
+            try {
+                setIsLoading(true);
+                setError(null);
+                const courseData = await getCourses();
+                setCourses(courseData);
+            } catch (err: any) {
+                console.error("Failed to fetch courses:", err);
+                setError(err.message || 'An unknown error occurred.');
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        fetchCourses();
+    }, []);
 
     if (isLoading) {
         return <CoursesPageSkeleton />;
@@ -68,7 +90,7 @@ function CoursesPageContent() {
                     </div>
                     <CardTitle>No Courses Available</CardTitle>
                     <CardDescription>
-                        It seems there are no courses in the database right now. Please check back later.
+                        It seems there are no courses in the database right now. Please check back later, or seed them from the Admin panel.
                     </CardDescription>
                 </CardHeader>
                  <CardContent>
