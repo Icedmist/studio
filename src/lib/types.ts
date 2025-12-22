@@ -20,7 +20,6 @@ export const LessonSchema = z.object({
 });
 export type Lesson = z.infer<typeof LessonSchema>;
 
-
 // Zod schema for a Module
 export const ModuleSchema = z.object({
   title: z.string().min(1, 'Module title cannot be empty'),
@@ -29,26 +28,28 @@ export const ModuleSchema = z.object({
 });
 export type Module = z.infer<typeof ModuleSchema>;
 
-// Zod schema for a Course
-export const CourseSchema = z.object({
-  id: z.string(),
+// Base schema for creating a new course. Does not include `id` or `progress`.
+export const NewCourseSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   description: z.string().min(1, 'Short description is required'),
   longDescription: z.string().min(1, 'Long description is required'),
   category: z.enum(COURSE_CATEGORIES),
   level: z.enum(COURSE_LEVELS),
   imageUrl: z.string().url('Must be a valid URL'),
-  progress: z.number().min(0).max(100).optional(),
   modules: z.array(ModuleSchema).min(1, 'A course must have at least one module'),
   finalAssessment: z.array(QuestionSchema).optional(),
   price: z.number().min(0, 'Price cannot be negative'),
   duration: z.string().min(1, 'Duration is required'),
   instructor: z.string().min(1, 'Instructor name is required'),
 });
-export type Course = z.infer<typeof CourseSchema>;
-
-export const NewCourseSchema = CourseSchema.omit({ id: true, progress: true });
 export type NewCourse = z.infer<typeof NewCourseSchema>;
+
+// Full Course schema, including dynamic fields like `id` and `progress`.
+export const CourseSchema = NewCourseSchema.extend({
+  id: z.string(),
+  progress: z.number().min(0).max(100).optional(),
+});
+export type Course = z.infer<typeof CourseSchema>;
 
 
 // Zod schema for StudentProgress

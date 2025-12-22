@@ -6,7 +6,6 @@ import { collection, writeBatch, doc } from "firebase/firestore";
 import type { NewCourse } from '@/lib/types';
 import { NewCourseSchema } from '@/lib/types';
 import { courses as coursesToSeedStatic } from '@/lib/courses';
-import { FirestorePermissionError } from '@/firebase/errors';
 import { errorEmitter } from '@/firebase/error-emitter';
 
 export async function seedInitialCourses(): Promise<number> {
@@ -24,7 +23,7 @@ export async function seedInitialCourses(): Promise<number> {
         const chunk = coursesToSeedStatic.slice(i, i + chunkSize);
         
         chunk.forEach((course) => {
-            // Create a temporary object for validation, excluding 'id' and 'progress'
+            // Create a temporary object for validation that matches the NewCourseSchema
              const courseToValidate: NewCourse = {
                 title: course.title,
                 description: course.description,
@@ -38,9 +37,11 @@ export async function seedInitialCourses(): Promise<number> {
                         ...lesson,
                         completed: lesson.completed || false
                     })),
-                    quiz: module.quiz || [], // Ensure quiz is an array
+                    // Ensure quiz is an array, defaulting to empty if undefined
+                    quiz: module.quiz || [],
                 })),
-                finalAssessment: course.finalAssessment || [], // Ensure finalAssessment is an array
+                // Ensure finalAssessment is an array, defaulting to empty if undefined
+                finalAssessment: course.finalAssessment || [],
                 price: course.price,
                 duration: course.duration,
                 instructor: course.instructor,
@@ -63,11 +64,10 @@ export async function seedInitialCourses(): Promise<number> {
             await batch.commit();
         } catch (serverError: any) {
              if (serverError.code === 'permission-denied') {
-                const error = new FirestorePermissionError({
+                errorEmitter.emit('permission-error', {
                     path: `collection '${coursesCollection.path}' (batched write)`,
                     operation: 'create'
                 });
-                errorEmitter.emit('permission-error', error);
                 // Return 0 as the operation failed. The UI will show an error toast.
                 return 0;
              }
