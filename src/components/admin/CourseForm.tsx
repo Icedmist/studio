@@ -85,7 +85,7 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
         longDescription: '',
         category: 'Tech Skills',
         level: 'Beginner',
-        imageUrl: 'https://placehold.co/600x400.png',
+        imageUrl: 'https://picsum.photos/seed/placeholder/600/400',
         modules: [{ title: '', lessons: [{ title: '', duration: '', content: '' }], quiz: [] }],
         finalAssessment: [],
         price: 0,
@@ -247,7 +247,7 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
                 <FormItem>
                 <FormLabel>Image URL</FormLabel>
                 <FormControl>
-                    <Input icon={<ImageIcon/>} placeholder="https://placehold.co/600x400.png" {...field} />
+                    <Input icon={<ImageIcon/>} placeholder="https://picsum.photos/seed/placeholder/600/400" {...field} />
                 </FormControl>
                 <FormMessage />
                 </FormItem>
@@ -351,7 +351,7 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
 
         <div className="space-y-4 rounded-md border p-4">
             <h3 className="font-semibold text-lg flex items-center gap-2"><HelpCircle className="h-5 w-5 text-primary"/>Final Assessment (Essay Questions)</h3>
-            <p className='text-sm text-muted-foreground'>These are subjective questions that will be reviewed by an instructor.</p>
+            <p className='text-sm text-muted-foreground'>These are subjective questions that will be reviewed by an instructor. This is optional.</p>
             <QuestionForm control={form.control} namePrefix="finalAssessment" />
         </div>
 
