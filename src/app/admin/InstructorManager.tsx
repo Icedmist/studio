@@ -1,8 +1,8 @@
 
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import type { Instructor } from '@/lib/types';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import type { Instructor, Course } from '@/lib/types';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -18,6 +18,8 @@ import Link from 'next/link';
 import { z } from 'zod';
 import { InstructorSchema } from '@/lib/types';
 import { getInstructors } from '@/services/instructor-data';
+import { courses as staticCourses } from '@/lib/courses';
+import { uploadFile } from '@/services/storage';
 
 type InstructorFormData = z.infer<ReturnType<typeof getInstructorFormSchema>>;
 
@@ -28,6 +30,15 @@ export function InstructorManager() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingInstructor, setEditingInstructor] = useState<Instructor | null>(null);
   const { toast } = useToast();
+
+  const courseCountByInstructor = useMemo(() => {
+    return staticCourses.reduce((acc, course) => {
+        if (course.instructor) {
+            acc[course.instructor] = (acc[course.instructor] || 0) + 1;
+        }
+        return acc;
+    }, {} as Record<string, number>);
+  }, []);
 
   const fetchInstructors = useCallback(async () => {
     setIsLoading(true);
@@ -53,9 +64,27 @@ export function InstructorManager() {
   const handleFormSubmit = async (data: InstructorFormData) => {
     setIsSubmitting(true);
     try {
-        // Since file uploads are disabled, data is ready to be saved.
+        let avatarUrl = data.avatarUrl;
+
+        if (data.avatarFile && data.avatarFile.length > 0) {
+            const file = data.avatarFile[0];
+            const filePath = `instructors/${Date.now()}_${file.name}`;
+            avatarUrl = await uploadFile(file, filePath);
+        } else if (!avatarUrl && editingInstructor) {
+            avatarUrl = editingInstructor.avatarUrl;
+        }
+
+        if (!avatarUrl) {
+            throw new Error("Instructor image is required.");
+        }
+
         const NewInstructorSchema = InstructorSchema.omit({ id: true });
-        const validatedData = NewInstructorSchema.parse(data);
+        const validatedData = NewInstructorSchema.parse({
+            name: data.name,
+            bio: data.bio,
+            socials: data.socials,
+            avatarUrl: avatarUrl,
+        });
         
         if (editingInstructor) {
             const instructorDocRef = doc(db, 'instructors', editingInstructor.id);
@@ -155,6 +184,7 @@ export function InstructorManager() {
             <TableRow>
                 <TableHead>Name</TableHead>
                 <TableHead>Bio</TableHead>
+                <TableHead>Courses</TableHead>
                 <TableHead>Socials</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
             </TableRow>
@@ -164,6 +194,7 @@ export function InstructorManager() {
             <TableRow key={instructor.id}>
                 <TableCell className="font-medium">{instructor.name}</TableCell>
                 <TableCell className="text-muted-foreground max-w-sm">{instructor.bio}</TableCell>
+                <TableCell className="font-medium">{courseCountByInstructor[instructor.name] || 0}</TableCell>
                 <TableCell>
                 <div className='flex gap-2'>
                     {instructor.socials?.twitter && (
@@ -229,7 +260,7 @@ export function InstructorManager() {
             </TableRow>
             )) : (
               <TableRow>
-                <TableCell colSpan={4} className="text-center text-muted-foreground">
+                <TableCell colSpan={5} className="text-center text-muted-foreground">
                   No instructors found. Click "Add Instructor" to get started.
                 </TableCell>
               </TableRow>
@@ -239,5 +270,3 @@ export function InstructorManager() {
     </TooltipProvider>
   );
 }
-
-    

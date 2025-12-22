@@ -1,6 +1,7 @@
+
 'use client';
 
-import { CourseManager } from '../CourseManager';
+import { CourseManager } from '@/admin/CourseManager';
 import { Card, CardContent } from '@/components/ui/card';
 import { Library } from 'lucide-react';
 
@@ -14,7 +15,7 @@ export default function AdminCoursesPage() {
                 </h1>
             </div>
             <p className="text-muted-foreground mb-8">
-                Add, edit, and manage the course catalog for your academy.
+                View the course catalog from the local file source. Use this page to confirm counts and structure. Editing must be done in the source code.
             </p>
             <Card className="bg-card/80 backdrop-blur-sm border-border/50">
                 <CardContent className='pt-6'>

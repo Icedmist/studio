@@ -4,8 +4,9 @@
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
-import { getStudentProgress, updateLessonStatus } from '@/services/student-data';
-import { getCourse as getStaticCourse } from '@/services/course-data';
+import { getStudentProgress } from '@/services/student-data';
+import { getCourse as getCourseData, getCourses } from '@/services/course-data';
+import { handleUpdateLessonStatus as updateLessonStatusAction } from '@/app/actions/progress';
 import type { StudentProgress, Course, Module, Lesson } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -27,6 +28,7 @@ function LearningInterface() {
     const { toast } = useToast();
 
     const [enrolledCourse, setEnrolledCourse] = useState<Course | null>(null);
+    const [allCourses, setAllCourses] = useState<Course[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -38,8 +40,6 @@ function LearningInterface() {
     const currentLesson = useMemo(() => currentModule?.lessons[lessonIndex], [currentModule, lessonIndex]);
     const finalAssessment = useMemo(() => enrolledCourse?.finalAssessment, [enrolledCourse]);
 
-    // This effect fetches both the static course data and the student's progress
-    // and then merges them together.
     useEffect(() => {
         async function loadCourseData() {
             if (!user) {
@@ -49,26 +49,21 @@ function LearningInterface() {
 
             setIsLoading(true);
             try {
-                const [staticCourse, progressData] = await Promise.all([
-                    getStaticCourse(params.courseId),
+                const [allCoursesData, progressData] = await Promise.all([
+                    getCourses(),
                     getStudentProgress(user.uid)
                 ]);
 
-                if (!staticCourse) {
-                    toast({ title: "Error", description: "Course not found.", variant: 'destructive' });
-                    router.replace('/dashboard');
-                    return;
-                }
-
+                setAllCourses(allCoursesData);
+                
                 const courseWithProgress = progressData.enrolledCourses.find(c => c.id === params.courseId);
 
                 if (!courseWithProgress) {
-                    // Not enrolled, redirect
                     router.replace(`/courses/${params.courseId}`);
+                    toast({ title: "Not Enrolled", description: "You need to enroll in this course to access it.", variant: 'destructive' });
                     return;
                 }
 
-                // The courseWithProgress from student-data now contains the full merged data
                 setEnrolledCourse(courseWithProgress);
 
             } catch (err) {
@@ -92,7 +87,6 @@ function LearningInterface() {
             });
         });
 
-        // Add final assessment as the last item
         if (enrolledCourse.finalAssessment && enrolledCourse.finalAssessment.length > 0) {
             lessonsFlat.push({ moduleIndex: -1, lessonIndex: -1, isAssessment: true });
         }
@@ -114,25 +108,31 @@ function LearningInterface() {
     }, [enrolledCourse, moduleIndex, lessonIndex, params.courseId, isAssessment]);
 
     const toggleLessonCompletion = async () => {
-        if (!user || !currentLesson) return;
+        if (!user || !currentLesson || !enrolledCourse) return;
         setIsSubmitting(true);
         const newStatus = !currentLesson.completed;
         try {
-            await updateLessonStatus(user.uid, params.courseId, moduleIndex, lessonIndex, newStatus);
+            await updateLessonStatusAction(user.uid, enrolledCourse.id, moduleIndex, lessonIndex, newStatus);
             toast({
                 title: `Lesson ${newStatus ? 'Completed' : 'Unmarked'}!`,
                 variant: 'success',
             });
-            // Re-fetch progress to update the UI instantly
-            const progressData = await getStudentProgress(user.uid);
-            const updatedCourse = progressData.enrolledCourses.find(c => c.id === params.courseId);
-            setEnrolledCourse(updatedCourse || null);
+            
+            // Optimistically update UI
+            const updatedCourse = JSON.parse(JSON.stringify(enrolledCourse));
+            updatedCourse.modules[moduleIndex].lessons[lessonIndex].completed = newStatus;
+            
+            const totalLessons = updatedCourse.modules.reduce((sum: number, mod: Module) => sum + mod.lessons.length, 0);
+            const completedLessons = updatedCourse.modules.reduce((sum: number, mod: Module) => sum + mod.lessons.filter(l => l.completed).length, 0);
+            updatedCourse.progress = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+
+            setEnrolledCourse(updatedCourse);
 
             if (newStatus && nextLesson) {
                 router.push(nextLesson);
             }
         } catch (error) {
-            toast({ title: "Error", description: (error as Error).message, variant: 'destructive' });
+            toast({ title: "Error updating status", description: (error as Error).message, variant: 'destructive' });
         }
         setIsSubmitting(false);
     };
@@ -220,7 +220,6 @@ function LearningInterface() {
 
     return (
         <div className="flex min-h-screen">
-            {/* Sidebar */}
             <aside className="w-80 border-r bg-card/50 hidden md:flex flex-col">
                  <div className="p-4 border-b">
                     <Link href={`/courses/${enrolledCourse.id}`} className='hover:underline'>
@@ -277,8 +276,6 @@ function LearningInterface() {
                     </Link>
                  </div>
             </aside>
-
-            {/* Main Content */}
             <main className="flex-1 flex flex-col">
                 <header className="flex items-center justify-between p-4 border-b">
                     <h1 className="text-xl md:text-2xl font-headline font-bold truncate">
@@ -311,7 +308,6 @@ function LearningInterface() {
         </div>
     );
 }
-
 
 function LearningSkeleton() {
     return (

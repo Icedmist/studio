@@ -364,5 +364,3 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
     </Form>
   );
 }
-
-    

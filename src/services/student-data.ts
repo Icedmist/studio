@@ -1,11 +1,10 @@
 
 'use server';
 
-// Service to manage student data in Firestore.
 import { db } from '@/lib/firebase';
-import { doc, getDoc, setDoc, updateDoc, collection, getDocs } from "firebase/firestore"; 
+import { doc, getDoc, setDoc, updateDoc, collection, getDocs, writeBatch } from "firebase/firestore"; 
 import type { StudentProgress, Course as CourseType } from '@/lib/types';
-import { getCourse as getStaticCourse, getCourses as getAllStaticCourses } from './course-data';
+import { getCourse, getCourses } from './course-data';
 
 // This is the shape of the data stored in the 'enrolledCourses' array in Firestore.
 // It's a lightweight reference to the full course object.
@@ -13,17 +12,16 @@ type EnrolledCourseRef = {
     id: string;
     progress: number;
     completedLessons: {
-        [moduleId: number]: {
-             [lessonId: number]: boolean
+        [moduleIndex: number]: {
+             [lessonIndex: number]: boolean
         }
     }
 }
 
-
 /**
  * Fetches a student's progress from Firestore.
  * If the student doesn't have a profile yet, it creates one.
- * The full course data is merged from the static course files.
+ * The full course data is merged from the `courses` collection.
  * @param userId The UID of the authenticated user.
  * @param name The display name of the user, used for creating a new profile.
  * @param referralCode The UID of the user who referred this student.
@@ -36,8 +34,7 @@ export async function getStudentProgress(userId: string, name?: string, referral
 
     const docRef = doc(db, "studentProgress", userId);
     const docSnap = await getDoc(docRef);
-
-    const allStaticCourses = await getAllStaticCourses();
+    const allCourses = await getCourses(); // Fetch all course data once
 
     if (docSnap.exists()) {
         const studentData = docSnap.data();
@@ -45,11 +42,11 @@ export async function getStudentProgress(userId: string, name?: string, referral
 
         // Merge static course data with student's progress
         const enrolledCourses: CourseType[] = enrolledCourseRefs.map(ref => {
-            const staticCourse = allStaticCourses.find(c => c.id === ref.id);
-            if (!staticCourse) return null; // Course might have been deleted
+            const fullCourseData = allCourses.find(c => c.id === ref.id);
+            if (!fullCourseData) return null; // Course might have been deleted
 
-            // Create a deep copy to avoid modifying the original static data
-            const courseWithProgress = JSON.parse(JSON.stringify(staticCourse));
+            // Create a deep copy to avoid modifying the original data
+            const courseWithProgress = JSON.parse(JSON.stringify(fullCourseData));
 
             courseWithProgress.progress = ref.progress;
             
@@ -62,55 +59,45 @@ export async function getStudentProgress(userId: string, name?: string, referral
 
             return courseWithProgress;
         }).filter(c => c !== null) as CourseType[];
+        
+        const metrics = calculateProgressMetrics(enrolledCourses);
 
         return {
-            ...studentData,
+            studentId: userId,
+            name: studentData.name,
             enrolledCourses,
-        } as StudentProgress;
+            referredBy: studentData.referredBy,
+            ...metrics
+        };
+
     } else {
         console.log(`No progress document for user ${userId}. Creating new profile.`);
         const newStudentData = {
             studentId: userId,
-            name: name || "New Student", // Use provided name or a default
+            name: name || "New Student",
             enrolledCourses: [], // This will be the lightweight reference array
-            overallProgress: 0,
-            completedCourses: 0,
-            coursesInProgress: 0,
             referredBy: referralCode || undefined,
         };
 
         await setDoc(docRef, newStudentData);
-
+        
         // Return the full StudentProgress structure
         return {
              ...newStudentData,
              enrolledCourses: [], // This is the full CourseType array, which is empty initially
+             overallProgress: 0,
+             completedCourses: 0,
+             coursesInProgress: 0,
         };
     }
 }
 
 /**
- * Fetches all student progress documents.
- * @returns An array of all student progress data.
- */
-export async function getAllStudentProgresses(): Promise<StudentProgress[]> {
-     if (!db) throw new Error("Firestore not initialized.");
-    const progressCol = collection(db, 'studentProgress');
-    const progressSnapshot = await getDocs(progressCol);
-    
-    // Note: This returns the raw data from Firestore. For a full admin view,
-    // you might need to process this further to merge in full course details
-    // similar to getStudentProgress if needed on the admin side.
-    return progressSnapshot.docs.map(doc => doc.data() as StudentProgress);
-}
-
-
-/**
  * Recalculates progress metrics based on the current list of enrolled courses.
- * @param enrolledCourses Array of lightweight course references.
+ * @param enrolledCourses Array of full CourseType objects with progress.
  * @returns An object with calculated progress metrics.
  */
-function calculateProgressMetrics(enrolledCourses: EnrolledCourseRef[]) {
+function calculateProgressMetrics(enrolledCourses: CourseType[]) {
     if (!enrolledCourses || enrolledCourses.length === 0) {
         return { coursesInProgress: 0, completedCourses: 0, overallProgress: 0 };
     }
@@ -131,7 +118,7 @@ function calculateProgressMetrics(enrolledCourses: EnrolledCourseRef[]) {
 export async function enrollInCourse(userId: string, courseId: string): Promise<void> {
     if (!db) throw new Error("Firestore not initialized.");
 
-    const courseToEnroll = await getStaticCourse(courseId);
+    const courseToEnroll = await getCourse(courseId);
     if (!courseToEnroll) throw new Error("Course not found.");
 
     const studentProgressRef = doc(db, "studentProgress", userId);
@@ -156,11 +143,9 @@ export async function enrollInCourse(userId: string, courseId: string): Promise<
     };
 
     const updatedCourseRefs = [...currentEnrolledRefs, newCourseRef];
-    const metrics = calculateProgressMetrics(updatedCourseRefs);
 
     await updateDoc(studentProgressRef, {
         enrolledCourses: updatedCourseRefs,
-        ...metrics
     });
 }
 
@@ -176,7 +161,12 @@ export async function updateLessonStatus(userId: string, courseId: string, modul
     if (!db) throw new Error("Firestore not initialized.");
     
     const studentProgressRef = doc(db, "studentProgress", userId);
-    const studentData = (await getDoc(studentProgressRef)).data()!;
+    const studentDoc = await getDoc(studentProgressRef);
+    if (!studentDoc.exists()) {
+        throw new Error("Student progress document not found.");
+    }
+
+    const studentData = studentDoc.data()!;
     const currentEnrolledRefs: EnrolledCourseRef[] = studentData.enrolledCourses || [];
 
     const courseRefIndex = currentEnrolledRefs.findIndex(c => c.id === courseId);
@@ -191,7 +181,7 @@ export async function updateLessonStatus(userId: string, courseId: string, modul
         }
         courseRef.completedLessons[moduleIndex][lessonIndex] = true;
     } else {
-        if (courseRef.completedLessons[moduleIndex]) {
+        if (courseRef.completedLessons?.[moduleIndex]?.[lessonIndex]) {
             delete courseRef.completedLessons[moduleIndex][lessonIndex];
             if (Object.keys(courseRef.completedLessons[moduleIndex]).length === 0) {
                 delete courseRef.completedLessons[moduleIndex];
@@ -200,20 +190,17 @@ export async function updateLessonStatus(userId: string, courseId: string, modul
     }
     
     // Recalculate progress
-    const staticCourse = await getStaticCourse(courseId);
+    const staticCourse = await getCourse(courseId);
     if (!staticCourse) throw new Error("Static course data not found for progress calculation.");
     
     const totalLessons = staticCourse.modules.reduce((sum, module) => sum + module.lessons.length, 0);
-    const completedLessons = Object.values(courseRef.completedLessons).reduce((sum, module) => sum + Object.keys(module).length, 0);
-    courseRef.progress = totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
+    const completedLessonsCount = Object.values(courseRef.completedLessons).reduce((sum, module) => sum + Object.keys(module).length, 0);
+    courseRef.progress = totalLessons > 0 ? Math.round((completedLessonsCount / totalLessons) * 100) : 0;
     
     const updatedCourseRefs = [...currentEnrolledRefs];
     updatedCourseRefs[courseRefIndex] = courseRef;
     
-    const metrics = calculateProgressMetrics(updatedCourseRefs);
-
     await updateDoc(studentProgressRef, {
         enrolledCourses: updatedCourseRefs,
-        ...metrics
     });
 }
