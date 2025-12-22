@@ -21,21 +21,7 @@ const courseIds = coursesToSeedStatic.map(c => c.id);
 export async function seedInitialCourses(): Promise<number> {
     const coursesCollection = collection(db, 'courses');
     
-    try {
-        const snapshot = await getDocs(coursesCollection);
-        if (!snapshot.empty) {
-            console.log('Courses collection is not empty. Skipping seed.');
-            return 0;
-        }
-    } catch (serverError: any) {
-         if (serverError.code === 'permission-denied') {
-            const permissionError = new FirestorePermissionError({ path: coursesCollection.path, operation: 'list' });
-            errorEmitter.emit('permission-error', permissionError);
-         }
-         throw serverError;
-    }
-
-    console.log(`Courses collection is empty. Seeding ${coursesToSeed.length} initial courses...`);
+    console.log(`Attempting to seed ${coursesToSeed.length} initial courses...`);
     
     const chunkSize = 400; // Firestore batch limit is 500 operations
     let seededCount = 0;
@@ -43,7 +29,7 @@ export async function seedInitialCourses(): Promise<number> {
     for (let i = 0; i < coursesToSeed.length; i += chunkSize) {
         const batch = writeBatch(db);
         const chunk = coursesToSeed.slice(i, i + chunkSize);
-        const idChunk = courseIds.slice(i, i+chunkSize);
+        const idChunk = courseIds.slice(i, i + chunkSize);
         
         chunk.forEach((courseData, index) => {
             const courseId = idChunk[index];
@@ -66,7 +52,7 @@ export async function seedInitialCourses(): Promise<number> {
                 const permissionError = new FirestorePermissionError({
                     path: coursesCollection.path,
                     operation: 'create',
-                    requestResourceData: chunk,
+                    requestResourceData: chunk.map((c, idx) => ({ id: idChunk[idx], ...c })),
                 });
                 errorEmitter.emit('permission-error', permissionError);
             }
@@ -78,4 +64,3 @@ export async function seedInitialCourses(): Promise<number> {
     console.log(`Successfully seeded ${seededCount} courses.`);
     return seededCount;
 }
-
