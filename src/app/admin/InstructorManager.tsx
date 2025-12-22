@@ -1,8 +1,8 @@
 
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import type { Instructor, Course } from '@/lib/types';
+import { useState, useEffect, useCallback } from 'react';
+import type { Instructor } from '@/lib/types';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -18,7 +18,6 @@ import Link from 'next/link';
 import { z } from 'zod';
 import { InstructorSchema } from '@/lib/types';
 import { getInstructors } from '@/services/instructor-data';
-import { courses as staticCourses } from '@/lib/courses';
 import { uploadFile } from '@/services/storage';
 
 type InstructorFormData = z.infer<ReturnType<typeof getInstructorFormSchema>>;
@@ -31,15 +30,6 @@ export function InstructorManager() {
   const [editingInstructor, setEditingInstructor] = useState<Instructor | null>(null);
   const { toast } = useToast();
 
-  const courseCountByInstructor = useMemo(() => {
-    return staticCourses.reduce((acc, course) => {
-        if (course.instructor) {
-            acc[course.instructor] = (acc[course.instructor] || 0) + 1;
-        }
-        return acc;
-    }, {} as Record<string, number>);
-  }, []);
-
   const fetchInstructors = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -49,7 +39,7 @@ export function InstructorManager() {
       console.error("Failed to fetch instructors", error);
       toast({
         title: "Error",
-        description: `Could not fetch instructors: ${(error as Error).message}. This might be a permissions issue.`,
+        description: `Could not fetch team members: ${(error as Error).message}.`,
         variant: "destructive",
       });
     } finally {
@@ -66,16 +56,18 @@ export function InstructorManager() {
     try {
         let avatarUrl = data.avatarUrl;
 
+        // Check if a new file is being uploaded
         if (data.avatarFile && data.avatarFile.length > 0) {
             const file = data.avatarFile[0];
             const filePath = `instructors/${Date.now()}_${file.name}`;
             avatarUrl = await uploadFile(file, filePath);
         } else if (!avatarUrl && editingInstructor) {
+            // Retain the existing URL if no new file is provided during an edit
             avatarUrl = editingInstructor.avatarUrl;
         }
 
         if (!avatarUrl) {
-            throw new Error("Instructor image is required.");
+            throw new Error("Instructor image is required. Please upload an image or provide a URL.");
         }
 
         const NewInstructorSchema = InstructorSchema.omit({ id: true });
@@ -83,7 +75,7 @@ export function InstructorManager() {
             name: data.name,
             bio: data.bio,
             socials: data.socials,
-            avatarUrl: avatarUrl,
+            avatarUrl: avatarUrl, // Use the potentially new URL
         });
         
         if (editingInstructor) {
@@ -112,6 +104,7 @@ export function InstructorManager() {
         setIsSubmitting(false);
     }
   };
+
 
   const openEditDialog = (instructor: Instructor) => {
     setEditingInstructor(instructor);
@@ -166,7 +159,7 @@ export function InstructorManager() {
       </div>
 
       <Dialog open={dialogOpen} onOpenChange={onDialogClose}>
-        <DialogContent>
+        <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>{editingInstructor ? 'Edit Instructor' : 'Add New Instructor'}</DialogTitle>
           </DialogHeader>
@@ -184,7 +177,6 @@ export function InstructorManager() {
             <TableRow>
                 <TableHead>Name</TableHead>
                 <TableHead>Bio</TableHead>
-                <TableHead>Courses</TableHead>
                 <TableHead>Socials</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
             </TableRow>
@@ -194,7 +186,6 @@ export function InstructorManager() {
             <TableRow key={instructor.id}>
                 <TableCell className="font-medium">{instructor.name}</TableCell>
                 <TableCell className="text-muted-foreground max-w-sm">{instructor.bio}</TableCell>
-                <TableCell className="font-medium">{courseCountByInstructor[instructor.name] || 0}</TableCell>
                 <TableCell>
                 <div className='flex gap-2'>
                     {instructor.socials?.twitter && (
@@ -247,7 +238,7 @@ export function InstructorManager() {
                         <AlertDialogHeader>
                             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                             <AlertDialogDescription>
-                                This action cannot be undone. This will permanently delete the instructor and remove their data from our servers.
+                                This action cannot be undone. This will permanently delete the instructor's data from our servers.
                             </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
@@ -260,7 +251,7 @@ export function InstructorManager() {
             </TableRow>
             )) : (
               <TableRow>
-                <TableCell colSpan={5} className="text-center text-muted-foreground">
+                <TableCell colSpan={4} className="text-center text-muted-foreground">
                   No instructors found. Click "Add Instructor" to get started.
                 </TableCell>
               </TableRow>

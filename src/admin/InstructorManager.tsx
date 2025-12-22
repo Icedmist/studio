@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import type { Instructor, Course } from '@/lib/types';
+import type { Instructor } from '@/lib/types';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -76,7 +76,6 @@ export function InstructorManager() {
             bio: data.bio,
             socials: data.socials,
             avatarUrl: avatarUrl, // Use the potentially new URL
-            assignedCourses: data.assignedCourses || [],
         });
         
         if (editingInstructor) {
@@ -177,7 +176,7 @@ export function InstructorManager() {
         <TableHeader>
             <TableRow>
                 <TableHead>Name</TableHead>
-                <TableHead>Workload</TableHead>
+                <TableHead>Bio</TableHead>
                 <TableHead>Socials</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
             </TableRow>
@@ -186,9 +185,7 @@ export function InstructorManager() {
             {instructors.length > 0 ? instructors.map((instructor) => (
             <TableRow key={instructor.id}>
                 <TableCell className="font-medium">{instructor.name}</TableCell>
-                <TableCell className="font-medium">
-                    {`${instructor.assignedCourses?.length || 0} Courses`}
-                </TableCell>
+                <TableCell className="text-muted-foreground max-w-sm">{instructor.bio}</TableCell>
                 <TableCell>
                 <div className='flex gap-2'>
                     {instructor.socials?.twitter && (
@@ -254,7 +251,7 @@ export function InstructorManager() {
             </TableRow>
             )) : (
               <TableRow>
-                <TableCell colSpan={5} className="text-center text-muted-foreground">
+                <TableCell colSpan={4} className="text-center text-muted-foreground">
                   No instructors found. Click "Add Instructor" to get started.
                 </TableCell>
               </TableRow>
@@ -264,5 +261,3 @@ export function InstructorManager() {
     </TooltipProvider>
   );
 }
-
-    

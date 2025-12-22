@@ -47,7 +47,7 @@ export type NewCourse = z.infer<typeof NewCourseSchema>;
 // Full Course schema, including dynamic fields like `id` and `progress`.
 export const CourseSchema = NewCourseSchema.extend({
   id: z.string(),
-  progress: z.number().min(0).max(100).optional(),
+  progress: z.number().min(0).max(100).default(0).optional(),
 });
 export type Course = z.infer<typeof CourseSchema>;
 
@@ -75,7 +75,6 @@ export const InstructorSchema = z.object({
     twitter: z.string().url().optional().or(z.literal('')),
     linkedin: z.string().url().optional().or(z.literal('')),
   }),
-  assignedCourses: z.array(z.string()).optional(), // Array of course IDs
 });
 export type Instructor = z.infer<typeof InstructorSchema>;
 
@@ -148,5 +147,3 @@ export const AttendeeSchema = z.object({
     registeredAt: z.any(),
 });
 export type Attendee = z.infer<typeof AttendeeSchema>;
-
-    

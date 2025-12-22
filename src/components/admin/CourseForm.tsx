@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Loader2, PlusCircle, Trash2, BookText, Clock, User, Tag, BarChart, DollarSign, Image as ImageIcon, BookOpen, Clock4, HelpCircle } from 'lucide-react';
+import { Loader2, PlusCircle, Trash2, BookText, Clock, User, Tag, BarChart, DollarSign, Image as ImageIcon, BookOpen, Clock4 } from 'lucide-react';
 import type { Course, Instructor } from '@/lib/types';
 import { NewCourseSchema } from '@/lib/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -252,7 +252,7 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
                                 return (
                                     <>
                                         {lessonFields.map((lessonItem, lessonIndex) => (
-                                            <div key={lessonItem.id} className="flex gap-2 items-end">
+                                            <div key={lessonItem.id} className="flex gap-2 items-start">
                                                 <div className="flex-1 grid grid-cols-1 gap-2">
                                                     <FormField
                                                     control={form.control}
@@ -272,9 +272,9 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
                                                     name={`modules.${moduleIndex}.lessons.${lessonIndex}.content`}
                                                     render={({ field }) => (
                                                         <FormItem>
-                                                        <FormLabel>Content</FormLabel>
+                                                        <FormLabel className="sr-only">Content</FormLabel>
                                                         <FormControl>
-                                                            <Textarea placeholder="Lesson content..." {...field} />
+                                                            <Textarea rows={3} placeholder="Lesson content..." {...field} />
                                                         </FormControl>
                                                          <FormMessage />
                                                         </FormItem>
@@ -285,7 +285,7 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
                                                     name={`modules.${moduleIndex}.lessons.${lessonIndex}.duration`}
                                                     render={({ field }) => (
                                                         <FormItem>
-                                                        <FormLabel>Duration</FormLabel>
+                                                        <FormLabel className="sr-only">Duration</FormLabel>
                                                         <FormControl>
                                                             <Input icon={<Clock4/>} placeholder="e.g., 1h 45m" {...field} />
                                                         </FormControl>

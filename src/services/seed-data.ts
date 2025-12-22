@@ -23,8 +23,7 @@ export async function seedInitialCourses(): Promise<number> {
         const chunk = coursesToSeedStatic.slice(i, i + chunkSize);
         
         chunk.forEach((course) => {
-            // Create a temporary object for validation that matches the NewCourseSchema
-             const courseToValidate: NewCourse = {
+            const courseToValidate: Omit<NewCourse, 'id'> = {
                 title: course.title,
                 description: course.description,
                 longDescription: course.longDescription,
@@ -37,10 +36,8 @@ export async function seedInitialCourses(): Promise<number> {
                         ...lesson,
                         completed: lesson.completed || false
                     })),
-                    // Ensure quiz is an array, defaulting to empty if undefined
                     quiz: module.quiz || [],
                 })),
-                // Ensure finalAssessment is an array, defaulting to empty if undefined
                 finalAssessment: course.finalAssessment || [],
                 price: course.price,
                 duration: course.duration,
@@ -50,7 +47,6 @@ export async function seedInitialCourses(): Promise<number> {
             const validationResult = NewCourseSchema.safeParse(courseToValidate);
             
             if (validationResult.success) {
-                // Use the original static course id for the document ID
                 const newCourseDoc = doc(coursesCollection, course.id);
                 batch.set(newCourseDoc, validationResult.data);
                 seededCount++;
@@ -68,7 +64,6 @@ export async function seedInitialCourses(): Promise<number> {
                     path: `collection '${coursesCollection.path}' (batched write)`,
                     operation: 'create'
                 });
-                // Return 0 as the operation failed. The UI will show an error toast.
                 return 0;
              }
              console.error("Error during batch commit for seeding courses:", serverError);

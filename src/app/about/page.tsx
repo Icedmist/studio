@@ -55,12 +55,12 @@ export default async function AboutUsPage() {
                             <h3 className="text-xl font-headline font-bold">{instructor.name}</h3>
                             <p className="text-muted-foreground mt-2 text-sm">{instructor.bio}</p>
                             <div className="flex justify-center gap-4 mt-4">
-                               {instructor.socials.twitter && (
+                               {instructor.socials?.twitter && (
                                  <Link href={instructor.socials.twitter} target="_blank" aria-label={`${instructor.name}'s Twitter`}>
                                      <Button variant="ghost" size="icon"><Twitter className="h-5 w-5"/></Button>
                                  </Link>
                                )}
-                               {instructor.socials.linkedin && (
+                               {instructor.socials?.linkedin && (
                                    <Link href={instructor.socials.linkedin} target="_blank" aria-label={`${instructor.name}'s LinkedIn`}>
                                      <Button variant="ghost" size="icon"><Linkedin className="h-5 w-5"/></Button>
                                    </Link>
@@ -76,5 +76,3 @@ export default async function AboutUsPage() {
     </div>
   );
 }
-
-    

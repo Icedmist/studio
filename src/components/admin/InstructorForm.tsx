@@ -10,11 +10,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Loader2, User, Linkedin, Twitter, Image as ImageIcon } from 'lucide-react';
 import type { Instructor } from '@/lib/types';
-import { courses as staticCourses } from '@/lib/courses';
-import { ScrollArea } from '../ui/scroll-area';
-import { Checkbox } from '../ui/checkbox';
 
-const MAX_FILE_SIZE = 500000;
+const MAX_FILE_SIZE = 5000000; // 5MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 export const getInstructorFormSchema = () => z.object({
@@ -33,8 +30,7 @@ export const getInstructorFormSchema = () => z.object({
     twitter: z.string().url().optional().or(z.literal('')),
     linkedin: z.string().url().optional().or(z.literal('')),
   }),
-  assignedCourses: z.array(z.string()).optional(),
-}).refine(data => data.avatarUrl || data.avatarFile, {
+}).refine(data => data.avatarUrl || (data.avatarFile && data.avatarFile.length > 0), {
     message: "Either an image URL or an uploaded file is required.",
     path: ["avatarUrl"],
 });
@@ -60,7 +56,6 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
         twitter: initialData?.socials?.twitter ?? '',
         linkedin: initialData?.socials?.linkedin ?? '',
       },
-      assignedCourses: initialData?.assignedCourses ?? [],
     },
   });
 
@@ -121,45 +116,6 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
                 </FormItem>
             )}
         />
-        <FormField
-            control={form.control}
-            name="assignedCourses"
-            render={() => (
-                <FormItem>
-                    <div className="mb-4">
-                        <FormLabel className="text-base">Assign Courses</FormLabel>
-                        <FormMessage />
-                    </div>
-                    <ScrollArea className="h-60 w-full rounded-md border p-4">
-                        {staticCourses.map(course => (
-                            <FormField
-                                key={course.id}
-                                control={form.control}
-                                name="assignedCourses"
-                                render={({ field }) => (
-                                    <FormItem
-                                        key={course.id}
-                                        className="flex flex-row items-start space-x-3 space-y-0 mb-2"
-                                    >
-                                        <FormControl>
-                                            <Checkbox
-                                                checked={field.value?.includes(course.id)}
-                                                onCheckedChange={checked => {
-                                                    return checked
-                                                        ? field.onChange([...(field.value || []), course.id])
-                                                        : field.onChange(field.value?.filter(id => id !== course.id))
-                                                }}
-                                            />
-                                        </FormControl>
-                                        <FormLabel className="font-normal">{course.title}</FormLabel>
-                                    </FormItem>
-                                )}
-                            />
-                        ))}
-                    </ScrollArea>
-                </FormItem>
-            )}
-        />
          <FormField
           control={form.control}
           name="socials.twitter"
@@ -199,5 +155,3 @@ export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }
     </Form>
   );
 }
-
-    
