@@ -34,6 +34,10 @@ export async function seedInitialCourses(): Promise<number> {
                 imageUrl: course.imageUrl,
                 modules: course.modules.map(module => ({
                     ...module,
+                    lessons: module.lessons.map(lesson => ({
+                        ...lesson,
+                        completed: lesson.completed || false
+                    })),
                     quiz: module.quiz || [], // Ensure quiz is an array
                 })),
                 finalAssessment: course.finalAssessment || [], // Ensure finalAssessment is an array

@@ -86,7 +86,7 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
         category: 'Tech Skills',
         level: 'Beginner',
         imageUrl: 'https://picsum.photos/seed/placeholder/600/400',
-        modules: [{ title: '', lessons: [{ title: '', duration: '', content: '' }], quiz: [] }],
+        modules: [{ title: '', lessons: [{ title: '', duration: '', content: '', completed: false }], quiz: [] }],
         finalAssessment: [],
         price: 0,
         duration: '',
@@ -334,7 +334,7 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
                                                 </Button>
                                             </div>
                                         ))}
-                                        <Button type="button" variant="outline" size="sm" onClick={() => appendLesson({ title: '', duration: '', content: '' })}>
+                                        <Button type="button" variant="outline" size="sm" onClick={() => appendLesson({ title: '', duration: '', content: '', completed: false })}>
                                             <PlusCircle className="mr-2 h-4 w-4" /> Add Lesson
                                         </Button>
                                     </>
@@ -344,7 +344,7 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
                     </div>
                 </div>
             ))}
-            <Button type="button" variant="secondary" onClick={() => appendModule({ title: '', lessons: [{ title: '', duration: '', content: '' }], quiz: [] })}>
+            <Button type="button" variant="secondary" onClick={() => appendModule({ title: '', lessons: [{ title: '', duration: '', content: '', completed: false }], quiz: [] })}>
                  <PlusCircle className="mr-2 h-4 w-4" /> Add Module
             </Button>
         </div>

@@ -22,7 +22,7 @@ export type Lesson = z.infer<typeof LessonSchema>;
 
 
 // Zod schema for a Module
-const ModuleSchema = z.object({
+export const ModuleSchema = z.object({
   title: z.string().min(1, 'Module title cannot be empty'),
   lessons: z.array(LessonSchema).min(1, 'A module must have at least one lesson'),
   quiz: z.array(QuestionSchema).optional(),
