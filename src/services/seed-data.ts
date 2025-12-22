@@ -24,15 +24,16 @@ export async function seedInitialCourses(): Promise<number> {
         const chunk = coursesToSeedStatic.slice(i, i + chunkSize);
         
         chunk.forEach((course) => {
-            // Remove 'id' and 'progress' from the static course object before validation
-            // because they are not part of the NewCourseSchema
-            const { id, ...courseData } = course;
-
-            const validationResult = NewCourseSchema.safeParse(courseData);
+            // Create a temporary object for validation, excluding 'id' and 'progress'
+            const courseToValidate: Omit<typeof course, 'id'> = { ...course };
+            delete (courseToValidate as any).id;
+            delete (courseToValidate as any).progress;
+            
+            const validationResult = NewCourseSchema.safeParse(courseToValidate);
             
             if (validationResult.success) {
                 // Use the original static course id for the document ID
-                const newCourseDoc = doc(coursesCollection, id);
+                const newCourseDoc = doc(coursesCollection, course.id);
                 batch.set(newCourseDoc, validationResult.data);
                 seededCount++;
             } else {
@@ -61,5 +62,3 @@ export async function seedInitialCourses(): Promise<number> {
     console.log(`Successfully seeded ${seededCount} courses.`);
     return seededCount;
 }
-
-    
