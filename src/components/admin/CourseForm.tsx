@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
@@ -8,10 +9,12 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Loader2, PlusCircle, Trash2, BookText, Clock, User, Tag, BarChart, DollarSign, Image as ImageIcon, BookOpen, Clock4, HelpCircle } from 'lucide-react';
-import type { Course } from '@/lib/types';
+import type { Course, Instructor } from '@/lib/types';
 import { NewCourseSchema } from '@/lib/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { COURSE_CATEGORIES, COURSE_LEVELS } from '@/lib/constants';
+import { useState, useEffect } from 'react';
+import { getInstructors } from '@/services/instructor-data';
 
 type CourseFormData = z.infer<typeof NewCourseSchema>;
 
@@ -58,6 +61,16 @@ const QuestionForm = ({ control, namePrefix }: { control: any, namePrefix: `modu
 }
 
 export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: CourseFormProps) {
+  const [instructors, setInstructors] = useState<Instructor[]>([]);
+
+  useEffect(() => {
+    async function fetchInstructors() {
+        const instructorList = await getInstructors();
+        setInstructors(instructorList);
+    }
+    fetchInstructors();
+  }, []);
+  
   const form = useForm<CourseFormData>({
     resolver: zodResolver(NewCourseSchema),
     defaultValues: initialData 
@@ -100,17 +113,26 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
             )}
             />
              <FormField
-            control={form.control}
-            name="instructor"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Instructor Name</FormLabel>
-                <FormControl>
-                    <Input icon={<User />} placeholder="e.g., Jane Doe" {...field} />
-                </FormControl>
-                <FormMessage />
-                </FormItem>
-            )}
+                control={form.control}
+                name="instructor"
+                render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>Instructor</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select an instructor" />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                {instructors.map(instructor => (
+                                    <SelectItem key={instructor.id} value={instructor.name}>{instructor.name}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
+                    </FormItem>
+                )}
             />
         </div>
 
@@ -342,3 +364,5 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
     </Form>
   );
 }
+
+    
