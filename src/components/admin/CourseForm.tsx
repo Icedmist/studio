@@ -25,41 +25,6 @@ interface CourseFormProps {
   onCancel: () => void;
 }
 
-const QuestionForm = ({ control, namePrefix }: { control: any, namePrefix: `modules.${number}.quiz` | `finalAssessment` }) => {
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: namePrefix
-    });
-
-    return (
-        <div className="space-y-4">
-            {fields.map((questionItem, questionIndex) => (
-                 <div key={questionItem.id} className="space-y-3 rounded-md border bg-card/70 p-4 relative">
-                     <Button type="button" variant="destructive" size="icon" className="absolute -top-3 -right-3 h-6 w-6" onClick={() => remove(questionIndex)}>
-                        <Trash2 className="h-4 w-4" />
-                    </Button>
-                    <FormField
-                        control={control}
-                        name={`${namePrefix}.${questionIndex}.questionText`}
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Question {questionIndex + 1}</FormLabel>
-                                <FormControl>
-                                    <Textarea rows={3} placeholder="Enter the subjective/essay question here..." {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </div>
-            ))}
-            <Button type="button" variant="secondary" onClick={() => append({ questionText: '' })}>
-                <PlusCircle className="mr-2 h-4 w-4" /> Add Question
-            </Button>
-        </div>
-    )
-}
-
 export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: CourseFormProps) {
   const [instructors, setInstructors] = useState<Instructor[]>([]);
 
@@ -349,12 +314,6 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
             </Button>
         </div>
 
-        <div className="space-y-4 rounded-md border p-4">
-            <h3 className="font-semibold text-lg flex items-center gap-2"><HelpCircle className="h-5 w-5 text-primary"/>Final Assessment (Essay Questions)</h3>
-            <p className='text-sm text-muted-foreground'>These are subjective questions that will be reviewed by an instructor. This is optional.</p>
-            <QuestionForm control={form.control} namePrefix="finalAssessment" />
-        </div>
-
         <div className="flex justify-end gap-2 pt-4">
             <Button type="button" variant="ghost" onClick={onCancel} disabled={isSubmitting}>
                 Cancel
@@ -368,3 +327,5 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
     </Form>
   );
 }
+
+    
