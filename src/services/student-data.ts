@@ -125,7 +125,8 @@ export async function enrollInCourse(userId: string, courseId: string): Promise<
     const studentDoc = await getDoc(studentProgressRef);
 
     if (!studentDoc.exists()) {
-        await getStudentProgress(userId, "New Student"); // Create profile if it doesn't exist
+        // Pass a default name if creating a profile for the first time during enrollment
+        await getStudentProgress(userId, "New Student"); 
     }
     
     const studentData = (await getDoc(studentProgressRef)).data()!;
