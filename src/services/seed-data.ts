@@ -23,11 +23,17 @@ export async function seedInitialCourses(): Promise<number> {
         const chunk = coursesToSeedStatic.slice(i, i + chunkSize);
         
         chunk.forEach((course) => {
-            const { id, progress, ...courseData } = course;
-            const validationResult = NewCourseSchema.safeParse(courseData);
+            // The 'progress' property does not exist on the static course objects.
+            // We need to add it before validation.
+            const courseDataForValidation: NewCourse = {
+                ...course,
+            };
+
+            const validationResult = NewCourseSchema.safeParse(courseDataForValidation);
             
             if (validationResult.success) {
-                const newCourseDoc = doc(coursesCollection, id);
+                // Use the original course id for the document
+                const newCourseDoc = doc(coursesCollection, course.id);
                 batch.set(newCourseDoc, validationResult.data);
                 seededCount++;
             } else {
