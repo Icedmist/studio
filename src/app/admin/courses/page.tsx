@@ -15,7 +15,7 @@ export default function AdminCoursesPage() {
                 </h1>
             </div>
             <p className="text-muted-foreground mb-8">
-                View the course catalog from the local file source. Use this page to confirm counts and structure. Editing must be done in the source code.
+                Add, edit, and manage the course catalog directly in the database. Use the 'Seed' button if the catalog is empty.
             </p>
             <Card className="bg-card/80 backdrop-blur-sm border-border/50">
                 <CardContent className='pt-6'>
