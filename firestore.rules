@@ -1,38 +1,42 @@
-
 rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
   
-    // Helper function to check if a user is an authenticated admin
+    // ===============================================================
+    // 1. HELPER FUNCTIONS
+    // ===============================================================
+
     function isAdmin() {
-      // IMPORTANT: This list MUST be kept in sync with /src/lib/admin.ts
-      // Firestore rules use a map for checking existence with the 'in' operator.
+      // IMPORTANT: Keep this map in sync with your src/lib/admin.ts
       let adminUIDs = {
         'dqrHnJtM27bMpNudHxO5hL3wsNE3': true
       };
       return request.auth != null && request.auth.uid in adminUIDs;
     }
 
-    // Helper function to check if a user is authenticated
     function isSignedIn() {
       return request.auth != null;
     }
     
-    // Helper function to check if a user is the owner of a document
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
 
     // ===============================================================
-    // Public Content Collections (Courses, Instructors, Blog, Events)
+    // 2. PUBLIC CONTENT (Courses, Instructors, Blog, Events)
     // ===============================================================
 
-    // Anyone can read public content.
-    // Only admins can create, update, or delete public content.
+    // COURSES: Allows reading the course AND all subcollections (lessons, quizzes, etc.)
     match /courses/{courseId} {
       allow read: if true;
       allow create, update, delete: if isAdmin();
+      
+      // Recursive match for any subcollections inside a course
+      match /{allSubcollections=**} {
+        allow read: if true;
+        allow create, update, delete: if isAdmin();
+      }
     }
     
     match /instructors/{instructorId} {
@@ -45,40 +49,42 @@ service cloud.firestore {
       allow create, update, delete: if isAdmin();
     }
 
+    // EVENTS
     match /events/{eventId} {
       allow read: if true;
       allow create, update, delete: if isAdmin();
       
-      // Rules for the attendees subcollection of an event
+      // ATTENDEES SUBCOLLECTION
       match /attendees/{userId} {
-        // Only admins can read the full list of attendees
+        // Admins can see the full list of who is attending
         allow list: if isAdmin();
-        // A user can check if they are registered (read their own document)
-        // Admins can also read individual attendee documents
+        
+        // Users can check their own status; Admins can check anyone
         allow get: if isOwner(userId) || isAdmin();
-        // An authenticated user can register themselves for an event.
-        // They cannot update or delete their registration through this rule.
-        allow create: if isOwner(userId);
-        // Only admins can remove attendees
+        
+        // Users can Register (create) AND Unregister (delete) themselves
+        allow create, delete: if isOwner(userId);
+        
+        // Admins can force remove anyone
         allow delete: if isAdmin();
-        allow update: if false; // No updates allowed for now
+        
+        // No updating allowed (delete and re-create if needed)
+        allow update: if false; 
       }
     }
 
     // ===============================================================
-    // User-Specific Collections (Student Progress, Feedback)
+    // 3. USER SPECIFIC DATA
     // ===============================================================
 
-    // A student can only read and write to their own progress document.
+    // STUDENT PROGRESS
+    // Frontend usage: db.collection('studentProgress').doc(user.uid).set(data)
     match /studentProgress/{userId} {
-      // Allow get/list for admins to view user data in the admin panel
       allow get, list: if isAdmin();
-      // Allow users to read and write their own progress
       allow read, write: if isOwner(userId);
     }
 
-    // Feedback can be created by any authenticated user.
-    // Only admins can read the feedback.
+    // FEEDBACK
     match /feedback/{feedbackId} {
       allow create: if isSignedIn();
       allow read, update, delete: if isAdmin();

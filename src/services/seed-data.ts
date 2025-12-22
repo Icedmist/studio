@@ -2,12 +2,10 @@
 'use server';
 
 import { db } from '@/lib/firebase';
-import { collection, getDocs, writeBatch, doc } from "firebase/firestore";
+import { collection, writeBatch, doc } from "firebase/firestore";
 import type { NewCourse } from '@/lib/types';
 import { NewCourseSchema } from '@/lib/types';
 import { courses as coursesToSeedStatic } from '@/lib/courses';
-import { errorEmitter } from '@/firebase/error-emitter';
-import { FirestorePermissionError } from '@/firebase/errors';
 
 // This maps the static course data into a format that can be seeded.
 const coursesToSeed: NewCourse[] = coursesToSeedStatic.map(({id, progress, ...course}) => (
@@ -48,14 +46,6 @@ export async function seedInitialCourses(): Promise<number> {
         try {
             await batch.commit();
         } catch (serverError: any) {
-            if (serverError.code === 'permission-denied') {
-                const permissionError = new FirestorePermissionError({
-                    path: coursesCollection.path,
-                    operation: 'create',
-                    requestResourceData: chunk.map((c, idx) => ({ id: idChunk[idx], ...c })),
-                });
-                errorEmitter.emit('permission-error', permissionError);
-            }
              console.error("Error during batch commit for seeding courses:", serverError);
              throw new Error(`Failed to commit seed data to Firestore: ${serverError.message}`);
         }
