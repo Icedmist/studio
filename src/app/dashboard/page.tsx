@@ -1,8 +1,7 @@
 
-
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import {
   getStudentProgress,
@@ -13,7 +12,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -36,7 +34,8 @@ import { CourseCard } from '@/components/courses/CourseCard';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
 import { ADMIN_UIDS } from '@/lib/admin';
-import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -211,6 +210,12 @@ export default function DashboardPage() {
     return `/learn/${course.id}`;
   };
 
+  const inProgressCategories = useMemo(() => {
+    const categories = new Set(inProgressCourses.map(c => c.category));
+    return ['All', ...Array.from(categories)];
+  }, [inProgressCourses]);
+
+
   return (
     <motion.div
       initial="hidden"
@@ -295,17 +300,30 @@ export default function DashboardPage() {
                     <CardTitle>Continue Learning</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                    {inProgressCourses.length > 0 ? inProgressCourses.slice(0,3).map(course => (
-                        <div key={course.id} className="bg-card/80 p-3 rounded-lg">
-                            <div className="flex justify-between items-center mb-2">
-                                <h4 className="font-semibold text-sm truncate pr-4">{course.title}</h4>
-                                <Link href={getContinueLink(course)}>
-                                    <Button size="sm" className="text-xs shrink-0">Continue</Button>
-                                </Link>
-                            </div>
-                             <Progress value={course.progress} className="h-2"/>
-                        </div>
-                    )) : (
+                    {inProgressCourses.length > 0 ? (
+                        <Tabs defaultValue="All" className="w-full">
+                          <TabsList className="grid w-full grid-cols-3">
+                              {inProgressCategories.slice(0,3).map(cat => (
+                                <TabsTrigger key={cat} value={cat} className="text-xs px-1">{cat}</TabsTrigger>
+                              ))}
+                          </TabsList>
+                          {inProgressCategories.map(cat => (
+                              <TabsContent key={cat} value={cat} className="space-y-2 mt-4">
+                                {inProgressCourses.filter(c => cat === 'All' || c.category === cat).slice(0,3).map(course => (
+                                     <div key={course.id} className="bg-card/80 p-3 rounded-lg">
+                                        <div className="flex justify-between items-center mb-2">
+                                            <h4 className="font-semibold text-sm truncate pr-4">{course.title}</h4>
+                                            <Link href={getContinueLink(course)}>
+                                                <Button size="sm" className="text-xs shrink-0">Continue</Button>
+                                            </Link>
+                                        </div>
+                                        <Progress value={course.progress} className="h-2"/>
+                                    </div>
+                                ))}
+                              </TabsContent>
+                          ))}
+                        </Tabs>
+                    ) : (
                         <p className="text-muted-foreground text-sm">No courses in progress. Time to enroll!</p>
                     )}
                 </CardContent>

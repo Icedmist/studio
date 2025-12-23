@@ -65,7 +65,7 @@ export const StudentProgressSchema = z.object({
 export type StudentProgress = z.infer<typeof StudentProgressSchema>;
 
 
-// Zod schema for an Instructor/Team Member
+// Zod schema for an Instructor
 export const InstructorSchema = z.object({
   id: z.string(),
   name: z.string().min(1, 'Name is required'),
@@ -74,9 +74,24 @@ export const InstructorSchema = z.object({
   socials: z.object({
     twitter: z.string().url().optional().or(z.literal('')),
     linkedin: z.string().url().optional().or(z.literal('')),
-  }),
+  }).optional(),
 });
 export type Instructor = z.infer<typeof InstructorSchema>;
+
+// Zod schema for a Team Member
+export const TeamMemberRoleSchema = z.enum(['Co-founder', 'Lead Instructor', 'Community Manager']);
+export const TeamMemberSchema = z.object({
+  id: z.string(),
+  name: z.string().min(1, 'Name is required'),
+  role: TeamMemberRoleSchema,
+  bio: z.string().min(10, 'Bio must be at least 10 characters'),
+  avatarUrl: z.string().url('Must be a valid URL for the avatar image'),
+  socials: z.object({
+    twitter: z.string().url().optional().or(z.literal('')),
+    linkedin: z.string().url().optional().or(z.literal('')),
+  }).optional(),
+});
+export type TeamMember = z.infer<typeof TeamMemberSchema>;
 
 
 // Zod schema for feedback

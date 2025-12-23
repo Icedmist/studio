@@ -2,13 +2,14 @@
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, Library, UserPlus, Newspaper, CalendarDays, MessageSquare } from 'lucide-react';
+import { Users, Library, UserPlus, Newspaper, CalendarDays, MessageSquare, Briefcase } from 'lucide-react';
 import Link from 'next/link';
 
 const adminSections = [
     { href: '/admin/users', label: 'User Management', icon: Users, description: 'View and manage all registered users.' },
     { href: '/admin/courses', label: 'Course Management', icon: Library, description: 'Add, edit, and manage the course catalog.' },
     { href: '/admin/instructors', label: 'Instructor Management', icon: UserPlus, description: 'Manage instructor profiles.' },
+    { href: '/admin/team', label: 'Team Management', icon: Briefcase, description: 'Manage co-founders and other team members.' },
     { href: '/admin/blog', label: 'Blog Management', icon: Newspaper, description: 'Create and publish blog posts.' },
     { href: '/admin/events', label: 'Event Management', icon: CalendarDays, description: 'Schedule and manage academy events.' },
     { href: '/admin/feedback', label: 'View Feedback', icon: MessageSquare, description: 'Review submissions from the feedback form.' },
@@ -42,5 +43,3 @@ export default function AdminDashboardPage() {
         </div>
     );
 }
-
-    
