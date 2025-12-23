@@ -21,18 +21,23 @@ export const getInstructorFormSchema = () => z.object({
   avatarFile: z
     .any()
     .refine((files) => files?.length <= 1, "Only one image is allowed.")
-    .refine((files) => !files || files?.[0]?.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
+    .refine((files) => !files?.[0] || files?.[0]?.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
     .refine(
-      (files) => !files || ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      (files) => !files?.[0] || ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
       ".jpg, .jpeg, .png and .webp files are accepted."
     ).optional(),
   socials: z.object({
     twitter: z.string().url().optional().or(z.literal('')),
     linkedin: z.string().url().optional().or(z.literal('')),
   }),
-}).refine(data => data.avatarUrl || (data.avatarFile && data.avatarFile.length > 0), {
-    message: "Either an image URL or an uploaded file is required.",
-    path: ["avatarUrl"],
+}).refine(data => {
+    // If editing and an avatarUrl exists, avatarFile is optional
+    if (data.avatarUrl) return true;
+    // If creating, or if editing and no avatarUrl exists, avatarFile is required
+    return data.avatarFile && data.avatarFile.length > 0;
+}, {
+    message: "An image is required. Please upload one or provide a URL.",
+    path: ["avatarFile"],
 });
 
 

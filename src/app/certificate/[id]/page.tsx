@@ -1,42 +1,55 @@
 
 'use client';
 
-import { courses } from '@/lib/courses';
 import { notFound, useRouter, useParams } from 'next/navigation';
 import { Logo } from '@/components/Logo';
 import { Button } from '@/components/ui/button';
-import { Download } from 'lucide-react';
+import { Download, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useAuth } from '@/hooks/use-auth';
 import { useEffect, useState } from 'react';
 import QRCode from "react-qr-code";
+import { getCourse } from '@/services/course-data';
+import type { Course } from '@/lib/types';
 
 export default function CertificatePage() {
   const params = useParams<{ id: string }>();
-  const course = courses.find((c) => c.id === params.id);
+  const [course, setCourse] = useState<Course | null>(null);
   const { user } = useAuth();
   const router = useRouter();
   const [url, setUrl] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       setUrl(window.location.href);
     }
-  }, []);
+    
+    async function fetchCourse() {
+      const courseData = await getCourse(params.id);
+      if (!courseData) {
+        notFound();
+      } else {
+        setCourse(courseData);
+      }
+      setIsLoading(false);
+    }
+    
+    fetchCourse();
+  }, [params.id]);
+
+  useEffect(() => {
+    if (!isLoading && !user) {
+      router.push('/login');
+    }
+  }, [user, isLoading, router]);
+
+  if (isLoading || !course) {
+    return <div className="h-screen w-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
+  }
 
   const studentName = user?.displayName || user?.email || "Student";
   const completionDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  
-  useEffect(() => {
-    if (!user) {
-      router.push('/login');
-    }
-  }, [user, router]);
-
-  if (!course) {
-    notFound();
-  }
-
   const finalScore = 98; // Placeholder
 
   return (
@@ -108,4 +121,3 @@ export default function CertificatePage() {
     </motion.div>
   );
 }
-
