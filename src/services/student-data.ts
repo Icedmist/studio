@@ -101,7 +101,7 @@ function calculateProgressMetrics(enrolledCourses: CourseType[]) {
     if (!enrolledCourses || enrolledCourses.length === 0) {
         return { coursesInProgress: 0, completedCourses: 0, overallProgress: 0 };
     }
-    const coursesInProgress = enrolledCourses.filter(c => c.progress < 100 && c.progress > 0).length;
+    const coursesInProgress = enrolledCourses.filter(c => c.progress > 0 && c.progress < 100).length;
     const completedCourses = enrolledCourses.filter(c => c.progress === 100).length;
     const totalProgress = enrolledCourses.reduce((sum, course) => sum + course.progress, 0);
     const overallProgress = Math.round(totalProgress / enrolledCourses.length);
