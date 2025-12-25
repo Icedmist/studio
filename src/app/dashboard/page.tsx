@@ -122,7 +122,7 @@ export default function DashboardPage() {
 
 
   useEffect(() => {
-    if (isAuthLoading) return; // Wait for auth to finish loading
+    if (isAuthLoading) return; 
     
     if (!user) {
       router.push('/login');
@@ -136,7 +136,6 @@ export default function DashboardPage() {
         const progressData = await getStudentProgress(user!.uid, user!.displayName ?? undefined, user!.email ?? undefined);
         setData(progressData);
 
-        // Role-based redirection
         if (progressData.role === 'admin') {
             router.push('/admin');
             return;

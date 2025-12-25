@@ -25,13 +25,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setIsLoading(true);
       if (user) {
         setUser(user);
-        try {
-          const studentProfile = await getStudentProgress(user.uid, user.displayName ?? undefined, user.email ?? undefined);
-          setProfile(studentProfile);
-        } catch (error) {
-          console.error("Failed to fetch user profile:", error);
-          setProfile(null);
-        }
+        // Fetch detailed profile separately in pages that need it.
+        // For the global context, we can fetch a lightweight profile if needed.
+        const studentProfile = await getStudentProgress(user.uid, user.displayName ?? undefined, user.email ?? undefined, undefined, { includeCourseData: false });
+        setProfile(studentProfile);
+
       } else {
         setUser(null);
         setProfile(null);
