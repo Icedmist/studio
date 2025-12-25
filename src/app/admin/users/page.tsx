@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Users, Pencil, UserCog } from 'lucide-react';
+import { Users, Pencil, UserCog, Loader2 } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -45,7 +45,6 @@ import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/hooks/use-auth';
 import { updateUserRole } from '@/services/student-data';
-import { ADMIN_UIDS } from '@/lib/admin';
 
 const ProgressBadge = ({ progress }: { progress: number }) => {
     let variant: "success" | "warning" | "destructive" | "secondary" = "secondary";
@@ -234,7 +233,7 @@ export default function AdminUsersPage() {
                   <TableCell className="text-right space-x-2">
                     <Tooltip>
                         <TooltipTrigger asChild>
-                           <Button variant="ghost" size="icon" onClick={() => openRoleDialog(user)} disabled={ADMIN_UIDS.includes(user.studentId)}>
+                           <Button variant="ghost" size="icon" onClick={() => openRoleDialog(user)} disabled={user.role === 'admin'}>
                               <UserCog className="h-4 w-4" />
                           </Button>
                         </TooltipTrigger>
@@ -264,3 +263,5 @@ export default function AdminUsersPage() {
     </TooltipProvider>
   );
 }
+
+    

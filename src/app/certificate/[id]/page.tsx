@@ -122,3 +122,5 @@ export default function CertificatePage() {
     </motion.div>
   );
 }
+
+    

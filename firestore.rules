@@ -9,14 +9,7 @@ service cloud.firestore {
     // ===============================================================
 
     function isAdmin() {
-      // Check the user's role from their own studentProgress document.
-      // This is secure because the rules for studentProgress/{userId} only allow a user to write to their own document.
-      // We also add a check for a hardcoded UID list as a fallback for the super admin.
       return get(/databases/$(database)/documents/studentProgress/$(request.auth.uid)).data.role == 'admin';
-    }
-
-    function isInstructor() {
-        return get(/databases/$(database)/documents/studentProgress/$(request.auth.uid)).data.role == 'instructor';
     }
 
     function isSignedIn() {
@@ -26,7 +19,7 @@ service cloud.firestore {
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
-    
+
     function isReadingPublicProfileData() {
       // Allows reading only a few public fields from a user's profile
       return isSignedIn() && (
@@ -53,8 +46,7 @@ service cloud.firestore {
     match /instructors/{instructorId} {
       allow read: if true;
       allow create, delete: if isAdmin();
-      // Allow an instructor to update their own profile
-      allow update: if isAdmin() || (isInstructor() && resource.id == request.auth.uid);
+      allow update: if isAdmin();
     }
 
     match /team/{memberId} {
@@ -101,8 +93,8 @@ service cloud.firestore {
       // Allow any signed-in user to read only public fields (e.g., for referrals)
       allow get: if isOwner(userId) || isReadingPublicProfileData();
 
-      // Only Admins or Instructors can list all users
-      allow list: if isAdmin() || isInstructor();
+      // Only Admins can list all users
+      allow list: if isAdmin();
       
       // User can create their own doc on signup.
       allow create: if isOwner(userId);

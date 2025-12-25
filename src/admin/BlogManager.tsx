@@ -39,52 +39,6 @@ const toBlog = (doc: DocumentData): Blog => {
     });
 };
 
-async function seedWelcomePost(user: any): Promise<Blog | null> {
-    const welcomePostContent = `Welcome to the official blog of TechTradeHub Academy! We are thrilled to have you here as part of our growing community of learners, innovators, and future leaders in the tech and finance industries.
-
-### Our Vision
-At TechTradeHub, our mission is simple: to democratize education in cutting-edge fields. We believe that everyone, regardless of their background, deserves access to high-quality, practical knowledge in areas like Futures Trading, Web3, Cryptocurrency, AI & Machine Learning, and other essential Tech Skills. The digital landscape is evolving at a breakneck pace, and we're here to ensure you have the tools and expertise to not just keep up, but to get ahead.
-
-### What to Expect from This Blog
-This blog will be your go-to resource for a variety of topics, including:
-- **In-depth Tutorials:** Step-by-step guides on complex topics from our courses.
-- **Industry Insights:** Analysis of market trends, new technologies, and what they mean for you.
-- **Student Success Stories:** Get inspired by the journeys of fellow learners from our community.
-- **Academy News & Updates:** Be the first to know about new courses, features, and events.
-- **Career Advice:** Tips and tricks to help you land your dream job in tech or finance.
-
-### Your Journey Starts Now
-Whether you're a complete beginner looking to take your first step into a new field, or a seasoned professional aiming to sharpen your skills, you've come to the right place. Our courses are designed by industry experts to be practical, engaging, and immediately applicable.
-
-We invite you to explore our [course library](/courses), engage with our content, and join the conversation. Your journey to mastering the future starts today.
-
-Let's build the future, together.
-
-Warmly,
-The TechTradeHub Academy Team`;
-        
-    const welcomePost = {
-        title: 'Welcome to TechTradeHub Academy: Your Journey to Mastery Begins!',
-        content: welcomePostContent,
-        imageUrl: 'https://placehold.co/800x400.png',
-        authorName: 'The TechTradeHub Team',
-        authorId: user.uid,
-        status: 'published' as const,
-        slug: 'welcome-to-techtradehub-academy',
-        createdAt: serverTimestamp(),
-        publishedAt: serverTimestamp(),
-    };
-
-    try {
-      const docRef = await addDoc(collection(db, 'blogPosts'), welcomePost);
-      const newPostSnap = await getDoc(docRef);
-      return toBlog(newPostSnap);
-    } catch(error) {
-      console.error("Failed to seed welcome post:", error);
-      return null;
-    }
-}
-
 export function BlogManager() {
   const [posts, setPosts] = useState<Blog[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -103,14 +57,7 @@ export function BlogManager() {
         const blogPostsCollection = collection(db, 'blogPosts');
         const q = query(blogPostsCollection, orderBy('createdAt', 'desc'));
         const postsSnapshot = await getDocs(q);
-        let data = postsSnapshot.docs.map(doc => toBlog(doc));
-
-        if (data.length === 0) {
-          const seededPost = await seedWelcomePost(user);
-          if (seededPost) {
-            data = [seededPost];
-          }
-        }
+        const data = postsSnapshot.docs.map(doc => toBlog(doc));
         setPosts(data);
       } catch (error) {
         toast({
@@ -317,3 +264,5 @@ export function BlogManager() {
     </TooltipProvider>
   );
 }
+
+    

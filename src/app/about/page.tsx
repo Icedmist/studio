@@ -1,8 +1,14 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Target, Lightbulb } from 'lucide-react';
+import { Target, Lightbulb, User, Linkedin, Twitter } from 'lucide-react';
+import { getTeamMembers } from '@/services/team-data';
+import type { TeamMember } from '@/lib/types';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default async function AboutUsPage() {
+  const team: TeamMember[] = await getTeamMembers();
 
   return (
     <div className="container mx-auto py-12 px-4">
@@ -36,6 +42,41 @@ export default async function AboutUsPage() {
                         To be the leading global platform for practical, cutting-edge skills, creating a community of lifelong learners who are prepared to shape the future of technology and finance.
                     </p>
                 </div>
+            </div>
+
+             <div className="max-w-4xl mx-auto">
+                <h2 className="text-2xl font-headline font-semibold mb-8 text-center text-primary">Meet the Team</h2>
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {team.map((member) => (
+                        <Card key={member.id} className="flex flex-col md:flex-row items-center gap-6 p-6 bg-card/80">
+                            <Avatar className="w-24 h-24 border-4 border-primary">
+                                <AvatarImage src={member.avatarUrl} alt={member.name} />
+                                <AvatarFallback><User /></AvatarFallback>
+                            </Avatar>
+                            <div className="text-center md:text-left">
+                                <h4 className="text-lg font-bold">{member.name}</h4>
+                                <p className="text-sm text-primary font-medium">{member.role}</p>
+                                <p className="text-sm text-muted-foreground mt-2">{member.bio}</p>
+                                <div className='flex gap-2 justify-center md:justify-start mt-4'>
+                                    {member.socials?.twitter && (
+                                        <Link href={member.socials.twitter} target="_blank">
+                                            <Button variant="outline" size="icon" className="h-8 w-8">
+                                                <Twitter className="h-4 w-4" />
+                                            </Button>
+                                        </Link>
+                                    )}
+                                    {member.socials?.linkedin && (
+                                        <Link href={member.socials.linkedin} target="_blank">
+                                            <Button variant="outline" size="icon" className="h-8 w-8">
+                                                <Linkedin className="h-4 w-4" />
+                                            </Button>
+                                        </Link>
+                                    )}
+                                </div>
+                            </div>
+                        </Card>
+                    ))}
+                 </div>
             </div>
         </CardContent>
       </Card>

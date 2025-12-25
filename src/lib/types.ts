@@ -83,6 +83,19 @@ export const TeamMemberSchema = z.object({
 });
 export type TeamMember = z.infer<typeof TeamMemberSchema>;
 
+// Zod schema for an Instructor (can be a subset of TeamMember or separate)
+export const InstructorSchema = z.object({
+  id: z.string(),
+  name: z.string().min(1, 'Name is required'),
+  bio: z.string().min(10, 'Bio must be at least 10 characters'),
+  avatarUrl: z.string().url('Must be a valid URL for the avatar image'),
+  socials: z.object({
+    twitter: z.string().url().optional().or(z.literal('')),
+    linkedin: z.string().url().optional().or(z.literal('')),
+  }).optional(),
+});
+export type Instructor = z.infer<typeof InstructorSchema>;
+
 
 // Zod schema for feedback
 export const FeedbackSchema = z.object({
@@ -152,18 +165,3 @@ export const AttendeeSchema = z.object({
     registeredAt: z.any(),
 });
 export type Attendee = z.infer<typeof AttendeeSchema>;
-
-export const InstructorSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  bio: z.string(),
-  avatarUrl: z.string().url(),
-  socials: z
-    .object({
-      twitter: z.string().url().optional(),
-      linkedin: z.string().url().optional(),
-    })
-    .optional(),
-});
-
-export type Instructor = z.infer<typeof InstructorSchema>;

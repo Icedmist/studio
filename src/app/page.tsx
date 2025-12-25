@@ -5,8 +5,10 @@ import { getEvents } from '@/services/event-data';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Suspense } from 'react';
 import HomePageClient from './home-page-client';
-import type { Course, PlainBlog, PlainEvent, Instructor } from '@/lib/types';
+import type { Course, PlainBlog, PlainEvent } from '@/lib/types';
 import { getInstructors } from '@/services/instructor-data';
+import { getTeamMembers } from '@/services/team-data';
+import placeholderImages from '@/app/lib/placeholder-images.json'
 
 function HomePageSkeleton() {
     return (
@@ -27,11 +29,11 @@ function HomePageSkeleton() {
 }
 
 async function PageContent() {
-    const [allCourses, posts, events, instructors] = await Promise.all([
+    const [allCourses, posts, events, team] = await Promise.all([
         getCourses(),
         getPosts('published'),
         getEvents('upcoming'),
-        getInstructors(),
+        getTeamMembers()
     ]);
     
     // Get one course from each category for the "Featured" section
@@ -39,19 +41,25 @@ async function PageContent() {
     const categories = new Set();
     allCourses.forEach(course => {
         if (!categories.has(course.category)) {
-            featuredCourses.push(course);
+            const courseWithPlaceholder = {
+                ...course,
+                imageUrl: placeholderImages[course.id as keyof typeof placeholderImages] || course.imageUrl
+            }
+            featuredCourses.push(courseWithPlaceholder);
             categories.add(course.category);
         }
     });
 
     const latestPosts: PlainBlog[] = posts.slice(0, 3).map(post => ({
         ...post,
+        imageUrl: placeholderImages[post.id as keyof typeof placeholderImages] || post.imageUrl,
         createdAt: post.createdAt.toDate().toISOString(),
         publishedAt: post.publishedAt?.toDate().toISOString() || '',
     }));
 
     const upcomingEvents: PlainEvent[] = events.slice(0, 3).map(event => ({
         ...event,
+        imageUrl: placeholderImages[event.id as keyof typeof placeholderImages] || event.imageUrl,
         date: event.date.toDate().toISOString(),
     }));
 
@@ -59,7 +67,7 @@ async function PageContent() {
         courses={featuredCourses} 
         posts={latestPosts} 
         events={upcomingEvents}
-        instructors={instructors}
+        team={team}
     />;
 }
 

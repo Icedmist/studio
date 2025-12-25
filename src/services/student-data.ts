@@ -43,10 +43,29 @@ export async function getStudentProgress(
     }
 
     const docRef = doc(db, "studentProgress", userId);
-    const docSnap = await getDoc(docRef);
     
     // Determine role FIRST. An admin is an admin regardless of their profile doc.
     const role: UserRole = ADMIN_UIDS.includes(userId) ? 'admin' : 'student';
+
+    let docSnap;
+    try {
+        docSnap = await getDoc(docRef);
+    } catch (error: any) {
+        if (error.code === 'permission-denied') {
+            errorEmitter.emit('permission-error', {
+                path: `document 'studentProgress/${userId}'`,
+                operation: 'get'
+            });
+            // If we can't even get the doc, we must return a default structure.
+            const defaultData = {
+                studentId: userId, name: name || 'User', email: email || '', role,
+                enrolledCourses: [], overallProgress: 0, completedCourses: 0, coursesInProgress: 0
+            };
+            return defaultData;
+        }
+        throw error;
+    }
+    
 
     if (docSnap.exists()) {
         const studentData = docSnap.data();
@@ -176,10 +195,11 @@ export async function enrollInCourse(userId: string, courseId: string): Promise<
     const studentDoc = await getDoc(studentProgressRef);
 
     if (!studentDoc.exists()) {
-        throw new Error("Student profile does not exist. Cannot enroll.");
+        await getStudentProgress(userId); // This will create the doc
     }
+
+    const studentData = (await getDoc(studentProgressRef)).data();
     
-    const studentData = studentDoc.data();
     const currentEnrolledRefs: EnrolledCourseRef[] = studentData?.enrolledCourses || [];
 
     if (currentEnrolledRefs.some(c => c.id === courseId)) {

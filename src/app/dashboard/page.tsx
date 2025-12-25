@@ -134,17 +134,14 @@ export default function DashboardPage() {
         router.push('/admin');
         return;
     }
-    if (profile?.role === 'instructor') {
-        router.push('/instructor/dashboard');
-        return;
-    }
 
     async function fetchData() {
+      if (!user) return;
       try {
         setIsDataLoading(true);
         setError(null);
         // Fetch the full, detailed student progress data for the dashboard
-        const progressData = await getStudentProgress(user!.uid, user!.displayName ?? undefined, user!.email ?? undefined, undefined, { includeCourseData: true });
+        const progressData = await getStudentProgress(user.uid, user.displayName ?? undefined, user.email ?? undefined, undefined, { includeCourseData: true });
         setData(progressData);
       } catch (error: any) {
         console.error('Failed to fetch student progress:', error);
