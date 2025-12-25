@@ -14,10 +14,8 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import { getStudentProgress } from '@/services/student-data';
 import { getCourses } from '@/services/course-data';
-import { getInstructors } from '@/services/instructor-data';
 import { getPosts } from '@/services/blog-data';
 import { getEvents } from '@/services/event-data';
-import type { Course } from '@/lib/types';
 import { StudentProgressSchema } from '@/lib/types';
 
 // Tool to get student progress
@@ -49,7 +47,7 @@ const searchCoursesTool = ai.defineTool(
     })),
   },
   async ({ query }) => {
-    const courses = getCourses();
+    const courses = await getCourses();
     const lowerCaseQuery = query.toLowerCase();
     const matchingCourses = courses.filter(course => 
         course.title.toLowerCase().includes(lowerCaseQuery) ||
@@ -65,22 +63,6 @@ const searchCoursesTool = ai.defineTool(
         price: course.price,
     }));
     return matchingCourses.slice(0, 5); // Return a max of 5 courses to keep response concise
-  }
-);
-
-// Tool to get instructors
-const getInstructorsTool = ai.defineTool(
-  {
-    name: 'getInstructors',
-    description: 'Get information about the instructors, team, or co-founders of TechTradeHub Academy.',
-    outputSchema: z.array(z.object({
-        name: z.string(),
-        bio: z.string(),
-    })),
-  },
-  async () => {
-    const instructors = await getInstructors();
-    return instructors.map(({ name, bio }) => ({ name, bio }));
   }
 );
 
@@ -136,7 +118,7 @@ const prompt = ai.definePrompt({
   name: 'techGeeChatbotPrompt',
   input: {schema: TechGeeChatbotInputSchema},
   output: {schema: TechGeeChatbotOutputSchema},
-  tools: [getStudentProgressTool, searchCoursesTool, getInstructorsTool, getBlogPostsTool, getEventsTool],
+  tools: [getStudentProgressTool, searchCoursesTool, getBlogPostsTool, getEventsTool],
   prompt: `You are Tech Gee, the AI assistant for TechTradeHub Academy. Your purpose is to help students with their learning journey.
 
   **Your Core Directives:**
@@ -149,7 +131,6 @@ const prompt = ai.definePrompt({
   **Tool Usage Guide:**
   - **getStudentProgress**: Use this tool if a student asks about their performance, course status, or what to study next. Address the student by their name.
   - **searchCourses**: Use this to find and recommend courses from the catalog.
-  - **getInstructors**: Use this to answer questions about the team, instructors, or founders.
   - **getBlogPosts**: Use this to find recent news or articles from the blog.
   - **getEvents**: Use this to answer questions about upcoming events or workshops.
 
@@ -184,5 +165,3 @@ const techGeeChatbotFlow = ai.defineFlow(
     return output!;
   }
 );
-
-    

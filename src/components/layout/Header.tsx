@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/Logo';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
-import { Menu, LogOut, User, Shield, BookUser } from 'lucide-react';
+import { Menu, LogOut, User, Shield } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { auth } from '@/lib/firebase';
 import { signOut } from 'firebase/auth';
@@ -38,7 +38,6 @@ export const Header = () => {
   };
 
   const isAuthorizedAdmin = profile?.role === 'admin';
-  const isInstructor = profile?.role === 'instructor';
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -88,14 +87,6 @@ export const Header = () => {
                       </DropdownMenuItem>
                     </Link>
                   )}
-                   {isInstructor && (
-                    <Link href="/instructor/dashboard">
-                      <DropdownMenuItem>
-                          <BookUser className="mr-2 h-4 w-4" />
-                          <span>Instructor Panel</span>
-                      </DropdownMenuItem>
-                    </Link>
-                  )}
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout}>
                     <LogOut className="mr-2 h-4 w-4" />
@@ -142,12 +133,6 @@ export const Header = () => {
                         <Link href="/admin" className="transition-colors hover:text-primary flex items-center">
                            <Shield className="mr-2 h-4 w-4" />
                            Admin Panel
-                        </Link>
-                    )}
-                     {isInstructor && (
-                        <Link href="/instructor/dashboard" className="transition-colors hover:text-primary flex items-center">
-                           <BookUser className="mr-2 h-4 w-4" />
-                           Instructor Panel
                         </Link>
                     )}
                   </nav>

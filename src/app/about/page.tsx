@@ -1,13 +1,8 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Target, Lightbulb, Linkedin, Twitter, User } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { getInstructors } from '@/services/instructor-data';
+import { Target, Lightbulb } from 'lucide-react';
 
 export default async function AboutUsPage() {
-  const instructors = await getInstructors();
 
   return (
     <div className="container mx-auto py-12 px-4">
@@ -42,35 +37,6 @@ export default async function AboutUsPage() {
                     </p>
                 </div>
             </div>
-
-             <div className="text-center max-w-5xl mx-auto">
-                <h2 className="text-2xl font-headline font-semibold mb-8 text-primary">Meet the Instructors</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {instructors.map((instructor) => (
-                        <Card key={instructor.id} className="bg-card/80 p-6">
-                            <Avatar className="w-24 h-24 mx-auto mb-4 border-4 border-primary">
-                                <AvatarImage src={instructor.avatarUrl} alt={instructor.name} data-ai-hint="person" />
-                                <AvatarFallback><User className="h-10 w-10" /></AvatarFallback>
-                            </Avatar>
-                            <h3 className="text-xl font-headline font-bold">{instructor.name}</h3>
-                            <p className="text-muted-foreground mt-2 text-sm">{instructor.bio}</p>
-                            <div className="flex justify-center gap-4 mt-4">
-                               {instructor.socials?.twitter && (
-                                 <Link href={instructor.socials.twitter} target="_blank" aria-label={`${instructor.name}'s Twitter`}>
-                                     <Button variant="ghost" size="icon"><Twitter className="h-5 w-5"/></Button>
-                                 </Link>
-                               )}
-                               {instructor.socials?.linkedin && (
-                                   <Link href={instructor.socials.linkedin} target="_blank" aria-label={`${instructor.name}'s LinkedIn`}>
-                                     <Button variant="ghost" size="icon"><Linkedin className="h-5 w-5"/></Button>
-                                   </Link>
-                               )}
-                            </div>
-                        </Card>
-                    ))}
-                </div>
-            </div>
-
         </CardContent>
       </Card>
     </div>

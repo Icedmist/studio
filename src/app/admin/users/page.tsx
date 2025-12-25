@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Users, Pencil, Trash2, Check, UserCog } from 'lucide-react';
+import { Users, Pencil, UserCog } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -147,7 +147,6 @@ export default function AdminUsersPage() {
   const getRoleBadgeVariant = (role: UserRole) => {
     switch (role) {
       case 'admin': return 'default';
-      case 'instructor': return 'secondary';
       default: return 'outline';
     }
   }
@@ -180,7 +179,6 @@ export default function AdminUsersPage() {
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="student">Student</SelectItem>
-                        <SelectItem value="instructor">Instructor</SelectItem>
                         <SelectItem value="admin">Admin</SelectItem>
                     </SelectContent>
                 </Select>
@@ -188,7 +186,7 @@ export default function AdminUsersPage() {
             <DialogFooter>
                 <Button variant="ghost" onClick={() => setEditingUser(null)}>Cancel</Button>
                 <Button onClick={handleRoleUpdate} disabled={isSubmitting || editingUser?.role === selectedRole}>
-                    {isSubmitting && <Check className="mr-2 h-4 w-4 animate-spin" />}
+                    {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Save Changes
                 </Button>
             </DialogFooter>
