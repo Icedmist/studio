@@ -1,7 +1,7 @@
 
 'use client';
 
-import { CourseManager } from '@/components/admin/CourseManager';
+import { CourseManager } from '@/admin/CourseManager';
 import { Card, CardContent } from '@/components/ui/card';
 import { Library } from 'lucide-react';
 
@@ -17,11 +17,7 @@ export default function AdminCoursesPage() {
             <p className="text-muted-foreground mb-8">
                 Add, edit, and manage the course catalog directly in the database. Use the 'Seed' button if the catalog is empty.
             </p>
-            <Card className="bg-card/80 backdrop-blur-sm border-border/50">
-                <CardContent className='pt-6'>
-                    <CourseManager />
-                </CardContent>
-            </Card>
+             <CourseManager />
         </div>
     );
 }

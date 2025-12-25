@@ -15,13 +15,13 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Users, Pencil, UserCog } from 'lucide-react';
+import { Users, Pencil, UserCog, Loader2 } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from '@/components/ui/tooltip';
 import {
   Dialog,
   DialogContent,
@@ -46,7 +46,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/hooks/use-auth';
 import { updateUserRole } from '@/services/student-data';
 import { ADMIN_UIDS } from '@/lib/admin';
-import { Loader2 } from 'lucide-react';
 
 const ProgressBadge = ({ progress }: { progress: number }) => {
     let variant: "success" | "warning" | "destructive" | "secondary" = "secondary";
@@ -265,5 +264,3 @@ export default function AdminUsersPage() {
     </TooltipProvider>
   );
 }
-
-    

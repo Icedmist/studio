@@ -42,12 +42,33 @@ export async function getStudentProgress(
         throw new Error("Firestore is not initialized. Check your Firebase configuration.");
     }
 
-    const docRef = doc(db, "studentProgress", userId);
-    const docSnap = await getDoc(docRef);
-    
     // Determine role FIRST. An admin is an admin regardless of their profile doc.
     const role: UserRole = ADMIN_UIDS.includes(userId) ? 'admin' : 'student';
-
+    
+    const docRef = doc(db, "studentProgress", userId);
+    let docSnap;
+    try {
+        docSnap = await getDoc(docRef);
+    } catch(error: any) {
+         if (error.code === 'permission-denied') {
+            errorEmitter.emit('permission-error', {
+                path: `document 'studentProgress/${userId}'`,
+                operation: 'get'
+            });
+         }
+         // If we can't even get the doc, return a default structure.
+          return {
+            studentId: userId,
+            name: name || "New Student",
+            email: email || "",
+            role: role,
+            enrolledCourses: [],
+            overallProgress: 0,
+            completedCourses: 0,
+            coursesInProgress: 0,
+        };
+    }
+    
     if (docSnap.exists()) {
         const studentData = docSnap.data();
         const enrolledCourseRefs: EnrolledCourseRef[] = studentData.enrolledCourses || [];
@@ -84,7 +105,7 @@ export async function getStudentProgress(
         const finalRole = ADMIN_UIDS.includes(userId) ? 'admin' : (studentData.role || 'student');
 
         if (finalRole !== studentData.role) {
-            updateDoc(docRef, { role: finalRole });
+            await updateDoc(docRef, { role: finalRole });
         }
         
         return {
@@ -290,5 +311,3 @@ export async function getAllStudentProgress(): Promise<StudentProgress[]> {
     };
   });
 }
-
-    
