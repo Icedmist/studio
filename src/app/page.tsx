@@ -47,7 +47,7 @@ async function PageContent() {
     const latestPosts: PlainBlog[] = posts.slice(0, 3).map(post => ({
         ...post,
         createdAt: post.createdAt.toDate().toISOString(),
-        publishedAt: post.publishedAt?.toDate().toISOString(),
+        publishedAt: post.publishedAt?.toDate().toISOString() || '',
     }));
 
     const upcomingEvents: PlainEvent[] = events.slice(0, 3).map(event => ({
