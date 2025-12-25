@@ -25,6 +25,7 @@ type EnrolledCourseRef = {
  * The full course data can be optionally merged from the `courses` collection.
  * @param userId The UID of the authenticated user.
  * @param name The display name of the user, used for creating a new profile.
+ * @param email The email of the user.
  * @param referralCode The UID of the user who referred this student.
  * @param options An object to control optional behaviors, like merging course data.
  * @returns The student's progress data.
@@ -48,14 +49,15 @@ export async function getStudentProgress(
         const enrolledCourseRefs: EnrolledCourseRef[] = studentData.enrolledCourses || [];
 
         let enrolledCourses: CourseType[] = [];
+        let coursesToFetch = enrolledCourseRefs;
 
         if (options.includeCourseData) {
-            // Fetch all course data once to merge efficiently
-            const allCourses = await getCourses();
+            const courseDataPromises = coursesToFetch.map(ref => getCourse(ref.id));
+            const fetchedCourses = await Promise.all(courseDataPromises);
 
             // Merge static course data with student's progress
-            enrolledCourses = enrolledCourseRefs.map(ref => {
-                const fullCourseData = allCourses.find(c => c.id === ref.id);
+            enrolledCourses = fetchedCourses.map((fullCourseData, index) => {
+                const ref = coursesToFetch[index];
                 if (!fullCourseData) return null; // Course might have been deleted
 
                 // Create a deep copy to avoid modifying the original data
@@ -83,7 +85,7 @@ export async function getStudentProgress(
             name: studentData.name,
             email: studentData.email,
             role: role,
-            enrolledCourses: enrolledCourses, // Will be empty if includeCourseData is false
+            enrolledCourses: enrolledCourses,
             referredBy: studentData.referredBy,
             ...metrics
         };
@@ -101,7 +103,26 @@ export async function getStudentProgress(
             referredBy: referralCode || undefined,
         };
 
-        await setDoc(docRef, newStudentData);
+        try {
+            await setDoc(docRef, newStudentData);
+        } catch (error: any) {
+            if (error.code === 'permission-denied') {
+                errorEmitter.emit('permission-error', {
+                    path: `document 'studentProgress/${userId}'`,
+                    operation: 'create',
+                    requestResourceData: newStudentData
+                });
+                // Even if creation fails, return a default structure so the app doesn't crash
+                 return {
+                    ...newStudentData,
+                    enrolledCourses: [],
+                    overallProgress: 0,
+                    completedCourses: 0,
+                    coursesInProgress: 0,
+                };
+            }
+            throw error;
+        }
         
         // Return the full StudentProgress structure
         return {
@@ -113,6 +134,7 @@ export async function getStudentProgress(
         };
     }
 }
+
 
 /**
  * Recalculates progress metrics based on the current list of enrolled courses.
@@ -126,7 +148,7 @@ function calculateProgressMetrics(enrolledCourses: CourseType[]) {
     const coursesInProgress = enrolledCourses.filter(c => (c.progress ?? 0) > 0 && (c.progress ?? 0) < 100).length;
     const completedCourses = enrolledCourses.filter(c => c.progress === 100).length;
     const totalProgress = enrolledCourses.reduce((sum, course) => sum + (course.progress ?? 0), 0);
-    const overallProgress = Math.round(totalProgress / enrolledCourses.length);
+    const overallProgress = enrolledCourses.length > 0 ? Math.round(totalProgress / enrolledCourses.length) : 0;
 
     return { coursesInProgress, completedCourses, overallProgress };
 }
@@ -145,15 +167,12 @@ export async function enrollInCourse(userId: string, courseId: string): Promise<
 
     const studentProgressRef = doc(db, "studentProgress", userId);
     
-    // Ensure the student document exists before trying to update it.
+    // Fetch student doc. getStudentProgress will create if it doesn't exist.
+    const studentProgress = await getStudentProgress(userId, undefined, undefined, undefined, { includeCourseData: false });
+    
     const studentDoc = await getDoc(studentProgressRef);
-    if (!studentDoc.exists()) {
-       await getStudentProgress(userId); // This will create the doc
-    }
-
-    const updatedStudentDoc = await getDoc(studentProgressRef);
-    const studentData = updatedStudentDoc.data()!;
-    const currentEnrolledRefs: EnrolledCourseRef[] = studentData.enrolledCourses || [];
+    const studentData = studentDoc.data();
+    const currentEnrolledRefs: EnrolledCourseRef[] = studentData?.enrolledCourses || [];
 
     if (currentEnrolledRefs.some(c => c.id === courseId)) {
         console.log(`User ${userId} is already enrolled in course ${courseId}.`);
