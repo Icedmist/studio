@@ -133,7 +133,7 @@ export default function DashboardPage() {
       try {
         setIsDataLoading(true);
         setError(null);
-        const progressData = await getStudentProgress(user!.uid, user!.displayName || undefined, user!.email || undefined);
+        const progressData = await getStudentProgress(user!.uid, user!.displayName ?? undefined, user!.email ?? undefined);
         setData(progressData);
 
         // Role-based redirection

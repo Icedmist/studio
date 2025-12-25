@@ -7,7 +7,7 @@ import { db } from '@/lib/firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Pencil, Trash2, UserPlus, Twitter, Linkedin } from 'lucide-react';
@@ -162,6 +162,9 @@ export function InstructorManager() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>{editingInstructor ? 'Edit Instructor' : 'Add New Instructor'}</DialogTitle>
+            <DialogDescription>
+                Provide the details for the instructor. This information will be publicly visible.
+            </DialogDescription>
           </DialogHeader>
           <InstructorForm 
             onSubmit={handleFormSubmit} 

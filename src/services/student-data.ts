@@ -35,11 +35,13 @@ export async function getStudentProgress(userId: string, name?: string, email?: 
 
     const docRef = doc(db, "studentProgress", userId);
     const docSnap = await getDoc(docRef);
-    const allCourses = await getCourses(); // Fetch all course data once
-
+    
     if (docSnap.exists()) {
         const studentData = docSnap.data();
         const enrolledCourseRefs: EnrolledCourseRef[] = studentData.enrolledCourses || [];
+
+        // Fetch all course data once to merge efficiently
+        const allCourses = await getCourses();
 
         // Merge static course data with student's progress
         const enrolledCourses: CourseType[] = enrolledCourseRefs.map(ref => {
@@ -135,10 +137,11 @@ export async function enrollInCourse(userId: string, courseId: string): Promise<
     // Ensure the student document exists before trying to update it.
     const studentDoc = await getDoc(studentProgressRef);
     if (!studentDoc.exists()) {
-        throw new Error("Student profile does not exist. Cannot enroll.");
+       await getStudentProgress(userId); // This will create the doc
     }
 
-    const studentData = studentDoc.data()!;
+    const updatedStudentDoc = await getDoc(studentProgressRef);
+    const studentData = updatedStudentDoc.data()!;
     const currentEnrolledRefs: EnrolledCourseRef[] = studentData.enrolledCourses || [];
 
     if (currentEnrolledRefs.some(c => c.id === courseId)) {
