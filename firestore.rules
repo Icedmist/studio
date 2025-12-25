@@ -46,6 +46,7 @@ service cloud.firestore {
     match /instructors/{instructorId} {
       allow read: if true;
       allow create, delete: if isAdmin();
+      // Allow an instructor to update their own profile
       allow update: if isAdmin();
     }
 
@@ -114,3 +115,5 @@ service cloud.firestore {
     }
   }
 }
+
+    

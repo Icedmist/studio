@@ -15,10 +15,6 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'placehold.co',
       },
-       {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-      },
       {
         protocol: 'https',
         hostname: 'firebasestorage.googleapis.com',
@@ -40,3 +36,5 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+    

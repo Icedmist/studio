@@ -15,7 +15,7 @@ import type { Course } from '@/lib/types';
 export default function CertificatePage() {
   const params = useParams<{ id: string }>();
   const [course, setCourse] = useState<Course | null>(null);
-  const { user } = useAuth();
+  const { user, isLoading: isAuthLoading } = useAuth();
   const router = useRouter();
   const [url, setUrl] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -46,12 +46,12 @@ export default function CertificatePage() {
   }, [params.id]);
 
   useEffect(() => {
-    if (!isLoading && !user) {
+    if (!isAuthLoading && !user) {
       router.push('/login');
     }
-  }, [user, isLoading, router]);
+  }, [user, isAuthLoading, router]);
 
-  if (isLoading || !course) {
+  if (isLoading || isAuthLoading || !course) {
     return <div className="h-screen w-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
   }
 
@@ -119,7 +119,7 @@ export default function CertificatePage() {
                 </div>
 
                 <div className="text-left">
-                    <p className="font-headline text-lg font-bold border-b border-foreground pb-1">{course.instructor}</p>
+                    <p className="font-headline text-lg font-bold border-b border-foreground pb-1">Jane Doe</p>
                     <p className="text-xs text-muted-foreground mt-1">Head Instructor</p>
                 </div>
             </div>
@@ -128,3 +128,5 @@ export default function CertificatePage() {
     </motion.div>
   );
 }
+
+    

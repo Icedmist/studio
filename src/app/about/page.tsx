@@ -1,17 +1,19 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Target, Lightbulb, User, Linkedin, Twitter } from 'lucide-react';
-import { getTeamMembers } from '@/services/team-data';
-import type { TeamMember } from '@/lib/types';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Target, Lightbulb, Linkedin, Twitter, User } from 'lucide-react';
 import Link from 'next/link';
+import { getInstructors } from '@/services/instructor-data';
+import { getTeamMembers } from '@/services/team-data';
+import type { Instructor, TeamMember } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 
 export default async function AboutUsPage() {
-  const team: TeamMember[] = await getTeamMembers();
+  const instructors = await getInstructors();
+  const team = await getTeamMembers();
 
   return (
-    <div className="container mx-auto py-12 px-4">
+    <div className="container mx-auto py-12 px-4 space-y-16">
       <Card className="bg-card/60 backdrop-blur-sm border-border/50">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl md:text-4xl font-headline font-bold">About TechTradeHub Academy</CardTitle>
@@ -43,43 +45,62 @@ export default async function AboutUsPage() {
                     </p>
                 </div>
             </div>
-
-             <div className="max-w-4xl mx-auto">
-                <h2 className="text-2xl font-headline font-semibold mb-8 text-center text-primary">Meet the Team</h2>
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {team.map((member) => (
-                        <Card key={member.id} className="flex flex-col md:flex-row items-center gap-6 p-6 bg-card/80">
-                            <Avatar className="w-24 h-24 border-4 border-primary">
-                                <AvatarImage src={member.avatarUrl} alt={member.name} />
-                                <AvatarFallback><User /></AvatarFallback>
-                            </Avatar>
-                            <div className="text-center md:text-left">
-                                <h4 className="text-lg font-bold">{member.name}</h4>
-                                <p className="text-sm text-primary font-medium">{member.role}</p>
-                                <p className="text-sm text-muted-foreground mt-2">{member.bio}</p>
-                                <div className='flex gap-2 justify-center md:justify-start mt-4'>
-                                    {member.socials?.twitter && (
-                                        <Link href={member.socials.twitter} target="_blank">
-                                            <Button variant="outline" size="icon" className="h-8 w-8">
-                                                <Twitter className="h-4 w-4" />
-                                            </Button>
-                                        </Link>
-                                    )}
-                                    {member.socials?.linkedin && (
-                                        <Link href={member.socials.linkedin} target="_blank">
-                                            <Button variant="outline" size="icon" className="h-8 w-8">
-                                                <Linkedin className="h-4 w-4" />
-                                            </Button>
-                                        </Link>
-                                    )}
-                                </div>
-                            </div>
-                        </Card>
-                    ))}
-                 </div>
-            </div>
         </CardContent>
       </Card>
+      
+      <section id="team">
+        <h2 className="text-3xl font-headline font-bold text-center mb-12">Meet the Team</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {team.map(member => (
+                 <Card key={member.id} className="bg-card/60 backdrop-blur-sm border-border/50 text-center">
+                    <CardContent className="p-6">
+                        <Avatar className="w-28 h-28 mb-4 mx-auto border-4 border-secondary">
+                            <AvatarImage src={member.avatarUrl} alt={member.name} />
+                            <AvatarFallback><User /></AvatarFallback>
+                        </Avatar>
+                        <h3 className="text-xl font-bold">{member.name}</h3>
+                        <p className="text-secondary font-semibold mb-2">{member.role}</p>
+                        <p className="text-sm text-muted-foreground mb-4">{member.bio}</p>
+                        <div className="flex justify-center gap-4">
+                           {member.socials?.twitter && (
+                                <Link href={member.socials.twitter} target="_blank">
+                                    <Button variant="outline" size="icon">
+                                        <Twitter className="h-4 w-4" />
+                                    </Button>
+                                </Link>
+                            )}
+                            {member.socials?.linkedin && (
+                                <Link href={member.socials.linkedin} target="_blank">
+                                     <Button variant="outline" size="icon">
+                                        <Linkedin className="h-4 w-4" />
+                                    </Button>
+                                </Link>
+                            )}
+                        </div>
+                    </CardContent>
+                 </Card>
+            ))}
+        </div>
+      </section>
+
+      <section id="instructors">
+        <h2 className="text-3xl font-headline font-bold text-center mb-12">Our Instructors</h2>
+         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {instructors.map(instructor => (
+                <Card key={instructor.id} className="bg-card/60 backdrop-blur-sm border-border/50 text-center">
+                    <CardContent className="p-6">
+                        <Avatar className="w-24 h-24 mb-4 mx-auto border-4 border-primary">
+                            <AvatarImage src={instructor.avatarUrl} alt={instructor.name} />
+                            <AvatarFallback><User /></AvatarFallback>
+                        </Avatar>
+                        <h3 className="text-lg font-bold">{instructor.name}</h3>
+                        <p className="text-sm text-muted-foreground line-clamp-3">{instructor.bio}</p>
+                    </CardContent>
+                </Card>
+            ))}
+        </div>
+      </section>
+
     </div>
   );
 }

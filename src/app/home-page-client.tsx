@@ -4,9 +4,9 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Award, Library, Newspaper, User, CalendarDays, ArrowRight, ShieldCheck, Zap, Users, Target, BookHeart, Briefcase } from 'lucide-react';
+import { Award, Bot, Library, Newspaper, User, CalendarDays, ArrowRight, ShieldCheck, Zap, Users, Target, BookHeart, Briefcase } from 'lucide-react';
 import Link from 'next/link';
-import type { Course, PlainBlog, PlainEvent, TeamMember } from '@/lib/types';
+import type { Course, PlainBlog, PlainEvent, Instructor } from '@/lib/types';
 import { CourseCard } from '@/components/courses/CourseCard';
 import { PostCard } from '@/components/blog/PostCard';
 import { EventCard } from '@/components/events/EventCard';
@@ -42,7 +42,7 @@ const testimonials = [
     }
 ];
 
-export default function HomePageClient({ courses, posts, events, team }: { courses: Course[], posts: PlainBlog[], events: PlainEvent[], team: TeamMember[] }) {
+export default function HomePageClient({ courses, posts, events, instructors }: { courses: Course[], posts: PlainBlog[], events: PlainEvent[], instructors: Instructor[] }) {
     return (
         <div className="flex flex-col items-center text-foreground">
         {/* Hero Section */}
@@ -263,7 +263,7 @@ export default function HomePageClient({ courses, posts, events, team }: { cours
                         <p className="text-muted-foreground mb-8">Join our live events to learn from experts and connect with the community.</p>
                         <div className="space-y-4">
                             {events.length > 0 ? (
-                                events.map(event => <EventCard key={event.id} event={event} />)
+                                events.slice(0, 1).map(event => <EventCard key={event.id} event={event} />)
                             ) : (
                                 <p className="text-muted-foreground">No upcoming events scheduled. Please check back soon!</p>
                             )}
@@ -282,7 +282,7 @@ export default function HomePageClient({ courses, posts, events, team }: { cours
                         <p className="text-muted-foreground mb-8">Get the latest insights, tips, and academy news from our team.</p>
                         <div className="space-y-4">
                              {posts.length > 0 ? (
-                                posts.map(post => <PostCard key={post.id} post={post} />)
+                                posts.slice(0, 2).map(post => <PostCard key={post.id} post={post} />)
                             ) : (
                                 <p className="text-muted-foreground">No blog posts available yet.</p>
                             )}
@@ -300,13 +300,13 @@ export default function HomePageClient({ courses, posts, events, team }: { cours
         </section>
 
         {/* Meet the Team Section */}
-        <section id="team" className="w-full py-20 md:py-24 bg-background">
+        <section id="team" className="w-full py-16 md:py-20 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-12">
-              Meet the Team
+            <h2 className="text-2xl md:text-3xl font-headline font-bold text-center mb-12">
+              Meet the Instructors
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {team.map((member, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {instructors.map((instructor, index) => (
                 <motion.div
                   key={index}
                   variants={cardVariants}
@@ -318,21 +318,18 @@ export default function HomePageClient({ courses, posts, events, team }: { cours
                   <Card className="bg-card/80 backdrop-blur-sm border-border/50 h-full text-center">
                     <CardHeader className="items-center">
                         <Avatar className="w-24 h-24 mb-4 border-4 border-primary">
-                          <AvatarImage src={member.avatarUrl} alt={member.name} />
+                          <AvatarImage src={instructor.avatarUrl} alt={instructor.name} />
                           <AvatarFallback><User /></AvatarFallback>
                         </Avatar>
-                        <CardTitle className="text-xl">{member.name}</CardTitle>
-                        <p className="text-sm text-primary">{member.role}</p>
+                        <CardTitle className="text-xl">{instructor.name}</CardTitle>
+                        <p className="text-sm text-primary">{instructor.bio.split('.')[0]}</p>
                     </CardHeader>
-                     <CardContent>
-                        <p className="text-sm text-muted-foreground">{member.bio}</p>
-                     </CardContent>
                   </Card>
                 </motion.div>
               ))}
             </div>
              <div className="text-center mt-12">
-                <Link href="/about">
+                <Link href="/about#team">
                     <Button variant="outline">
                         Learn More About Our Team <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>

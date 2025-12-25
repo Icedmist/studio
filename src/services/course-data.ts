@@ -2,7 +2,7 @@
 'use server';
 
 import { db } from '@/lib/firebase';
-import { collection, getDocs, getDoc, doc, query, type DocumentData } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, query, type DocumentData, where } from "firebase/firestore";
 import type { Course } from '@/lib/types';
 import { CourseSchema } from '@/lib/types';
 import { errorEmitter } from '@/firebase/error-emitter';
@@ -66,3 +66,5 @@ export const getCourse = cache(async (id: string): Promise<Course | null> => {
         throw new Error(`Failed to fetch course: ${error.message}`);
     }
 });
+
+    

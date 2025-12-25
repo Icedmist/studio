@@ -154,7 +154,7 @@ export function CourseManager() {
   const getPriceDisplay = (course: Course | Omit<Course, 'progress'>) => {
     if (course.level === 'Beginner') return 'Free';
     if (course.level === 'Intermediate') return 'Credit-based';
-    if (course.level === 'Advanced') return course.price?.toLocaleString() ?? 'N/A';
+    if (course.level === 'Advanced') return course.price.toLocaleString();
     return course.price > 0 ? course.price.toLocaleString() : 'Free';
   }
 
@@ -330,3 +330,5 @@ export function CourseManager() {
     </TooltipProvider>
   );
 }
+
+    

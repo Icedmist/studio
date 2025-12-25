@@ -9,16 +9,13 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Loader2, User, Linkedin, Twitter, Image as ImageIcon } from 'lucide-react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import type { TeamMember } from '@/lib/types';
-import { TeamMemberRoleSchema } from '@/lib/types';
+import type { Instructor } from '@/lib/types';
 
 const MAX_FILE_SIZE = 5000000; // 5MB
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
-export const getTeamMemberFormSchema = (isEditing: boolean) => z.object({
+export const getInstructorFormSchema = (isEditing: boolean) => z.object({
   name: z.string().min(1, 'Name is required'),
-  role: TeamMemberRoleSchema,
   bio: z.string().min(10, 'Bio must be at least 10 characters'),
   avatarUrl: z.string().url('Must be a valid URL for the avatar image').optional().or(z.literal('')),
   avatarFile: z
@@ -32,7 +29,7 @@ export const getTeamMemberFormSchema = (isEditing: boolean) => z.object({
   socials: z.object({
     twitter: z.string().url().optional().or(z.literal('')),
     linkedin: z.string().url().optional().or(z.literal('')),
-  }).optional(),
+  }),
 }).refine(data => {
     // If an avatarUrl exists, or a file is provided, it's valid
     return !!data.avatarUrl || (data.avatarFile && data.avatarFile.length > 0);
@@ -41,23 +38,23 @@ export const getTeamMemberFormSchema = (isEditing: boolean) => z.object({
     path: ["avatarFile"],
 });
 
-type TeamMemberFormData = z.infer<ReturnType<typeof getTeamMemberFormSchema>>;
 
-interface TeamMemberFormProps {
-  onSubmit: (data: TeamMemberFormData) => Promise<void>;
-  initialData?: TeamMember | null;
+type InstructorFormData = z.infer<ReturnType<typeof getInstructorFormSchema>>;
+
+interface InstructorFormProps {
+  onSubmit: (data: InstructorFormData) => Promise<void>;
+  initialData?: Instructor | null;
   isSubmitting: boolean;
   onCancel: () => void;
 }
 
-export function TeamMemberForm({ onSubmit, initialData, isSubmitting, onCancel }: TeamMemberFormProps) {
-  const formSchema = getTeamMemberFormSchema(!!initialData);
+export function InstructorForm({ onSubmit, initialData, isSubmitting, onCancel }: InstructorFormProps) {
+  const formSchema = getInstructorFormSchema(!!initialData);
   
-  const form = useForm<TeamMemberFormData>({
+  const form = useForm<InstructorFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: initialData?.name ?? '',
-      role: initialData?.role ?? 'Co-founder',
       bio: initialData?.bio ?? '',
       avatarUrl: initialData?.avatarUrl ?? '',
       socials: {
@@ -70,43 +67,19 @@ export function TeamMemberForm({ onSubmit, initialData, isSubmitting, onCancel }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-h-[80vh] overflow-y-auto p-1 pr-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Full Name</FormLabel>
-                <FormControl>
-                    <Input icon={<User />} placeholder="e.g., Jane Doe" {...field} />
-                </FormControl>
-                <FormMessage />
-                </FormItem>
-            )}
-            />
-            <FormField
-                control={form.control}
-                name="role"
-                render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Role</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                        <SelectTrigger>
-                            <SelectValue placeholder="Select a role" />
-                        </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                            {TeamMemberRoleSchema.options.map(option => (
-                                <SelectItem key={option} value={option}>{option}</SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <FormMessage />
-                    </FormItem>
-                )}
-            />
-        </div>
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Full Name</FormLabel>
+              <FormControl>
+                <Input icon={<User />} placeholder="e.g., Jane Doe" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="bio"
@@ -114,7 +87,7 @@ export function TeamMemberForm({ onSubmit, initialData, isSubmitting, onCancel }
             <FormItem>
               <FormLabel>Bio</FormLabel>
               <FormControl>
-                <Textarea placeholder="A short biography about the team member..." {...field} />
+                <Textarea placeholder="A short biography about the instructor..." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -178,7 +151,7 @@ export function TeamMemberForm({ onSubmit, initialData, isSubmitting, onCancel }
             </Button>
             <Button type="submit" disabled={isSubmitting}>
             {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {initialData ? 'Update Member' : 'Add Member'}
+            {initialData ? 'Update Instructor' : 'Add Instructor'}
             </Button>
         </div>
       </form>

@@ -26,8 +26,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (user) {
         setUser(user);
         // Fetch a lightweight profile for global context (roles, etc.)
-        const studentProfile = await getStudentProgress(user.uid, user.displayName ?? undefined, user.email ?? undefined, undefined, { includeCourseData: false });
-        setProfile(studentProfile);
+        try {
+            const studentProfile = await getStudentProgress(user.uid, user.displayName ?? undefined, user.email ?? undefined, undefined, { includeCourseData: false });
+            setProfile(studentProfile);
+        } catch (error) {
+            console.error("Failed to fetch user profile on auth change:", error);
+            setProfile(null);
+        }
 
       } else {
         setUser(null);
