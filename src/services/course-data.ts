@@ -6,6 +6,7 @@ import { collection, getDocs, getDoc, doc, query, type DocumentData, where } fro
 import type { Course } from '@/lib/types';
 import { CourseSchema } from '@/lib/types';
 import { errorEmitter } from '@/firebase/error-emitter';
+import { cache } from 'react';
 
 // Helper to convert Firestore doc to Course type
 const toCourse = (doc: DocumentData): Course => {
@@ -19,7 +20,7 @@ const toCourse = (doc: DocumentData): Course => {
     return CourseSchema.parse(courseWithProgress);
 };
 
-export async function getCourses(): Promise<Course[]> {
+export const getCourses = cache(async (): Promise<Course[]> => {
     if (!db) {
         throw new Error("Firestore not initialized. Check your Firebase configuration.");
     }
@@ -41,9 +42,9 @@ export async function getCourses(): Promise<Course[]> {
          console.error("Firestore error fetching courses:", error);
          throw new Error(`Failed to fetch courses: ${error.message}`);
     }
-}
+});
 
-export async function getCourse(id: string): Promise<Course | null> {
+export const getCourse = cache(async (id: string): Promise<Course | null> => {
     if (!db) {
         throw new Error("Firestore not initialized.");
     }
@@ -64,4 +65,4 @@ export async function getCourse(id: string): Promise<Course | null> {
         console.error(`Firestore error fetching course ${id}:`, error);
         throw new Error(`Failed to fetch course: ${error.message}`);
     }
-}
+});
