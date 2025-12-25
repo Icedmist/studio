@@ -56,6 +56,10 @@ export function LoginForm() {
             case 'auth/invalid-credential':
                  errorMessage = "Incorrect email or password. Please check your credentials and try again.";
                  break;
+            case 'auth/user-not-found':
+            case 'auth/wrong-password':
+                 errorMessage = "Incorrect email or password. Please check your credentials and try again.";
+                 break;
             default:
                 errorMessage = `Login failed: ${error.message}`;
                 break;

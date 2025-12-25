@@ -162,8 +162,8 @@ export function InstructorManager() {
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle>{editingInstructor ? 'Edit Instructor' : 'Add New Instructor'}</DialogTitle>
-            <DialogDescription>
-                Provide the details for the instructor. This information will be publicly visible.
+             <DialogDescription>
+                Provide the details for the instructor. This information will be publicly visible on the course pages.
             </DialogDescription>
           </DialogHeader>
           <InstructorForm 
@@ -264,5 +264,3 @@ export function InstructorManager() {
     </TooltipProvider>
   );
 }
-
-    

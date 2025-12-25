@@ -27,13 +27,19 @@ export default function CertificatePage() {
     
     async function fetchCourse() {
       if (!params.id) return;
-      const courseData = await getCourse(params.id);
-      if (!courseData) {
+      try {
+        const courseData = await getCourse(params.id);
+        if (!courseData) {
+          notFound();
+        } else {
+          setCourse(courseData);
+        }
+      } catch (error) {
+        console.error("Failed to fetch course for certificate:", error);
         notFound();
-      } else {
-        setCourse(courseData);
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     }
     
     fetchCourse();
@@ -113,7 +119,7 @@ export default function CertificatePage() {
                 </div>
 
                 <div className="text-left">
-                    <p className="font-headline text-lg font-bold border-b border-foreground pb-1">Jane Doe</p>
+                    <p className="font-headline text-lg font-bold border-b border-foreground pb-1">{course.instructor}</p>
                     <p className="text-xs text-muted-foreground mt-1">Head Instructor</p>
                 </div>
             </div>
@@ -122,5 +128,3 @@ export default function CertificatePage() {
     </motion.div>
   );
 }
-
-    

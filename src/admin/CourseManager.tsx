@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import type { Course } from '@/lib/types';
+import type { Course, NewCourse } from '@/lib/types';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -154,7 +154,7 @@ export function CourseManager() {
   const getPriceDisplay = (course: Course | Omit<Course, 'progress'>) => {
     if (course.level === 'Beginner') return 'Free';
     if (course.level === 'Intermediate') return 'Credit-based';
-    if (course.level === 'Advanced') return course.price.toLocaleString();
+    if (course.level === 'Advanced') return course.price?.toLocaleString() ?? 'N/A';
     return course.price > 0 ? course.price.toLocaleString() : 'Free';
   }
 
@@ -330,5 +330,3 @@ export function CourseManager() {
     </TooltipProvider>
   );
 }
-
-    
