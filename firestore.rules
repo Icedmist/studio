@@ -27,7 +27,7 @@ service cloud.firestore {
     function isReadingPublicProfileData() {
       // Allows reading only a few public fields from a user's profile
       return isSignedIn() && (
-        request.resource.data.keys().hasOnly(['studentId', 'name', 'email', 'role', 'referredBy'])
+        resource.data.keys().hasOnly(['studentId', 'name', 'email', 'role', 'referredBy'])
       );
     }
 
