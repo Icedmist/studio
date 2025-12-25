@@ -6,7 +6,6 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ShieldAlert, Loader2, Users, Library, UserPlus, Newspaper, CalendarDays, MessageSquare, Shield, Home, LayoutDashboard, Briefcase } from 'lucide-react';
-import { ADMIN_UIDS } from '@/lib/admin';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
@@ -75,7 +74,7 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { user, isLoading } = useAuth();
+  const { user, profile, isLoading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -88,7 +87,7 @@ export default function AdminLayout({
     return <div className="h-screen w-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin"/></div>;
   }
   
-  const isAuthorized = ADMIN_UIDS.includes(user.uid);
+  const isAuthorized = profile?.role === 'admin';
 
   if (!isAuthorized) {
     return (

@@ -11,7 +11,7 @@ import type { Course, StudentProgress } from '@/lib/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Skeleton } from '@/components/ui/skeleton';
-import { BookCopy, Users, BarChart2 } from 'lucide-react';
+import { BookCopy, Users, BarChart2, Loader2, ShieldAlert } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
@@ -59,12 +59,19 @@ export default function InstructorDashboardPage() {
 
     useEffect(() => {
         if (isAuthLoading) return;
-        if (!user || profile?.role !== 'instructor') {
+        if (!user) {
             router.push('/login');
             return;
         }
 
+        // Wait for profile to be loaded before checking the role
+        if (profile && profile.role !== 'instructor') {
+            router.push('/dashboard'); // Redirect non-instructors
+            return;
+        }
+
         async function loadData() {
+            if (!user?.displayName) return;
             setIsLoadingData(true);
             try {
                 const allCourses = await getCourses();
@@ -87,13 +94,36 @@ export default function InstructorDashboardPage() {
                 setIsLoadingData(false);
             }
         }
+        
+        // Only load data if the profile is loaded and role is instructor
+        if(profile?.role === 'instructor') {
+            loadData();
+        }
 
-        loadData();
     }, [user, profile, isAuthLoading, router]);
 
-    if (isAuthLoading || isLoadingData) {
+    if (isAuthLoading || (profile && profile.role === 'instructor' && isLoadingData)) {
         return <DashboardSkeleton />;
     }
+
+    if (!profile || profile.role !== 'instructor') {
+       return (
+            <div className="container mx-auto py-12 flex items-center justify-center">
+                <Card className="max-w-md w-full bg-destructive/10 border-destructive text-destructive">
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <ShieldAlert />
+                            Access Denied
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p>This page is for instructors only. You are being redirected...</p>
+                    </CardContent>
+                </Card>
+            </div>
+        )
+    }
+
 
     const totalStudents = courses.reduce((sum, course) => sum + course.studentCount, 0);
     const totalCourses = courses.length;
