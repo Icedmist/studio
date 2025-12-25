@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Pencil, Trash2, Library, RefreshCw, Loader2, Sparkles, AlertTriangle, UploadCloud } from 'lucide-react';
+import { Pencil, Trash2, Library, RefreshCw, Loader2, Sparkles, UploadCloud } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { CourseForm } from '@/components/admin/CourseForm';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -212,8 +212,8 @@ export function CourseManager() {
 
       <Card className="mb-8">
         <CardHeader>
-            <CardTitle>Seeded Courses ({courses.length})</CardTitle>
-            <CardDescription>These courses are currently live in your database.</CardDescription>
+            <CardTitle>Live Courses ({courses.length})</CardTitle>
+            <CardDescription>These courses are currently in your database.</CardDescription>
         </CardHeader>
         <CardContent>
             <Table>
@@ -275,7 +275,7 @@ export function CourseManager() {
                 )) : (
                      <TableRow>
                         <TableCell colSpan={5} className="text-center h-24 text-muted-foreground">
-                            No courses have been seeded yet. Use the section below to add them.
+                            No courses have been added yet. Add a course or use the seeder below.
                         </TableCell>
                     </TableRow>
                 )}
@@ -286,8 +286,8 @@ export function CourseManager() {
       
        <Card>
         <CardHeader>
-            <CardTitle>Unseeded Courses ({unseededCourses.length})</CardTitle>
-            <CardDescription>These courses exist in your codebase but have not been added to the database. Click 'Seed' to add them one by one.</CardDescription>
+            <CardTitle>Seed Pre-defined Courses ({unseededCourses.length})</CardTitle>
+            <CardDescription>These are pre-defined courses in your application's source code that have not been added to the database yet. Click 'Seed' to add them one by one.</CardDescription>
         </CardHeader>
         <CardContent>
             {unseededCourses.length > 0 ? (
@@ -309,7 +309,7 @@ export function CourseManager() {
                                                 disabled={isSeeding === course.id}
                                             >
                                                 {isSeeding === course.id ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : <UploadCloud className="mr-2 h-4 w-4" />}
-                                                Seed
+                                                Seed Course
                                             </Button>
                                         </div>
                                     ))}
@@ -330,5 +330,3 @@ export function CourseManager() {
     </TooltipProvider>
   );
 }
-
-    

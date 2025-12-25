@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Award, Bot, Library, Newspaper, User, CalendarDays, ArrowRight, ShieldCheck, Zap, Users, Target, BookHeart, Briefcase } from 'lucide-react';
 import Link from 'next/link';
-import type { Course, PlainBlog, PlainEvent, Instructor } from '@/lib/types';
+import type { Course, PlainBlog, PlainEvent } from '@/lib/types';
 import { CourseCard } from '@/components/courses/CourseCard';
 import { PostCard } from '@/components/blog/PostCard';
 import { EventCard } from '@/components/events/EventCard';
@@ -15,6 +15,7 @@ import { motion } from 'framer-motion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { SampleCertificate } from '@/components/home/SampleCertificate';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import placeholderImages from '@/lib/placeholder-images.json';
 
 const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -42,7 +43,7 @@ const testimonials = [
     }
 ];
 
-export default function HomePageClient({ courses, posts, events, instructors }: { courses: Course[], posts: PlainBlog[], events: PlainEvent[], instructors: Instructor[] }) {
+export default function HomePageClient({ courses, posts, events }: { courses: Course[], posts: PlainBlog[], events: PlainEvent[] }) {
     return (
         <div className="flex flex-col items-center text-foreground">
         {/* Hero Section */}
@@ -263,7 +264,7 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
                         <p className="text-muted-foreground mb-8">Join our live events to learn from experts and connect with the community.</p>
                         <div className="space-y-4">
                             {events.length > 0 ? (
-                                events.slice(0, 1).map(event => <EventCard key={event.id} event={event} />)
+                                events.map(event => <EventCard key={event.id} event={event} />)
                             ) : (
                                 <p className="text-muted-foreground">No upcoming events scheduled. Please check back soon!</p>
                             )}
@@ -282,7 +283,7 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
                         <p className="text-muted-foreground mb-8">Get the latest insights, tips, and academy news from our team.</p>
                         <div className="space-y-4">
                              {posts.length > 0 ? (
-                                posts.slice(0, 2).map(post => <PostCard key={post.id} post={post} />)
+                                posts.map(post => <PostCard key={post.id} post={post} />)
                             ) : (
                                 <p className="text-muted-foreground">No blog posts available yet.</p>
                             )}
@@ -299,47 +300,8 @@ export default function HomePageClient({ courses, posts, events, instructors }: 
             </div>
         </section>
 
-        {/* Meet the Team Section */}
-        <section id="team" className="w-full py-16 md:py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-headline font-bold text-center mb-12">
-              Meet the Instructors
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {instructors.map((instructor, index) => (
-                <motion.div
-                  key={index}
-                  variants={cardVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <Card className="bg-card/80 backdrop-blur-sm border-border/50 h-full text-center">
-                    <CardHeader className="items-center">
-                        <Avatar className="w-24 h-24 mb-4 border-4 border-primary">
-                          <AvatarImage src={instructor.avatarUrl} alt={instructor.name} />
-                          <AvatarFallback><User /></AvatarFallback>
-                        </Avatar>
-                        <CardTitle className="text-xl">{instructor.name}</CardTitle>
-                        <p className="text-sm text-primary">{instructor.bio.split('.')[0]}</p>
-                    </CardHeader>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-             <div className="text-center mt-12">
-                <Link href="/about#team">
-                    <Button variant="outline">
-                        Learn More About Our Team <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                </Link>
-            </div>
-          </div>
-        </section>
-  
         {/* Final CTA Section */}
-        <section className="w-full text-center py-20 md:py-24 bg-card/50">
+        <section className="w-full text-center py-20 md:py-24 bg-background">
             <div className="container mx-auto px-4">
               <h2 className="text-2xl md:text-3xl font-headline font-bold mb-4">Ready to Start Learning?</h2>
               <p className="text-md text-muted-foreground max-w-2xl mx-auto mb-8">

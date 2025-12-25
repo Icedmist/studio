@@ -15,7 +15,7 @@ import type { Course } from '@/lib/types';
 export default function CertificatePage() {
   const params = useParams<{ id: string }>();
   const [course, setCourse] = useState<Course | null>(null);
-  const { user, isLoading: isAuthLoading } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
   const [url, setUrl] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -27,31 +27,25 @@ export default function CertificatePage() {
     
     async function fetchCourse() {
       if (!params.id) return;
-      try {
-        const courseData = await getCourse(params.id);
-        if (!courseData) {
-          notFound();
-        } else {
-          setCourse(courseData);
-        }
-      } catch (error) {
-        console.error("Failed to fetch course for certificate:", error);
+      const courseData = await getCourse(params.id);
+      if (!courseData) {
         notFound();
-      } finally {
-        setIsLoading(false);
+      } else {
+        setCourse(courseData);
       }
+      setIsLoading(false);
     }
     
     fetchCourse();
   }, [params.id]);
 
   useEffect(() => {
-    if (!isAuthLoading && !user) {
+    if (!isLoading && !user) {
       router.push('/login');
     }
-  }, [user, isAuthLoading, router]);
+  }, [user, isLoading, router]);
 
-  if (isLoading || isAuthLoading || !course) {
+  if (isLoading || !course) {
     return <div className="h-screen w-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin" /></div>;
   }
 

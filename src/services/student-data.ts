@@ -43,94 +43,100 @@ export async function getStudentProgress(
     }
 
     const docRef = doc(db, "studentProgress", userId);
+    const docSnap = await getDoc(docRef);
     
     // Determine role FIRST. An admin is an admin regardless of their profile doc.
     const role: UserRole = ADMIN_UIDS.includes(userId) ? 'admin' : 'student';
 
-    try {
-        const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+        const studentData = docSnap.data();
+        const enrolledCourseRefs: EnrolledCourseRef[] = studentData.enrolledCourses || [];
 
-        if (docSnap.exists()) {
-            const studentData = docSnap.data();
-            const enrolledCourseRefs: EnrolledCourseRef[] = studentData.enrolledCourses || [];
+        let enrolledCourses: CourseType[] = [];
 
-            let enrolledCourses: CourseType[] = [];
+        if (options.includeCourseData && enrolledCourseRefs.length > 0) {
+            const allCourses = await getCourses();
+            
+            // Merge static course data with student's progress
+            enrolledCourses = enrolledCourseRefs.map(ref => {
+                const fullCourseData = allCourses.find(c => c.id === ref.id);
+                if (!fullCourseData) return null; // Course might have been deleted
 
-            if (options.includeCourseData && enrolledCourseRefs.length > 0) {
-                const allCourses = await getCourses();
+                // Create a deep copy to avoid modifying the original data
+                const courseWithProgress = JSON.parse(JSON.stringify(fullCourseData));
+
+                courseWithProgress.progress = ref.progress;
                 
-                // Merge static course data with student's progress
-                enrolledCourses = enrolledCourseRefs.map(ref => {
-                    const fullCourseData = allCourses.find(c => c.id === ref.id);
-                    if (!fullCourseData) return null; // Course might have been deleted
-
-                    // Create a deep copy to avoid modifying the original data
-                    const courseWithProgress = JSON.parse(JSON.stringify(fullCourseData));
-
-                    courseWithProgress.progress = ref.progress;
-                    
-                    // Mark lessons as completed based on the reference
-                    courseWithProgress.modules.forEach((module: any, mIdx: number) => {
-                        module.lessons.forEach((lesson: any, lIdx: number) => {
-                            lesson.completed = !!ref.completedLessons?.[mIdx]?.[lIdx];
-                        });
+                // Mark lessons as completed based on the reference
+                courseWithProgress.modules.forEach((module: any, mIdx: number) => {
+                    module.lessons.forEach((lesson: any, lIdx: number) => {
+                        lesson.completed = !!ref.completedLessons?.[mIdx]?.[lIdx];
                     });
+                });
 
-                    return courseWithProgress;
-                }).filter(c => c !== null) as CourseType[];
-            }
-            
-            const metrics = calculateProgressMetrics(enrolledCourses);
-            
-            // Ensure the role in the database is consistent with the hardcoded admin list
-            const finalRole = ADMIN_UIDS.includes(userId) ? 'admin' : (studentData.role || 'student');
+                return courseWithProgress;
+            }).filter(c => c !== null) as CourseType[];
+        }
+        
+        const metrics = calculateProgressMetrics(enrolledCourses);
+        
+        // Ensure the role in the database is consistent with the hardcoded admin list
+        const finalRole = ADMIN_UIDS.includes(userId) ? 'admin' : (studentData.role || 'student');
 
-            if (finalRole !== studentData.role) {
-                await updateDoc(docRef, { role: finalRole });
-            }
-            
-            return {
-                studentId: userId,
-                name: studentData.name,
-                email: studentData.email,
-                role: finalRole,
-                enrolledCourses: enrolledCourses,
-                referredBy: studentData.referredBy,
-                ...metrics
-            };
+        if (finalRole !== studentData.role) {
+            updateDoc(docRef, { role: finalRole });
+        }
+        
+        return {
+            studentId: userId,
+            name: studentData.name,
+            email: studentData.email,
+            role: finalRole,
+            enrolledCourses: enrolledCourses,
+            referredBy: studentData.referredBy,
+            ...metrics
+        };
 
-        } else {
-            console.log(`No progress document for user ${userId}. Creating new profile.`);
-            
-            const newStudentData = {
-                studentId: userId,
-                name: name || "New Student",
-                email: email || "",
-                role: role, // Use the pre-determined role
-                enrolledCourses: [],
-                referredBy: referralCode || undefined,
-            };
+    } else {
+        console.log(`No progress document for user ${userId}. Creating new profile.`);
+        
+        const newStudentData = {
+            studentId: userId,
+            name: name || "New Student",
+            email: email || "",
+            role: role, // Use the pre-determined role
+            enrolledCourses: [],
+            referredBy: referralCode || undefined,
+        };
 
+        try {
             await setDoc(docRef, newStudentData);
-            
-            // Return the full StudentProgress structure
-            return {
-                 ...newStudentData,
-                 enrolledCourses: [],
-                 overallProgress: 0,
-                 completedCourses: 0,
-                 coursesInProgress: 0,
+        } catch (error: any) {
+            if (error.code === 'permission-denied') {
+                errorEmitter.emit('permission-error', {
+                    path: `document 'studentProgress/${userId}'`,
+                    operation: 'create',
+                    requestResourceData: newStudentData
+                });
+            }
+             // Even if creation fails, return a default structure so the app doesn't crash
+             return {
+                ...newStudentData,
+                enrolledCourses: [],
+                overallProgress: 0,
+                completedCourses: 0,
+                coursesInProgress: 0,
             };
         }
-    } catch (error: any) {
-        if (error.code === 'permission-denied') {
-            errorEmitter.emit('permission-error', {
-                path: `document 'studentProgress/${userId}'`,
-                operation: 'get',
-            });
-        }
-        console.error("Firestore error in getStudentProgress:", error);
-        throw new Error(`Failed to get student progress: ${error.message}`);
+        
+        // Return the full StudentProgress structure
+        return {
+             ...newStudentData,
+             enrolledCourses: [],
+             overallProgress: 0,
+             completedCourses: 0,
+             coursesInProgress: 0,
+        };
     }
 }
 
@@ -166,6 +172,7 @@ export async function enrollInCourse(userId: string, courseId: string): Promise<
 
     const studentProgressRef = doc(db, "studentProgress", userId);
     
+    // Fetch student doc. getStudentProgress will create if it doesn't exist.
     const studentDoc = await getDoc(studentProgressRef);
 
     if (!studentDoc.exists()) {
@@ -256,7 +263,6 @@ export async function updateUserRole(userId: string, role: UserRole): Promise<vo
 }
 
 export async function getAllStudentProgress(): Promise<StudentProgress[]> {
-  if (!db) throw new Error("Firestore not initialized.");
   const progressCol = collection(db, 'studentProgress');
   const snapshot = await getDocs(progressCol);
   const allCourses = await getCourses();
@@ -284,3 +290,5 @@ export async function getAllStudentProgress(): Promise<StudentProgress[]> {
     };
   });
 }
+
+    

@@ -5,13 +5,13 @@ import { useAuth } from '@/hooks/use-auth';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ShieldAlert, Loader2, Users, Library, Newspaper, CalendarDays, MessageSquare, Shield, Home, Briefcase } from 'lucide-react';
+import { ShieldAlert, Loader2, Users, Library, Newspaper, CalendarDays, MessageSquare, Shield, Home, LayoutDashboard, Briefcase } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 
 const navLinks = [
-  { href: '/admin', label: 'Dashboard', icon: Shield, exact: true },
+  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
   { href: '/admin/users', label: 'Users', icon: Users },
   { href: '/admin/courses', label: 'Courses', icon: Library },
   { href: '/admin/team', label: 'Team', icon: Briefcase },
@@ -82,7 +82,7 @@ export default function AdminLayout({
     }
   }, [isLoading, user, router]);
 
-  if (isLoading || !user) {
+  if (isLoading || !user || !profile) {
     return <div className="h-screen w-screen flex items-center justify-center"><Loader2 className="h-8 w-8 animate-spin"/></div>;
   }
   
@@ -116,3 +116,5 @@ export default function AdminLayout({
     </div>
   );
 }
+
+    

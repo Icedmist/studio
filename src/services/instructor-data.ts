@@ -24,7 +24,14 @@ export async function getInstructors(): Promise<Instructor[]> {
     try {
         const instructorSnapshot = await getDocs(q);
         const instructorList = instructorSnapshot.docs.map(doc => toInstructor(doc));
-        return instructorList;
+        // FIX: Replaced invalid facebook URL with a working placeholder
+        const fixedList = instructorList.map(inst => {
+            if (inst.id === 'JX7JaGNqNi2aZjDLqWQC') {
+                return { ...inst, avatarUrl: 'https://i.pravatar.cc/150?u=abdul' };
+            }
+            return inst;
+        });
+        return fixedList;
     } catch (error: any) {
         // Log the error for server-side debugging and re-throw it.
         // The page calling this function should handle the error gracefully.
@@ -32,3 +39,5 @@ export async function getInstructors(): Promise<Instructor[]> {
         throw new Error(`Failed to fetch instructors: ${error.message}`);
     }
 }
+
+    
