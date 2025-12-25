@@ -2,10 +2,11 @@
 'use server';
 
 import { db } from '@/lib/firebase';
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore"; 
+import { doc, getDoc, setDoc, updateDoc, collection, getDocs, writeBatch } from "firebase/firestore"; 
 import type { StudentProgress, Course as CourseType, UserRole } from '@/lib/types';
 import { getCourse, getCourses } from './course-data';
 import { ADMIN_UIDS } from '@/lib/admin';
+import { errorEmitter } from '@/firebase/error-emitter';
 
 // This is the shape of the data stored in the 'enrolledCourses' array in Firestore.
 // It's a lightweight reference to the full course object.
@@ -44,20 +45,21 @@ export async function getStudentProgress(
     const docRef = doc(db, "studentProgress", userId);
     const docSnap = await getDoc(docRef);
     
+    // Determine role FIRST. An admin is an admin regardless of their profile doc.
+    const role: UserRole = ADMIN_UIDS.includes(userId) ? 'admin' : 'student';
+
     if (docSnap.exists()) {
         const studentData = docSnap.data();
         const enrolledCourseRefs: EnrolledCourseRef[] = studentData.enrolledCourses || [];
 
         let enrolledCourses: CourseType[] = [];
-        let coursesToFetch = enrolledCourseRefs;
 
-        if (options.includeCourseData) {
-            const courseDataPromises = coursesToFetch.map(ref => getCourse(ref.id));
-            const fetchedCourses = await Promise.all(courseDataPromises);
-
+        if (options.includeCourseData && enrolledCourseRefs.length > 0) {
+            const allCourses = await getCourses();
+            
             // Merge static course data with student's progress
-            enrolledCourses = fetchedCourses.map((fullCourseData, index) => {
-                const ref = coursesToFetch[index];
+            enrolledCourses = enrolledCourseRefs.map(ref => {
+                const fullCourseData = allCourses.find(c => c.id === ref.id);
                 if (!fullCourseData) return null; // Course might have been deleted
 
                 // Create a deep copy to avoid modifying the original data
@@ -77,14 +79,19 @@ export async function getStudentProgress(
         }
         
         const metrics = calculateProgressMetrics(enrolledCourses);
+        
+        // Ensure the role in the database is consistent with the hardcoded admin list
+        const finalRole = ADMIN_UIDS.includes(userId) ? 'admin' : (studentData.role || 'student');
 
-        const role = ADMIN_UIDS.includes(userId) ? 'admin' : (studentData.role || 'student');
-
+        if (finalRole !== studentData.role) {
+            updateDoc(docRef, { role: finalRole });
+        }
+        
         return {
             studentId: userId,
             name: studentData.name,
             email: studentData.email,
-            role: role,
+            role: finalRole,
             enrolledCourses: enrolledCourses,
             referredBy: studentData.referredBy,
             ...metrics
@@ -92,14 +99,13 @@ export async function getStudentProgress(
 
     } else {
         console.log(`No progress document for user ${userId}. Creating new profile.`);
-        const role = ADMIN_UIDS.includes(userId) ? 'admin' : 'student';
-
+        
         const newStudentData = {
             studentId: userId,
             name: name || "New Student",
             email: email || "",
-            role: role,
-            enrolledCourses: [], // This will be the lightweight reference array
+            role: role, // Use the pre-determined role
+            enrolledCourses: [],
             referredBy: referralCode || undefined,
         };
 
@@ -112,22 +118,21 @@ export async function getStudentProgress(
                     operation: 'create',
                     requestResourceData: newStudentData
                 });
-                // Even if creation fails, return a default structure so the app doesn't crash
-                 return {
-                    ...newStudentData,
-                    enrolledCourses: [],
-                    overallProgress: 0,
-                    completedCourses: 0,
-                    coursesInProgress: 0,
-                };
             }
-            throw error;
+             // Even if creation fails, return a default structure so the app doesn't crash
+             return {
+                ...newStudentData,
+                enrolledCourses: [],
+                overallProgress: 0,
+                completedCourses: 0,
+                coursesInProgress: 0,
+            };
         }
         
         // Return the full StudentProgress structure
         return {
              ...newStudentData,
-             enrolledCourses: [], // This is the full CourseType array, which is empty initially
+             enrolledCourses: [],
              overallProgress: 0,
              completedCourses: 0,
              coursesInProgress: 0,
@@ -168,9 +173,12 @@ export async function enrollInCourse(userId: string, courseId: string): Promise<
     const studentProgressRef = doc(db, "studentProgress", userId);
     
     // Fetch student doc. getStudentProgress will create if it doesn't exist.
-    const studentProgress = await getStudentProgress(userId, undefined, undefined, undefined, { includeCourseData: false });
-    
     const studentDoc = await getDoc(studentProgressRef);
+
+    if (!studentDoc.exists()) {
+        throw new Error("Student profile does not exist. Cannot enroll.");
+    }
+    
     const studentData = studentDoc.data();
     const currentEnrolledRefs: EnrolledCourseRef[] = studentData?.enrolledCourses || [];
 
@@ -252,4 +260,33 @@ export async function updateUserRole(userId: string, role: UserRole): Promise<vo
     if (!db) throw new Error("Firestore not initialized.");
     const docRef = doc(db, 'studentProgress', userId);
     await updateDoc(docRef, { role });
+}
+
+export async function getAllStudentProgress(): Promise<StudentProgress[]> {
+  const progressCol = collection(db, 'studentProgress');
+  const snapshot = await getDocs(progressCol);
+  const allCourses = await getCourses();
+
+  return snapshot.docs.map(doc => {
+    const data = doc.data();
+    const enrolledCourseRefs: EnrolledCourseRef[] = data.enrolledCourses || [];
+
+    const enrolledCourses = enrolledCourseRefs.map(ref => {
+      const courseData = allCourses.find(c => c.id === ref.id);
+      if (!courseData) return null;
+      return { ...courseData, progress: ref.progress };
+    }).filter(Boolean) as CourseType[];
+
+    const metrics = calculateProgressMetrics(enrolledCourses);
+
+    return {
+      studentId: doc.id,
+      name: data.name,
+      email: data.email,
+      role: data.role || 'student',
+      enrolledCourses: enrolledCourses,
+      referredBy: data.referredBy,
+      ...metrics,
+    };
+  });
 }
