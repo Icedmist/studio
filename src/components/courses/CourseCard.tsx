@@ -48,7 +48,7 @@ export function CourseCard({ course }: CourseCardProps) {
             className="h-full"
         >
             <Card 
-                className="flex flex-col h-full overflow-hidden transition-all hover:shadow-lg hover:shadow-primary/10 bg-card/60 backdrop-blur-sm border-border/50 min-h-[320px]"
+                className="flex flex-col h-full overflow-hidden transition-all hover:shadow-lg hover:shadow-primary/10 bg-card/60 backdrop-blur-sm border-border/50 min-h-[380px]"
                 style={{ '--category-color': categoryColor, borderBottom: `2px solid var(--category-color)` }}
             >
             <CardHeader className="p-4">
@@ -69,7 +69,7 @@ export function CourseCard({ course }: CourseCardProps) {
                         <span>{course.duration}</span>
                     </div>
                 </div>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-2 h-20 line-clamp-4">{course.description}</p>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-2 h-24 line-clamp-5">{course.description}</p>
             </CardContent>
             <CardFooter className="p-4 pt-0 mt-auto">
                  {course.progress > 0 && (
@@ -96,5 +96,3 @@ export function CourseCard({ course }: CourseCardProps) {
         </motion.div>
     );
 }
-
-    

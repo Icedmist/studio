@@ -22,17 +22,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      setUser(user);
+      setIsLoading(true);
       if (user) {
-        // Fetch student progress/profile when auth state changes
+        setUser(user);
         try {
-          const studentProfile = await getStudentProgress(user.uid, user.displayName || undefined, user.email || undefined);
+          const studentProfile = await getStudentProgress(user.uid, user.displayName ?? undefined, user.email ?? undefined);
           setProfile(studentProfile);
         } catch (error) {
           console.error("Failed to fetch user profile:", error);
           setProfile(null);
         }
       } else {
+        setUser(null);
         setProfile(null);
       }
       setIsLoading(false);

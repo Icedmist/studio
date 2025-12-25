@@ -1,3 +1,4 @@
+
 "use server";
 
 import {
@@ -9,8 +10,11 @@ export async function askTechGee(
   {question, studentId}: {question: string, studentId: string | null}
 ): Promise<string> {
   try {
-    // studentId can be null if user is not logged in. The flow is designed to handle this.
-    const result = await techGeeChatbot({ question, studentId: studentId ?? undefined });
+    const input: TechGeeChatbotInput = { question };
+    if (studentId) {
+      input.studentId = studentId;
+    }
+    const result = await techGeeChatbot(input);
     return result.answer;
   } catch (error) {
     console.error("Error calling Tech Gee chatbot flow:", error);
