@@ -1,3 +1,4 @@
+
 rules_version = '2';
 
 service cloud.firestore {
@@ -43,6 +44,11 @@ service cloud.firestore {
       allow read: if true;
       allow create, update, delete: if isAdmin();
     }
+
+    match /team/{memberId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
     
     match /blogPosts/{postId} {
       allow read: if true;
@@ -78,10 +84,16 @@ service cloud.firestore {
     // ===============================================================
 
     // STUDENT PROGRESS
-    // Frontend usage: db.collection('studentProgress').doc(user.uid).set(data)
     match /studentProgress/{userId} {
-      allow get, list: if isAdmin();
-      allow read, write: if isOwner(userId);
+      // Admins can list all user profiles for the admin panel.
+      allow list: if isAdmin();
+      
+      // A user can read their own full profile.
+      // Any signed-in user can read the 'name' and 'studentId' for things like referrals.
+      allow get: if isOwner(userId) || (isSignedIn() && resource.data.keys().hasOnly(['name', 'studentId']));
+      
+      // A user can only write to their own progress document.
+      allow write: if isOwner(userId);
     }
 
     // FEEDBACK
