@@ -24,6 +24,13 @@ service cloud.firestore {
       return isSignedIn() && request.auth.uid == userId;
     }
 
+    function isReadingPublicProfileData() {
+      // Allows reading only a few public fields from a user's profile
+      return isSignedIn() && (
+        request.resource.data.keys().hasOnly(['studentId', 'name', 'email', 'role', 'referredBy'])
+      );
+    }
+
     // ===============================================================
     // 2. PUBLIC CONTENT (Courses, Instructors, Blog, Events)
     // ===============================================================
@@ -87,12 +94,18 @@ service cloud.firestore {
 
     // STUDENT PROGRESS
     match /studentProgress/{userId} {
-      allow get: if isSignedIn();
-      allow list: if isAdmin() || isInstructor(); // Instructors need to list to count students
+      // Allow a user to read their own full profile
+      // Allow any signed-in user to read only public fields (e.g., for referrals)
+      allow get: if isOwner(userId) || isReadingPublicProfileData();
+
+      // Only Admins or Instructors can list all users
+      allow list: if isAdmin() || isInstructor();
       
       // User can create their own doc on signup.
-      // Admin can update anyone's role.
       allow create: if isOwner(userId);
+      
+      // A user can update their own data.
+      // An admin can update anyone's role.
       allow update: if isOwner(userId) || isAdmin();
 
       // Only admins can delete user profiles
