@@ -27,7 +27,7 @@ service cloud.firestore {
       // Allows reading only a few public fields from a user's profile
       // This is used for features like showing a referrer's name.
       return isSignedIn() && (
-        resource.data.keys().hasOnly(['studentId', 'name', 'email', 'role', 'referredBy'])
+        resource.data.keys().hasOnly(['studentId', 'name'])
       );
     }
 
