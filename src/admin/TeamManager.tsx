@@ -4,7 +4,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { TeamMember } from '@/lib/types';
 import { db } from '@/lib/firebase';
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -19,6 +19,7 @@ import { z } from 'zod';
 import { TeamMemberSchema } from '@/lib/types';
 import { uploadFile } from '@/services/storage';
 import { Badge } from '@/components/ui/badge';
+import { getTeamMembers } from '@/services/team-data';
 
 type TeamMemberFormData = z.infer<ReturnType<typeof getTeamMemberFormSchema>>;
 
@@ -33,10 +34,7 @@ export function TeamManager() {
   const fetchTeamMembers = useCallback(async () => {
     setIsLoading(true);
     try {
-      const teamCollection = collection(db, 'team');
-      const q = query(teamCollection, orderBy('name', 'asc'));
-      const teamSnapshot = await getDocs(q);
-      const teamList = teamSnapshot.docs.map(d => TeamMemberSchema.parse({ id: d.id, ...d.data() }));
+      const teamList = await getTeamMembers();
       setTeamMembers(teamList);
     } catch (error) {
       console.error("Failed to fetch team members", error);

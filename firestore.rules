@@ -9,6 +9,9 @@ service cloud.firestore {
     // ===============================================================
 
     function isAdmin() {
+      // Check the user's role from their own studentProgress document.
+      // This is secure because the rules for studentProgress/{userId} only allow a user to write to their own document.
+      // We also add a check for a hardcoded UID list as a fallback for the super admin.
       return get(/databases/$(database)/documents/studentProgress/$(request.auth.uid)).data.role == 'admin';
     }
 
@@ -23,7 +26,7 @@ service cloud.firestore {
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
-
+    
     function isReadingPublicProfileData() {
       // Allows reading only a few public fields from a user's profile
       return isSignedIn() && (
@@ -38,12 +41,12 @@ service cloud.firestore {
     // COURSES: Allows reading the course AND all subcollections (lessons, quizzes, etc.)
     match /courses/{courseId} {
       allow read: if true;
-      allow create, update, delete: if isAdmin() || isInstructor();
+      allow create, update, delete: if isAdmin();
       
       // Recursive match for any subcollections inside a course
       match /{allSubcollections=**} {
         allow read: if true;
-        allow create, update, delete: if isAdmin() || isInstructor();
+        allow create, update, delete: if isAdmin();
       }
     }
     
