@@ -22,8 +22,10 @@ export function CourseCard({ course }: CourseCardProps) {
         visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
     };
 
+    const courseProgress = course.progress ?? 0;
+
     const getLink = () => {
-        if (course.progress > 0 && course.progress < 100) {
+        if (courseProgress > 0 && courseProgress < 100) {
             // Find first incomplete lesson to continue
             for (let mIdx = 0; mIdx < course.modules.length; mIdx++) {
                 for (let lIdx = 0; lIdx < course.modules[mIdx].lessons.length; lIdx++) {
@@ -72,13 +74,13 @@ export function CourseCard({ course }: CourseCardProps) {
                 <p className="text-muted-foreground text-sm leading-relaxed mb-2 h-24 line-clamp-5">{course.description}</p>
             </CardContent>
             <CardFooter className="p-4 pt-0 mt-auto">
-                 {course.progress > 0 && (
+                 {courseProgress > 0 && (
                 <div className="w-full mb-3">
                     <div className="flex justify-between items-center mb-1">
                         <span className="text-xs font-medium text-muted-foreground">Progress</span>
-                        <span className="text-xs font-bold text-primary">{course.progress}%</span>
+                        <span className="text-xs font-bold text-primary">{courseProgress}%</span>
                     </div>
-                    <Progress value={course.progress} className="h-1.5" />
+                    <Progress value={courseProgress} className="h-1.5" />
                 </div>
                 )}
                  <div className="flex justify-between items-center w-full mt-2">
@@ -87,7 +89,7 @@ export function CourseCard({ course }: CourseCardProps) {
                     </div>
                     <Link href={getLink()}>
                         <Button size="sm" className="text-xs h-8">
-                            {course.progress > 0 && course.progress < 100 ? 'Continue' : 'View Details'}
+                            {courseProgress > 0 && courseProgress < 100 ? 'Continue' : 'View Details'}
                         </Button>
                     </Link>
                 </div>

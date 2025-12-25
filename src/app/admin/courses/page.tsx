@@ -1,7 +1,7 @@
 
 'use client';
 
-import { CourseManager } from '@/admin/CourseManager';
+import { CourseManager } from '@/components/admin/CourseManager';
 import { Card, CardContent } from '@/components/ui/card';
 import { Library } from 'lucide-react';
 
