@@ -44,7 +44,6 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
         finalAssessment: [],
         price: 0,
         duration: '',
-        instructor: '',
       },
   });
 
@@ -72,14 +71,14 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
             />
              <FormField
                 control={form.control}
-                name="instructor"
+                name="duration"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>Instructor</FormLabel>
-                        <FormControl>
-                            <Input placeholder="e.g., Jane Doe" {...field} />
-                        </FormControl>
-                        <FormMessage />
+                    <FormLabel>Total Duration</FormLabel>
+                    <FormControl>
+                        <Input icon={<Clock/>} placeholder="e.g., 8h 30m" {...field} />
+                    </FormControl>
+                    <FormMessage />
                     </FormItem>
                 )}
             />
@@ -112,7 +111,7 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
           )}
         />
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <FormField
                 control={form.control}
                 name="category"
@@ -165,19 +164,6 @@ export function CourseForm({ onSubmit, initialData, isSubmitting, onCancel }: Co
                 <FormLabel>Price (₦)</FormLabel>
                 <FormControl>
                     <Input icon={<DollarSign/>} type="number" {...field} onChange={e => field.onChange(parseInt(e.target.value, 10) || 0)} />
-                </FormControl>
-                <FormMessage />
-                </FormItem>
-            )}
-            />
-            <FormField
-            control={form.control}
-            name="duration"
-            render={({ field }) => (
-                <FormItem>
-                <FormLabel>Total Duration</FormLabel>
-                <FormControl>
-                    <Input icon={<Clock/>} placeholder="e.g., 8h 30m" {...field} />
                 </FormControl>
                 <FormMessage />
                 </FormItem>

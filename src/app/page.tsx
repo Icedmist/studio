@@ -2,11 +2,10 @@
 import { getCourses } from '@/services/course-data';
 import { getPosts } from '@/services/blog-data';
 import { getEvents } from '@/services/event-data';
-import { getTeamMembers } from '@/services/team-data';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Suspense } from 'react';
 import HomePageClient from './home-page-client';
-import type { Course, PlainBlog, PlainEvent, TeamMember } from '@/lib/types';
+import type { Course, PlainBlog, PlainEvent } from '@/lib/types';
 
 function HomePageSkeleton() {
     return (
@@ -27,11 +26,10 @@ function HomePageSkeleton() {
 }
 
 async function PageContent() {
-    const [allCourses, posts, events, team] = await Promise.all([
+    const [allCourses, posts, events] = await Promise.all([
         getCourses(),
         getPosts('published'),
         getEvents('upcoming'),
-        getTeamMembers(),
     ]);
     
     // Get one course from each category for the "Featured" section
@@ -59,8 +57,17 @@ async function PageContent() {
         courses={featuredCourses} 
         posts={latestPosts} 
         events={upcomingEvents}
-        team={team}
     />;
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<HomePageSkeleton />}>
+      <PageContent />
+    </Suspense>
+  );
+}
+   />;
 }
 
 export default function Home() {

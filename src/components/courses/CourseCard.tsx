@@ -22,10 +22,8 @@ export function CourseCard({ course }: CourseCardProps) {
         visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
     };
 
-    const courseProgress = course.progress ?? 0;
-
     const getLink = () => {
-        if (courseProgress > 0 && courseProgress < 100) {
+        if (course.progress > 0 && course.progress < 100) {
             // Find first incomplete lesson to continue
             for (let mIdx = 0; mIdx < course.modules.length; mIdx++) {
                 for (let lIdx = 0; lIdx < course.modules[mIdx].lessons.length; lIdx++) {
@@ -50,7 +48,7 @@ export function CourseCard({ course }: CourseCardProps) {
             className="h-full"
         >
             <Card 
-                className="flex flex-col h-full overflow-hidden transition-all hover:shadow-lg hover:shadow-primary/10 bg-card/60 backdrop-blur-sm border-border/50 min-h-[380px]"
+                className="flex flex-col h-full overflow-hidden transition-all hover:shadow-lg hover:shadow-primary/10 bg-card/60 backdrop-blur-sm border-border/50"
                 style={{ '--category-color': categoryColor, borderBottom: `2px solid var(--category-color)` }}
             >
             <CardHeader className="p-4">
@@ -63,10 +61,6 @@ export function CourseCard({ course }: CourseCardProps) {
             <CardContent className="flex-grow p-4 pt-0">
                  <div className="text-xs text-muted-foreground space-y-1.5 mb-3">
                     <div className="flex items-center gap-1.5">
-                        <User className="w-3.5 h-3.5 shrink-0"/>
-                        <span className="truncate">with {course.instructor}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
                         <Clock className="w-3.5 h-3.5 shrink-0"/>
                         <span>{course.duration}</span>
                     </div>
@@ -74,13 +68,13 @@ export function CourseCard({ course }: CourseCardProps) {
                 <p className="text-muted-foreground text-sm leading-relaxed mb-2 h-24 line-clamp-5">{course.description}</p>
             </CardContent>
             <CardFooter className="p-4 pt-0 mt-auto">
-                 {courseProgress > 0 && (
+                 {course.progress > 0 && (
                 <div className="w-full mb-3">
                     <div className="flex justify-between items-center mb-1">
                         <span className="text-xs font-medium text-muted-foreground">Progress</span>
-                        <span className="text-xs font-bold text-primary">{courseProgress}%</span>
+                        <span className="text-xs font-bold text-primary">{course.progress}%</span>
                     </div>
-                    <Progress value={courseProgress} className="h-1.5" />
+                    <Progress value={course.progress} className="h-1.5" />
                 </div>
                 )}
                  <div className="flex justify-between items-center w-full mt-2">
@@ -89,7 +83,7 @@ export function CourseCard({ course }: CourseCardProps) {
                     </div>
                     <Link href={getLink()}>
                         <Button size="sm" className="text-xs h-8">
-                            {courseProgress > 0 && courseProgress < 100 ? 'Continue' : 'View Details'}
+                            {course.progress > 0 && course.progress < 100 ? 'Continue' : 'View Details'}
                         </Button>
                     </Link>
                 </div>

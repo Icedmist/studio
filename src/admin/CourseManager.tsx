@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Pencil, Trash2, Library, RefreshCw, Loader2, Sparkles, AlertTriangle, UploadCloud } from 'lucide-react';
+import { Pencil, Trash2, Library, RefreshCw, Loader2, Sparkles, UploadCloud } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { CourseForm } from '@/components/admin/CourseForm';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -154,7 +154,7 @@ export function CourseManager() {
   const getPriceDisplay = (course: Course | Omit<Course, 'progress'>) => {
     if (course.level === 'Beginner') return 'Free';
     if (course.level === 'Intermediate') return 'Credit-based';
-    if (course.level === 'Advanced') return course.price?.toLocaleString() ?? 'N/A';
+    if (course.level === 'Advanced') return course.price.toLocaleString();
     return course.price > 0 ? course.price.toLocaleString() : 'Free';
   }
 
@@ -170,13 +170,12 @@ export function CourseManager() {
 
   if (isLoading) {
     return (
-      <div className="space-y-4">
+      <div className="space-y-2">
         <div className="flex justify-end mb-4 gap-2">
             <Skeleton className="h-10 w-24" />
             <Skeleton className="h-10 w-32" />
         </div>
-         <Card><CardContent className="pt-6"><Skeleton className="h-40 w-full" /></CardContent></Card>
-         <Card><CardContent className="pt-6"><Skeleton className="h-40 w-full" /></CardContent></Card>
+        {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-12 w-full" />)}
       </div>
     );
   }
@@ -211,7 +210,7 @@ export function CourseManager() {
         </DialogContent>
       </Dialog>
 
-      <Card className="mb-8 bg-card/50">
+      <Card className="mb-8">
         <CardHeader>
             <CardTitle>Seeded Courses ({courses.length})</CardTitle>
             <CardDescription>These courses are currently live in your database.</CardDescription>
@@ -285,7 +284,7 @@ export function CourseManager() {
         </CardContent>
       </Card>
       
-       <Card className="bg-card/50">
+       <Card>
         <CardHeader>
             <CardTitle>Unseeded Courses ({unseededCourses.length})</CardTitle>
             <CardDescription>These courses exist in your codebase but have not been added to the database. Click 'Seed' to add them one by one.</CardDescription>

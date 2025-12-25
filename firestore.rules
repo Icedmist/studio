@@ -9,6 +9,9 @@ service cloud.firestore {
     // ===============================================================
 
     function isAdmin() {
+      // Check the user's custom claim or a document in a separate 'roles' collection.
+      // For this app, we check a field in their own studentProgress doc.
+      // This allows an admin to elevate other users.
       return get(/databases/$(database)/documents/studentProgress/$(request.auth.uid)).data.role == 'admin';
     }
 
@@ -22,13 +25,14 @@ service cloud.firestore {
 
     function isReadingPublicProfileData() {
       // Allows reading only a few public fields from a user's profile
+      // This is used for features like showing a referrer's name.
       return isSignedIn() && (
         resource.data.keys().hasOnly(['studentId', 'name', 'email', 'role', 'referredBy'])
       );
     }
 
     // ===============================================================
-    // 2. PUBLIC CONTENT (Courses, Instructors, Blog, Events)
+    // 2. PUBLIC CONTENT (Courses, Team, Blog, Events)
     // ===============================================================
 
     // COURSES: Allows reading the course AND all subcollections (lessons, quizzes, etc.)
@@ -43,13 +47,6 @@ service cloud.firestore {
       }
     }
     
-    match /instructors/{instructorId} {
-      allow read: if true;
-      allow create, delete: if isAdmin();
-      // Allow an instructor to update their own profile
-      allow update: if isAdmin();
-    }
-
     match /team/{memberId} {
       allow read: if true;
       allow create, update, delete: if isAdmin();
@@ -115,5 +112,3 @@ service cloud.firestore {
     }
   }
 }
-
-    
