@@ -4,8 +4,8 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/Logo';
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, LogOut, User, Shield } from 'lucide-react';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
+import { Menu, LogOut, User, Shield, BookUser } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
 import { auth } from '@/lib/firebase';
 import { signOut } from 'firebase/auth';
@@ -19,7 +19,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { ADMIN_UIDS } from '@/lib/admin';
 
 const navLinks = [
   { href: '/courses', label: 'Courses' },
@@ -30,7 +29,7 @@ const navLinks = [
 ];
 
 export const Header = () => {
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -38,7 +37,8 @@ export const Header = () => {
     router.push('/');
   };
 
-  const isAuthorizedAdmin = user && ADMIN_UIDS.includes(user.uid);
+  const isAuthorizedAdmin = profile?.role === 'admin';
+  const isInstructor = profile?.role === 'instructor';
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -85,6 +85,14 @@ export const Header = () => {
                       <DropdownMenuItem>
                           <Shield className="mr-2 h-4 w-4" />
                           <span>Admin Panel</span>
+                      </DropdownMenuItem>
+                    </Link>
+                  )}
+                   {isInstructor && (
+                    <Link href="/instructor/dashboard">
+                      <DropdownMenuItem>
+                          <BookUser className="mr-2 h-4 w-4" />
+                          <span>Instructor Panel</span>
                       </DropdownMenuItem>
                     </Link>
                   )}
@@ -136,6 +144,12 @@ export const Header = () => {
                            Admin Panel
                         </Link>
                     )}
+                     {isInstructor && (
+                        <Link href="/instructor/dashboard" className="transition-colors hover:text-primary flex items-center">
+                           <BookUser className="mr-2 h-4 w-4" />
+                           Instructor Panel
+                        </Link>
+                    )}
                   </nav>
                   <div className="mt-6 flex flex-col space-y-2">
                      {user ? (
@@ -160,5 +174,3 @@ export const Header = () => {
     </header>
   );
 };
-
-    

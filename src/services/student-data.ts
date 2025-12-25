@@ -3,8 +3,9 @@
 
 import { db } from '@/lib/firebase';
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore"; 
-import type { StudentProgress, Course as CourseType } from '@/lib/types';
+import type { StudentProgress, Course as CourseType, UserRole } from '@/lib/types';
 import { getCourse, getCourses } from './course-data';
+import { ADMIN_UIDS } from '@/lib/admin';
 
 // This is the shape of the data stored in the 'enrolledCourses' array in Firestore.
 // It's a lightweight reference to the full course object.
@@ -27,7 +28,7 @@ type EnrolledCourseRef = {
  * @param referralCode The UID of the user who referred this student.
  * @returns The student's progress data, with full course objects merged in.
  */
-export async function getStudentProgress(userId: string, name?: string, referralCode?: string): Promise<StudentProgress> {
+export async function getStudentProgress(userId: string, name?: string, email?: string, referralCode?: string): Promise<StudentProgress> {
     if (!db) {
         throw new Error("Firestore is not initialized. Check your Firebase configuration.");
     }
@@ -62,9 +63,13 @@ export async function getStudentProgress(userId: string, name?: string, referral
         
         const metrics = calculateProgressMetrics(enrolledCourses);
 
+        const role = ADMIN_UIDS.includes(userId) ? 'admin' : (studentData.role || 'student');
+
         return {
             studentId: userId,
             name: studentData.name,
+            email: studentData.email,
+            role: role,
             enrolledCourses,
             referredBy: studentData.referredBy,
             ...metrics
@@ -72,9 +77,13 @@ export async function getStudentProgress(userId: string, name?: string, referral
 
     } else {
         console.log(`No progress document for user ${userId}. Creating new profile.`);
+        const role = ADMIN_UIDS.includes(userId) ? 'admin' : 'student';
+
         const newStudentData = {
             studentId: userId,
             name: name || "New Student",
+            email: email || "",
+            role: role,
             enrolledCourses: [], // This will be the lightweight reference array
             referredBy: referralCode || undefined,
         };
@@ -126,10 +135,10 @@ export async function enrollInCourse(userId: string, courseId: string): Promise<
     // Ensure the student document exists before trying to update it.
     const studentDoc = await getDoc(studentProgressRef);
     if (!studentDoc.exists()) {
-        await getStudentProgress(userId, "New Student");
+        throw new Error("Student profile does not exist. Cannot enroll.");
     }
 
-    const studentData = (await getDoc(studentProgressRef)).data()!;
+    const studentData = studentDoc.data()!;
     const currentEnrolledRefs: EnrolledCourseRef[] = studentData.enrolledCourses || [];
 
     if (currentEnrolledRefs.some(c => c.id === courseId)) {
@@ -206,4 +215,8 @@ export async function updateLessonStatus(userId: string, courseId: string, modul
     });
 }
 
-    
+export async function updateUserRole(userId: string, role: UserRole): Promise<void> {
+    if (!db) throw new Error("Firestore not initialized.");
+    const docRef = doc(db, 'studentProgress', userId);
+    await updateDoc(docRef, { role });
+}

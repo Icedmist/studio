@@ -9,11 +9,11 @@ service cloud.firestore {
     // ===============================================================
 
     function isAdmin() {
-      // IMPORTANT: Keep this map in sync with your src/lib/admin.ts
-      let adminUIDs = {
-        'dqrHnJtM27bMpNudHxO5hL3wsNE3': true
-      };
-      return request.auth != null && request.auth.uid in adminUIDs;
+      return get(/databases/$(database)/documents/studentProgress/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    function isInstructor() {
+        return get(/databases/$(database)/documents/studentProgress/$(request.auth.uid)).data.role == 'instructor';
     }
 
     function isSignedIn() {
@@ -31,18 +31,20 @@ service cloud.firestore {
     // COURSES: Allows reading the course AND all subcollections (lessons, quizzes, etc.)
     match /courses/{courseId} {
       allow read: if true;
-      allow create, update, delete: if isAdmin();
+      allow create, update, delete: if isAdmin() || isInstructor();
       
       // Recursive match for any subcollections inside a course
       match /{allSubcollections=**} {
         allow read: if true;
-        allow create, update, delete: if isAdmin();
+        allow create, update, delete: if isAdmin() || isInstructor();
       }
     }
     
     match /instructors/{instructorId} {
       allow read: if true;
-      allow create, update, delete: if isAdmin();
+      allow create, delete: if isAdmin();
+      // Allow an instructor to update their own profile
+      allow update: if isAdmin() || (isInstructor() && resource.id == request.auth.uid);
     }
 
     match /team/{memberId} {
@@ -85,15 +87,16 @@ service cloud.firestore {
 
     // STUDENT PROGRESS
     match /studentProgress/{userId} {
-      // Admins can list all user profiles for the admin panel.
-      allow list: if isAdmin();
+      allow get: if isSignedIn();
+      allow list: if isAdmin() || isInstructor(); // Instructors need to list to count students
       
-      // A user can read their own full profile.
-      // Any signed-in user can read the 'name' and 'studentId' for things like referrals.
-      allow get: if isOwner(userId) || (isSignedIn() && resource.data.keys().hasOnly(['name', 'studentId']));
-      
-      // A user can only write to their own progress document.
-      allow write: if isOwner(userId);
+      // User can create their own doc on signup.
+      // Admin can update anyone's role.
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) || isAdmin();
+
+      // Only admins can delete user profiles
+      allow delete: if isAdmin();
     }
 
     // FEEDBACK

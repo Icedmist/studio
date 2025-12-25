@@ -51,11 +51,15 @@ export const CourseSchema = NewCourseSchema.extend({
 });
 export type Course = z.infer<typeof CourseSchema>;
 
+export const UserRoleSchema = z.enum(['student', 'instructor', 'admin']);
+export type UserRole = z.infer<typeof UserRoleSchema>;
 
 // Zod schema for StudentProgress
 export const StudentProgressSchema = z.object({
     studentId: z.string(),
     name: z.string(),
+    email: z.string().email(),
+    role: UserRoleSchema.default('student'),
     enrolledCourses: z.array(CourseSchema),
     overallProgress: z.number(),
     completedCourses: z.number(),

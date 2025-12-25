@@ -33,7 +33,6 @@ import type { CourseCategory, Course } from '@/lib/types';
 import { CourseCard } from '@/components/courses/CourseCard';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
-import { ADMIN_UIDS } from '@/lib/admin';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 
@@ -130,18 +129,23 @@ export default function DashboardPage() {
       return;
     }
 
-    const isAdmin = ADMIN_UIDS.includes(user.uid);
-    if (isAdmin) {
-      router.push('/admin');
-      return;
-    }
-
     async function fetchData() {
       try {
         setIsDataLoading(true);
         setError(null);
-        const progressData = await getStudentProgress(user.uid, user.displayName || user.email!);
+        const progressData = await getStudentProgress(user!.uid, user!.displayName || undefined, user!.email || undefined);
         setData(progressData);
+
+        // Role-based redirection
+        if (progressData.role === 'admin') {
+            router.push('/admin');
+            return;
+        }
+        if (progressData.role === 'instructor') {
+            router.push('/instructor/dashboard');
+            return;
+        }
+
       } catch (error: any) {
         console.error('Failed to fetch student progress:', error);
         setError(error.message || 'An unknown error occurred while fetching your data.');
@@ -167,7 +171,7 @@ export default function DashboardPage() {
     fetchRecommendations();
   }, [user, isAuthLoading, router]);
   
-  if (isAuthLoading || isDataLoading || !data) {
+  if (isAuthLoading || isDataLoading || !data || data.role !== 'student') {
     return <DashboardSkeleton />;
   }
   
@@ -388,5 +392,3 @@ export default function DashboardPage() {
     </motion.div>
   );
 }
-
-    
