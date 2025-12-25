@@ -117,7 +117,7 @@ export default function DashboardPage() {
   const [isDataLoading, setIsDataLoading] = useState(true);
   const [isRecsLoading, setIsRecsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { user, isLoading: isAuthLoading } = useAuth();
+  const { user, profile, isLoading: isAuthLoading } = useAuth();
   const router = useRouter();
 
 
@@ -128,23 +128,24 @@ export default function DashboardPage() {
       router.push('/login');
       return;
     }
+    
+    // Redirect based on role from the global profile
+    if (profile?.role === 'admin') {
+        router.push('/admin');
+        return;
+    }
+    if (profile?.role === 'instructor') {
+        router.push('/instructor/dashboard');
+        return;
+    }
 
     async function fetchData() {
       try {
         setIsDataLoading(true);
         setError(null);
-        const progressData = await getStudentProgress(user!.uid, user!.displayName ?? undefined, user!.email ?? undefined);
+        // Fetch the full, detailed student progress data for the dashboard
+        const progressData = await getStudentProgress(user!.uid, user!.displayName ?? undefined, user!.email ?? undefined, undefined, { includeCourseData: true });
         setData(progressData);
-
-        if (progressData.role === 'admin') {
-            router.push('/admin');
-            return;
-        }
-        if (progressData.role === 'instructor') {
-            router.push('/instructor/dashboard');
-            return;
-        }
-
       } catch (error: any) {
         console.error('Failed to fetch student progress:', error);
         setError(error.message || 'An unknown error occurred while fetching your data.');
@@ -166,11 +167,17 @@ export default function DashboardPage() {
         }
     }
     
-    fetchData();
-    fetchRecommendations();
-  }, [user, isAuthLoading, router]);
+    // Only fetch data if the user is a student
+    if(profile?.role === 'student') {
+        fetchData();
+        fetchRecommendations();
+    } else {
+        // If not a student but not redirected yet, stop loading
+        setIsDataLoading(false);
+    }
+  }, [user, profile, isAuthLoading, router]);
   
-  if (isAuthLoading || isDataLoading || !data || data.role !== 'student') {
+  if (isAuthLoading || isDataLoading || !data || profile?.role !== 'student') {
     return <DashboardSkeleton />;
   }
   

@@ -1,5 +1,5 @@
 
-"use client";
+'use client';
 
 import { useState, useEffect, createContext, useContext, type ReactNode } from 'react';
 import { onAuthStateChanged, type User } from 'firebase/auth';
@@ -25,8 +25,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setIsLoading(true);
       if (user) {
         setUser(user);
-        // Fetch detailed profile separately in pages that need it.
-        // For the global context, we can fetch a lightweight profile if needed.
+        // Fetch a lightweight profile for global context (roles, etc.)
         const studentProfile = await getStudentProgress(user.uid, user.displayName ?? undefined, user.email ?? undefined, undefined, { includeCourseData: false });
         setProfile(studentProfile);
 
