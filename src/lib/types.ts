@@ -152,3 +152,18 @@ export const AttendeeSchema = z.object({
     registeredAt: z.any(),
 });
 export type Attendee = z.infer<typeof AttendeeSchema>;
+
+export const InstructorSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  bio: z.string(),
+  avatarUrl: z.string().url(),
+  socials: z
+    .object({
+      twitter: z.string().url().optional(),
+      linkedin: z.string().url().optional(),
+    })
+    .optional(),
+});
+
+export type Instructor = z.infer<typeof InstructorSchema>;
