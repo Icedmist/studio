@@ -22,13 +22,20 @@ type EnrolledCourseRef = {
 /**
  * Fetches a student's progress from Firestore.
  * If the student doesn't have a profile yet, it creates one.
- * The full course data is merged from the `courses` collection.
+ * The full course data can be optionally merged from the `courses` collection.
  * @param userId The UID of the authenticated user.
  * @param name The display name of the user, used for creating a new profile.
  * @param referralCode The UID of the user who referred this student.
- * @returns The student's progress data, with full course objects merged in.
+ * @param options An object to control optional behaviors, like merging course data.
+ * @returns The student's progress data.
  */
-export async function getStudentProgress(userId: string, name?: string, email?: string, referralCode?: string): Promise<StudentProgress> {
+export async function getStudentProgress(
+    userId: string, 
+    name?: string, 
+    email?: string, 
+    referralCode?: string,
+    options: { includeCourseData?: boolean } = { includeCourseData: true }
+): Promise<StudentProgress> {
     if (!db) {
         throw new Error("Firestore is not initialized. Check your Firebase configuration.");
     }
@@ -40,28 +47,32 @@ export async function getStudentProgress(userId: string, name?: string, email?: 
         const studentData = docSnap.data();
         const enrolledCourseRefs: EnrolledCourseRef[] = studentData.enrolledCourses || [];
 
-        // Fetch all course data once to merge efficiently
-        const allCourses = await getCourses();
+        let enrolledCourses: CourseType[] = [];
 
-        // Merge static course data with student's progress
-        const enrolledCourses: CourseType[] = enrolledCourseRefs.map(ref => {
-            const fullCourseData = allCourses.find(c => c.id === ref.id);
-            if (!fullCourseData) return null; // Course might have been deleted
+        if (options.includeCourseData) {
+            // Fetch all course data once to merge efficiently
+            const allCourses = await getCourses();
 
-            // Create a deep copy to avoid modifying the original data
-            const courseWithProgress = JSON.parse(JSON.stringify(fullCourseData));
+            // Merge static course data with student's progress
+            enrolledCourses = enrolledCourseRefs.map(ref => {
+                const fullCourseData = allCourses.find(c => c.id === ref.id);
+                if (!fullCourseData) return null; // Course might have been deleted
 
-            courseWithProgress.progress = ref.progress;
-            
-            // Mark lessons as completed based on the reference
-            courseWithProgress.modules.forEach((module: any, mIdx: number) => {
-                module.lessons.forEach((lesson: any, lIdx: number) => {
-                    lesson.completed = !!ref.completedLessons?.[mIdx]?.[lIdx];
+                // Create a deep copy to avoid modifying the original data
+                const courseWithProgress = JSON.parse(JSON.stringify(fullCourseData));
+
+                courseWithProgress.progress = ref.progress;
+                
+                // Mark lessons as completed based on the reference
+                courseWithProgress.modules.forEach((module: any, mIdx: number) => {
+                    module.lessons.forEach((lesson: any, lIdx: number) => {
+                        lesson.completed = !!ref.completedLessons?.[mIdx]?.[lIdx];
+                    });
                 });
-            });
 
-            return courseWithProgress;
-        }).filter(c => c !== null) as CourseType[];
+                return courseWithProgress;
+            }).filter(c => c !== null) as CourseType[];
+        }
         
         const metrics = calculateProgressMetrics(enrolledCourses);
 
@@ -72,7 +83,7 @@ export async function getStudentProgress(userId: string, name?: string, email?: 
             name: studentData.name,
             email: studentData.email,
             role: role,
-            enrolledCourses,
+            enrolledCourses: enrolledCourses, // Will be empty if includeCourseData is false
             referredBy: studentData.referredBy,
             ...metrics
         };
@@ -112,9 +123,9 @@ function calculateProgressMetrics(enrolledCourses: CourseType[]) {
     if (!enrolledCourses || enrolledCourses.length === 0) {
         return { coursesInProgress: 0, completedCourses: 0, overallProgress: 0 };
     }
-    const coursesInProgress = enrolledCourses.filter(c => c.progress > 0 && c.progress < 100).length;
+    const coursesInProgress = enrolledCourses.filter(c => (c.progress ?? 0) > 0 && (c.progress ?? 0) < 100).length;
     const completedCourses = enrolledCourses.filter(c => c.progress === 100).length;
-    const totalProgress = enrolledCourses.reduce((sum, course) => sum + course.progress, 0);
+    const totalProgress = enrolledCourses.reduce((sum, course) => sum + (course.progress ?? 0), 0);
     const overallProgress = Math.round(totalProgress / enrolledCourses.length);
 
     return { coursesInProgress, completedCourses, overallProgress };
