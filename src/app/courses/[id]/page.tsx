@@ -90,7 +90,7 @@ export default function CoursePage() {
 
       if (user) {
         try {
-          const progressData = await getStudentProgress(user.uid);
+          const progressData = await getStudentProgress(user.uid, user.displayName || user.email!);
           setStudentProgress(progressData);
         } catch (err) {
           console.error("Failed to fetch user progress", err);
@@ -315,3 +315,5 @@ export default function CoursePage() {
     </motion.div>
   );
 }
+
+    

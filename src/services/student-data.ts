@@ -2,7 +2,7 @@
 'use server';
 
 import { db } from '@/lib/firebase';
-import { doc, getDoc, setDoc, updateDoc, collection, getDocs, writeBatch } from "firebase/firestore"; 
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore"; 
 import type { StudentProgress, Course as CourseType } from '@/lib/types';
 import { getCourse, getCourses } from './course-data';
 
@@ -122,13 +122,13 @@ export async function enrollInCourse(userId: string, courseId: string): Promise<
     if (!courseToEnroll) throw new Error("Course not found.");
 
     const studentProgressRef = doc(db, "studentProgress", userId);
-    const studentDoc = await getDoc(studentProgressRef);
-
-    if (!studentDoc.exists()) {
-        // Pass a default name if creating a profile for the first time during enrollment
-        await getStudentProgress(userId, "New Student"); 
-    }
     
+    // Ensure the student document exists before trying to update it.
+    const studentDoc = await getDoc(studentProgressRef);
+    if (!studentDoc.exists()) {
+        await getStudentProgress(userId, "New Student");
+    }
+
     const studentData = (await getDoc(studentProgressRef)).data()!;
     const currentEnrolledRefs: EnrolledCourseRef[] = studentData.enrolledCourses || [];
 
@@ -205,3 +205,5 @@ export async function updateLessonStatus(userId: string, courseId: string, modul
         enrolledCourses: updatedCourseRefs,
     });
 }
+
+    

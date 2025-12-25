@@ -25,7 +25,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { Trophy, BookOpen, LineChart, CheckCircle, Lightbulb, AlertTriangle, Cpu } from 'lucide-react';
+import { Trophy, BookOpen, LineChart, CheckCircle, Lightbulb, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import { COURSE_CATEGORY_COLORS } from '@/lib/constants';
@@ -388,3 +388,5 @@ export default function DashboardPage() {
     </motion.div>
   );
 }
+
+    
